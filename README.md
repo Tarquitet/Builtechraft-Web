@@ -6,4 +6,4 @@ Builtechraft es un servidor privado de Minecraft con el objetivo de construir un
 
 [> Haz click aquí para visitar el anterior diseño de la página web<](https://github.com/PintoDavid/Old-Builtechraft-Site/)
 
-[> Click para ver - LA NUEVA PÁGINA WEB <](tarquitet.github.io/Builtechraft-Web/)
+[NUEVA PAGIAN WEB](https://tarquitet.github.io/Builtechraft-Web/)
