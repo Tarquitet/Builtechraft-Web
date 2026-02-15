@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<!-- ---------------------------------------------------------------------------------------------- -->
+<!--New page made by David Pinto - Tarqutiet is my nickname, a Minecraft Player-->
+<!-- ---------------------------------------------------------------------------------------------- -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inicio - Builtechraft</title>
+	  <style>
+		  /*------------------------------------------------------------------*/
+		  /*CONTAINER - BODY GENERAL*/
+		  /*------------------------------------------------------------------*/
+		  /*start general container (body all) styles*/
+		  html {
+			  scroll-behavior: smooth;
+		  }
+		  *{
+			  margin: 0;
+			  padding: 0;
+		  }
+		  .container-fluid{
+			  background: rgb(0,0,0);
+			  background: -moz-linear-gradient(360deg, rgba(0,0,0,1) 0%, rgba(168,99,0,1) 100%);
+			  background: -webkit-linear-gradient(360deg, rgba(0,0,0,1) 0%, rgba(168,99,0,1) 100%);
+			  background: linear-gradient(360deg, rgba(0,0,0,1) 0%, rgba(168,99,0,1) 100%);
+			  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endColorstr="#a86300",GradientType=1);
+		  }
+		  /*end general container (body all) styles*/
+		  /*------------------------------------------------------------------*/
+		  /*NAVBAR*/
+		  /*------------------------------------------------------------------*/
+		  /*start navbar styles*/
+		  /*This correction let logo centered all the time without
+		  the final screen resolution or mobile width*/
+		  @media(min-width: 992px){
+			  .navbar-expand-lg .navbar-collapse{
+				width: 100%;
+			  }
+		  }
+		  
+		  /*styles for center logo in navbar*/
+		  .navbar-brand{
+			  position: absolute;
+			  left: 0;
+			  right: 0;
+			  top: 0;
+			  bottom: 0px;
+			  margin: auto;
+			  text-align: center;
+		  }
+		  /*Styles for navbar - like text and padding for them*/
+		  .menubar ul.navbar-nav>li.nav-item>a.nav-link {
+			  color:white;
+			  padding: 1px 30px !important;
+		  }
+		  /*end navbar styles*/
+		  /*------------------------------------------------------------------*/
+		  /*FOOTER PART*/
+		  /*------------------------------------------------------------------*/
+		  /*start general footer style*/
+		  .footer-logo{
+			  position: relative;
+			  width: 80%;
+			  height: 100%;
+			  object-fit: contain;
+		  }
+		  /*end general footer style*/
+		  /*------------------------------------------------------------------*/
+		  /*BANNER-HEADER*/
+		  /*------------------------------------------------------------------*/
+		  /*start header above menu*/
+		  #parent-head{
+			  position: relative;
+		  }
+		  header{
+			  text-align: center;
+			  padding: 0;
+			  margin: 0;
+			  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent)
+		  }
+		  /*Gradient header is background & lidear-gradient to top*/
+		  .gradient-header{
+			  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent), url('images/header-bg2.png');
+			  width: 100%;
+			  height: 300px;
+			  background-repeat: no-repeat;
+			  background-size: cover;
+			  background-position:right;
+		  }
+		  .top-image{
+			  position: relative;
+			  top: 5%;
+			  object-fit: contain;
+			  z-index: 2;
+		  }
+		  /*TRASLATION BTC HEADER TOP LOGO*/
+		  /*Traslate BTC png name when boostrap makes navbar responsive action*/
+		  @media(max-width: 992px){
+			  .top-image{
+				  transform: translate(-15%);
+				  position: relative;
+			  }
+		  }
+		  @media(max-width: 768px){
+			  .top-image{
+				  transform: translate(-20%);
+				  position: relative;
+			  }
+		  }
+		  /*Hide BTC png name when screen have 576px*/
+		  @media(max-width: 576px){
+			  .top-image{
+				  display: none;
+			  }
+			  /*Definition of the height variable for responsive mobile*/
+			  :root{
+				  --altura-header: 200px;
+			  }
+			  /*Continue with variable call*/
+			  header{
+				  height: var(--altura-header);
+			  }
+			  .gradient-header{
+				  height: var(--altura-header);
+			  }
+		  }
+		  /*end header above menu*/
+		  /*------------------------------------------------------------------*/
+		  /*CONTENT*/
+		  /*------------------------------------------------------------------*/
+		  /*Start for content - Quickly introduction to builtechraft*/
+		  .quickly-introduction{
+			  height: 400px;
+			  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent), url('./images/presentation-demo.jpg');
+			  background-repeat: no-repeat;
+			  background-size: cover;
+			  background-position: bottom;
+		  }
+		  .quickly-introduction> h1{
+			  padding-top: 80px;
+			  margin-left: 40px;
+			  text-shadow: 2px 3px 2px black;
+		  }
+		  /*End for content - Quickly introduction to builtechraft*/
+		  /*Start for content*/
+		  .tarquitet-profile{
+			  position:relative;
+			  padding-top: 40px;
+		  }
+		  .section-content{
+			  margin: 100px 30px 0 30px;
+		  }
+		  .parrafo-que-es{
+			  font-size: 1.2em;
+		  }
+		  /*End for content*/
+		  /*------------------------------------------------------------------*/
+		  /*SPACE BETWEEN CONTENT OR WEB PAGE PART*/
+		  /*------------------------------------------------------------------*/
+		  /*start space*/
+		  .space{
+			  height: 0px; /*Usually = 200px, 0px for test*/
+			  backface-visibility: hidden;
+		  }
+		  /*end space*/
+	  </style>
+    <!-- Bootstrap -->
+	<link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+	<link rel="icon" type="image/png" href="./images/btc_server_logo.png">
+  </head>
+  <body>
+	  <!-- body code goes here -->
+  	<div class="container-fluid">
+		  <!--Start of banner - image above navbar-->
+	  <header>
+			  <div id="parent-head">
+				  <!--Contains all header backgrounf and transparent gradient-->
+			    <div class="gradient-header">
+					<img class="top-image" src="images/header-logo.png" width="1200" height="320" alt=""/>
+			    </div>
+			  </div>
+		</header>
+		<!--End of banner-->
+<!------------------------------------------------------------------------>
+		  <!--Start of the nav bar-->
+      <nav class="navbar fixed-top navbar-expand-lg sticky-top menubar p-3 font-weight-bold text-uppercase" style="background: #B2663B">
+			<!--Start left side-->
+			<div class="collapse navbar-collapse order-lg-1 order-3 navigation-menu">
+  	        <ul class="navbar-nav mr-auto">
+  	          <li class="nav-item active"> <a class="nav-link" href="#what-btc">Nuestro proyecto</a></li>
+  	          <li class="nav-item"> <a class="nav-link" href="#our-rules">Reglas</a></li>
+            </ul>	  
+		</div>
+			<!--End left side-->
+			<!--Start logo centered-->
+		  <a class="navbar-brand order-1 mr-lg-0" href="index.html">
+			<img src="./images/btc_server_logo.png" width="100px" alt="logo-menu"/></a>
+  	      <button class="navbar-toggler order-2" type="button" data-toggle="collapse" data-target=".navigation-menu"> <span class="navbar-toggler-icon"></span></button>
+			<!--End logo centered-->
+		  <!--Start right side-->
+  	      <div class="collapse navbar-collapse order-lg-3 order-4 navigation-menu">
+  	        <ul class="navbar-nav ml-auto">
+  	          <li class="nav-item active"> <a class="nav-link" href="#news">Noticias</a></li>
+  	          <li class="nav-item"> <a class="nav-link" href="#discord-footer">Discord</a></li>
+            </ul>	  
+		</div>
+			<!--End right side-->
+        </nav>
+		  <!--End of the nav bar-->
+		  <!------------------------------------------------------------------------>
+  	  <!--CONTENIDO DESPUES DEL MENU-->
+		<!------------------------------------------------------------------------>
+		<div class="space"></div><!--Space between content-->
+		<!------------------------------------------------------------------------>
+		<!--Start of - Quickly introduction to Builtechraft-->
+		<div class="quickly-introduction">
+			<h1 class="text-white col-xl-6">Enciende tu creatividad para construir un mundo épico en comunidad.</h1>
+	  </div>
+	  <!--End of - Quickly introduction to Builtechraft-->
+		<!------------------------------------------------------------------------>
+		<div class="space"></div><!--Space between content-->
+		<!------------------------------------------------------------------------>
+		<!--Start of - What's Builtechraft-->
+      	<div class="whats-builtechraft section-content" id="what-btc">
+		  <div class="row pt-5 pb-5" style="background: #1A1A1A">
+			  <div class="col-xl-6 text-center">
+				  <img class="footer-logo" src="./images/footer-logo.png" alt="footer_logo">
+			  </div>
+			  <div class="col-xl-6 p-4 pr-5">
+			    <h1 class="text-warning"><strong>¿Qué es Builtechraft?</strong></h1>
+				  <p>&nbsp;</p>
+<blockquote>
+          <blockquote>
+                    <p class="parrafo-que-es text-justify text-white">Builtechraft es un proyecto personal del jugador Tarquitet, un servidor privado del videojuego de Minecraft que se centra en diseñar y construir un mundo inspirado en la arquitectura y el arte con el fin de darle la libertad creativa que los miembros se merecen.</p>
+                  </blockquote>
+                </blockquote>
+              </div>
+		  </div>
+      </div>
+		<!--End of - What's Builtechraft-->
+		<!------------------------------------------------------------------------>
+		<div class="space"></div><!--Space between content-->
+		<!------------------------------------------------------------------------>
+		<!--Start of - About Tarquitet-->
+   	  <section class="about-tarquitet section-content">
+		  <div class="row pt-5 pb-5" style="background: #1A1A1A">
+		    <div class="col-xl-6 p-4 pl-5">
+			    <h1 class="text-warning"><strong>¿Quién es Tarquitet?</strong></h1>
+				  <p>&nbsp;</p>
+<blockquote>
+		  <p class="parrafo-que-es text-justify text-white">Tarquitet es un jugador veterano con más de 10 de experiencia en el videojuego de Minecraft y 5 años en la creación de servidores. A lo largo de su recorrido, ha desarrollado diversos proyectos relacionados con la arquitectura, ilustraciones digitales y pixelarts, estructuras de circuitos y optimización de recrursos.</p>
+                    <p class="parrafo-que-es text-justify text-white">En busca de nuevos retos y experiencias, él busca hacer realidad su sueño de <em>Formar una comunidad en línea mediante un servidor privado con el objetivo de compartir ideas, creaciones y construcciones con el fin de ayudar a otros jugadores interesados en la creatividad y el arte.</em></p>
+                </blockquote>
+			  </div>
+			  <div class="col-xl-6 text-center">
+				  <img class="tarquitet-profile" src="./images/tarquitet.png" alt="tarquitet_img">
+              </div>
+		  </div>
+        </section>
+		<!--End of - About Tarquitet-->
+		<!------------------------------------------------------------------------>
+		<div class="space"></div><!--Space between content-->
+		<!------------------------------------------------------------------------>
+		<!--Start of - Form applied for server -->
+		<div class="form-title m-5 text-center text-warning">
+			<h1>¿Interesado en el proyecto?</h1>
+		</div>
+		<div class="container mt-4 mb-5">
+		  <div class="row">
+			  <div class="col-xl-4"></div>
+			  <!--Start of - Form for interested player-->
+			  <div class="col-xl-4">
+			    <form class="text-white">
+				    <div class="form-group">
+				      <label class="parrafo-que-es" for="exampleInputEmail1">Nombre de usuario</label>
+				      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Nombre de usuario"></div>
+				    <div class="form-group">
+				      <label class="parrafo-que-es" for="exampleInputPassword1">Selecciona tu rol</label>
+						<select class="form-control" id="exampleInputPassword1">
+							<option value="DiscordVisitor">Solo voy a revisar, no a jugar</option>
+							<option value="NormalPlayer">Jugador Normal</option>
+							<option value="NLearningInterestedPlayer">Jugador interesado en aprender</option>
+							<option value="TecnicalPlayer">Jugador Técnico</option>
+							<option value="House Builder">House Builder</option>
+							<option value="Administrator">Administrador</option>
+							<option value="FarmDesign">Diseñador de granjas</option>
+							<option value="PerimeterDesign">Decorador de perímetros</option>
+						</select>
+			      </div>
+					<div class="button-form">
+						<button type="submit" class="btn btn-primary bg-warning font-weight-bold pt-2 pb-2 pl-4 pr-4 text rounded-pill">Enviar</button>
+					</div>
+			    </form>
+              </div>
+			  <!--End of - Form for interested player-->
+			  <div class="col-xl-4"></div>
+		  </div>
+        </div>
+<!--End of - Form applied for server -->
+		<!------------------------------------------------------------------------>
+	  <div class="space"></div><!--Space between content-->
+		<!------------------------------------------------------------------------>
+	    <!--Start footer-->
+		<footer class="page-footer pt-5 pl-4 pr-4" id="discord-footer">
+			<div class="container-footer">
+			  <div class="row text-white pt-5 pb-5" style="background:#1D1D1D">
+					
+				<div class="col-md-4 p-4 col-xl-4">
+						<div class="text-content pl-3">
+							<h5>¿Interesado en el proyecto?</h5>
+						<p>Únete a nuestro servidor de Discord para obtener más información y estar en contacto con el equipo de staff.</p>
+					</div>
+						<div class="boton-tienda text-center">
+							<button class="bg-warning text-black font-weight-bold h4 mb-0 pt-2 pb-2 pl-4 pr-4 text rounded-pill">Ir al Discord</button>
+						</div>
+					</div>
+				  <div class="col-md-4 text-center">
+						<img class="footer-logo" src="./images/footer-logo.png" alt="footer_logo">
+					</div>
+				  <div class="col-md-4 p-4 col-xl-4">
+						<h5>Apóyanos</h5>
+						<p>Visite nuestra tienda para ayudar a respaldar el servidor y obtener algunas ventajas interesantes en el juego.</p>
+						<div class="boton-tienda text-center">
+							<button class="bg-warning text-black font-weight-bold h4 mb-0 pt-2 pb-2 pl-4 pr-4 text rounded-pill">Ir a Tienda</button>
+						</div>
+					</div>
+					</div>
+		  </div>
+			<div class="final-footer">
+				<div class="row text-white p-3" style="background: #000000">
+					<div class="col-12 col-xl-7 font-weight-light">
+						No estamos afiliados ni respaldados de ninguna manera por Mojang, AB.
+					</div>
+					<div class="col-12 col-xl-5 text-right" id="ServerLive">
+						© 2024 Builtechraft, a Minecraft server.
+					</div>
+				</div>
+			</div>
+	  </footer>
+      	<!--End footer-->
+  </div>
+	  <!------------------------------------------------------------------------>
+	  <!--CUSTOM JAVASCRIPTS FOR WEBPAGE-->
+	  <!------------------------------------------------------------------------>
+	    <!--Start custom js-->
+	  <script src="server-live.js"></script>
+	  <!--End custom js-->
+	  <!------------------------------------------------------------------------>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+	<script src="js/jquery-3.4.1.min.js"></script>
+
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="js/popper.min.js"></script> 
+  <script src="js/bootstrap-4.4.1.js"></script>
+</body>
+</html>
