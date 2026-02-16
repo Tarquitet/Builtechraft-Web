@@ -1,0 +1,70 @@
+---
+// src/components/Staff.astro
+
+const team = [
+    { 
+        name: "Tarquitet", 
+        role: "Líder principal", 
+        img: "/staff/tarquitet.png", 
+        color: "text-btc-orange" 
+    },
+    { 
+        name: "Aguila003", 
+        role: "Vigilante - Mano Derecha", 
+        img: "/staff/aguila.png", 
+        color: "text-blue-400" 
+    },
+    { 
+        name: "Soshy", 
+        role: "Admin - Motivadora", 
+        img: "/staff/jacky.png", 
+        color: "text-red-400" 
+    },
+    { 
+        name: "KittyCupcake", 
+        role: "Vigilante", 
+        img: "/staff/kitty.png", 
+        color: "text-red-400" 
+    },
+    // Añade más aquí manualmente
+];
+---
+
+<section id="staff" class="py-24 bg-theme-main relative overflow-hidden">
+    <div class="container mx-auto px-6 relative z-10">
+        
+        <div class="text-center mb-20">
+            <h2 class="text-4xl font-display font-bold text-white uppercase tracking-tight">
+                Nuestro <span class="text-btc-gold">Staff</span>
+            </h2>
+            <p class="text-gray-400 text-lg max-w-3xl mx-auto mt-6 leading-relaxed">
+                Detrás de cada bloque colocado y cada línea de código hay un equipo dedicado. Nuestro Staff trabaja para mantener la estabilidad técnica, fomentar la creatividad y asegurar que Builtechraft sea un hogar seguro y justo para todos los constructores.
+            </p>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-16">
+            {team.map((member) => (
+                <div class="flex flex-col items-center gap-4 w-48 group">
+                    <div class="relative">
+                        <div class={`absolute inset-0 rounded-full blur-2xl opacity-0 group-hover:opacity-30 transition-opacity duration-700 ${member.color === 'text-btc-orange' ? 'bg-orange-500' : 'bg-blue-500'}`}></div>
+                        <div class="w-28 h-28 rounded-full p-1 bg-gradient-to-br from-white/10 to-transparent group-hover:from-btc-gold group-hover:to-btc-orange transition-all duration-700 relative z-10 shadow-2xl">
+                            <img 
+                                src={member.img} 
+                                alt={member.name} 
+                                class="w-full h-full rounded-full object-cover bg-[#141416] p-1 border border-white/5" 
+                            />
+                        </div>
+                    </div>
+                    <div class="text-center z-10">
+                        <h4 class="text-white font-display font-bold text-xl tracking-wider group-hover:text-btc-gold transition-colors duration-300">
+                            {member.name}
+                        </h4>
+                        <div class={`text-[10px] uppercase font-bold tracking-[0.25em] ${member.color} opacity-80`}>
+                            {member.role}
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>

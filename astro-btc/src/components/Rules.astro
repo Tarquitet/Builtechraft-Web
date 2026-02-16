@@ -1,0 +1,75 @@
+---
+// src/components/Rules.astro
+const rules = [
+    {
+        id: 1, title: "Respeto y Convivencia",
+        desc: "Trata a todos los jugadores con respeto. El acoso, discurso de odio, discriminación o comportamiento tóxico no serán tolerados bajo ninguna circunstancia.",
+        icon: "🤝"
+    },
+    {
+        id: 2, title: "Griefing y Robos",
+        desc: "Destruir construcciones ajenas (griefing) o robar objetos de contenedores privados está estrictamente prohibido. Usamos CoreProtect para auditar y revertir daños.",
+        icon: "🚫"
+    },
+    {
+        id: 3, title: "Uso de Mods y Hacks",
+        desc: "Solo se permiten mods de utilidad que no den ventaja injusta (MiniHUD, Litematica, etc.). El uso de clientes de hack (X-Ray, KillAura, Fly) resultará en ban permanente.",
+        icon: "⚖️"
+    },
+    {
+        id: 4, title: "Juego Técnico Responsable",
+        desc: "Se fomenta el juego técnico, pero las granjas masivas o máquinas de lag deben ser optimizadas. El staff se reserva el derecho de desactivar mecanismos que afecten el TPS del servidor.",
+        icon: "⚙️"
+    },
+    {
+        id: 5, title: "Contenido Inapropiado",
+        desc: "No se permiten construcciones, skins, nombres de usuario o mensajes en el chat que sean de naturaleza sexual, política extrema oNSFW.",
+        icon: "🔞"
+    }
+];
+---
+<section id="reglas" class="py-24 bg-theme-panel relative overflow-hidden transition-colors duration-300">
+    <div class="absolute bottom-0 right-0 w-1/3 h-1/3 bg-blue-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        
+        <div class="text-center mb-20">
+            <h2 class="text-4xl font-display font-bold text-theme-main uppercase tracking-tight">
+                Reglamento del <span class="text-blue-400">Servidor</span>
+            </h2>
+            <p class="text-theme-muted text-lg max-w-3xl mx-auto mt-6 leading-relaxed">
+                Para garantizar una experiencia justa y agradable para nuestra comunidad técnica y creativa, hemos establecido un conjunto de directrices esenciales. Al unirte a Builtechraft, aceptas cumplir con estas normas de convivencia.
+            </p>
+        </div>
+        {/* --------------------------------- */}
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {rules.map(rule => (
+                <div class="group bg-theme-main p-8 rounded-3xl border border-white/5 hover:border-blue-500/30 hover:shadow-2xl transition-all flex flex-col gap-4 relative overflow-hidden">
+                    <span class="absolute top-4 right-6 text-6xl font-display font-bold text-white/5 group-hover:text-blue-500/10 transition-colors z-0">
+                        #{rule.id.toString().padStart(2, '0')}
+                    </span>
+                    
+                    <div class="flex items-center gap-4 z-10">
+                        <span class="text-4xl bg-black/20 p-3 rounded-2xl group-hover:scale-110 transition-transform">
+                            {rule.icon}
+                        </span>
+                        <h3 class="text-xl font-display font-bold text-theme-main group-hover:text-blue-400 transition-colors">
+                            {rule.title}
+                        </h3>
+                    </div>
+                    <p class="text-sm text-theme-muted leading-relaxed z-10">
+                        {rule.desc}
+                    </p>
+                </div>
+            ))}
+        </div>
+
+        <div class="mt-16 text-center">
+            <p class="text-xs text-gray-500 font-mono">
+                * El desconocimiento de las reglas no exime de su cumplimiento. El Staff tiene la última palabra en la interpretación de estas normas.
+            </p>
+        </div>
+
+    </div>
+</section>

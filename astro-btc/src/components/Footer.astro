@@ -1,0 +1,25 @@
+---
+// src/components/Footer.astro
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-[#1D1D1D] py-6 border-t border-white/10 mt-auto relative overflow-hidden">
+    <div class="absolute top-0 right-0 w-64 h-full bg-btc-gold/5 rounded-full blur-[80px] pointer-events-none"></div>
+
+    <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 relative z-10">
+        
+        <div class="text-gray-500 text-[10px] md:text-xs uppercase tracking-widest font-medium text-center md:text-left">
+            Builtechraft no está relacionado, respaldado ni afiliado con <span class="text-gray-400">Mojang AB</span> y <span class="text-gray-400">Microsoft</span>.
+        </div>
+
+        <a href="https://web.tarquitet.com" target="_blank" class="group flex items-center gap-2 transition-all">
+            <span class="text-[10px] text-gray-500 uppercase tracking-[0.2em] group-hover:text-gray-400 transition-colors">
+                Web diseñada y desarrollada por
+            </span>
+            <span class="text-sm md:text-base font-display font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-btc-gold group-hover:to-btc-orange transition-all duration-300">
+                TARQUITET
+            </span>
+        </a>
+
+    </div>
+</footer>

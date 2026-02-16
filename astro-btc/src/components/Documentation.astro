@@ -1,0 +1,53 @@
+---
+// src/components/Documentation.astro
+---
+<section class="py-20 bg-[#0f0f10] border-y border-white/5 relative overflow-hidden">
+    <div class="absolute -right-20 top-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="container mx-auto px-6">
+        <div class="flex flex-col md:flex-row items-center gap-12 max-w-5xl mx-auto">
+            
+            <div class="w-full md:w-1/2 text-center md:text-left">
+                <h2 class="text-3xl font-display font-bold text-theme-main mb-4 uppercase">
+                    Documentación <span class="text-gray-500">Pública</span>
+                </h2>
+                <div class="h-1 w-20 bg-gray-700 mb-6 mx-auto md:mx-0"></div>
+                <p class="text-theme-muted text-lg leading-relaxed mb-6">
+                    Creemos en la transparencia total. Mantenemos una hoja de cálculo actualizada en tiempo real donde detallamos:
+                </p>
+                <ul class="space-y-3 text-sm text-gray-400 mb-8 inline-block text-left">
+                    <li class="flex items-center gap-3">
+                        <span class="text-green-500">✔</span> Lista de Mods instalados
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <span class="text-green-500">✔</span> Reglas de Carpet activas
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <span class="text-green-500">✔</span> Configuraciones del servidor
+                    </li>
+                </ul>
+            </div>
+
+            <div class="w-full md:w-1/2">
+                <a href="https://docs.google.com/spreadsheets/d/1Iz5vklWMbVcgOCYRVN5NOEBX91VLfOCkHtI5ilxut-c/edit" target="_blank" class="group flex flex-col items-center justify-center bg-gradient-to-br from-theme-panel to-white/5 border border-white/10 hover:border-btc-gold/50 rounded-2xl p-10 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-btc-gold/10 text-center h-full">
+                    
+                    <div class="w-16 h-16 bg-[#1da462]/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8 text-[#1da462]" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-btc-gold transition-colors">
+                        Abrir Google Sheets
+                    </h3>
+                    <p class="text-sm text-gray-500 mb-0">
+                        Control de Mods & Reglas Técnicas
+                    </p>
+                    
+                    <div class="mt-6 text-btc-gold text-sm font-bold opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all">
+                        Ver Documento →
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>

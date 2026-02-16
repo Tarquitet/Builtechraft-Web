@@ -1,0 +1,57 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ServerStatus from '../components/ServerStatus.jsx';
+import IPSection from '../components/IPSection.astro';
+import About from '../components/About.astro';
+import Technical from '../components/Technical.astro';
+import CreativeProjects from '../components/CreativeProjects.astro';
+import Documentation from '../components/Documentation.astro';
+import Gallery from '../components/Gallery.astro';
+import Staff from '../components/Staff.astro';
+import Rules from '../components/Rules.astro';
+import Modpack from '../components/Modpack.astro';
+import Footer from '../components/Footer.astro';
+import DiscordWidget from '../components/DiscordWidget.astro';
+
+const bgImage = "url('/images/header-bg1.png')";
+---
+
+<Layout title="Builtechraft = ON">
+    
+    <section id="inicio" class="min-h-screen w-full flex flex-col items-center justify-center text-center relative pt-20 bg-theme-main">
+        <div class="absolute inset-0 z-0 bg-cover bg-center opacity-30" style={{ backgroundImage: bgImage }}></div>
+        <div class="absolute inset-0 z-0 bg-gradient-to-b from-transparent to-[var(--bg-main)]"></div>
+        
+        <div class="relative z-10 px-4 max-w-5xl mx-auto flex flex-col items-center">
+            
+            <img src="/images/footer-logo.png" alt="Builtechraft Header" class="w-full max-w-3xl mb-12 drop-shadow-2xl animate-float" />
+            
+            <ServerStatus client:load />
+        </div>
+    </section>
+
+    <IPSection />
+    <About />
+    <Technical />
+    <Documentation />
+    <CreativeProjects />
+    <Gallery />
+    
+    <Staff />
+
+    <Rules />
+    
+    <Modpack />
+    <DiscordWidget />
+
+</Layout>
+
+<style>
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    .animate-float {
+        animation: float 6s ease-in-out infinite;
+    }
+</style>
