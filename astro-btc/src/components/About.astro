@@ -1,56 +1,122 @@
 ---
 // src/components/About.astro
 ---
-<section id="historia" class="py-24 bg-theme-main transition-colors duration-300">
-    <div class="container mx-auto px-6">
+<section id="historia" class="bg-theme-app transition-colors duration-300 relative overflow-hidden">
+    
+    <div class="py-24 relative">
         
-        <div class="flex flex-col md:flex-row items-center gap-12 mb-24 border-b border-white/5 pb-20">
-            <div class="w-full md:w-1/2">
-                <div class="relative group">
-                    <div class="absolute -inset-1 bg-gradient-to-r from-btc-gold to-btc-orange rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
-                    <img src="/images/presentation-demo.jpg" class="relative rounded-2xl shadow-2xl w-full" alt="Evolución Builtechraft" />
-                </div>
-            </div>
+        <div class="container mx-auto px-6 relative z-10">
             
-            <div class="w-full md:w-1/2">
-                <h2 class="text-4xl font-display font-bold text-btc-gold mb-6 uppercase">La Evolución del Servidor</h2>
-                <div class="text-theme-muted text-justify text-lg leading-relaxed space-y-4">
-                    <p>
-                        Builtechraft comenzó como un sueño simple: un mundo <strong>Vanilla</strong> puro donde los comandos eran nuestra única herramienta. Con el tiempo, buscamos más control y saltamos a los <strong>Plugins</strong>.
-                    </p>
-                    <p>
-                        Sin embargo, el camino no fue fácil. Experimentamos los límites de <strong>Paper</strong> y sus problemas con las mecánicas técnicas, lo que nos llevó a probar <strong>LeavesMC</strong>. Tras muchos experimentos, finalmente encontramos el equilibrio perfecto en <strong>Fabric</strong>. 
-                    </p>
-                    <p>
-                        Esta transición nos permitió recuperar la esencia técnica que Paper rompía, manteniendo un rendimiento impecable para nuestras mega-construcciones.
-                    </p>
+            <div class="flex flex-col md:flex-row items-center gap-16 mb-32">
+                <div class="w-full md:w-1/2">
+                    <div class="relative group rounded-3xl overflow-hidden shadow-2xl border border-theme-accent/20 hover:border-btc-orange/50 transition-all duration-500">
+                        <div class="absolute inset-0 bg-btc-orange/10 group-hover:bg-btc-orange/0 transition-colors z-10"></div>
+                        <img src="/images/gallery/first.webp" class="w-full h-full object-cover aspect-video transform group-hover:scale-105 transition-transform duration-700" alt="El Origen Survival" />
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2">
+                    <h2 class="text-3xl md:text-4xl font-display font-bold text-theme-main mb-6 uppercase tracking-tighter">
+                        Los inicios: <span class="text-btc-yellow">Arte e Ingeniería</span>
+                    </h2>
+                    <div class="text-theme-main text-lg leading-relaxed text-justify space-y-6">
+                        <p>
+                            Builtechraft es un proyecto humilde dentro de Minecraft desde el año 2020, un servidor privado que nació del deseo de fusionar creatividad artística con ingeniería pura. Desde el inicio, solo había un mundo survival el cual era parte de una vieja serie de mods en forge que obtuvo ese mismo nombre donde se planeaba construir diversas ideas como bases, templos, laberintos y pixel arts, pero también minijuegos de redstone, donde se experimenta con granjas automáticas y mecanismos complejos.
+                        </p>
+                        <p>
+                            Más adelante, se creó un mundo creativo en una computadora privada del impulsor para diseñar sin límites, pero el crecimiento fue orgánico: más de 200 jugadores únicos dejaron su huella, levantando templos, laberintos, granjas sofisticadas y minijuegos que invitan a explorar y soñar.
+                        </p>
+                    </div>
                 </div>
             </div>
+
+            <div class="flex flex-col items-center gap-16 mb-32 md:flex-row-reverse">
+                <div class="w-full md:w-1/2">
+                    <div class="relative group rounded-3xl overflow-hidden shadow-2xl border border-theme-accent/20 hover:border-btc-yellow/50 transition-all duration-500">
+                        <div class="absolute inset-0 bg-btc-yellow/10 group-hover:bg-btc-yellow/0 transition-colors z-10"></div>
+                        <img src="/images/gallery/evolution.webp" class="w-full h-full object-cover aspect-video transform group-hover:scale-105 transition-transform duration-700" alt="Evolución del Núcleo" />
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2">
+                    <h2 class="text-3xl md:text-4xl font-display font-bold text-theme-main mb-6 uppercase tracking-tighter">
+                        Evolución de <span class="text-btc-yellow">una Visión</span>
+                    </h2>
+                    <div class="text-theme-main text-lg leading-relaxed text-justify space-y-6">
+                        <p>
+                            En ese camino, se experimentó con distintos servidores: Spigot es la base clásica, Paper es conocido por su alto grado de personalización, LeavesMC que combinada algunas características técnicas con los plugins para recuperar los roto de vanilla por Spigot y Paper. En este proceso, se integraron plugins como <em>PySpigot</em>, que permite usar Python en Spigot, y <em>Conditional Events</em>, que habilita eventos complejos. También se implementó un sistema que permite automatizar la isntalación y actualizacion de plugins y mods llamado AutoPlug.
+                        </p>
+                        <p>
+                            Se probó con todo hasta que se adoptó <strong>Fabric</strong>, donde los mods optimizan cada aspecto: <em>Krypton</em> mejora la red, <em>Lithium</em> agiliza los TPS, y <em>Carpet mod</em> control de bots y reglas custom. Así, Builtechraft pasó de ser un simple servidor vanilla a uno semi-vanilla, donde los datapacks aportan sus mejoras: mobs que sueltan cabezas para crear ritmos, sistema de homes sin depender de comandos, cabezas decorativas custom-crafteables y trueques personalizados, todo en un balance entre libertad y control.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <div class="w-full md:w-1/2">
+                    <div class="relative group rounded-3xl overflow-hidden shadow-2xl border border-theme-accent/20 hover:border-blue-500/50 transition-all duration-500">
+                        <div class="absolute inset-0 bg-blue-500/10 group-hover:bg-blue-500/0 transition-colors z-10"></div>
+                        <img src="/images/gallery/vision.webp" class="w-full h-full object-cover aspect-video transform group-hover:scale-105 transition-transform duration-700" alt="Comunidad e Inspiración" />
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2">
+                    <h2 class="text-3xl md:text-4xl font-display font-bold text-theme-main mb-6 uppercase tracking-tighter">
+                        Un proyecto <span class="text-blue-500">sin Rendirse</span>
+                    </h2>
+                    <div class="text-theme-main text-lg leading-relaxed text-justify space-y-6">
+                        <p>
+                            Finalmente, Builtechraft toma inspiración de comunidades técnicas como <em>Hermitcraft</em>, donde la unión entre arte e ingeniería crea experiencias únicas.
+                        </p>
+                        <p>
+                            Donde cada granja, cada minijuego de redstone, cada templo y pixel art es un reflejo de esa pasión, un mundo que crece con cada bloque, cada idea, y cada paso, manteniéndose estable, sin grandes costos, pero con una dedicación infinita por parte de quienes lo habitan.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
         </div>
-
-        <div class="flex flex-col md:flex-row items-center gap-12">
-            <div class="w-full md:w-7/12 text-center md:text-left order-2 md:order-1">
-                <h2 class="text-4xl font-display font-bold text-btc-gold mb-6">¿Quién es Tarquitet?</h2>
-                <div class="text-theme-muted text-lg leading-relaxed space-y-4 text-justify">
-                    <p>
-                        Detrás de la ingeniería de Builtechraft está <strong>Tarquitet</strong>, un diseñador y programador con más de una década de experiencia en el universo de Minecraft.
-                    </p>
-                    <p>
-                        Su pasión por la arquitectura y la ilustración digital lo llevó a crear este espacio, uniendo el arte visual con la complejidad de la redstone. Su objetivo es simple: construir una comunidad donde las ideas no tengan límites técnicos.
-                    </p>
-                    <blockquote class="border-l-4 border-btc-gold pl-4 italic bg-white/5 p-4 rounded-r mt-4 text-gray-400">
-                        "Mi meta es compartir este sueño con otros jugadores que, como yo, buscan un equilibrio entre la estética y la ingeniería."
-                    </blockquote>
-                </div>
-            </div>
-
-            <div class="w-full md:w-5/12 flex justify-center order-1 md:order-2">
-                <div class="relative w-64 h-64 group">
-                    <div class="absolute inset-0 bg-btc-gold rounded-full opacity-10 blur-3xl group-hover:opacity-25 transition-opacity"></div>
-                    <img src="/images/tarquitet.png" alt="Tarquitet" class="relative w-full h-full object-contain drop-shadow-2xl hover:-translate-y-2 transition-transform duration-500" />
-                </div>
-            </div>
-        </div>
-
     </div>
+
+    <div class="bg-[#272727] py-24 border-t border-white/5 relative">
+        <div class="container mx-auto px-6 relative z-10">
+            
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                
+                <div class="w-full lg:w-7/12">
+                    <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-8 uppercase tracking-tighter">
+                        El <span class="text-btc-orange">Arquitecto</span> del Servidor
+                    </h2>
+                    
+                    <div class="text-zinc-400 text-lg leading-relaxed text-justify space-y-6 mb-8">
+                        <p>
+                            <strong>Tarquitet</strong> es la mente técnica detrás de Builtechraft. Un veterano con más de 10 años de experiencia que no solo construye granjas, sino que diseña la infraestructura misma del juego. Es quien prueba, rompe y optimiza cada mod y configuración para garantizar que el servidor tenga cimientos sólidos.
+                        </p>
+                        <p>
+                            Su rol fusiona la ingeniería de sistemas (redstone, optimización, seguridad) con una visión artística, asegurando que tanto el mundo creativo como el survival crezcan con libertad técnica.
+                        </p>
+                    </div>
+
+                    <div class="bg-black/40 p-8 rounded-2xl border-l-4 border-btc-orange backdrop-blur-sm">
+                        <p class="text-white italic text-lg leading-relaxed opacity-90">
+                            "Mi sueño es formar una comunidad donde compartir ideas y creaciones, ayudando a otros jugadores interesados en la creatividad y el arte a construir sin límites."
+                        </p>
+                    </div>
+                </div>
+
+                <div class="w-full lg:w-5/12 flex justify-center">
+                    <div class="relative w-full max-w-md aspect-3/4 rounded-3xl overflow-hidden border-2 border-white/10 shadow-2xl group">
+                        <div class="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-black/90 z-10"></div>
+                        <img src="/images/tarquitet.png" alt="Tarquitet" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                        
+                        <div class="absolute bottom-0 left-0 w-full p-8 z-20">
+                            <h3 class="text-3xl font-display font-bold text-white uppercase">Tarquitet</h3>
+                            <div class="h-1 w-12 bg-btc-orange rounded-full my-2"></div>
+                            <p class="text-zinc-400 text-sm tracking-widest uppercase">Fundador - Ingeniero</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 </section>

@@ -1,75 +1,365 @@
 ---
 // src/components/Rules.astro
-const rules = [
+
+const sections = [
     {
-        id: 1, title: "Respeto y Convivencia",
-        desc: "Trata a todos los jugadores con respeto. El acoso, discurso de odio, discriminación o comportamiento tóxico no serán tolerados bajo ninguna circunstancia.",
-        icon: "🤝"
+        id: "I",
+        title: "Dogma y Convivencia (El Kernel Moral)",
+        icon: "⚖️",
+        rules: [
+            {
+                num: "1.1",
+                text: "Axioma de Integridad Cristiana",
+                sub: "Builtechraft no es un servidor secular genérico. Nuestro 'Kernel' (núcleo) opera bajo principios y valores cristianos.",
+                details: [
+                    "1.1.a: Firewall de Respeto: La blasfemia, el uso del nombre de Dios en vano y el lenguaje soez son tratados como 'corrupción de datos' crítica. Resultan en silencio (mute) o expulsión inmediata.",
+                    "1.1.b: Toxicidad Cero: El acoso, el doxxing (revelar info personal) o la hostilidad sistemática no tienen cabida en nuestra ingeniería social."
+                ]
+            },
+            {
+                num: "1.2",
+                text: "Protocolo de Neutralidad (Cero Ideología)",
+                sub: "Minecraft es un lienzo para la ingeniería y el arte, no un tablón de anuncios político o ideológico.",
+                details: [
+                    "1.2.a: Prohibición de Simbología: No se permite la construcción, exhibición o distribución de banderas de ideología de género, partidos políticos o movimientos sociales divisivos.",
+                    "1.2.b: El Argumento Creativo: Si tu única capacidad de expresión es poner una bandera de colores, te falta imaginación. Aquí venimos a diseñar catedrales, optimizar granjas y crear arte complejo. Tu identidad se demuestra con tu talento, no con una tela.",
+                    "1.2.c: Rebelión: Insistir en romper esta norma bajo el pretexto de 'libertad de expresión' o 'inclusión forzada' será considerado un ataque directo a la soberanía del servidor."
+                ]
+            },
+            {
+                num: "1.3",
+                text: "Gestión de la Frustración (Madurez)",
+                sub: "Exigimos un nivel mínimo de madurez emocional para operar en este entorno.",
+                details: [
+                    "1.3.a: Cláusula 'Chavo del Ocho': No toleramos berrinches ni dramas infantiles porque no se te permite romper las reglas (ej. poner tu bandera o recuperar ítems perdidos). Si vas a llorar y patear el suelo, este no es tu servidor.",
+                    "1.3.b: Si algo no te gusta, se reporta con argumentos técnicos en un ticket privado. El drama público es motivo de sanción."
+                ]
+            },
+            {
+                num: "1.4",
+                text: "Resolución de Conflictos (Topología de Red)",
+                sub: "Los problemas entre usuarios no deben afectar el ancho de banda del chat global.",
+                details: [
+                    "1.4.a: Canal Privado: Las disputas personales se resuelven en /msg o en DMs de Discord. No contamines el chat global con peleas domésticas.",
+                    "1.4.b: Intervención del Staff: Si el Staff debe intervenir para mediar, su decisión es final y no está sujeta a debate público."
+                ]
+            }
+        ]
     },
     {
-        id: 2, title: "Griefing y Robos",
-        desc: "Destruir construcciones ajenas (griefing) o robar objetos de contenedores privados está estrictamente prohibido. Usamos CoreProtect para auditar y revertir daños.",
-        icon: "🚫"
+        id: "II",
+        title: "Infraestructura Física (El Legacy 2020)",
+        icon: "💾",
+        rules: [
+            {
+                num: "2.1",
+                text: "Estado del Servidor Físico (Host)",
+                sub: "El servidor no vive en una granja de servidores en la nube. Vive en una laptop personal que ha servido con honor desde el año 2020.",
+                details: [
+                    "2.1.a: Fatiga de Materiales (Disco Duro): El almacenamiento ha sufrido años de escritura continua 24/7. Si escuchas 'lag' o ruidos extraños, es la máquina pidiendo clemencia. Se exige respeto y paciencia por las limitaciones técnicas del hardware.",
+                    "2.1.b: Limitaciones Domésticas (ISP/Energía): Al ser un host residencial, estamos sujetos a fallos de luz, cortes de internet o mantenimiento del hogar que escapan al control del Staff. No somos una corporación con generadores de respaldo.",
+                    "2.1.c: Sobrecarga Térmica: En días calurosos, el rendimiento puede disminuir para evitar daños permanentes al procesador."
+                ]
+            },
+            {
+                num: "2.2",
+                text: "Ciclos Circadianos (Horarios de Operación)",
+                sub: "Para preservar la vida útil del equipo y la salud del Host (Tarquitet), existen ventanas estrictas de apagado.",
+                details: [
+                    "2.2.a: Ventana de Sueño (Apagado): El servidor se apaga automáticamente a la 01:00 AM (Hora Colombia) para descanso térmico y humano.",
+                    "2.2.b: Protocolo de Inicio (Encendido): Los sistemas se reactivan automáticamente antes de las 10:00 AM (Hora Colombia). Si se enciende antes, es un regalo.",
+                    "2.2.c: Intervención Remota (Panel de Control): El Staff posee acceso a un panel de gestión externo. Si la laptop física está encendida fuera de horario, pueden activar el servidor remotamente para mantenimiento, actualizaciones o emergencias.",
+                    "2.2.d: Olvido Humano: Ocasionalmente, el servidor puede no encenderse a la hora exacta por olvido o sueño del Host. No spamear al Staff exigiendo acceso."
+                ]
+            }
+        ]
     },
     {
-        id: 3, title: "Uso de Mods y Hacks",
-        desc: "Solo se permiten mods de utilidad que no den ventaja injusta (MiniHUD, Litematica, etc.). El uso de clientes de hack (X-Ray, KillAura, Fly) resultará en ban permanente.",
-        icon: "⚖️"
+        id: "III",
+        title: "Infraestructura Física (El Legacy 2020)",
+        icon: "💾",
+        rules: [
+            {
+                num: "3.1",
+                text: "Estado del Servidor Físico (Host)",
+                sub: "El servidor no vive en la nube, vive en una laptop de 2020 que ha operado 24/7 con honor.",
+                details: [
+                    "3.1.a: Fatiga de Materiales: El disco duro ha sufrido años de escritura continua. Si escuchas lag, es la máquina pidiendo clemencia. Se exige paciencia técnica.",
+                    "3.1.b: Limitaciones Domésticas: Al ser un host residencial, estamos sujetos a fallos de luz, cortes de internet (ISP) o mantenimiento del hogar que escapan al control del Staff."
+                ]
+            },
+            {
+                num: "3.2",
+                text: "Ciclos Circadianos (Horarios)",
+                sub: "Para preservar la vida útil del hardware (y la salud mental del Host), existen ventanas de apagado.",
+                details: [
+                    "3.2.a: Ventana de Sueño: El servidor se apaga automáticamente a la 01:00 AM (Hora Colombia) para enfriamiento térmico.",
+                    "3.2.b: Protocolo de Inicio: Los sistemas se reactivan automáticamente antes de las 10:00 AM (Hora Colombia).",
+                    "3.2.c: Intervención Remota: El Staff posee un panel de control externo. Si la laptop física está encendida fuera de horario, pueden activar el servidor remotamente para mantenimiento o emergencias."
+                ]
+            }
+        ]
     },
     {
-        id: 4, title: "Juego Técnico Responsable",
-        desc: "Se fomenta el juego técnico, pero las granjas masivas o máquinas de lag deben ser optimizadas. El staff se reserva el derecho de desactivar mecanismos que afecten el TPS del servidor.",
-        icon: "⚙️"
+        id: "IV",
+        title: "Protocolos de Seguridad y Accesos",
+        icon: "🔐",
+        rules: [
+            {
+                num: "4.1",
+                text: "Historial de Vulnerabilidad",
+                sub: "Nuestras medidas actuales son cicatrices de batallas pasadas.",
+                details: [
+                    "4.1.a: El Incidente 'Identity Theft': En la era No-Premium, sufrimos la suplantación del dueño, comprometiendo el mundo. Desde entonces, la seguridad no es negociable.",
+                    "4.1.b: Evolución Defensiva: Hemos migrado de un simple '/login' a Whitelist estricta, y ahora a un sistema de validación híbrido."
+                ]
+            },
+            {
+                num: "4.2",
+                text: "El Desafío de la Autenticación (Ely.by)",
+                sub: "Buscamos el equilibrio perfecto entre seguridad Premium y acceso gratuito.",
+                details: [
+                    "4.2.a: Estado Actual: Usamos servicios como Ely.by para permitir skins y acceso seguro sin '/register'.",
+                    "4.2.b: Alerta de Obsolescencia: El plugin 'Multilogin' está perdiendo soporte en Velocity. Estamos en una fase activa de investigación (I+D) para implementar alternativas moddeadas.",
+                    "4.2.c: Colaboración: Se pide paciencia a la comunidad mientras el Staff prueba nuevos métodos de entrada que no comprometan la seguridad del núcleo."
+                ]
+            }
+        ]
     },
     {
-        id: 5, title: "Contenido Inapropiado",
-        desc: "No se permiten construcciones, skins, nombres de usuario o mensajes en el chat que sean de naturaleza sexual, política extrema oNSFW.",
-        icon: "🔞"
+        id: "V",
+        title: "Mantenimiento y Factor Humano",
+        icon: "⚠️",
+        rules: [
+            {
+                num: "5.1",
+                text: "Protocolo de Actualización (La Cuarentena)",
+                sub: "La estabilidad prima sobre la novedad. No actualizamos el día 1.",
+                details: [
+                    "5.1.a: Ventana de Espera: Tras una nueva versión de Minecraft, el servidor espera de 2 a 3 semanas.",
+                    "5.1.b: Justificación Técnica: Este tiempo es necesario para que los Mods (Fabric/Quilt) y Datapacks se actualicen y para auditar posibles bugs que corrompan el mapa."
+                ]
+            },
+            {
+                num: "5.2",
+                text: "Falibilidad del Operador",
+                sub: "Detrás de la consola hay un humano (Tarquitet), no una IA.",
+                details: [
+                    "5.2.a: Error Humano: Ocasionalmente, el servidor puede no encenderse a la hora exacta por olvido, sueño o fallos en la automatización. No spamear al Staff.",
+                    "5.2.b: Comunidad Humilde: Somos una comunidad pequeña gestionada con pasión, no una corporación con SLAs de 99.9%. Agradecemos tu comprensión."
+                ]
+            }
+        ]
+    },
+    {
+        id: "VI",
+        title: "Criterio Estético y la Paradoja del Pixel",
+        icon: "🎨",
+        rules: [
+            {
+                num: "6.1",
+                text: "Protocolo de Contención (NSFW-Lite)",
+                sub: "Mantenemos una política de 'Libertad Vigilada' respecto al arte pixelado de carácter sugerente o 'ejem' (Borderline NSFW).",
+                details: [
+                    "6.1.a: Cuota de Tolerancia: Se permite un máximo estricto de dos (2) obras de arte sugerentes por usuario. No es una galería, es una concesión.",
+                    "6.1.b: Recinto Privado: Estas obras deben permanecer en recintos privados (sótanos, bunkers, zonas restringidas). Si un usuario expone este contenido en el Spawn o zonas públicas, será tratado como vandalismo moral.",
+                    "6.1.c: Responsabilidad de Fuga: Si un menor de edad o un tercero ve tu mapa por accidente debido a tu negligencia (puertas abiertas, marcos visibles), la sanción recae 100% sobre ti."
+                ]
+            },
+            {
+                num: "6.2",
+                text: "La Ley de la Escalada (Competencia de Perversión)",
+                sub: "El nivel de 'peligro' del contenido está regulado por la comunidad bajo supervisión estricta.",
+                details: [
+                    "6.2.a: El Techo de Cristal: Ningún mapa nuevo puede superar el nivel de explicitud o 'perversión' de los mapas ya existentes aprobados. Si tu obra es más 'peligrosa' que la del vecino, debe ser destruida o censurada.",
+                    "6.2.b: Desescalada Obligatoria: Si el servidor considera que el tono general está subiendo demasiado, se ordenará una purga masiva de mapas para 'bajar la temperatura'.",
+                    "6.2.c: Criterio del Juez: El Staff tiene la última palabra sobre qué es 'arte' y qué es 'pornografía'. No hay apelación técnica aquí."
+                ]
+            },
+            {
+                num: "6.3",
+                text: "La Auditoría Psicológica",
+                sub: "No prohibimos el arte extraño, pero lo usamos para juzgarte.",
+                details: [
+                    "6.3.a: El Staff monitorea tu galería personal no solo para moderar, sino para evaluar tu perfil psicológico. Si tu arte es excesivamente perturbador o 'raro', cuestionaremos tu idoneidad para permanecer en nuestra comunidad cristiana.",
+                    "6.3.b: Considera esto una prueba de carácter: ¿Puedes manejar la libertad sin degradarte?"
+                ]
+            }
+        ]
+    },
+    {
+        id: "VII",
+        title: "Factor Humano y Contingencias Operativas",
+        icon: "⚠️",
+        rules: [
+            {
+                num: "7.1",
+                text: "La Realidad de la Escala (Humildad Técnica)",
+                sub: "No somos Hypixel ni una corporación. Somos una familia de ingenieros operando desde un 'Garaje Digital'.",
+                details: [
+                    "7.1.a: Ausencia de SLA (Service Level Agreement): No garantizamos un tiempo de actividad (Uptime) del 99.9%. Los cortes de servicio son parte natural de la experiencia de un servidor casero.",
+                    "7.1.b: Staff Voluntario: Nuestros administradores tienen vidas, trabajos y estudios. No son bots ni empleados pagados; su tiempo es un regalo a la comunidad, no una obligación contractual."
+                ]
+            },
+            {
+                num: "7.2",
+                text: "Latencia Humana (El Host)",
+                sub: "Detrás de la terminal hay un ser humano (Tarquitet), sujeto a fatiga, olvidos y leyes biológicas.",
+                details: [
+                    "7.2.a: Error de Capa 8: Ocasionalmente, el servidor puede no encenderse a la hora exacta porque el Host se durmió, salió o simplemente olvidó ejecutar el script de inicio. Se exige paciencia, no spam.",
+                    "7.2.b: Derecho a Descanso: Si el Host está enfermo o de viaje, el servidor puede permanecer apagado. Jugar aquí es un privilegio invitado, no un derecho adquirido.",
+                    "7.2.c: Ventana de Sueño: Si el servidor se apaga a la 1:00 AM, es para que el Host (y la laptop) puedan dormir. No insistas."
+                ]
+            },
+            {
+                num: "7.3",
+                text: "Protocolo de Actualización (La Cuarentena)",
+                sub: "La estabilidad del mundo prima sobre la novedad de la versión.",
+                details: [
+                    "7.3.a: Ventana de Espera: Tras una nueva versión de Minecraft (Update), el servidor entra en 'Cuarentena Técnica' obligatoria de 2 a 3 semanas.",
+                    "7.3.b: Justificación de Ingeniería: Este tiempo es crítico para que el ecosistema de Mods (Fabric/Quilt) y Datapacks se estabilice. No actualizamos el Día 1 para evitar la corrupción irreversible de chunks.",
+                    "7.3.c: Cero Presión: Preguntar repetidamente '¿Cuándo actualizan?' será considerado spam y reinicia el contador de paciencia del Staff."
+                ]
+            },
+            {
+                num: "7.4",
+                text: "Fuerza Mayor (Infraestructura Local)",
+                sub: "Operamos bajo las leyes de la física y los servicios públicos de Colombia.",
+                details: [
+                    "7.4.a: Fallo de Suministro: Si se va la luz o cae el internet en la sede del Host, el servidor cae instantáneamente. No contamos con generadores diésel de respaldo ni enlaces satelitales.",
+                    "7.4.b: El servidor volverá automáticamente cuando los servicios públicos se restablezcan. No es necesario abrir tickets preguntando lo obvio."
+                ]
+            }
+        ]
     }
 ];
 ---
-<section id="reglas" class="py-24 bg-theme-panel relative overflow-hidden transition-colors duration-300">
-    <div class="absolute bottom-0 right-0 w-1/3 h-1/3 bg-blue-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+<section class="py-24 bg-theme-section relative overflow-hidden section-optimize">
+    
+    <div class="absolute inset-0 bg-[url('/images/grid-pattern.png')] opacity-[0.03] mix-blend-overlay pointer-events-none"></div>
 
     <div class="container mx-auto px-6 relative z-10">
-        
-        <div class="text-center mb-20">
-            <h2 class="text-4xl font-display font-bold text-theme-main uppercase tracking-tight">
-                Reglamento del <span class="text-blue-400">Servidor</span>
+        <div class="text-center mb-16">
+            <h2 id="reglas" class="text-4xl md:text-5xl font-display font-bold text-theme-main uppercase tracking-tight">
+                Constitución <span class="text-theme-accent">Builtechraft</span>
             </h2>
-            <p class="text-theme-muted text-lg max-w-3xl mx-auto mt-6 leading-relaxed">
-                Para garantizar una experiencia justa y agradable para nuestra comunidad técnica y creativa, hemos establecido un conjunto de directrices esenciales. Al unirte a Builtechraft, aceptas cumplir con estas normas de convivencia.
+            <p class="text-theme-main opacity-70 text-lg max-w-2xl mx-auto mt-4 italic">
+                La constitución que rige nuestro mundo virtual. Conoce las reglas sagradas que mantienen el orden y la armonía en Builtechraft. Al unirte, aceptas cumplir con estos principios inquebrantables.
             </p>
         </div>
-        {/* --------------------------------- */}
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {rules.map(rule => (
-                <div class="group bg-theme-main p-8 rounded-3xl border border-white/5 hover:border-blue-500/30 hover:shadow-2xl transition-all flex flex-col gap-4 relative overflow-hidden">
-                    <span class="absolute top-4 right-6 text-6xl font-display font-bold text-white/5 group-hover:text-blue-500/10 transition-colors z-0">
-                        #{rule.id.toString().padStart(2, '0')}
-                    </span>
+        <div class="max-w-5xl mx-auto flex flex-col gap-4">
+            {sections.map((section) => (
+                
+                // CAMBIO 1: Quitamos 'glass-gpu' y usamos un color sólido oscuro (bg-[#0f0f11]).
+                // Esto elimina el cálculo de blur en tiempo real.
+                <div class="main-accordion group bg-[#0f0f11] border border-white/10 rounded-2xl overflow-hidden transition-colors duration-300 hover:border-btc-orange/30 shadow-lg">
                     
-                    <div class="flex items-center gap-4 z-10">
-                        <span class="text-4xl bg-black/20 p-3 rounded-2xl group-hover:scale-110 transition-transform">
-                            {rule.icon}
-                        </span>
-                        <h3 class="text-xl font-display font-bold text-theme-main group-hover:text-blue-400 transition-colors">
-                            {rule.title}
-                        </h3>
+                    <button class="main-trigger w-full p-6 flex items-center justify-between text-left hover:bg-white/3 transition-colors">
+                        <div class="flex items-center gap-5">
+                            <span class="text-3xl bg-[#18181b] p-3 rounded-xl border border-white/5 group-hover:text-btc-orange transition-colors">
+                                {section.icon}
+                            </span>
+                            <div>
+                                <span class="text-zinc-500 font-display font-bold text-[10px] tracking-[0.2em] uppercase block mb-1">Sección {section.id}</span>
+                                <h3 class="text-xl md:text-2xl font-display font-bold text-zinc-100 uppercase">{section.title}</h3>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-icon text-zinc-500 transition-transform duration-300">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </button>
+
+                    <div class="main-content grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out">
+                        <div class="overflow-hidden">
+                            <div class="p-6 pt-0 flex flex-col gap-3 border-t border-white/5 bg-[#0a0a0a]">
+                                
+                                {section.rules.map((rule) => (
+                                    
+                                    // CAMBIO 2: Sub-tarjeta también sólida, sin blur.
+                                    <div class="sub-accordion bg-[#131315] rounded-xl border border-white/5">
+                                        <button class="sub-trigger w-full p-4 flex items-start md:items-center gap-4 text-left hover:bg-white/2 transition-colors">
+                                            <span class="text-btc-yellow font-mono text-xs font-bold shrink-0 mt-1 md:mt-0 bg-yellow-500/10 px-2 py-1 rounded border border-yellow-500/20">
+                                                {rule.num}
+                                            </span>
+                                            <span class="text-zinc-200 text-sm font-bold flex-1 leading-snug">{rule.text}</span>
+                                            <svg class="w-4 h-4 text-zinc-600 arrow-sub transition-transform shrink-0 mt-1 md:mt-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2"></path></svg>
+                                        </button>
+
+                                        <div class="sub-content grid grid-rows-[0fr] transition-[grid-template-rows] duration-300">
+                                            <div class="overflow-hidden">
+                                                <div class="p-4 pt-0 text-sm leading-relaxed">
+                                                    <p class="mb-4 text-zinc-400 pl-2 border-l-2 border-zinc-700">{rule.sub}</p>
+                                                    
+                                                    {rule.details && (
+                                                        <div class="flex flex-col gap-2 mt-2 bg-black/20 p-4 rounded-lg border border-white/5 font-mono text-xs">
+                                                            {rule.details.map((detail) => (
+                                                                <div class="flex gap-3 text-zinc-500">
+                                                                    <span class="text-btc-orange/70 font-bold shrink-0 select-none">»</span>
+                                                                    <span class="text-zinc-400">{detail}</span>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+
+                            </div>
+                        </div>
                     </div>
-                    <p class="text-sm text-theme-muted leading-relaxed z-10">
-                        {rule.desc}
-                    </p>
                 </div>
             ))}
         </div>
-
-        <div class="mt-16 text-center">
-            <p class="text-xs text-gray-500 font-mono">
-                * El desconocimiento de las reglas no exime de su cumplimiento. El Staff tiene la última palabra en la interpretación de estas normas.
-            </p>
-        </div>
-
     </div>
 </section>
+
+<script is:inline>
+    // Lógica Grid (Ligera)
+    document.querySelectorAll('.main-trigger').forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            const parent = trigger.parentElement;
+            const content = parent.querySelector('.main-content');
+            const icon = trigger.querySelector('.accordion-icon');
+            const isOpen = content.style.gridTemplateRows === '1fr';
+
+            // Cierra otros principales para ahorrar memoria
+            if (!isOpen) {
+                document.querySelectorAll('.main-content').forEach(c => c.style.gridTemplateRows = '0fr');
+                document.querySelectorAll('.accordion-icon').forEach(i => i.style.transform = 'rotate(0deg)');
+            }
+
+            content.style.gridTemplateRows = isOpen ? '0fr' : '1fr';
+            icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+        });
+    });
+
+    document.querySelectorAll('.sub-trigger').forEach(trigger => {
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const parent = trigger.parentElement;
+            const content = parent.querySelector('.sub-content');
+            const arrow = trigger.querySelector('.arrow-sub');
+            const isOpen = content.style.gridTemplateRows === '1fr';
+
+            content.style.gridTemplateRows = isOpen ? '0fr' : '1fr';
+            arrow.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+        });
+    });
+</script>
+
+<style>
+    /* Renderizado GPU Básico sin Filtros Pesados */
+    .main-accordion, .sub-accordion {
+        /* will-change le dice al navegador: "Prepara la memoria, voy a cambiar filas" */
+        will-change: grid-template-rows;
+        /* create new stacking context */
+        transform: translateZ(0);
+        /* Evita repintados fuera del área */
+        contain: paint; 
+    }
+</style>

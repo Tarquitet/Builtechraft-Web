@@ -1,69 +1,119 @@
 ---
 // src/components/Navbar.astro
-const navItems = [
+const leftItems = [
   { name: 'Inicio', href: '#inicio' },
-  { name: 'IPs', href: '#ips' },
+  { name: 'Jugar', href: '#ips' },
   { name: 'Historia', href: '#historia' },
+];
+
+const rightItems = [
+  { name: 'Normas', href: '#reglas' },
   { name: 'Staff', href: '#staff' },
-  { name: 'Reglas', href: '#reglas' },
+  { name: 'Discord', href: '#discord' },
 ];
 ---
 
-<header class="fixed w-full z-50 transition-colors duration-300 py-2" id="main-header">
-  <div class="container mx-auto px-6 flex justify-between items-center h-20"> <a href="/" class="flex items-center gap-3 group h-full py-1">
-      <img src="/images/logo-text.png" alt="Builtechraft" class="h-14 md:h-16 w-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform origin-left" />
+<header id="main-header" class="fixed top-0 w-full z-50 transition-all duration-500 py-4 bg-black/40 backdrop-blur-sm border-b border-transparent glass-gpu">
+  
+  <div class="container mx-auto px-6 h-16 relative flex items-center justify-between">
+
+    <a href="#inicio" id="logo-link" class="absolute left-0 top-1/2 -translate-y-1/2 z-20 flex items-center gap-2 group transition-all duration-500 origin-left">
+        <img src="/images/logo-text.png" alt="Builtechraft" class="h-10 md:h-12 w-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform" />
     </a>
 
-    <nav class="hidden md:flex items-center gap-8">
-      {navItems.map(item => (
-        <a href={item.href} class="text-theme-muted hover:text-btc-gold transition-colors font-bold text-sm uppercase tracking-widest relative group">
-          {item.name}
-          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-btc-gold transition-all group-hover:w-full"></span>
-        </a>
-      ))}
-      
-      <button id="theme-toggle" class="p-2 ml-4 rounded-full bg-black/20 hover:bg-black/40 text-btc-gold transition-colors border border-white/5" title="Cambiar Tema">
-        <svg id="sun-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-        <svg id="moon-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-      </button>
+    <nav class="hidden md:flex w-full items-center transition-all duration-500 relative" id="desktop-menu">
+        
+        <div class="flex-1 flex justify-end items-center gap-8 lg:gap-12 transition-all duration-500 pr-8" id="menu-left">
+            {leftItems.map(item => (
+                <a href={item.href} class="nav-link text-sm font-bold uppercase tracking-widest text-white/90 hover:text-btc-orange transition-colors relative group py-2">
+                    {item.name}
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-btc-orange transition-all group-hover:w-full"></span>
+                </a>
+            ))}
+        </div>
+
+        <div id="center-spacer" class="w-0 transition-all duration-500"></div>
+
+        <div class="flex-1 flex justify-start items-center gap-8 lg:gap-12 transition-all duration-500 pl-8" id="menu-right">
+            {rightItems.map(item => (
+                <a href={item.href} class="nav-link text-sm font-bold uppercase tracking-widest text-white/90 hover:text-btc-orange transition-colors relative group py-2">
+                    {item.name}
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-btc-orange transition-all group-hover:w-full"></span>
+                </a>
+            ))}
+        </div>
     </nav>
   </div>
 </header>
 
-<script>
+<script is:inline>
   const header = document.getElementById('main-header');
-  const themeToggle = document.getElementById('theme-toggle');
-  const sunIcon = document.getElementById('sun-icon');
-  const moonIcon = document.getElementById('moon-icon');
-  const body = document.body;
+  const logoLink = document.getElementById('logo-link');
+  const desktopMenu = document.getElementById('desktop-menu');
+  const menuLeft = document.getElementById('menu-left');
+  const centerSpacer = document.getElementById('center-spacer');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const heroSection = document.getElementById('inicio');
 
-  // Lógica de scroll
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 20) {
-      header.classList.add('bg-theme-main/95', 'backdrop-blur-md', 'shadow-xl', 'border-b', 'border-white/5');
-    } else {
-      header.classList.remove('bg-theme-main/95', 'backdrop-blur-md', 'shadow-xl', 'border-b', 'border-white/5');
+    const currentScroll = window.scrollY;
+    const heroHeight = heroSection ? heroSection.offsetHeight : 800;
+    const triggerPoint = heroHeight - 150; 
+
+    if (currentScroll < 100) {
+        header.style.transform = 'translateY(0)';
+        resetMenuToHero();
+    } 
+    else if (currentScroll > 100 && currentScroll < triggerPoint) {
+        header.style.transform = 'translateY(-100%)';
+    }
+    else if (currentScroll >= triggerPoint) {
+        transformMenuToScrolled();
+        header.style.transform = 'translateY(0)';
     }
   });
 
-  // Lógica del tema
-  const isDark = () => !body.classList.contains('light');
-  const updateIcons = () => {
-    if (isDark()) {
-      sunIcon.classList.remove('hidden');
-      moonIcon.classList.add('hidden');
-    } else {
-      sunIcon.classList.add('hidden');
-      moonIcon.classList.remove('hidden');
-    }
-  };
+  function resetMenuToHero() {
+      // ESTADO HERO: Fondo oscuro semitransparente fijo
+      header.classList.remove('bg-theme-card/95', 'backdrop-blur-xl', 'border-white/10', 'shadow-2xl', 'py-2'); // Quitamos estilos de scroll
+      header.classList.add('py-4', 'bg-black/40', 'backdrop-blur-sm', 'border-transparent');
 
-  if (localStorage.getItem('theme') === 'light') body.classList.add('light');
-  updateIcons();
+      logoLink.classList.add('left-0', 'origin-left');
+      logoLink.classList.remove('left-1/2', '-translate-x-1/2', 'scale-125', 'origin-center');
 
-  themeToggle.addEventListener('click', () => {
-    body.classList.toggle('light');
-    localStorage.setItem('theme', isDark() ? 'dark' : 'light');
-    updateIcons();
-  });
+      desktopMenu.classList.remove('justify-center');
+      desktopMenu.classList.add('justify-end'); 
+      menuLeft.parentElement.classList.remove('justify-center');
+      
+      centerSpacer.classList.remove('w-48', 'lg:w-64');
+      centerSpacer.classList.add('w-0');
+
+      // TEXTO: Siempre blanco en el Hero (porque el fondo es imagen oscura)
+      navLinks.forEach(link => {
+          link.classList.add('text-white/90');
+          link.classList.remove('text-theme-muted', 'text-theme-main');
+      });
+  }
+
+  function transformMenuToScrolled() {
+      // ESTADO SCROLL: Usamos 'bg-theme-card' (Gris oscuro en dark, Blanco en light)
+      header.classList.remove('py-4', 'bg-black/40', 'backdrop-blur-sm', 'border-transparent');
+      header.classList.add('bg-theme-card/95', 'backdrop-blur-xl', 'border-white/10', 'shadow-2xl', 'py-2');
+      
+      logoLink.classList.remove('left-0', 'origin-left');
+      logoLink.classList.add('left-1/2', '-translate-x-1/2', 'scale-125', 'origin-center');
+      
+      desktopMenu.classList.remove('justify-end');
+      desktopMenu.classList.add('justify-center');
+      
+      centerSpacer.classList.remove('w-0');
+      centerSpacer.classList.add('w-48', 'lg:w-64');
+
+      // TEXTO: Usamos 'text-theme-main' para alto contraste
+      // (Blanco en dark mode, Negro/Azul en light mode)
+      navLinks.forEach(link => {
+          link.classList.remove('text-white/90');
+          link.classList.add('text-theme-main'); 
+      });
+  }
 </script>

@@ -1,72 +1,173 @@
 @import 'tailwindcss';
 
 @theme {
-  /* --- PALETA DE IDENTIDAD (Naranja y Dorado) --- */
-  --color-btc-orange: #f97316; /* Naranja Vibrante (Hero) */
-  --color-btc-gold: #fbbf24; /* Dorado (Detalles) */
+  --color-btc-orange: #f97316;
+  --color-btc-yellow: #fbbf24;
+  --color-btc-coffee: #7c2d12;
 
-  /* --- TIPOGRAFÍAS --- */
   --font-sans: 'Inter', sans-serif;
   --font-display: 'Rajdhani', sans-serif;
 }
 
-/* --- VARIABLES DINÁMICAS (TEMA) --- */
+/* --- TEMA OSCURO (Sin cambios, manteniendo tu estructura) --- */
 :root {
-  /* MODO OSCURO (Por defecto) */
-  /* No es negro puro, es un Gris Carbón "Elegante" */
-  --bg-main: #18181b; /* Zinc 900 */
-  --bg-panel: #27272a; /* Zinc 800 (Un tono más claro para tarjetas) */
+  --bg-app: #272727;
+  --bg-section: #272727;
+  --bg-alternate: #272727;
+  --bg-card: #18181b;
+  --bg-card-hover: #212124;
 
-  --text-main: #f4f4f5; /* Blanco roto (Zinc 100) */
-  --text-muted: #a1a1aa; /* Gris medio (Zinc 400) */
+  --text-main: #ffffff;
+  --text-muted: #5b5b60;
+  --text-accent: #f97316;
+  --text-highlight: #fbbf24;
 
-  --border-color: rgba(255, 255, 255, 0.1); /* Bordes sutiles */
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-accent: rgba(249, 115, 22, 0.2);
+  --status-glow: rgba(239, 68, 68, 0.2);
+
+  /* GRADIENTE DISCORD (3 Colores) */
+  --grad-1: #353644; /* Azul Discord Claro */
+  --grad-2: #6571f9; /* Gris Elegante (No negro, no blanco) */
+  --grad-3: #6571f9; /* Azul Discord Oscuro */
+
+  /* GRADIENTE MODPACK (Verdes Modrinth) */
+  --grad-mod-1: #68d979; /* Verde Modrinth Brillante */
+  --grad-mod-2: #454545; /* Gris Industrial Oscuro */
+  --grad-mod-3: #b0ffc0; /* Verde Bosque Técnico */
+  --grad-mod-text: #ffffff; /* Texto Blanco para contraste */
+
+  /* Colores de texto para este gradiente */
+  --grad-text: #ffffff;
 
   color-scheme: dark;
 }
 
-/* MODO CLARO (Activado con clase .light) */
-.light {
-  /* Fondo claro pero no blanco quemado (Gris Humo suave) */
-  --bg-main: #f4f4f5; /* Zinc 100 */
-  --bg-panel: #ffffff; /* Blanco puro para tarjetas (resalta sobre el fondo grisáceo) */
+/* --- TEMA CLARO (Naranja Puro & Contraste Técnico) --- */
+:root.light {
+  /* 1. Fondos: Naranja vibrante y puro */
+  --bg-app: #ff6b00; /* Naranja Puro "International Orange" */
+  --bg-section: #f97316; /* Naranja estándar Tailwind */
+  --bg-alternate: #ea580c; /* Naranja más profundo para secciones */
 
-  --text-main: #18181b; /* Gris Carbón para texto (Zinc 900) */
-  --text-muted: #52525b; /* Gris oscuro para subtítulos (Zinc 600) */
+  /* 2. Componentes: Aquí está el contraste (Gris casi blanco) */
+  --bg-card: #f8fafc; /* Slate 50 (Blanco técnico) */
+  --bg-card-hover: #ffffff; /* Blanco puro */
 
-  --border-color: rgba(0, 0, 0, 0.1); /* Bordes oscuros sutiles */
+  /* 3. Tipografía: Blanco y el "Crema/Piel" anterior */
+  --text-main: #ffffff; /* Texto principal en blanco sobre el naranja */
+  --text-muted: #ffedd5; /* El color "Piel" anterior, ahora como texto secundario */
+  --text-accent: #0f172a; /* Azul/Negro técnico para títulos que necesiten máximo impacto */
+  --text-highlight: #ff6b00; /* Naranja sobre las cards blancas */
+
+  /* 4. Bordes y Brillos */
+  --border-subtle: rgba(255, 255, 255, 0.2);
+  --border-accent: #0f172a; /* Borde oscuro para dar un look de "esquema" */
+  --status-glow: rgba(255, 255, 255, 0.5);
+
+  /* GRADIENTE DISCORD */
+  --grad-1: #c4c9ff; /* Azul Discord Claro */
+  --grad-2: #f8fafc; /* Gris Elegante (No negro, no blanco) */
+  --grad-3: rgb(101, 113, 249); /* Azul Discord Oscuro */
+
+  /* GRADIENTE MODPACK CLARO (Verde / Gris / Piel) */
+  --grad-mod-1: #68d979; /* Verde Menta muy claro (Piel verde) */
+  --grad-mod-2: #fff5f5; /* Gris Técnico Medio */
+  --grad-mod-3: #b0ffc0; /* Verde Puro */
+  --grad-mod-text: #0c0c0e; /* Texto Negro para contraste */
+
+  /* Texto para este gradiente (Negro para contraste) */
+  --grad-text: #0f172a;
 
   color-scheme: light;
 }
 
-/* --- ESTILOS GLOBALES --- */
+/* --- ESTILOS BASE --- */
 body {
-  background-color: var(--bg-main);
+  background-color: var(--bg-app);
   color: var(--text-main);
   font-family: var(--font-sans);
-
-  /* Transición suave al cambiar de tema (300ms) */
   transition:
-    background-color 0.3s ease,
-    color 0.3s ease,
-    border-color 0.3s ease;
+    background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.5s ease;
 }
 
-/* Scroll suave para toda la web */
-html {
-  scroll-behavior: smooth;
+/* --- CLASES DE UTILIDAD --- */
+.bg-theme-app {
+  background-color: var(--bg-app);
+}
+.bg-theme-section {
+  background-color: var(--bg-section);
+}
+.bg-theme-alternate {
+  background-color: var(--bg-alternate);
+}
+.bg-theme-card {
+  background-color: var(--bg-card);
 }
 
-/* Utilidades para fondos usando las variables */
-.bg-theme-main {
-  background-color: var(--bg-main);
-}
-.bg-theme-panel {
-  background-color: var(--bg-panel);
-}
 .text-theme-main {
   color: var(--text-main);
 }
 .text-theme-muted {
   color: var(--text-muted);
+}
+.text-theme-accent {
+  color: var(--text-accent);
+}
+.text-theme-highlight {
+  color: var(--text-highlight);
+}
+
+.border-theme {
+  border-color: var(--border-subtle);
+}
+.border-theme-accent {
+  border-color: var(--border-accent);
+}
+/* --- CLASE DE UTILIDAD REUTILIZABLE --- */
+/* Esta clase la puedes usar en Discord, en el Hero, o donde quieras */
+.bg-custom-gradient {
+  background: linear-gradient(92deg, var(--grad-1) 0%, var(--grad-2) 100%, var(--grad-3) 50%);
+}
+
+.text-gradient-contrast {
+  color: var(--grad-text);
+}
+/* CLASE MAESTRA PARA BLOQUEAR EL FONDO DEL TEMA */
+.bg-modpack-gradient {
+  /* Usamos !important para asegurar que pise cualquier bg-theme-app del body */
+  background: linear-gradient(92deg, var(--grad-mod-1) 0%, var(--grad-mod-2) 100%, var(--grad-mod-3) 50%) !important;
+}
+/* Esta clase la puedes usar en Discord, en el Hero, o donde quieras */
+.bg-docs-gradient {
+  /* Usamos !important para asegurar que pise cualquier bg-theme-app del body */
+  background: linear-gradient(92deg, var(--grad-mod-1) 0%, var(--grad-mod-2) 100%, var(--grad-mod-3) 50%) !important;
+}
+/* Esta clase la puedes usar en Discord, en el Hero, o donde quieras */
+.bg-creative-gradient {
+  background: linear-gradient(92deg, var(--grad-1) 0%, var(--grad-2) 100%, var(--grad-3) 50%);
+}
+/*OPTIMIZACION PARA BLUR DANDO PRIORIDAD EN GPU*/
+.glass-gpu {
+  /* 1. Aplicamos el blur moderno */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px); /* Soporte para Safari */
+
+  /* 2. Inducimos la aceleración por hardware */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000;
+
+  /* 3. Optimizamos el renderizado anticipado */
+  will-change: backdrop-filter, transform;
+}
+/*OPTIMIZACION DANDO PRIORIDAD A NO MOSTRAR CONTENIDO CUANDO NO ES VISIBLE*/
+.section-optimize {
+  /* Solo renderiza cuando es necesario */
+  content-visibility: auto;
+
+  /* Le damos una altura estimada al navegador para que 
+     sepa cuánto espacio reservar antes de renderizar */
+  contain-intrinsic-size: 1px 500px;
 }

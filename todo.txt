@@ -1,0 +1,109 @@
+COMBINAR IP BEDORCK CON JAVA EN SERVIDOR PRUEBAS PARA PROBARLO CON SERVIDOR OFICIAL
+
+AGREGAR EXPLICACION DE SEGURIDAD CON MULTILOGIN Y SUS DEBILIDADES, SUS PROBLEMAS AL DEJARSE DE ACTUALIZAR Y QUE MEDIDAS SE VAN A TOMARS
+
+CAMBIAR LOS BLUR DE FONDO DE STAFF EN SUS IMAGNES POR COLORES DE ROLES EN LOS BORDES DE LA FOTO DE PERFIL
+
+REVISAR LAG GENERADO POR LA SECCION TECNICA DE DATAPACKS Y MODS POR ESAS CINTAS QUE SE MUEVEN, TRATAR DE EVITAR JS PARA ESO -SE PUEDE HACER EN CSS DIRECTAMETNE
+
+-----------------------------------------------------------------------------------------------------------
+REGLAS MEJORADAS PARA CONSTITUCION
+-----------------------------------------------------------------------------------------------------------
+I. DOGMA Y CONVIVENCIA (El Pilar Moral)
+
+1.1. Axioma de Integridad
+Builtechraft se fundamenta en valores cristianos inmutables. Se exige una conducta de respeto absoluto hacia la fe, la moral y la dignidad de cada miembro.
+
+    1.1.a: La blasfemia, el lenguaje soez y la toxicidad verbal son consideradas "corrupción de datos sociales" y resultarán en la revocación inmediata de acceso.
+
+    1.1.b: Las disputas teológicas o personales deben resolverse en privado. El chat global es un canal de cooperación técnica, no un campo de batalla.
+
+1.2. El Desafío a la Creatividad (Simbología)
+Rechazamos la politización del espacio de juego. No se permite la construcción o exhibición de banderas de ideología de género, partidos políticos o movimientos sociales divisivos.
+
+    1.2.a: Cláusula de Competencia: Creemos que tu mente es capaz de más. Si tu única forma de expresión es una bandera de colores, te retamos a superar esa barrera: diseña una catedral, optimiza un circuito o esculpe terreno. Aquí se valora la arquitectura, no la agenda.
+
+    1.2.b: La insistencia en romper esta norma bajo el pretexto de "libertad de expresión" será tratada como un acto de rebelión contra la paz del servidor.
+
+II. LEX TECHNICA (Ingeniería y Rendimiento)
+
+2.1. Soberanía del TPS (Ticks Por Segundo)
+El rendimiento del servidor es un bien común. Ningún proyecto individual puede comprometer la estabilidad del núcleo para los demás.
+
+    2.1.a: Escalabilidad: Las granjas personales deben limitarse a una eficiencia media. Las "Mega-Granjas" industriales son de titularidad pública y deben aprobarse como proyectos comunitarios.
+
+    2.1.b: Entidades: Se prohíbe el hacinamiento excesivo de entidades (mob cramming) en un solo chunk sin medidas de eliminación automática.
+
+2.2. Protocolo de Redstone
+La automatización es bienvenida, pero la ineficiencia es castigada.
+
+    2.2.a: Relojes Infinitos: Todo circuito de reloj (clock) debe contar con un sistema de apagado manual o automático. Los relojes perpetuos olvidados serán destruidos por la administración.
+
+    2.2.b: Lag Machines: Cualquier estructura diseñada intencionalmente para causar estrés al procesador será considerada sabotaje terrorista (Ban IP).
+
+2.3. Exploración Responsable
+La generación de terreno (chunks) consume recursos de disco y CPU.
+
+    2.3.a: Se prohíbe la exploración errática o masiva (vuelo con Elytras a miles de bloques) sin un propósito de recolección o bioma específico.
+
+III. JUS SOLI (Derecho de Propiedad y Territorio)
+
+3.1. Auditoría de Bloques (CoreProtect)
+Cada acción en el mundo queda registrada en nuestra base de datos forense.
+
+    3.1.a: Griefing: La destrucción o alteración no autorizada de estructuras ajenas no es una "broma", es vandalismo y conlleva expulsión permanente.
+
+    3.1.b: Hurto: Tomar ítems de contenedores ajenos, aunque no estén protegidos por plugins, es un delito de integridad.
+
+3.2. Urbanismo del Nether (La Ley del Enlace)
+El Nether es una red de transporte de alta precisión.
+
+    3.2.a: Colisión de Portales: Si generas un portal que conecta accidentalmente con la base de otro usuario, es tu responsabilidad reubicarlo. Si no lo haces, el dueño de la base tiene derecho a destruirlo para proteger su seguridad.
+
+    3.2.b: Señalización: Todo portal o acceso en el Nether debe estar identificado con carteles. Un portal anónimo es un portal abandonado y sujeto a demolición.
+
+IV. ARS ET AESTHETICA (Criterio Visual)
+
+4.1. La Paradoja del Mapart (Contenido Sugerente)
+Mantenemos una política de "Libertad Vigilada" respecto al arte pixelado de carácter adulto o sugerente.
+
+    4.1.a: Cuota de Tolerancia: Se permite un máximo estricto de dos (2) obras de arte sugerentes (NSFW-Lite) por usuario en su propiedad privada.
+
+    4.1.b: Ley de la Escalada: El nivel de explicitud de una nueva obra no puede superar al de las existentes. Si escalas el tono hacia la pornografía abierta, la obra será purgada.
+
+    4.1.c: Responsabilidad de Ocultación: Estas obras deben permanecer en recintos privados. Si el usuario las expone accidentalmente al público o a menores, asume la responsabilidad total de su negligencia. El Staff juzgará la "perversión" de la mente del usuario basándose en estas obras.
+
+4.2. Paisajismo y Entropía
+
+    4.2.a: Se prohíbe dejar árboles flotando, torres de tierra (nerd-poles) o agujeros de creepers sin reparar en zonas comunes. Mantener la belleza del mundo es deber de todos.
+
+V. OIKONOMIA (Economía y Supervivencia)
+
+5.1. Antropología del Esfuerzo (Anti-P2W)
+El estatus en Builtechraft se gana con el pico, no con la tarjeta de crédito.
+
+    5.1.a: Está terminantemente prohibida la comercialización de ítems vanilla, moneda del juego o ventajas mecánicas por dinero real.
+
+    5.1.b: Excepción Estética: Únicamente se permite la transacción de bienes cosméticos (texturas, modelos 3D custom) que no alteren las mecánicas de supervivencia.
+
+5.2. Resiliencia (Dificultad Difícil)
+El servidor opera en dificultad Hard.
+
+    5.2.a: Cláusula de Frustración: La muerte y la pérdida de experiencia son parte del diseño del juego. Contamos con sistema de tumbas (Graves) para mitigar el impacto, pero no se aceptan quejas ni solicitudes de reembolso de ítems por muertes "injustas".
+
+    5.2.b: No se toleran actitudes infantiles ante la adversidad.
+
+VI. AUTORIDAD Y PLATAFORMA
+
+6.1. Jerarquía de Sistemas
+Reconocemos la superioridad técnica de Java Edition como motor nativo.
+
+    6.1.a: Protocolo Bedrock: Los usuarios de Bedrock/Pocket Edition son bienvenidos mediante Geyser, pero deben asumir que su experiencia es una emulación. Los fallos visuales, desincronizaciones o retrasos en la conexión no son prioridad de soporte técnico.
+
+    6.1.b: El lag del cliente (FPS) no es lag del servidor (TPS). Aprenda a diferenciar antes de reportar.
+
+6.2. Infalibilidad Administrativa
+
+    6.2.a: Las decisiones del Staff son finales. Cualquier apelación debe realizarse mediante los canales formales (Ticket de Discord) y con argumentos técnicos, nunca en el chat público.
+
+    6.2.b: La suplantación de identidad de un miembro del Staff es motivo de expulsión inmediata.

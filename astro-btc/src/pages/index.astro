@@ -1,4 +1,5 @@
 ---
+// src/pages/index.astro
 import Layout from '../layouts/Layout.astro';
 import ServerStatus from '../components/ServerStatus.jsx';
 import IPSection from '../components/IPSection.astro';
@@ -10,21 +11,25 @@ import Gallery from '../components/Gallery.astro';
 import Staff from '../components/Staff.astro';
 import Rules from '../components/Rules.astro';
 import Modpack from '../components/Modpack.astro';
-import Footer from '../components/Footer.astro';
 import DiscordWidget from '../components/DiscordWidget.astro';
 
-const bgImage = "url('/images/header-bg1.png')";
+const bgImage = "url('/images/gallery/header-bg1.webp')";
 ---
 
 <Layout title="Builtechraft = ON">
     
-    <section id="inicio" class="min-h-screen w-full flex flex-col items-center justify-center text-center relative pt-20 bg-theme-main">
-        <div class="absolute inset-0 z-0 bg-cover bg-center opacity-30" style={{ backgroundImage: bgImage }}></div>
-        <div class="absolute inset-0 z-0 bg-gradient-to-b from-transparent to-[var(--bg-main)]"></div>
+    <section id="inicio" class="min-h-screen w-full relative flex flex-col items-center justify-center text-center pt-20 bg-theme-main overflow-hidden">
         
-        <div class="relative z-10 px-4 max-w-5xl mx-auto flex flex-col items-center">
+        <div 
+            class="absolute inset-0 z-0 bg-cover bg-center opacity-90 scale-[1.05] origin-center" 
+            style={{ backgroundImage: bgImage }}
+        ></div>
+        
+        <div class="absolute inset-0 z-0 bg-linear-to-b from-black/30 via-transparent to-var(--bg-app)"></div>
+        
+        <div class="relative z-10 px-4 max-w-5xl mx-auto flex flex-col items-center w-full">
             
-            <img src="/images/footer-logo.png" alt="Builtechraft Header" class="w-full max-w-3xl mb-12 drop-shadow-2xl animate-float" />
+            <img src="/images/footer-logo.png" alt="Builtechraft Header" class="w-full max-w-2xl md:max-w-3xl mb-12 drop-shadow-2xl animate-float" />
             
             <ServerStatus client:load />
         </div>
@@ -32,21 +37,26 @@ const bgImage = "url('/images/header-bg1.png')";
 
     <IPSection />
     <About />
-    <Technical />
-    <Documentation />
-    <CreativeProjects />
     <Gallery />
-    
-    <Staff />
-
+    <CreativeProjects />
+    <Documentation />
+    <Technical />
     <Rules />
-    
+    <Staff />
     <Modpack />
     <DiscordWidget />
 
 </Layout>
 
 <style>
+    /* PREVENCIÓN GLOBAL DE SCROLL HORIZONTAL */
+    /* Esto asegura que NADA en la página genere scroll horizontal */
+    :global(body) {
+        overflow-x: hidden;
+        width: 100%;
+        position: relative;
+    }
+
     @keyframes float {
         0%, 100% { transform: translateY(0); }
         50% { transform: translateY(-10px); }

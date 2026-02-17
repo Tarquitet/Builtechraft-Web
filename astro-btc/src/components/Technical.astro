@@ -1,186 +1,316 @@
 ---
 // src/components/Technical.astro
 
-// Listas de datos (Mantén tus arrays de datapacks y mods aquí)
-// =============================================================================
-// DATOS DE DATAPACKS (Gameplay & QoL)
-// =============================================================================
+// DATAPACKS
 const rawDatapacks = [
-    { name: "LodestoneTP", desc: "Sistema de Waystones inmersivas y homes físico.", icon: "🧭", url: "https://modrinth.com/datapack/lodestonetp" },
-    { name: "Graves", desc: "Tumbas para recuperación de items al morir.", icon: "🪦", url: "https://vanillatweaks.net/picker/datapacks/" },
-    { name: "Custom Villager Shops", desc: "Economía custom con tradeos editados.", icon: "⚖️", url: "https://vanillatweaks.net/picker/datapacks/" },
-    { name: "Durability Ping", desc: "Aviso visual y sonoro de herramientas rotas.", icon: "🛠️", url: "https://vanillatweaks.net/picker/datapacks/" },
-    { name: "More Mob Heads", desc: "Obtención de cabezas decorativas de mobs.", icon: "👤", url: "https://modrinth.com/project/x5rDcrvh" },
-    { name: "Kazzmon's DayCount", desc: "Contador de días transcurridos en el tabulador.", icon: "📅", url: "https://modrinth.com/project/WJsYNvCZ" },
-    { name: "Skull [Portable]", desc: "Utilidad para manejo de cabezas e items decorativos.", icon: "💀", url: "https://modrinth.com/project/skull-portable" }
+    { name: "LodestoneTP", desc: "Waystones inmersivas", icon: "🧭", url: "https://modrinth.com/datapack/lodestonetp" },
+    { name: "Graves", desc: "Tumbas al morir", icon: "🪦", url: "https://vanillatweaks.net/picker/datapacks/" },
+    { name: "Custom Trades", desc: "Comercio custom", icon: "⚖️", url: "https://vanillatweaks.net/picker/datapacks/" },
+    { name: "Durability Ping", desc: "Aviso rotura", icon: "🛠️", url: "https://vanillatweaks.net/picker/datapacks/" },
+    { name: "More Mob Heads", desc: "Cabezas decorativas", icon: "👤", url: "https://vanillatweaks.net/picker/datapacks/" },
+    { name: "DayCount", desc: "Días en Tab", icon: "📅", url: "https://modrinth.com/project/WJsYNvCZ" },
+    { name: "Skull [Portable]", desc: "Gestión cabezas", icon: "💀", url: "https://modrinth.com/project/skull-portable" }
 ];
 
-// =============================================================================
-// DATOS DE MODS (Motor Fabric, Optimización y Gestión)
-// =============================================================================
+// MODS
 const rawMods = [
     // Optimización
-    { name: "Lithium", desc: "Optimización de físicas, IA y ticks del servidor.", icon: "⚡", url: "https://modrinth.com/mod/lithium" },
-    { name: "Alternate Current", desc: "Algoritmo de Redstone optimizado para eliminar lag.", icon: "🔌", url: "https://modrinth.com/mod/alternate-current" },
-    { name: "FerriteCore", desc: "Reducción drástica del uso de memoria RAM.", icon: "💾", url: "https://modrinth.com/mod/ferrite-core" },
-    { name: "Krypton", desc: "Optimización del stack de red para menor latencia.", icon: "🌐", url: "https://modrinth.com/mod/krypton" },
-    { name: "ScalableFlux", desc: "Mejora en la gestión de paquetes de red bajo carga.", icon: "📈", url: "https://modrinth.com/mod/scalableflux" },
-    { name: "Hibernate Fabric", desc: "Pausa el servidor cuando no hay jugadores activos.", icon: "💤", url: "https://modrinth.com/mod/hibernate-fabric" },
-    
-    // Core & Herramientas Técnicas
-    { name: "Carpet Mod", desc: "Control técnico y diagnóstico total del servidor.", icon: "🧶", url: "https://modrinth.com/mod/carpet" },
-    { name: "Carpet TIS Addition", desc: "Extensiones técnicas avanzadas para Carpet.", icon: "➕", url: "https://modrinth.com/mod/carpet-tis-addition" },
-    { name: "Syncmatica", desc: "Sincronización de esquemas de Litematica en el servidor.", icon: "🏗️", url: "https://modrinth.com/mod/syncmatica" },
-    { name: "WorldEdit", desc: "Potente herramienta de edición de mundo masiva.", icon: "🎨", url: "https://modrinth.com/mod/worldedit" },
-    { name: "Fabric API", desc: "Librería base esencial para el ecosistema Fabric.", icon: "🛠️", url: "https://modrinth.com/mod/fabric-api" },
-    { name: "Packet Fixer", desc: "Corrección de errores técnicos en el envío de paquetes.", icon: "📦", url: "https://modrinth.com/mod/packet-fixer" },
-
-    // Conectividad (Geyser / Proxy)
-    { name: "Geyser Fabric", desc: "Entrada para jugadores de Bedrock (Móvil/Consola).", icon: "📱", url: "https://modrinth.com/mod/geyser" },
-    { name: "Floodgate", desc: "Autenticación para cuentas Bedrock sin cuenta Java.", icon: "🌉", url: "https://modrinth.com/mod/floodgate" },
-    { name: "FabricProxy-Lite", desc: "Gestión ligera tras el proxy de red.", icon: "📡", url: "https://modrinth.com/mod/fabricproxy-lite" },
-    { name: "VelocityTab", desc: "Sincronización de tabulador mediante el proxy.", icon: "📑", url: "https://modrinth.com/mod/velocitytab" },
-    { name: "ViaVersion", desc: "Compatibilidad con versiones de cliente superiores.", icon: "🔄", url: "https://modrinth.com/mod/viaversion" },
-    { name: "ViaBackwards", desc: "Compatibilidad con versiones de cliente anteriores.", icon: "◀️", url: "https://modrinth.com/mod/viabackwards" },
-    
+    { name: "Lithium", desc: "Optimización de físicas e IA.", icon: "⚡", url: "https://modrinth.com/mod/lithium" },
+    { name: "Alternate Current", desc: "Redstone optimizado sin lag.", icon: "🔌", url: "https://modrinth.com/mod/alternate-current" },
+    { name: "FerriteCore", desc: "Reducción de uso de RAM.", icon: "💾", url: "https://modrinth.com/mod/ferrite-core" },
+    { name: "Krypton", desc: "Optimización de red.", icon: "🌐", url: "https://modrinth.com/mod/krypton" },
+    { name: "ScalableFlux", desc: "Mejora de paquetes de red.", icon: "📈", url: "https://modrinth.com/mod/scalableflux" },
+    { name: "Hibernate Fabric", desc: "Pausa inteligente del server.", icon: "💤", url: "https://modrinth.com/mod/hibernate-fabric" },
+    { name: "Footprint", desc: "Reductor de chunks al guardar mundo.", icon: "👣", url: "https://modrinth.com/mod/footprint" },
+    // Core & Herramientas
+    { name: "Carpet Mod", desc: "Control técnico total.", icon: "🧶", url: "https://modrinth.com/mod/carpet" },
+    { name: "Carpet TIS Addition", desc: "Extensiones técnicas extra.", icon: "➕", url: "https://modrinth.com/mod/carpet-tis-addition" },
+    { name: "Syncmatica", desc: "Esquemas Litematica compartidos.", icon: "🏗️", url: "https://modrinth.com/mod/syncmatica" },
+    { name: "WorldEdit", desc: "Edición de mundo masiva.", icon: "🎨", url: "https://modrinth.com/mod/worldedit" },
+    { name: "Fabric API", desc: "Librería base esencial.", icon: "🛠️", url: "https://modrinth.com/mod/fabric-api" },
+    { name: "Packet Fixer", desc: "Corrección de paquetes.", icon: "📦", url: "https://modrinth.com/mod/packet-fixer" },
+    // Conectividad
+    { name: "Geyser Fabric", desc: "Entrada Bedrock (Móvil/Consola).", icon: "📱", url: "https://modrinth.com/mod/geyser" },
+    { name: "Floodgate", desc: "Autenticación Bedrock.", icon: "🌉", url: "https://modrinth.com/mod/floodgate" },
+    { name: "FabricProxy-Lite", desc: "Gestión tras proxy.", icon: "📡", url: "https://modrinth.com/mod/fabricproxy-lite" },
+    { name: "VelocityTab", desc: "Sincronización de tabulador.", icon: "📑", url: "https://modrinth.com/mod/velocitytab" },
+    { name: "ViaVersion", desc: "Versiones nuevas soportadas.", icon: "🔄", url: "https://modrinth.com/mod/viaversion" },
+    { name: "ViaBackwards", desc: "Versiones viejas soportadas.", icon: "◀️", url: "https://modrinth.com/mod/viabackwards" },
     // Gestión & Seguridad
-    { name: "LuckPerms", desc: "Gestión avanzada de rangos y permisos.", icon: "🔑", url: "https://modrinth.com/mod/luckperms" },
-    { name: "Vanilla Permissions", desc: "Sistema de permisos ligero integrado.", icon: "🛡️", url: "https://modrinth.com/mod/vanilla-permissions" },
-    { name: "No Chat Reports", desc: "Protección de privacidad que elimina firmas de chat.", icon: "🤐", url: "https://modrinth.com/mod/no-chat-reports" },
-    { name: "SimpleWhitelist", desc: "Gestión segura de la lista blanca del servidor.", icon: "📝", url: "https://modrinth.com/plugin/simplewhitelist" },
-    { name: "SkinRestorer", desc: "Restauración de skins para usuarios Java y Bedrock.", icon: "👕", url: "https://modrinth.com/mod/skinrestorer" },
-    { name: "MiniMotd", desc: "Mensaje dinámico en la lista de servidores.", icon: "📄", url: "https://modrinth.com/mod/minimotd" },
-    { name: "Placeholder API", desc: "Manejo de variables dinámicas en menús y textos.", icon: "🏷️", url: "https://modrinth.com/mod/placeholder-api" },
-    { name: "Discord: JustSync", desc: "Sincronización de chat y roles con Discord.", icon: "💬", url: "https://modrinth.com/mod/discord-justsync" },
-    
+    { name: "LuckPerms", desc: "Gestión de rangos y permisos.", icon: "🔑", url: "https://modrinth.com/mod/luckperms" },
+    { name: "Vanilla Permissions", desc: "Permisos ligeros.", icon: "🛡️", url: "https://modrinth.com/mod/vanilla-permissions" },
+    { name: "No Chat Reports", desc: "Privacidad de chat total.", icon: "🤐", url: "https://modrinth.com/mod/no-chat-reports" },
+    { name: "SimpleWhitelist", desc: "Lista blanca segura.", icon: "📝", url: "https://modrinth.com/plugin/simplewhitelist" },
+    { name: "SkinRestorer", desc: "Skins para todos.", icon: "👕", url: "https://modrinth.com/mod/skinrestorer" },
+    { name: "MiniMotd", desc: "Mensaje de servidor dinámico.", icon: "📄", url: "https://modrinth.com/mod/minimotd" },
+    { name: "Placeholder API", desc: "Variables en textos.", icon: "🏷️", url: "https://modrinth.com/mod/placeholder-api" },
+    { name: "Discord: JustSync", desc: "Chat Minecraft <-> Discord.", icon: "💬", url: "https://modrinth.com/mod/discord-justsync" },
     // Utilidades
-    { name: "Servux", desc: "Soporte para mods de utilidad (MiniHUD, etc) del cliente.", icon: "🔧", url: "https://modrinth.com/mod/servux" },
-    { name: "JourneyMap", desc: "Integración de mapeado del mundo en tiempo real.", icon: "🗺️", url: "https://modrinth.com/mod/journeymap" },
-    { name: "Footprint", desc: "Rastreo técnico y registro de actividad de jugadores.", icon: "👣", url: "https://modrinth.com/mod/footprint" },
-    { name: "Multilogin", desc: "Gestión de múltiples tipos de acceso al servidor.", icon: "👥", url: "https://www.spigotmc.org/resources/multilogin.115996/" }
+    { name: "Servux", desc: "Soporte MiniHUD y Litematica.", icon: "🔧", url: "https://modrinth.com/mod/servux" },
+    { name: "JourneyMap", desc: "Mapa en tiempo real.", icon: "🗺️", url: "https://modrinth.com/mod/journeymap" },
+    { name: "Multilogin", desc: "No premium accede como premium.", icon: "👥", url: "https://www.spigotmc.org/resources/multilogin.115996/" }
 ];
 
-// Lógica de enriquecimiento con API de Modrinth (Se mantiene igual)
-const enrichData = async (items) => {
-    return await Promise.all(items.map(async (item) => {
-        if (item.url && item.url.includes("modrinth.com")) {
-            try {
-                const slug = item.url.split('/').pop();
-                const response = await fetch(`https://api.modrinth.com/v2/project/${slug}`);
-                if (response.ok) {
-                    const data = await response.json();
-                    if (data.icon_url) return { ...item, icon: data.icon_url, isImage: true };
-                }
-            } catch (e) { console.error(e); }
-        }
-        return { ...item, isImage: false };
-    }));
-};
+// ROADMAP
+const rawRoadmap = [
+    {
+        title: "Identidad Social",
+        desc: "Sistema completo para destacar tu personalidad en el chat y el juego.",
+        details: ["Rangos (Sufijos/Prefijos)", "Nicks Custom (Chat/Tab)", "Nombre sobre jugador"],
+        status: "En Progreso",
+        icon: "💬",
+        statusIcon: "✨", 
+        statusColor: "text-btc-orange",
+        borderColor: "hover:border-btc-orange/50"
+    },
+    {
+        title: "Arte & Decoración",
+        desc: "Expansión visual respetando la estética vanilla.",
+        details: ["Nuevos Cuadros (Paintings)", "Bloques Decorativos", "Items 3D en Marcos"],
+        status: "Planeado",
+        icon: "🎨",
+        statusIcon: "🖌️",
+        statusColor: "text-blue-400",
+        borderColor: "hover:border-blue-400/50"
+    },
+    {
+        title: "Audio Inmersivo",
+        desc: "Nueva banda sonora para momentos especiales.",
+        details: ["Discos con Canciones Custom", "Música de Eventos", "Ambiente por zonas"],
+        status: "En Pruebas",
+        icon: "🎵",
+        statusIcon: "🎧",
+        statusColor: "text-purple-400",
+        borderColor: "hover:border-purple-400/50"
+    },
+    {
+        title: "Economía de Eventos",
+        desc: "Sistema de comercio físico para minijuegos y premios.",
+        details: ["Moneda Física (Item 3D)", "Aldeanos Custom Trades", "Recompensas Únicas"],
+        status: "Concepto",
+        icon: "💎",
+        statusIcon: "💡",
+        statusColor: "text-emerald-400",
+        borderColor: "hover:border-emerald-400/50"
+    }
+];
 
-const datapacks = await enrichData(rawDatapacks);
-const mods = await enrichData(rawMods);
+// Duplicamos arrays
+const doubleDatapacks = [...rawDatapacks, ...rawDatapacks];
+const doubleMods = [...rawMods];
+const doubleRoadmap = [...rawRoadmap, ...rawRoadmap, ...rawRoadmap]; 
 ---
 
-<section id="tecnico" class="py-24 bg-theme-panel border-y border-white/5 relative overflow-hidden">
-    <div class="container mx-auto px-6 relative z-10">
-        
-        <div class="text-center mb-20">
-            <h2 class="text-4xl font-display font-bold text-theme-main uppercase tracking-tight">
-                Corazón <span class="text-btc-gold">Técnico</span>
-            </h2>
-            <p class="text-theme-muted text-lg max-w-3xl mx-auto mt-4 leading-relaxed">
-                Priorizamos el rendimiento extremo y la esencia <strong>Vanilla</strong>. Todo el poder de Fabric y Datapacks, sin instalaciones obligatorias para el usuario.
-            </p>
-        </div>
+<section id="tecnico" class="py-24 bg-theme-panel relative overflow-hidden transition-colors duration-300 section-optimize">
+    
+    <div class="absolute inset-0 bg-[url('/images/grid-pattern.png')] opacity-[0.05] pointer-events-none mix-blend-overlay"></div>
 
-        <div class="mb-24">
-            <h3 class="text-2xl font-display font-bold text-btc-orange mb-8 flex items-center gap-3">
-                <span class="bg-btc-orange/10 p-2 rounded-lg text-xl">📦</span> 
-                Datapacks <span class="text-sm text-gray-500 font-sans font-normal ml-2">Gameplay & QoL</span>
-            </h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {datapacks.map(dp => (
-                    <a href={dp.url} target="_blank" class="group bg-theme-main p-6 rounded-2xl border border-white/5 hover:border-btc-orange/50 hover:shadow-xl transition-all flex items-start gap-4">
-                        {dp.isImage ? <img src={dp.icon} class="w-12 h-12 rounded-xl bg-black/20 p-1" /> : <span class="text-4xl w-12 h-12 flex items-center justify-center bg-black/20 rounded-xl">{dp.icon}</span>}
-                        <div>
-                            <h4 class="font-bold text-theme-main group-hover:text-btc-orange transition-colors">{dp.name}</h4>
-                            <p class="text-xs text-theme-muted mt-1 leading-relaxed">{dp.desc}</p>
-                        </div>
-                    </a>
-                ))}
-            </div>
-        </div>
-
-        <div class="mb-24">
-            <h3 class="text-2xl font-display font-bold text-blue-400 mb-8 flex items-center gap-3">
-                <span class="bg-blue-500/10 p-2 rounded-lg text-xl">⚙️</span> 
-                Fabric Mods <span class="text-sm text-gray-500 font-sans font-normal ml-2">Optimización de Servidor</span>
-            </h3>
-            
-            <div id="mods-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-hidden transition-all duration-500 max-h-[500px]">
-                {mods.map(mod => (
-                    <a href={mod.url} target="_blank" class="group bg-theme-main p-6 rounded-2xl border border-white/5 hover:border-blue-500/50 hover:shadow-xl transition-all flex items-start gap-4">
-                        {mod.isImage ? <img src={mod.icon} class="w-12 h-12 rounded-xl bg-black/20 p-1" /> : <span class="text-4xl w-12 h-12 flex items-center justify-center bg-black/20 rounded-xl">{mod.icon}</span>}
-                        <div>
-                            <h4 class="font-bold text-theme-main group-hover:text-blue-400 transition-colors">{mod.name}</h4>
-                            <p class="text-xs text-theme-muted mt-1 leading-relaxed">{mod.desc}</p>
-                        </div>
-                    </a>
-                ))}
-            </div>
-
-            <div class="mt-10 text-center">
-                <button id="btn-show-mods" class="px-8 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-sm font-bold tracking-widest transition-all">
-                    MOSTRAR TODOS LOS MODS
-                </button>
-            </div>
-        </div>
-
-        <div class="bg-gradient-to-r from-theme-main via-[#1c1c1f] to-theme-main p-10 rounded-3xl border border-btc-gold/20 relative overflow-hidden">
-            <div class="absolute top-0 right-10 bg-btc-gold text-black text-[10px] font-bold px-4 py-1 rounded-b-xl uppercase tracking-widest">Roadmap</div>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-center">
-                <div class="lg:col-span-1">
-                    <span class="text-6xl mb-4 block">🎨</span>
-                    <h3 class="text-3xl font-display font-bold text-white mb-4 uppercase">Futuro <span class="text-btc-gold">Visual</span></h3>
-                    <p class="text-theme-muted leading-relaxed italic">
-                        "Expandiendo las fronteras de Builtechraft mediante ingeniería creativa."
-                    </p>
-                </div>
-                
-                <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="pl-6 border-l-2 border-btc-orange/40">
-                        <h4 class="font-bold text-white mb-2">Modelos 3D & Resourcepacks</h4>
-                        <p class="text-sm text-theme-muted">Items personalizados con modelos 3D únicos inyectados por el servidor sin requerir mods de cliente.</p>
-                    </div>
-                    <div class="pl-6 border-l-2 border-btc-orange/40">
-                        <h4 class="font-bold text-white mb-2">Audio Inmersivo</h4>
-                        <p class="text-sm text-theme-muted">Integración de música personalizada para eventos y zonas específicas mediante discos de música editados.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-10 pt-8 border-t border-white/5 text-center">
-                <a href="#discord" class="text-xs font-bold text-btc-gold hover:text-white uppercase tracking-[0.2em] transition-all">
-                    Sigue el desarrollo en tiempo real en Discord →
-                </a>
-            </div>
-        </div>
-
+    <div class="container mx-auto px-6 relative z-20 mb-12 text-center">
+        <h2 class="text-4xl md:text-5xl font-display font-bold text-theme-text uppercase tracking-tight">
+            Ingeniería <span class="text-theme-accent">Interna</span>
+        </h2>
+        <p class="text-theme-main opacity-80 text-lg max-w-2xl mx-auto mt-4">
+            Un ecosistema optimizado para rendimiento extremo.
+        </p>
     </div>
+
+    <div class="flex marquee-container mb-6 relative z-20">
+        <div class="flex animate-marquee-left whitespace-nowrap pause-on-hover">
+            {doubleDatapacks.map((item) => (
+                <div class="inline-block px-3">
+                    <a href={item.url} target="_blank" class="mod-card block w-64 p-4 bg-zinc-900 border border-white/10 rounded-xl hover:border-btc-orange transition-colors group relative" data-modrinth-url={item.url}>
+                        
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container shrink-0 w-12 h-12 flex items-center justify-center bg-black/40 rounded-lg group-hover:scale-110 transition-transform overflow-hidden border border-white/5">
+                                <span class="text-2xl icon-emoji">{item.icon}</span>
+                                </div>
+                            
+                            <div>
+                                <h4 class="font-bold text-zinc-100 text-sm group-hover:text-btc-orange transition-colors">{item.name}</h4>
+                                <p class="text-xs text-zinc-400 truncate w-32">{item.desc}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            ))}
+        </div>
+    </div>
+
+    <div class="flex marquee-container mb-24 relative z-20">
+        <div class="flex animate-marquee-right whitespace-nowrap pause-on-hover">
+            {doubleMods.map((item) => (
+                <div class="inline-block px-3">
+                    <a href={item.url} target="_blank" class="mod-card block w-64 p-4 bg-zinc-900 border border-white/10 rounded-xl hover:border-blue-500 transition-colors group relative" data-modrinth-url={item.url}>
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container shrink-0 w-12 h-12 flex items-center justify-center bg-black/40 rounded-lg group-hover:scale-110 transition-transform overflow-hidden border border-white/5">
+                                <span class="text-2xl icon-emoji">{item.icon}</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-zinc-100 text-sm group-hover:text-blue-500 transition-colors">{item.name}</h4>
+                                <p class="text-xs text-zinc-400 truncate w-32">{item.desc}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            ))}
+        </div>
+    </div>
+
+    <div class="container mx-auto px-6 relative z-20 mb-12 text-center">
+        <div class="inline-block p-3 rounded-full bg-black/10 backdrop-blur-sm mb-4 border border-white/5">
+            <span class="text-3xl animate-pulse">🚀</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-display font-bold text-theme-text uppercase tracking-tight">
+            Roadmap <span class="text-btc-yellow">Visual</span>
+        </h2>
+    </div>
+
+    <div class="flex marquee-container relative z-20 pb-10">
+        <div class="flex animate-marquee-left whitespace-nowrap pause-on-hover" style="animation-duration: 90s;">
+            {doubleRoadmap.map((feature) => (
+                <div class="inline-block px-4">
+                    <div class={`w-80 md:w-96 bg-zinc-900 p-6 rounded-2xl border border-white/10 transition-all group relative overflow-hidden ${feature.borderColor}`}>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="flex items-center gap-3">
+                                <span class="text-3xl bg-black/40 p-2 rounded-lg border border-white/5">{feature.icon}</span>
+                                <div>
+                                    <h4 class="font-bold text-white text-lg tracking-tight group-hover:text-btc-yellow transition-colors">{feature.title}</h4>
+                                    <span class={`text-[10px] font-bold uppercase tracking-wider ${feature.statusColor} flex items-center gap-1`}>
+                                        {feature.statusIcon} {feature.status}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-zinc-400 text-sm leading-relaxed mb-4 whitespace-normal h-10 line-clamp-2">
+                            {feature.desc}
+                        </p>
+                        <div class="bg-black/20 rounded-xl p-3 border border-white/5">
+                            <ul class="space-y-1">
+                                {feature.details.map(detail => (
+                                    <li class="flex items-center gap-2 text-xs text-zinc-500 whitespace-normal">
+                                        <span class="w-1 h-1 rounded-full bg-btc-yellow/50 shrink-0"></span>
+                                        {detail}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+
 </section>
 
 <script>
-    const btn = document.getElementById('btn-show-mods');
-    const grid = document.getElementById('mods-grid');
+    // SCRIPT DEL CLIENTE PARA CARGAR ICONOS
+    // Se ejecuta en el navegador del usuario después de cargar la página
+    document.addEventListener('DOMContentLoaded', () => {
+        const cards = document.querySelectorAll('.mod-card');
 
-    btn?.addEventListener('click', () => {
-        if (grid?.style.maxHeight === 'none') {
-            grid.style.maxHeight = '500px';
-            btn.textContent = 'MOSTRAR TODOS LOS MODS';
-        } else if (grid) {
-            grid.style.maxHeight = 'none';
-            btn.textContent = 'MOSTRAR MENOS';
+        // Función para extraer el slug de la URL
+        const getSlug = (url) => {
+            if (!url.includes('modrinth.com')) return null;
+            // Eliminar parámetros query si existen
+            const cleanUrl = url.split('?')[0];
+            const parts = cleanUrl.split('/');
+            // El slug suele ser el último segmento (ej: .../project/lithium -> lithium)
+            return parts[parts.length - 1] || parts[parts.length - 2];
+        };
+
+        // Cache simple para no pedir la misma imagen 3 veces (por el marquee infinito)
+        const iconCache = {};
+
+        cards.forEach(async (card) => {
+            const url = card.getAttribute('data-modrinth-url');
+            if (!url) return;
+
+            const slug = getSlug(url);
+            if (!slug) return;
+
+            const container = card.querySelector('.icon-container');
+            const emojiSpan = card.querySelector('.icon-emoji');
+
+            // 1. Revisar Caché
+            if (iconCache[slug]) {
+                injectImage(container, emojiSpan, iconCache[slug]);
+                return;
+            }
+
+            // 2. Si no está en caché, pedir a Modrinth
+            try {
+                const response = await fetch(`https://api.modrinth.com/v2/project/${slug}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.icon_url) {
+                        iconCache[slug] = data.icon_url; // Guardar en caché
+                        injectImage(container, emojiSpan, data.icon_url);
+                    }
+                }
+            } catch (err) {
+                // Si falla, dejamos el emoji quieto
+                // console.warn('Error cargando icono para', slug);
+            }
+        });
+
+        function injectImage(container, emojiSpan, iconUrl) {
+            if (!container) return;
+            
+            // Ocultar emoji
+            if (emojiSpan) emojiSpan.style.display = 'none';
+
+            // Crear imagen
+            const img = document.createElement('img');
+            img.src = iconUrl;
+            img.className = "w-full h-full object-cover animate-fade-in";
+            img.alt = "Icon";
+            
+            // Añadir al DOM
+            container.appendChild(img);
         }
     });
 </script>
+
+<style>
+    @keyframes marquee-left {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+    
+    @keyframes marquee-right {
+        0% { transform: translateX(-50%); }
+        100% { transform: translateX(0); }
+    }
+    
+    @keyframes fade-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .animate-marquee-left {
+        display: flex;
+        width: max-content;
+        animation: marquee-left 60s linear infinite;
+        transform: translateZ(0);
+    }
+
+    .animate-marquee-right {
+        display: flex;
+        width: max-content;
+        animation: marquee-right 60s linear infinite;
+        transform: translateZ(0);
+    }
+    
+    .animate-fade-in {
+        animation: fade-in 0.5s ease-out forwards;
+    }
+
+    .pause-on-hover:hover {
+        animation-play-state: paused;
+    }
+
+    .marquee-container {
+        mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+        overflow: hidden; 
+    }
+</style>

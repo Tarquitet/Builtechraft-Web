@@ -1,68 +1,132 @@
 ---
 // src/components/Staff.astro
+import fs from 'node:fs';
+import path from 'node:path';
 
-const team = [
-    { 
-        name: "Tarquitet", 
-        role: "Líder principal", 
-        img: "/staff/tarquitet.png", 
-        color: "text-btc-orange" 
+// --- CONFIGURACIÓN DE ROLES ---
+// Definimos los gradientes completos aquí
+const ROLE_CONFIG = {
+    'Líder': { 
+        text: 'text-btc-orange', 
+        gradient: 'bg-gradient-to-br from-btc-orange to-btc-yellow' 
     },
-    { 
-        name: "Aguila003", 
-        role: "Vigilante - Mano Derecha", 
-        img: "/staff/aguila.png", 
-        color: "text-blue-400" 
+    'Admin': { 
+        text: 'text-red-500', 
+        gradient: 'bg-gradient-to-br from-red-600 to-red-400' 
     },
-    { 
-        name: "Soshy", 
-        role: "Admin - Motivadora", 
-        img: "/staff/jacky.png", 
-        color: "text-red-400" 
+    'Vigilante': { 
+        text: 'text-blue-500', 
+        gradient: 'bg-gradient-to-br from-blue-600 to-cyan-400' 
     },
-    { 
-        name: "KittyCupcake", 
-        role: "Vigilante", 
-        img: "/staff/kitty.png", 
-        color: "text-red-400" 
+    'default': { 
+        text: 'text-zinc-400', 
+        gradient: 'bg-gradient-to-br from-zinc-400 to-zinc-200' 
     },
-    // Añade más aquí manualmente
+    'retired': { 
+        text: 'text-zinc-600', 
+        gradient: 'bg-zinc-800' // Color sólido para retirados
+    }
+};
+
+// --- LÓGICA DE IMÁGENES ---
+const staffFolder = 'images/staff';
+const directoryPath = path.join(process.cwd(), 'public', staffFolder);
+
+const findMemberImage = (memberName) => {
+    try {
+        const files = fs.readdirSync(directoryPath);
+        const normalizedName = memberName.toLowerCase().replace(/\s+/g, '');
+        const matchingFile = files.find(file => file.split('.')[0].toLowerCase() === normalizedName);
+        if (matchingFile) return `/${staffFolder}/${matchingFile}`;
+    } catch (e) { }
+    return `https://ui-avatars.com/api/?name=${memberName}&background=18181b&color=fff&size=200&font-size=0.33`;
+};
+
+const rawTeam = [
+    { name: "Tarquitet", role: "Líder" },
+    { name: "Aguila003", role: "Admin" },
+    { name: "Soshy", role: "Admin" },
+    { name: "KittyCupcake", role: "Vigilante" },
+    { name: "SweetHeart", role: "retired" },
+    { name: "Dip", role: "retired" },
+    { name: "UnPocoDeRuch", role: "retired" },
 ];
+
+const team = rawTeam.map(member => {
+    const isRetired = member.role.toLowerCase() === 'retired' || member.retired;
+    const roleKey = isRetired 
+        ? 'retired' 
+        : Object.keys(ROLE_CONFIG).find(key => member.role.includes(key)) || 'default';
+        
+    const style = ROLE_CONFIG[roleKey];
+    const displayRole = isRetired ? 'Staff Retirado' : member.role;
+
+    return {
+        ...member,
+        img: findMemberImage(member.name),
+        textColor: style.text,
+        gradientClass: style.gradient, // Guardamos la clase completa del gradiente
+        isRetired: isRetired,
+        displayRole: displayRole
+    };
+});
 ---
 
-<section id="staff" class="py-24 bg-theme-main relative overflow-hidden">
+<section id="staff" class="py-24 bg-[#272727] relative overflow-hidden section-optimize">
     <div class="container mx-auto px-6 relative z-10">
-        
         <div class="text-center mb-20">
-            <h2 class="text-4xl font-display font-bold text-white uppercase tracking-tight">
-                Nuestro <span class="text-btc-gold">Staff</span>
+            <h2 class="text-4xl md:text-5xl font-display font-bold uppercase tracking-tight text-btc-yellow">
+                Nuestro <span class="text-white">Staff</span>
             </h2>
-            <p class="text-gray-400 text-lg max-w-3xl mx-auto mt-6 leading-relaxed">
-                Detrás de cada bloque colocado y cada línea de código hay un equipo dedicado. Nuestro Staff trabaja para mantener la estabilidad técnica, fomentar la creatividad y asegurar que Builtechraft sea un hogar seguro y justo para todos los constructores.
+            <p class="text-zinc-400 text-lg max-w-3xl mx-auto mt-6 leading-relaxed">
+                Nuestros hermanos quienes nos ayudan con sus ideas, protegiendo el servidor y manteniendo la comunidad.
             </p>
         </div>
 
-        <div class="flex flex-wrap justify-center gap-16">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-16 max-w-5xl mx-auto">
             {team.map((member) => (
-                <div class="flex flex-col items-center gap-4 w-48 group">
-                    <div class="relative">
-                        <div class={`absolute inset-0 rounded-full blur-2xl opacity-0 group-hover:opacity-30 transition-opacity duration-700 ${member.color === 'text-btc-orange' ? 'bg-orange-500' : 'bg-blue-500'}`}></div>
-                        <div class="w-28 h-28 rounded-full p-1 bg-gradient-to-br from-white/10 to-transparent group-hover:from-btc-gold group-hover:to-btc-orange transition-all duration-700 relative z-10 shadow-2xl">
+                <div class="flex flex-col items-center gap-5 group cursor-default">
+                    
+                    <div class="relative w-36 h-36 md:w-44 md:h-44 rounded-full shadow-2xl">
+                        
+                        <div class="absolute inset-0 rounded-full bg-zinc-700"></div>
+
+                        {!member.isRetired && (
+                            <div class={`absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${member.gradientClass}`}></div>
+                        )}
+
+                        <div class="absolute inset-[3px] rounded-full overflow-hidden bg-[#18181b] z-10">
                             <img 
                                 src={member.img} 
-                                alt={member.name} 
-                                class="w-full h-full rounded-full object-cover bg-[#141416] p-1 border border-white/5" 
+                                alt={`Avatar de ${member.name}`} 
+                                class={`w-full h-full object-cover transition-all duration-500
+                                    ${member.isRetired 
+                                        ? 'grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100' 
+                                        : ''
+                                    }`} 
+                                loading="lazy"
                             />
                         </div>
+
                     </div>
+
                     <div class="text-center z-10">
-                        <h4 class="text-white font-display font-bold text-xl tracking-wider group-hover:text-btc-gold transition-colors duration-300">
+                        <h4 class={`font-display font-bold text-xl tracking-wider transition-colors duration-300 uppercase
+                            ${member.isRetired 
+                                ? 'text-zinc-600 line-through decoration-zinc-700 group-hover:text-zinc-400 group-hover:no-underline' 
+                                : 'text-white group-hover:text-white'
+                            }`}>
                             {member.name}
                         </h4>
-                        <div class={`text-[10px] uppercase font-bold tracking-[0.25em] ${member.color} opacity-80`}>
-                            {member.role}
+                        
+                        <div class={`text-[10px] md:text-xs uppercase font-bold tracking-[0.2em] mt-2 opacity-80 transition-opacity duration-300 group-hover:opacity-100
+                            ${member.textColor} 
+                            ${member.isRetired ? 'italic' : ''} 
+                        `}>
+                            {member.displayRole}
                         </div>
                     </div>
+
                 </div>
             ))}
         </div>

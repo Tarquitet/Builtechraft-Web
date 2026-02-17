@@ -1,27 +1,34 @@
 ---
 // src/components/CreativeProjects.astro
 ---
-<section class="py-20 bg-theme-main overflow-hidden border-t border-white/5">
-    <div class="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
+<section class="py-24 bg-creative-gradient relative overflow-hidden transition-all duration-500">
+    
+    <div class="absolute inset-0 bg-[url('/images/grid-pattern.png')] opacity-[0.05] mix-blend-overlay z-0"></div>
+
+    <div class="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12 max-w-6xl relative z-10">
         
-        <div class="w-full md:w-1/2">
-            <h2 class="text-3xl font-display font-bold text-theme-main mb-4 uppercase">
-                Laboratorio <span class="text-blue-500">Creativo</span>
+        <div class="w-full md:w-1/2 text-center md:text-left">
+            <h2 class="text-3xl md:text-4xl font-display font-bold text-(--grad-text) mb-4 uppercase tracking-tight">
+                Mundo <span class="text-(--grad-3)">Creativo</span>
             </h2>
-            <div class="h-1 w-20 bg-blue-500 mb-6"></div>
-            <p class="text-theme-muted text-lg leading-relaxed text-justify">
-                Nuestro mundo creativo no es solo para jugar, es un taller de ingeniería y diseño. Aquí es donde nacen los proyectos antes de hacerse realidad en Survival.
+            
+            <div class="h-1.5 w-24 bg-(--grad-3) mb-8 mx-auto md:mx-0 rounded-full"></div>
+            
+            <p class="text-(--grad-text) text-lg leading-relaxed mb-6 opacity-90 text-justify md:text-left">
+                Nuestro mundo creativo no es solo para jugar, es un taller de creatividad, arte, ingeniería y diseño. Aquí es donde nacen los proyectos antes de hacerse realidad en Survival.
             </p>
-            <p class="text-theme-muted mt-4 text-justify">
-                Desde mega-construcciones que desafían la altura hasta sistemas de redstone complejos diseñados al milímetro. Es el espacio donde la comunidad colabora para planificar el futuro.
+            <p class="text-(--grad-text) text-lg leading-relaxed opacity-90 text-justify md:text-left">
+                Desde mega-construcciones que desafían la altura hasta sistemas de redstone complejos. Es el espacio donde las ideas se desarrollan y se transforman en realidad.
             </p>
         </div>
 
         <div class="w-full md:w-1/2">
-            <div class="bg-gradient-to-r from-blue-900/20 to-theme-panel p-8 rounded-2xl border border-blue-500/30 text-center md:text-left">
-                <span class="text-6xl font-display font-bold text-blue-500 block mb-2">300+</span>
-                <h3 class="text-2xl font-bold text-white mb-2">Ideas en Desarrollo</h3>
-                <p class="text-sm text-gray-400">Proyectos catalogados y en proceso de construcción por nuestros miembros.</p>
+            <div class="bg-black/50 p-10 rounded-3xl relative overflow-hidden group transition-all duration-300 shadow-2xl">
+                <div class="relative z-10 flex flex-col items-center md:items-start text-center md:text-left">
+                    <span class="text-7xl font-display font-bold text-(--grad-3) block mb-4 drop-shadow-lg">200+</span>
+                    <h3 class="text-2xl font-bold text-white mb-2">Ideas en Desarrollo</h3>
+                    <p class="text-zinc-100 text-lg">Proyectos anotados por si nos aburrimos y no sabemos que otra cosa construir.</p>
+                </div>
             </div>
         </div>
 

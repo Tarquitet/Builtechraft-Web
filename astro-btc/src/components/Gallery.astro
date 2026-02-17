@@ -1,24 +1,108 @@
 ---
 // src/components/Gallery.astro
-const images = [
-    '/images/inspiration-train.jpg',
-    '/images/inspiration-purity-vanilla.jpg',
-    '/images/header-bg1.png',
-    '/images/header-bg2.png'
-];
+import fs from 'node:fs';
+import path from 'node:path';
+
+// --- LÓGICA DEL SERVIDOR (AUTOMÁTICA) ---
+const galleryFolder = 'images/gallery'; 
+const directoryPath = path.join(process.cwd(), 'public', galleryFolder);
+
+let galleryImages = [];
+
+try {
+    // Leemos la carpeta en tiempo de compilación
+    const files = fs.readdirSync(directoryPath);
+    galleryImages = files
+        .filter(file => /\.(jpg|jpeg|png|webp|gif)$/i.test(file))
+        .map(file => `/${galleryFolder}/${file}`);
+} catch (error) {
+    console.error(`⚠️ Error leyendo galería: ${error.message}`);
+    galleryImages = [];
+}
+
+// Placeholder por si acaso
+if (galleryImages.length === 0) {
+    galleryImages = ['https://via.placeholder.com/800x450?text=Sin+Imagenes']; 
+}
+
+// DUPLICACIÓN PARA MARQUEE INFINITO
+// Si hay pocas imágenes, las duplicamos varias veces para llenar la pantalla
+// Si hay muchas, con duplicar una vez basta para el loop
+const marqueeImages = galleryImages.length < 6 
+    ? [...galleryImages, ...galleryImages, ...galleryImages, ...galleryImages] 
+    : [...galleryImages, ...galleryImages];
+
+// Ajuste de duración: Más imágenes = Más tiempo para que no vaya muy rápido
+const animationDuration = `${Math.max(marqueeImages.length * 5, 40)}s`;
 ---
-<section class="py-20 bg-theme-panel transition-colors duration-300">
-    <div class="container mx-auto px-6">
-        <h2 class="text-3xl font-display font-bold text-center mb-10 text-theme-main">NUESTRO <span class="text-btc-gold">MUNDO</span></h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {images.map((img) => (
-                <div class="group relative aspect-square overflow-hidden rounded-xl cursor-pointer">
-                    <img src={img} class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span class="text-white font-bold">Ver</span>
-                    </div>
-                </div>
-            ))}
+
+<section id="galeria" class="py-24 bg-theme-panel relative overflow-hidden section-optimize">
+
+    <div class="container mx-auto px-6 relative z-10 mb-12">
+        <div class="text-center">
+            <h2 class="text-4xl md:text-5xl font-display font-bold text-white uppercase tracking-tight">
+                Galería <span class="text-theme-accent">Visual</span>
+            </h2>
         </div>
     </div>
+
+    <div class="marquee-wrapper w-full overflow-hidden relative">
+        
+        <div 
+            class="flex gap-6 w-max animate-marquee hover:pause"
+            style={`animation-duration: ${animationDuration};`}
+        >
+            {marqueeImages.map((imgSrc, index) => (
+                <a 
+                    href={imgSrc} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="group relative block w-[300px] md:w-[450px] aspect-video rounded-2xl overflow-hidden border border-white/10 bg-zinc-900 flex-shrink-0 transition-transform duration-300 hover:scale-[1.02] hover:border-btc-orange/50"
+                    aria-label={`Ver imagen de galería ${index + 1}`}
+                >
+                    <img 
+                        src={imgSrc} 
+                        alt={`Captura Builtechraft ${index}`} 
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        loading="lazy"
+                    />
+
+                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <span class="text-white font-bold text-sm tracking-widest uppercase border border-white/20 px-4 py-2 rounded-full bg-black/40 backdrop-blur-sm flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            Abrir
+                        </span>
+                    </div>
+                </a>
+            ))}
+        </div>
+
+    </div>
+
 </section>
+
+<style>
+    /* Definición de la animación infinita */
+    @keyframes marquee {
+        0% { transform: translate3d(0, 0, 0); }
+        100% { transform: translate3d(-50%, 0, 0); } /* Se mueve la mitad del ancho total (que es el set duplicado) */
+    }
+
+    .animate-marquee {
+        /* PROPIEDADES DE RENDIMIENTO (GPU) */
+        will-change: transform;
+        transform: translate3d(0, 0, 0);
+        backface-visibility: hidden;
+        perspective: 1000px;
+        
+        /* Configuración animación */
+        animation-name: marquee;
+        animation-timing-function: linear; /* Movimiento constante sin aceleración */
+        animation-iteration-count: infinite;
+    }
+
+    /* Pausar al pasar el mouse (opcional, pero útil para hacer clic) */
+    .hover\:pause:hover {
+        animation-play-state: paused;
+    }
+</style>
