@@ -1,24 +1,23 @@
 ---
-// src/components/Navbar.astro
 const leftItems = [
-  { name: 'Inicio', href: '#inicio' },
   { name: 'Jugar', href: '#ips' },
   { name: 'Historia', href: '#historia' },
+  { name: 'Novedades', href: '#novedades' },
 ];
 
 const rightItems = [
   { name: 'Normas', href: '#reglas' },
   { name: 'Staff', href: '#staff' },
-  { name: 'Discord', href: '#discord' },
+  { name: 'Comunidad', href: '#discord' },
 ];
 ---
 
-<header id="main-header" class="fixed top-0 w-full z-50 transition-all duration-500 py-4 bg-black/40 backdrop-blur-sm border-b border-transparent glass-gpu">
+<header id="main-header" class="fixed top-0 w-full z-50 transition-transform duration-300 py-4 bg-black/40 backdrop-blur-sm border-b border-transparent">
   
   <div class="container mx-auto px-6 h-16 relative flex items-center justify-between">
 
     <a href="#inicio" id="logo-link" class="absolute left-0 top-1/2 -translate-y-1/2 z-20 flex items-center gap-2 group transition-all duration-500 origin-left">
-        <img src="/images/logo-text.png" alt="Builtechraft" class="h-10 md:h-12 w-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform" />
+        <img src="/images/logo-text.webp" alt="Builtechraft" class="h-10 md:h-12 w-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform" />
     </a>
 
     <nav class="hidden md:flex w-full items-center transition-all duration-500 relative" id="desktop-menu">
@@ -47,73 +46,100 @@ const rightItems = [
 </header>
 
 <script is:inline>
-  const header = document.getElementById('main-header');
-  const logoLink = document.getElementById('logo-link');
-  const desktopMenu = document.getElementById('desktop-menu');
-  const menuLeft = document.getElementById('menu-left');
-  const centerSpacer = document.getElementById('center-spacer');
-  const navLinks = document.querySelectorAll('.nav-link');
-  const heroSection = document.getElementById('inicio');
+  document.addEventListener('DOMContentLoaded', () => {
+      const header = document.getElementById('main-header');
+      const logoLink = document.getElementById('logo-link');
+      const desktopMenu = document.getElementById('desktop-menu');
+      const centerSpacer = document.getElementById('center-spacer');
+      const navLinks = document.querySelectorAll('.nav-link');
+      const heroSection = document.getElementById('inicio');
 
-  window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
-    const heroHeight = heroSection ? heroSection.offsetHeight : 800;
-    const triggerPoint = heroHeight - 150; 
+      if (!header) return;
 
-    if (currentScroll < 100) {
-        header.style.transform = 'translateY(0)';
-        resetMenuToHero();
-    } 
-    else if (currentScroll > 100 && currentScroll < triggerPoint) {
-        header.style.transform = 'translateY(-100%)';
-    }
-    else if (currentScroll >= triggerPoint) {
-        transformMenuToScrolled();
-        header.style.transform = 'translateY(0)';
-    }
+      let lastScroll = 0;
+      let ticking = false;
+
+      function updateNav() {
+          const currentScroll = window.scrollY;
+          // Si no encuentra la sección de inicio, asume 800px
+          const heroHeight = heroSection ? heroSection.offsetHeight : 800;
+          const triggerPoint = heroHeight - 150; 
+
+          // Lógica original restaurada
+          if (currentScroll < 100) {
+              // ESTADO 1: Arriba del todo (Hero)
+              header.style.transform = 'translateY(0)';
+              resetMenuToHero();
+          } 
+          else if (currentScroll > 100 && currentScroll < triggerPoint) {
+              // ESTADO 2: Bajando por el Hero (Oculto)
+              header.style.transform = 'translateY(-100%)';
+          }
+          else if (currentScroll >= triggerPoint) {
+              // ESTADO 3: Scrolled (Sticky visible)
+              header.style.transform = 'translateY(0)';
+              transformMenuToScrolled();
+          }
+
+          lastScroll = currentScroll;
+          ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+          if (!ticking) {
+              window.requestAnimationFrame(updateNav);
+              ticking = true;
+          }
+      });
+
+      function resetMenuToHero() {
+          header.classList.remove('bg-theme-card/95', 'backdrop-blur-xl', 'border-white/10', 'shadow-2xl', 'py-2');
+          header.classList.add('py-4', 'bg-black/40', 'backdrop-blur-sm', 'border-transparent');
+
+          if(logoLink) {
+            logoLink.classList.add('left-0', 'origin-left');
+            logoLink.classList.remove('left-1/2', '-translate-x-1/2', 'scale-125', 'origin-center');
+          }
+
+          if(desktopMenu) {
+            desktopMenu.classList.remove('justify-center');
+            desktopMenu.classList.add('justify-end'); 
+          }
+          
+          if(centerSpacer) {
+            centerSpacer.classList.remove('w-48', 'lg:w-64');
+            centerSpacer.classList.add('w-0');
+          }
+
+          navLinks.forEach(link => {
+              link.classList.add('text-white/90');
+              link.classList.remove('text-theme-main');
+          });
+      }
+
+      function transformMenuToScrolled() {
+          header.classList.remove('py-4', 'bg-black/40', 'backdrop-blur-sm', 'border-transparent');
+          header.classList.add('bg-theme-card/95', 'backdrop-blur-xl', 'border-white/10', 'shadow-2xl', 'py-2');
+          
+          if(logoLink) {
+            logoLink.classList.remove('left-0', 'origin-left');
+            logoLink.classList.add('left-1/2', '-translate-x-1/2', 'scale-125', 'origin-center');
+          }
+          
+          if(desktopMenu) {
+            desktopMenu.classList.remove('justify-end');
+            desktopMenu.classList.add('justify-center');
+          }
+          
+          if(centerSpacer) {
+            centerSpacer.classList.remove('w-0');
+            centerSpacer.classList.add('w-48', 'lg:w-64');
+          }
+
+          navLinks.forEach(link => {
+              link.classList.remove('text-white/90');
+              link.classList.add('text-theme-main'); 
+          });
+      }
   });
-
-  function resetMenuToHero() {
-      // ESTADO HERO: Fondo oscuro semitransparente fijo
-      header.classList.remove('bg-theme-card/95', 'backdrop-blur-xl', 'border-white/10', 'shadow-2xl', 'py-2'); // Quitamos estilos de scroll
-      header.classList.add('py-4', 'bg-black/40', 'backdrop-blur-sm', 'border-transparent');
-
-      logoLink.classList.add('left-0', 'origin-left');
-      logoLink.classList.remove('left-1/2', '-translate-x-1/2', 'scale-125', 'origin-center');
-
-      desktopMenu.classList.remove('justify-center');
-      desktopMenu.classList.add('justify-end'); 
-      menuLeft.parentElement.classList.remove('justify-center');
-      
-      centerSpacer.classList.remove('w-48', 'lg:w-64');
-      centerSpacer.classList.add('w-0');
-
-      // TEXTO: Siempre blanco en el Hero (porque el fondo es imagen oscura)
-      navLinks.forEach(link => {
-          link.classList.add('text-white/90');
-          link.classList.remove('text-theme-muted', 'text-theme-main');
-      });
-  }
-
-  function transformMenuToScrolled() {
-      // ESTADO SCROLL: Usamos 'bg-theme-card' (Gris oscuro en dark, Blanco en light)
-      header.classList.remove('py-4', 'bg-black/40', 'backdrop-blur-sm', 'border-transparent');
-      header.classList.add('bg-theme-card/95', 'backdrop-blur-xl', 'border-white/10', 'shadow-2xl', 'py-2');
-      
-      logoLink.classList.remove('left-0', 'origin-left');
-      logoLink.classList.add('left-1/2', '-translate-x-1/2', 'scale-125', 'origin-center');
-      
-      desktopMenu.classList.remove('justify-end');
-      desktopMenu.classList.add('justify-center');
-      
-      centerSpacer.classList.remove('w-0');
-      centerSpacer.classList.add('w-48', 'lg:w-64');
-
-      // TEXTO: Usamos 'text-theme-main' para alto contraste
-      // (Blanco en dark mode, Negro/Azul en light mode)
-      navLinks.forEach(link => {
-          link.classList.remove('text-white/90');
-          link.classList.add('text-theme-main'); 
-      });
-  }
 </script>

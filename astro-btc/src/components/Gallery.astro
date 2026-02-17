@@ -13,7 +13,7 @@ try {
     // Leemos la carpeta en tiempo de compilación
     const files = fs.readdirSync(directoryPath);
     galleryImages = files
-        .filter(file => /\.(jpg|jpeg|png|webp|gif)$/i.test(file))
+        .filter(file => /\.(jpg|jpeg|png|webp|gif|avif)$/i.test(file))
         .map(file => `/${galleryFolder}/${file}`);
 } catch (error) {
     console.error(`⚠️ Error leyendo galería: ${error.message}`);
@@ -82,6 +82,10 @@ const animationDuration = `${Math.max(marqueeImages.length * 5, 40)}s`;
 </section>
 
 <style>
+    /* Añade esta clase a tu CSS de la galería */
+    .paused-animation {
+        animation-play-state: paused !important;
+    }
     /* Definición de la animación infinita */
     @keyframes marquee {
         0% { transform: translate3d(0, 0, 0); }
@@ -99,6 +103,10 @@ const animationDuration = `${Math.max(marqueeImages.length * 5, 40)}s`;
         animation-name: marquee;
         animation-timing-function: linear; /* Movimiento constante sin aceleración */
         animation-iteration-count: infinite;
+
+        /* Forzar renderizado de hardware en Firefox */
+        transform-style: preserve-3d;
+        backface-visibility: hidden;
     }
 
     /* Pausar al pasar el mouse (opcional, pero útil para hacer clic) */
@@ -106,3 +114,24 @@ const animationDuration = `${Math.max(marqueeImages.length * 5, 40)}s`;
         animation-play-state: paused;
     }
 </style>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // Asegúrate de que tu contenedor de galería tenga una clase identificable
+                // o selecciona directamente los elementos animados
+                const galleryTracks = entry.target.querySelectorAll('.animate-marquee-left, .animate-marquee-right'); // O la clase que uses en Galería
+                
+                if (entry.isIntersecting) {
+                    galleryTracks.forEach(el => el.classList.remove('paused-animation'));
+                } else {
+                    galleryTracks.forEach(el => el.classList.add('paused-animation'));
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Asegúrate de que tu sección de galería tenga id="galeria" (o el que uses)
+        const gallerySection = document.getElementById('galeria'); 
+        if (gallerySection) observer.observe(gallerySection);
+    });
+</script>

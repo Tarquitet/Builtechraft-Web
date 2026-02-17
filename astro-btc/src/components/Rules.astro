@@ -1,7 +1,34 @@
 ---
-// src/components/Rules.astro
+// DEFINICIÓN DE LOS GRUPOS (Para las Tarjetas)
+const groups = [
+    {
+        id: "core",
+        title: "Fundamentos del Servidor",
+        desc: "Dogma, Infraestructura y Seguridad (Secciones I - III)",
+        icon: "🛡️",
+        startIndex: 0,
+        endIndex: 3 // Corta antes del 3 (toma 0, 1, 2)
+    },
+    {
+        id: "ops",
+        title: "Operativa & Mantenimiento",
+        desc: "Actualizaciones, Estética y Contingencias (Secciones IV - VI)",
+        icon: "⚙️",
+        startIndex: 3,
+        endIndex: 6
+    },
+    {
+        id: "civil",
+        title: "Código Civil & Ética",
+        desc: "Propiedad, AFK, Staff y Cuentas (Secciones VII - XI)",
+        icon: "⚖️",
+        startIndex: 6,
+        endIndex: 11
+    }
+];
 
-const sections = [
+// TUS DATOS ORIGINALES (No tocamos nada del contenido)
+const allSections = [
     {
         id: "I",
         title: "Dogma y Convivencia (El Kernel Moral)",
@@ -52,34 +79,6 @@ const sections = [
         icon: "💾",
         rules: [
             {
-                num: "2.1",
-                text: "Estado del Servidor Físico (Host)",
-                sub: "El servidor no vive en una granja de servidores en la nube. Vive en una laptop personal que ha servido con honor desde el año 2020.",
-                details: [
-                    "2.1.a: Fatiga de Materiales (Disco Duro): El almacenamiento ha sufrido años de escritura continua 24/7. Si escuchas 'lag' o ruidos extraños, es la máquina pidiendo clemencia. Se exige respeto y paciencia por las limitaciones técnicas del hardware.",
-                    "2.1.b: Limitaciones Domésticas (ISP/Energía): Al ser un host residencial, estamos sujetos a fallos de luz, cortes de internet o mantenimiento del hogar que escapan al control del Staff. No somos una corporación con generadores de respaldo.",
-                    "2.1.c: Sobrecarga Térmica: En días calurosos, el rendimiento puede disminuir para evitar daños permanentes al procesador."
-                ]
-            },
-            {
-                num: "2.2",
-                text: "Ciclos Circadianos (Horarios de Operación)",
-                sub: "Para preservar la vida útil del equipo y la salud del Host (Tarquitet), existen ventanas estrictas de apagado.",
-                details: [
-                    "2.2.a: Ventana de Sueño (Apagado): El servidor se apaga automáticamente a la 01:00 AM (Hora Colombia) para descanso térmico y humano.",
-                    "2.2.b: Protocolo de Inicio (Encendido): Los sistemas se reactivan automáticamente antes de las 10:00 AM (Hora Colombia). Si se enciende antes, es un regalo.",
-                    "2.2.c: Intervención Remota (Panel de Control): El Staff posee acceso a un panel de gestión externo. Si la laptop física está encendida fuera de horario, pueden activar el servidor remotamente para mantenimiento, actualizaciones o emergencias.",
-                    "2.2.d: Olvido Humano: Ocasionalmente, el servidor puede no encenderse a la hora exacta por olvido o sueño del Host. No spamear al Staff exigiendo acceso."
-                ]
-            }
-        ]
-    },
-    {
-        id: "III",
-        title: "Infraestructura Física (El Legacy 2020)",
-        icon: "💾",
-        rules: [
-            {
                 num: "3.1",
                 text: "Estado del Servidor Físico (Host)",
                 sub: "El servidor no vive en la nube, vive en una laptop de 2020 que ha operado 24/7 con honor.",
@@ -101,7 +100,7 @@ const sections = [
         ]
     },
     {
-        id: "IV",
+        id: "III",
         title: "Protocolos de Seguridad y Accesos",
         icon: "🔐",
         rules: [
@@ -127,7 +126,7 @@ const sections = [
         ]
     },
     {
-        id: "V",
+        id: "IV",
         title: "Mantenimiento y Factor Humano",
         icon: "⚠️",
         rules: [
@@ -152,7 +151,7 @@ const sections = [
         ]
     },
     {
-        id: "VI",
+        id: "V",
         title: "Criterio Estético y la Paradoja del Pixel",
         icon: "🎨",
         rules: [
@@ -188,7 +187,7 @@ const sections = [
         ]
     },
     {
-        id: "VII",
+        id: "VI",
         title: "Factor Humano y Contingencias Operativas",
         icon: "⚠️",
         rules: [
@@ -231,95 +230,307 @@ const sections = [
                 ]
             }
         ]
+    },
+    {
+        id: "VII",
+        title: "Jus Soli (Propiedad y Territorio)",
+        icon: "🛡️",
+        rules: [
+            {
+                num: "7.1",
+                text: "Auditoría Forense (CoreProtect)",
+                sub: "Cada bloque tiene firma digital. El crimen perfecto no existe.",
+                details: [
+                    "7.1.a: Griefing: La destrucción o alteración de estructuras ajenas es Ban Permanente. No hay advertencias.",
+                    "7.1.b: Hurto: Tomar ítems de contenedores ajenos (estén protegidos o no) es un delito de integridad."
+                ]
+            },
+            {
+                num: "7.2",
+                text: "Ley de Bromas (Pranks) y Restauración",
+                sub: "La comedia termina donde empieza el trabajo ajeno.",
+                details: [
+                    "7.2.a: Consentimiento Tácito: Solo haz bromas a jugadores con los que tengas confianza. Si no sabes cómo reaccionará, no lo hagas.",
+                    "7.2.b: Cláusula de Restauración: El bromista (Prankster) está OBLIGADO a limpiar y restaurar todo a su estado original si la víctima lo solicita. Dejar el desorden para que lo limpie otro es vandalismo.",
+                    "7.2.c: Prohibido Fuego/TNT/Lava: Bromas que puedan destruir ítems permanentemente o quemar estructuras de madera están terminantemente prohibidas."
+                ]
+            },
+            {
+                num: "7.3",
+                text: "Urbanismo del Nether",
+                sub: "La red de transporte requiere precisión y respeto.",
+                details: [
+                    "7.3.a: Colisión de Portales: Si tu portal interfiere con una base ajena y no está señalizado, el afectado puede destruirlo.",
+                    "7.3.b: Señalización: Portal sin cartel de coordenadas = Portal abandonado."
+                ]
+            }
+        ]
+    },
+    {
+        id: "VIII",
+        title: "Ética de la Ausencia (Protocolo AFK)",
+        icon: "💤",
+        rules: [
+            {
+                num: "9.1",
+                text: "AFK Responsable",
+                sub: "El servidor no es un hotel. Si no estás produciendo, no consumas RAM.",
+                details: [
+                    "9.1.a: Propósito Productivo: Solo se permite quedarse AFK si estás operando una granja automática o esperando un proceso técnico. Quedarse AFK en el Spawn solo 'para sumar horas' está prohibido.",
+                    "9.1.b: Límite de Inactividad: El sistema expulsará automáticamente a los usuarios inactivos tras 20 minutos si el servidor detecta carga alta (TPS bajo)."
+                ]
+            },
+            {
+                num: "9.2",
+                text: "Desconexión de Seguridad",
+                sub: "Protege tu inventario y el rendimiento global.",
+                details: [
+                    "9.2.a: Si vas a salir a comer o dormir, desconéctate. No dejes tu personaje cargando chunks innecesarios que calientan la CPU del Host.",
+                    "9.2.b: Muerte por AFK: Si mueres de hambre o por un mob mientras estás AFK fuera de una zona segura, el Staff no devolverá tus ítems. La seguridad de tu personaje es tu responsabilidad activa."
+                ]
+            }
+        ]
+    },
+    {
+        id: "IX",
+        title: "Protocolo Administrativo (Relación Staff-Usuario)",
+        icon: "🛡️",
+        rules: [
+            {
+                num: "10.1",
+                text: "Principio de Voluntariado",
+                sub: "El Staff no son empleados pagados, son voluntarios que donan su tiempo libre.",
+                details: [
+                    "10.1.a: Tiempos de Respuesta: No exijas atención inmediata. Un ticket puede tardar horas en responderse si el Staff está trabajando, estudiando o durmiendo.",
+                    "10.1.b: Prohibido el 'Ping' Masivo: Etiquetar repetidamente al Staff o al Host en Discord sin una emergencia real (servidor caído o griefing activo) es motivo de sanción."
+                ]
+            },
+            {
+                num: "10.2",
+                text: "Falibilidad y Respeto Mutuo",
+                sub: "El Staff puede equivocarse. El usuario puede equivocarse. Lo resolvemos hablando.",
+                details: [
+                    "10.2.a: Errores Administrativos: Si un Admin comete un error (te banea por error o borra algo sin querer), repórtalo con respeto. Se investigará y se compensará si corresponde.",
+                    "10.2.b: Cero Abuso: Insultar, menospreciar o tratar con altivez a un miembro del Staff por una decisión técnica resultará en la revocación del acceso."
+                ]
+            }
+        ]
+    },
+    {
+        id: "X",
+        title: "Responsabilidad de Credenciales",
+        icon: "🔐",
+        rules: [
+            {
+                num: "11.1",
+                text: "La Ley del 'Hermano Pequeño'",
+                sub: "Tu cuenta es tu identidad digital y eres responsable de todo lo que se haga con ella.",
+                details: [
+                    "11.1.a: Intransferibilidad: Si 'tu hermano', 'tu primo' o 'un hacker' entra con tu cuenta y rompe las reglas, la sanción se mantiene en la CUENTA, no en la persona.",
+                    "11.1.b: Seguridad: Es tu deber proteger tu contraseña (si usas Auth) o tu cuenta de Minecraft/Discord. El Staff no retirará baneos por descuidos de seguridad personal."
+                ]
+            }
+        ]
+    },
+    {
+        id: "XI",
+        title: "Cláusula de Vacío Legal (Sentido Común)",
+        icon: "🧠",
+        rules: [
+            {
+                num: "12.1",
+                text: "El Espíritu de la Ley",
+                sub: "No juegues a ser abogado con las reglas.",
+                details: [
+                    "12.1.a: Cobertura Universal: El hecho de que algo no esté específicamente prohibido en esta lista no significa que esté permitido. Si algo parece incorrecto, injusto o daña el servidor, probablemente lo sea.",
+                    "12.1.b: Decisión Final: En situaciones no contempladas por este texto, el Staff aplicará el sentido común y su decisión será inapelable. Intentar buscar 'agujeros' en la normativa para molestar será sancionado."
+                ]
+            }
+        ]
     }
 ];
 ---
 
-<section class="py-24 bg-theme-section relative overflow-hidden section-optimize">
-    
-    <div class="absolute inset-0 bg-[url('/images/grid-pattern.png')] opacity-[0.03] mix-blend-overlay pointer-events-none"></div>
+<section id="reglas" class="py-24 bg-theme-panel relative min-h-screen">
 
     <div class="container mx-auto px-6 relative z-10">
+        
         <div class="text-center mb-16">
-            <h2 id="reglas" class="text-4xl md:text-5xl font-display font-bold text-theme-main uppercase tracking-tight">
-                Constitución <span class="text-theme-accent">Builtechraft</span>
+            <h2 class="text-4xl md:text-5xl font-display font-bold text-theme-text uppercase tracking-tight">
+                Normas de <span class="text-theme-accent">Builtechraft</span>
             </h2>
-            <p class="text-theme-main opacity-70 text-lg max-w-2xl mx-auto mt-4 italic">
-                La constitución que rige nuestro mundo virtual. Conoce las reglas sagradas que mantienen el orden y la armonía en Builtechraft. Al unirte, aceptas cumplir con estos principios inquebrantables.
+            <p class="text-zinc-100 text-lg max-w-2xl mx-auto mt-4 italic">
+                Hemos sufrido, llorado y pasado por mucho. Por ello, se ha creado una serie de reglas que reflejan nuestra filosofía, valores y experiencia operando este servidor desde 2020. No lo tomen a la ligera, es lo que mantiene la inspiración a flote (y fue tardado en escribir).
             </p>
         </div>
 
-        <div class="max-w-5xl mx-auto flex flex-col gap-4">
-            {sections.map((section) => (
-                
-                // CAMBIO 1: Quitamos 'glass-gpu' y usamos un color sólido oscuro (bg-[#0f0f11]).
-                // Esto elimina el cálculo de blur en tiempo real.
-                <div class="main-accordion group bg-[#0f0f11] border border-white/10 rounded-2xl overflow-hidden transition-colors duration-300 hover:border-btc-orange/30 shadow-lg">
-                    
-                    <button class="main-trigger w-full p-6 flex items-center justify-between text-left hover:bg-white/3 transition-colors">
-                        <div class="flex items-center gap-5">
-                            <span class="text-3xl bg-[#18181b] p-3 rounded-xl border border-white/5 group-hover:text-btc-orange transition-colors">
-                                {section.icon}
-                            </span>
-                            <div>
-                                <span class="text-zinc-500 font-display font-bold text-[10px] tracking-[0.2em] uppercase block mb-1">Sección {section.id}</span>
-                                <h3 class="text-xl md:text-2xl font-display font-bold text-zinc-100 uppercase">{section.title}</h3>
-                            </div>
-                        </div>
+        <div class="relative min-h-125">
+            
+            <div id="rules-cards-view" class="grid grid-cols-1 md:grid-cols-3 gap-6 transition-all duration-500 ease-in-out">
+                {groups.map((group) => (
+                    <button 
+                        class="group-card group text-left p-8 bg-zinc-900/50 hover:bg-zinc-900 border border-white/5 hover:border-btc-orange/50 rounded-2xl transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-btc-orange/10 flex flex-col gap-6 relative overflow-hidden"
+                        data-group-id={group.id}
+                    >
+                        <div class="absolute inset-0 bg-linear-to-br from-btc-orange/0 to-btc-orange/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         
-                        <div class="accordion-icon text-zinc-500 transition-transform duration-300">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        <div class="relative z-10">
+                            <span class="text-5xl mb-4 block group-hover:scale-110 transition-transform duration-300 origin-left">
+                                {group.icon}
+                            </span>
+                            <h3 class="text-2xl font-bold text-white group-hover:text-btc-orange transition-colors mb-2 uppercase tracking-wide">
+                                {group.title}
+                            </h3>
+                            <p class="text-zinc-200 text-sm leading-relaxed mb-6">
+                                {group.desc}
+                            </p>
+                            
+                            <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-btc-orange border border-btc-orange/30 px-3 py-1.5 rounded bg-btc-orange/10">
+                                <span>Ver Secciones</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            </div>
                         </div>
                     </button>
+                ))}
+            </div>
 
-                    <div class="main-content grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out">
-                        <div class="overflow-hidden">
-                            <div class="p-6 pt-0 flex flex-col gap-3 border-t border-white/5 bg-[#0a0a0a]">
+            <div id="rules-list-view" class="hidden opacity-0 translate-y-8 transition-all duration-500">
+                
+                <button id="back-to-cards" class="mb-8 flex items-center gap-3 px-6 py-3 bg-zinc-900 border border-white/10 rounded-xl text-zinc-400 hover:text-white hover:border-btc-orange hover:bg-zinc-800 transition-all group shadow-lg">
+                    <svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    <span class="font-bold uppercase tracking-wider text-sm">Regresar al Menú</span>
+                </button>
+
+                {groups.map((group) => (
+                    // Creamos un contenedor oculto para cada grupo
+                    <div id={`group-${group.id}`} class="group-content hidden space-y-4">
+                        
+                        {/* Renderizamos SOLO las secciones que pertenecen a este grupo usando slice */}
+                        {allSections.slice(group.startIndex, group.endIndex).map((section) => (
+                            
+                            // ESTE ES EL ACORDEÓN ORIGINAL QUE FUNCIONABA BIEN
+                            <div class="main-accordion group bg-[#0f0f11] border border-white/10 rounded-2xl overflow-hidden transition-colors duration-300 hover:border-btc-orange/30 shadow-lg">
                                 
-                                {section.rules.map((rule) => (
-                                    
-                                    // CAMBIO 2: Sub-tarjeta también sólida, sin blur.
-                                    <div class="sub-accordion bg-[#131315] rounded-xl border border-white/5">
-                                        <button class="sub-trigger w-full p-4 flex items-start md:items-center gap-4 text-left hover:bg-white/2 transition-colors">
-                                            <span class="text-btc-yellow font-mono text-xs font-bold shrink-0 mt-1 md:mt-0 bg-yellow-500/10 px-2 py-1 rounded border border-yellow-500/20">
-                                                {rule.num}
-                                            </span>
-                                            <span class="text-zinc-200 text-sm font-bold flex-1 leading-snug">{rule.text}</span>
-                                            <svg class="w-4 h-4 text-zinc-600 arrow-sub transition-transform shrink-0 mt-1 md:mt-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2"></path></svg>
-                                        </button>
-
-                                        <div class="sub-content grid grid-rows-[0fr] transition-[grid-template-rows] duration-300">
-                                            <div class="overflow-hidden">
-                                                <div class="p-4 pt-0 text-sm leading-relaxed">
-                                                    <p class="mb-4 text-zinc-400 pl-2 border-l-2 border-zinc-700">{rule.sub}</p>
-                                                    
-                                                    {rule.details && (
-                                                        <div class="flex flex-col gap-2 mt-2 bg-black/20 p-4 rounded-lg border border-white/5 font-mono text-xs">
-                                                            {rule.details.map((detail) => (
-                                                                <div class="flex gap-3 text-zinc-500">
-                                                                    <span class="text-btc-orange/70 font-bold shrink-0 select-none">»</span>
-                                                                    <span class="text-zinc-400">{detail}</span>
-                                                                </div>
-                                                            ))}
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </div>
+                                <button class="main-trigger w-full p-6 flex items-center justify-between text-left hover:bg-white/5 transition-colors">
+                                    <div class="flex items-center gap-5">
+                                        <span class="text-3xl bg-[#18181b] p-3 rounded-xl border border-white/5 group-hover:text-btc-orange transition-colors">
+                                            {section.icon}
+                                        </span>
+                                        <div>
+                                            <span class="text-zinc-500 font-display font-bold text-[10px] tracking-[0.2em] uppercase block mb-1">Sección {section.id}</span>
+                                            <h3 class="text-xl md:text-2xl font-display font-bold text-zinc-100 uppercase">{section.title}</h3>
                                         </div>
                                     </div>
-                                ))}
+                                    
+                                    <div class="accordion-icon text-zinc-500 transition-transform duration-300">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    </div>
+                                </button>
 
+                                <div class="main-content grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out">
+                                    <div class="overflow-hidden">
+                                        <div class="p-6 pt-0 flex flex-col gap-3 border-t border-white/5 bg-[#0a0a0a]">
+                                            {section.rules.map((rule) => (
+                                                <div class="sub-accordion bg-[#131315] rounded-xl border border-white/5">
+                                                    <button class="sub-trigger w-full p-4 flex items-start md:items-center gap-4 text-left hover:bg-white/5 transition-colors">
+                                                        <span class="text-btc-yellow font-mono text-xs font-bold shrink-0 mt-1 md:mt-0 bg-yellow-500/10 px-2 py-1 rounded border border-yellow-500/20">
+                                                            {rule.num}
+                                                        </span>
+                                                        <span class="text-zinc-200 text-sm font-bold flex-1 leading-snug">{rule.text}</span>
+                                                        <svg class="w-4 h-4 text-zinc-600 arrow-sub transition-transform shrink-0 mt-1 md:mt-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2"></path></svg>
+                                                    </button>
+
+                                                    <div class="sub-content grid grid-rows-[0fr] transition-[grid-template-rows] duration-300">
+                                                        <div class="overflow-hidden">
+                                                            <div class="p-4 pt-0 text-sm leading-relaxed">
+                                                                <p class="mb-4 text-zinc-300 pl-2 border-l-2 border-zinc-700">{rule.sub}</p>
+                                                                {rule.details && (
+                                                                    <div class="flex flex-col gap-2 mt-2 bg-black/20 p-4 rounded-lg border border-white/5 font-mono text-xs">
+                                                                        {rule.details.map((detail) => (
+                                                                            <div class="flex gap-3 text-zinc-500">
+                                                                                <span class="text-btc-yellow font-bold shrink-0 select-none">»</span>
+                                                                                <span class="text-zinc-200">{detail}</span>
+                                                                            </div>
+                                                                        ))}
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+
+                        ))}
                     </div>
-                </div>
-            ))}
+                ))}
+
+            </div>
         </div>
     </div>
 </section>
 
 <script is:inline>
-    // Lógica Grid (Ligera)
+    // 1. LÓGICA DE NAVEGACIÓN (TARJETAS <-> LISTA)
+    const cardsView = document.getElementById('rules-cards-view');
+    const listView = document.getElementById('rules-list-view');
+    const backBtn = document.getElementById('back-to-cards');
+    const groupContents = document.querySelectorAll('.group-content');
+    const groupCards = document.querySelectorAll('.group-card');
+
+    // ABRIR GRUPO
+    groupCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const groupId = card.getAttribute('data-group-id');
+            
+            // Ocultar Tarjetas
+            cardsView.classList.add('opacity-0', '-translate-x-10');
+            
+            setTimeout(() => {
+                cardsView.classList.add('hidden');
+                
+                // Mostrar Solo el Grupo Seleccionado
+                groupContents.forEach(content => content.classList.add('hidden'));
+                document.getElementById(`group-${groupId}`).classList.remove('hidden');
+                
+                // Mostrar Contenedor de Lista
+                listView.classList.remove('hidden');
+                
+                // Pequeño delay para la animación de entrada
+                requestAnimationFrame(() => {
+                    listView.classList.remove('opacity-0', 'translate-y-8');
+                });
+
+                // Scroll suave al inicio
+                document.getElementById('reglas').scrollIntoView({ behavior: 'smooth' });
+
+            }, 300);
+        });
+    });
+
+    // VOLVER AL MENÚ
+    backBtn.addEventListener('click', () => {
+        listView.classList.add('opacity-0', 'translate-y-8');
+        
+        setTimeout(() => {
+            listView.classList.add('hidden');
+            
+            // Cerrar todos los acordeones para que al volver esté limpio (Opcional)
+            document.querySelectorAll('.main-content, .sub-content').forEach(el => el.style.gridTemplateRows = '0fr');
+            document.querySelectorAll('.accordion-icon, .arrow-sub').forEach(el => el.style.transform = 'rotate(0deg)');
+
+            cardsView.classList.remove('hidden');
+            requestAnimationFrame(() => {
+                cardsView.classList.remove('opacity-0', '-translate-x-10');
+            });
+        }, 300);
+    });
+
+
+    // 2. LÓGICA DE ACORDEONES (EXACTAMENTE LA ORIGINAL)
     document.querySelectorAll('.main-trigger').forEach(trigger => {
         trigger.addEventListener('click', () => {
             const parent = trigger.parentElement;
@@ -327,10 +538,12 @@ const sections = [
             const icon = trigger.querySelector('.accordion-icon');
             const isOpen = content.style.gridTemplateRows === '1fr';
 
-            // Cierra otros principales para ahorrar memoria
+            // Auto-collapse (Opcional: Cierra otros al abrir uno nuevo)
             if (!isOpen) {
-                document.querySelectorAll('.main-content').forEach(c => c.style.gridTemplateRows = '0fr');
-                document.querySelectorAll('.accordion-icon').forEach(i => i.style.transform = 'rotate(0deg)');
+                // Si quieres que se cierren los demás del mismo grupo:
+                const groupParent = parent.parentElement; // El div .group-content
+                groupParent.querySelectorAll('.main-content').forEach(c => c.style.gridTemplateRows = '0fr');
+                groupParent.querySelectorAll('.accordion-icon').forEach(i => i.style.transform = 'rotate(0deg)');
             }
 
             content.style.gridTemplateRows = isOpen ? '0fr' : '1fr';
@@ -351,15 +564,3 @@ const sections = [
         });
     });
 </script>
-
-<style>
-    /* Renderizado GPU Básico sin Filtros Pesados */
-    .main-accordion, .sub-accordion {
-        /* will-change le dice al navegador: "Prepara la memoria, voy a cambiar filas" */
-        will-change: grid-template-rows;
-        /* create new stacking context */
-        transform: translateZ(0);
-        /* Evita repintados fuera del área */
-        contain: paint; 
-    }
-</style>

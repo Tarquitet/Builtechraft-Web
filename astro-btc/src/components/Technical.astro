@@ -292,6 +292,9 @@ const doubleRoadmap = [...rawRoadmap, ...rawRoadmap, ...rawRoadmap];
         width: max-content;
         animation: marquee-left 60s linear infinite;
         transform: translateZ(0);
+        /* Forzar renderizado de hardware en Firefox */
+        transform-style: preserve-3d;
+        backface-visibility: hidden;
     }
 
     .animate-marquee-right {
@@ -299,6 +302,9 @@ const doubleRoadmap = [...rawRoadmap, ...rawRoadmap, ...rawRoadmap];
         width: max-content;
         animation: marquee-right 60s linear infinite;
         transform: translateZ(0);
+        /* Forzar renderizado de hardware en Firefox */
+        transform-style: preserve-3d;
+        backface-visibility: hidden;
     }
     
     .animate-fade-in {
@@ -310,7 +316,44 @@ const doubleRoadmap = [...rawRoadmap, ...rawRoadmap, ...rawRoadmap];
     }
 
     .marquee-container {
-        mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
-        overflow: hidden; 
+        width: 100%;
+        overflow: hidden;
+        /* ARREGLO VISUAL: Altura mínima para que Lenis no la colapse */
+        min-height: 120px; 
+        
+        /* OPTIMIZACIÓN SEGURA: */
+        contain: layout style;
+        will-change: transform; 
+        
+        /* Máscara de desvanecido */
+        -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    }
+
+    /* Clase utilitaria para pausar */
+    .paused-animation {
+        animation-play-state: paused !important;
     }
 </style>
+<script>
+    // OPTIMIZADOR DE RECURSOS (Observer)
+    document.addEventListener('DOMContentLoaded', () => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // Buscamos las cintas dentro de la sección
+                const animations = entry.target.querySelectorAll('.animate-marquee-left, .animate-marquee-right');
+                
+                if (entry.isIntersecting) {
+                    // Si se ve, ¡CORRE!
+                    animations.forEach(el => el.classList.remove('paused-animation'));
+                } else {
+                    // Si no se ve, ¡PAUSA! (Ahorra GPU)
+                    animations.forEach(el => el.classList.add('paused-animation'));
+                }
+            });
+        }, { threshold: 0.1 }); // Margen del 10% para activar
+
+        const technicalSection = document.getElementById('tecnico');
+        if (technicalSection) observer.observe(technicalSection);
+    });
+</script>

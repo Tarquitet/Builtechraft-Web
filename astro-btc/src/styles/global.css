@@ -36,6 +36,7 @@
   --grad-mod-2: #454545; /* Gris Industrial Oscuro */
   --grad-mod-3: #b0ffc0; /* Verde Bosque Técnico */
   --grad-mod-text: #ffffff; /* Texto Blanco para contraste */
+  --text-modrinth: #16a34a;
 
   /* Colores de texto para este gradiente */
   --grad-text: #ffffff;
@@ -75,6 +76,7 @@
   --grad-mod-2: #fff5f5; /* Gris Técnico Medio */
   --grad-mod-3: #b0ffc0; /* Verde Puro */
   --grad-mod-text: #0c0c0e; /* Texto Negro para contraste */
+  --text-modrinth: #11e960;
 
   /* Texto para este gradiente (Negro para contraste) */
   --grad-text: #0f172a;
@@ -137,7 +139,7 @@ body {
 /* CLASE MAESTRA PARA BLOQUEAR EL FONDO DEL TEMA */
 .bg-modpack-gradient {
   /* Usamos !important para asegurar que pise cualquier bg-theme-app del body */
-  background: linear-gradient(92deg, var(--grad-mod-1) 0%, var(--grad-mod-2) 100%, var(--grad-mod-3) 50%) !important;
+  background: linear-gradient(272deg, var(--grad-mod-1) 0%, var(--grad-mod-2) 100%, var(--grad-mod-3) 50%) !important;
 }
 /* Esta clase la puedes usar en Discord, en el Hero, o donde quieras */
 .bg-docs-gradient {
@@ -146,7 +148,7 @@ body {
 }
 /* Esta clase la puedes usar en Discord, en el Hero, o donde quieras */
 .bg-creative-gradient {
-  background: linear-gradient(92deg, var(--grad-1) 0%, var(--grad-2) 100%, var(--grad-3) 50%);
+  background: linear-gradient(272deg, var(--grad-1) 0%, var(--grad-2) 100%, var(--grad-3) 50%);
 }
 /*OPTIMIZACION PARA BLUR DANDO PRIORIDAD EN GPU*/
 .glass-gpu {
@@ -170,4 +172,25 @@ body {
   /* Le damos una altura estimada al navegador para que 
      sepa cuánto espacio reservar antes de renderizar */
   contain-intrinsic-size: 1px 500px;
+}
+/* Para Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #898989 #121214; /* [Color del tirador] [Color del fondo] */
+}
+
+/* Para Chrome/Edge (lo que ya tendrías) */
+*::-webkit-scrollbar {
+  width: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: #121214;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #898989;
+  border-radius: 20px;
+}
+.pixel-fix {
+  image-rendering: -webkit-optimize-contrast; /* Chrome */
+  image-rendering: crisp-edges; /* Firefox */
 }
