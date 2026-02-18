@@ -7,7 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "deploy": "astro build && npx wrangler pages deploy dist --project-name=builtechraftwebv2 --branch=v2-astro"
+    "deploy": "astro build"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
