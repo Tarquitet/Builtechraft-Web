@@ -1,32 +1,28 @@
 import React, { useState, useEffect } from 'react';
-// Asegúrate de crear este archivo src/config.js con tus IPs como acordamos
-import { SERVER_INFO } from '../config';
+import { SERVER_INFO } from '../config-ip';
 
 export default function ServerStatus() {
   const [data, setData] = useState({ online: false, players: 0, platform: null });
   const [loading, setLoading] = useState(true);
 
-  // Desestructuramos las variables de configuración
   const { javaIP, bedrockIP, bedrockPort } = SERVER_INFO;
 
   useEffect(() => {
     const fetchStatus = async () => {
       try {
-        // Ejecutamos ambas peticiones simultáneamente para máxima velocidad
+        const timestamp = Date.now(); // Truco anti-caché
+
         const [javaRes, bedrockRes] = await Promise.all([
-          fetch(`https://api.mcstatus.io/v2/status/java/${javaIP}`).then((res) => res.json()),
-          fetch(`https://api.mcstatus.io/v2/status/bedrock/${bedrockIP}:${bedrockPort}`).then((res) => res.json()),
+          fetch(`https://api.mcstatus.io/v2/status/java/${javaIP}?t=${timestamp}`).then((res) => res.json()),
+          fetch(`https://api.mcstatus.io/v2/status/bedrock/${bedrockIP}:${bedrockPort}?t=${timestamp}`).then((res) =>
+            res.json(),
+          ),
         ]);
 
-        // LÓGICA DE ESTADO (OR):
-        // El servidor se considera ONLINE si responde Java O responde Bedrock.
         const isJavaOnline = javaRes.online;
         const isBedrockOnline = bedrockRes.online;
         const isOnline = isJavaOnline || isBedrockOnline;
 
-        // LÓGICA DE JUGADORES:
-        // Prioridad: Java (porque Geyser suele mostrar a todos los jugadores en la query de Java).
-        // Fallback: Bedrock (si la query de Java falla pero la de Bedrock funciona).
         let playerCount = 0;
         if (isJavaOnline) {
           playerCount = javaRes.players?.online || 0;
@@ -37,38 +33,57 @@ export default function ServerStatus() {
         setData({
           online: isOnline,
           players: playerCount,
-          // Guardamos info extra por si quisieras debuggear
           platform: isJavaOnline && isBedrockOnline ? 'BOTH' : isJavaOnline ? 'JAVA' : 'BEDROCK',
         });
-
         setLoading(false);
 
-        // EFECTO VISUAL EN EL HTML (Opcional, para temas globales)
+        // --- LÓGICA DE TEMA Y TÍTULO ---
+        // Actualizar UI Global y Título
         const html = document.documentElement;
+        const siteName = 'Builtechraft SMP';
+
+        // NUEVO: Verificamos la variable en memoria (Si no se ha tocado el botón, será undefined/false)
+        const isManualOverride = window.isManualThemeOverride === true;
+
         if (isOnline) {
-          if (!html.classList.contains('light')) {
+          // Solo cambia a modo claro si el usuario NO ha tomado el control manual
+          if (!isManualOverride && !html.classList.contains('light')) {
             html.classList.add('light');
           }
+          document.title = `ON | ${siteName}`;
         } else {
-          html.classList.remove('light');
+          // Solo quita el modo claro si el usuario NO ha tomado el control manual
+          if (!isManualOverride) {
+            html.classList.remove('light');
+          }
+          document.title = `OFF | ${siteName}`;
         }
       } catch (e) {
-        console.error('Error conectando a API:', e);
-        // En caso de error de red, asumimos offline pero mantenemos la UI estable
+        console.error('API Error:', e);
         setLoading(false);
-        document.documentElement.classList.remove('light');
+
+        // También respetamos el override aquí por si hay un error en la API
+        const isManualOverride = sessionStorage.getItem('manual-theme-override') === 'true';
+        if (!isManualOverride) {
+          document.documentElement.classList.remove('light');
+        }
+        document.title = `OFF | Builtechraft SMP`;
       }
     };
 
-    // Ejecutar inmediatamente
     fetchStatus();
+    const interval = setInterval(fetchStatus, 20000);
 
-    // Actualizar cada 60 segundos
-    const interval = setInterval(fetchStatus, 60000);
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') fetchStatus();
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
-    // Limpieza al desmontar
-    return () => clearInterval(interval);
-  }, []); // Array vacío = Solo al montar el componente
+    return () => {
+      clearInterval(interval);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
 
   const scrollToIPs = () => {
     document.getElementById('ips')?.scrollIntoView({ behavior: 'smooth' });
@@ -76,17 +91,15 @@ export default function ServerStatus() {
 
   return (
     <div className="flex flex-col items-center gap-6 mt-4 w-full max-w-2xl mx-auto z-20 relative animate-fade-in-up">
-      {/* TARJETA PRINCIPAL: Fondo oscuro traslúcido */}
+      {/* TARJETA PRINCIPAL */}
       <div className="flex flex-col md:flex-row items-center gap-5 bg-black/60 backdrop-blur-sm border border-white/10 rounded-2xl p-2 pr-6 shadow-2xl transition-all duration-500 hover:border-btc-orange/30 group">
         {/* INDICADOR DE ESTADO */}
         <div className="flex items-center gap-3 bg-[#0c0c0e] border border-white/5 rounded-xl px-5 py-3 min-w-35 justify-center shadow-inner">
           <div className="relative flex items-center justify-center">
-            {/* Punto de estado */}
+            {/* Punto Verde/Rojo según estado */}
             <div
               className={`w-3 h-3 rounded-full ${data.online ? 'bg-green-500 shadow-[0_0_10px_#22c55e]' : 'bg-red-500 shadow-[0_0_10px_#ef4444]'} relative z-10 transition-all duration-500`}
             ></div>
-
-            {/* Onda de radar (Ping) solo si está online */}
             {data.online && <div className="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-75"></div>}
           </div>
 
@@ -117,32 +130,23 @@ export default function ServerStatus() {
           </div>
         </div>
 
-        {/* SEPARADOR VERTICAL (Solo Desktop) */}
+        {/* SEPARADOR */}
         <div className="hidden md:block w-px h-8 bg-white/10 mx-2"></div>
 
         {/* BOTÓN DE ACCIÓN */}
         <button
           onClick={scrollToIPs}
-          disabled={!data.online && !loading} // Opcional: Desactivar si está offline
-          className={`w-full md:w-auto font-bold px-6 py-3 rounded-xl transition-all duration-300 uppercase text-xs tracking-widest cursor-pointer flex items-center justify-center gap-2 group/btn
-            ${
-              data.online || loading
-                ? 'bg-btc-orange text-white hover:bg-white hover:text-btc-orange shadow-lg shadow-btc-orange/10'
-                : 'bg-zinc-800 text-zinc-500 cursor-not-allowed border border-white/5'
-            }
-          `}
+          className="w-full md:w-auto font-bold px-6 py-3 rounded-xl transition-all duration-300 uppercase text-xs tracking-widest cursor-pointer flex items-center justify-center gap-2 group/btn bg-btc-orange text-white hover:bg-white hover:text-btc-orange shadow-lg shadow-btc-orange/10"
         >
-          <span>{data.online || loading ? 'Conectarse' : 'Servidor Off'}</span>
-          {(data.online || loading) && (
-            <svg
-              className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-            </svg>
-          )}
+          <span>Conectarse</span>
+          <svg
+            className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+          </svg>
         </button>
       </div>
     </div>

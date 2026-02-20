@@ -3,135 +3,200 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-// --- LÓGICA DEL SERVIDOR (AUTOMÁTICA) ---
 const galleryFolder = 'images/gallery'; 
 const directoryPath = path.join(process.cwd(), 'public', galleryFolder);
 
 let galleryImages = [];
 
 try {
-    // Leemos la carpeta en tiempo de compilación
     const files = fs.readdirSync(directoryPath);
     galleryImages = files
         .filter(file => /\.(jpg|jpeg|png|webp|gif|avif)$/i.test(file))
         .map(file => `/${galleryFolder}/${file}`);
 } catch (error) {
     console.error(`⚠️ Error leyendo galería: ${error.message}`);
-    galleryImages = [];
 }
 
-// Placeholder por si acaso
 if (galleryImages.length === 0) {
     galleryImages = ['https://via.placeholder.com/800x450?text=Sin+Imagenes']; 
 }
 
-// DUPLICACIÓN PARA MARQUEE INFINITO
-// Si hay pocas imágenes, las duplicamos varias veces para llenar la pantalla
-// Si hay muchas, con duplicar una vez basta para el loop
-const marqueeImages = galleryImages.length < 6 
-    ? [...galleryImages, ...galleryImages, ...galleryImages, ...galleryImages] 
-    : [...galleryImages, ...galleryImages];
+const track1Images = galleryImages.filter((_, i) => i % 2 === 0);
+const track2Images = galleryImages.filter((_, i) => i % 2 !== 0);
 
-// Ajuste de duración: Más imágenes = Más tiempo para que no vaya muy rápido
-const animationDuration = `${Math.max(marqueeImages.length * 5, 40)}s`;
+const fillTrack = (imgs) => {
+    if (imgs.length === 0) return [];
+    let result = [...imgs];
+    while (result.length < 6) result = [...result, ...imgs];
+    return result;
+};
+
+const finalTrack1 = fillTrack(track1Images);
+const finalTrack2 = fillTrack(track2Images);
+
+// --- LA MISMA MATEMÁTICA QUE EN TECHNICAL ---
+// Duplicamos exactamente x2 desde el servidor (Astro) para que el salto sea perfecto
+const doubleTrack1 = [...finalTrack1, ...finalTrack1];
+const doubleTrack2 = [...finalTrack2, ...finalTrack2];
+
+const tracks = [
+    { imgs: doubleTrack1, dir: 1 },
+    { imgs: doubleTrack2, dir: -1 }
+];
 ---
 
-<section id="galeria" class="py-24 bg-theme-panel relative overflow-hidden section-optimize">
+<section id="galeria" class="py-24 bg-theme-panel relative overflow-hidden transition-colors duration-300">
 
-    <div class="container mx-auto px-6 relative z-10 mb-12">
+    <div class="container mx-auto px-6 relative z-10 mb-16">
         <div class="text-center">
-            <h2 class="text-4xl md:text-5xl font-display font-bold text-white uppercase tracking-tight">
-                Galería <span class="text-theme-accent">Visual</span>
+            <h2 class="text-4xl md:text-5xl font-display font-bold text-theme-main uppercase tracking-tight">
+                Galería <span class="text-btc-orange">Visual</span>
             </h2>
         </div>
     </div>
 
-    <div class="marquee-wrapper w-full overflow-hidden relative">
-        
-        <div 
-            class="flex gap-6 w-max animate-marquee hover:pause"
-            style={`animation-duration: ${animationDuration};`}
-        >
-            {marqueeImages.map((imgSrc, index) => (
-                <a 
-                    href={imgSrc} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    class="group relative block w-[300px] md:w-[450px] aspect-video rounded-2xl overflow-hidden border border-white/10 bg-zinc-900 flex-shrink-0 transition-transform duration-300 hover:scale-[1.02] hover:border-btc-orange/50"
-                    aria-label={`Ver imagen de galería ${index + 1}`}
-                >
-                    <img 
-                        src={imgSrc} 
-                        alt={`Captura Builtechraft ${index}`} 
-                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        loading="lazy"
-                    />
+    <div class="flex flex-col gap-8">
+        {tracks.map((track) => (
+            <div class="gallery-row relative group w-full" data-direction={track.dir}>
+                
+                <button class="btn-prev absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-black/60 hover:bg-btc-orange text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-md border border-white/10 shadow-xl transform hover:scale-110">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
 
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <span class="text-white font-bold text-sm tracking-widest uppercase border border-white/20 px-4 py-2 rounded-full bg-black/40 backdrop-blur-sm flex items-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                            Abrir
-                        </span>
+                <button class="btn-next absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-black/60 hover:bg-btc-orange text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-md border border-white/10 shadow-xl transform hover:scale-110">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+
+                <div class="w-full overflow-hidden mask-edges isolate">
+                    <div class="gallery-track flex gap-6 w-max will-change-transform transform-gpu">
+                        {track.imgs.map((imgSrc, index) => (
+                            <a 
+                                href={imgSrc} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                class="relative block w-[280px] md:w-[400px] aspect-video rounded-2xl overflow-hidden border border-white/10 bg-[#18181b] shrink-0 group/card"
+                                aria-label={`Ver imagen ${index + 1}`}
+                            >
+                                <img 
+                                    src={imgSrc} 
+                                    alt={`Captura Builtechraft`} 
+                                    class="w-full h-full object-cover opacity-0 data-[loaded=true]:opacity-100 transition-all duration-700 ease-out group-hover/card:scale-110 will-change-transform transform-gpu"
+                                    onload="this.setAttribute('data-loaded', 'true')"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+                                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+                                    <span class="text-white font-bold text-sm tracking-widest uppercase border border-white/20 px-4 py-2 rounded-full bg-black/40 backdrop-blur-sm flex items-center gap-2">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                        Ampliar
+                                    </span>
+                                </div>
+                            </a>
+                        ))}
                     </div>
-                </a>
-            ))}
-        </div>
+                </div>
 
+            </div>
+        ))}
     </div>
-
 </section>
 
 <style>
-    /* Añade esta clase a tu CSS de la galería */
-    .paused-animation {
-        animation-play-state: paused !important;
-    }
-    /* Definición de la animación infinita */
-    @keyframes marquee {
-        0% { transform: translate3d(0, 0, 0); }
-        100% { transform: translate3d(-50%, 0, 0); } /* Se mueve la mitad del ancho total (que es el set duplicado) */
-    }
-
-    .animate-marquee {
-        /* PROPIEDADES DE RENDIMIENTO (GPU) */
-        will-change: transform;
-        transform: translate3d(0, 0, 0);
-        backface-visibility: hidden;
-        perspective: 1000px;
-        
-        /* Configuración animación */
-        animation-name: marquee;
-        animation-timing-function: linear; /* Movimiento constante sin aceleración */
-        animation-iteration-count: infinite;
-
-        /* Forzar renderizado de hardware en Firefox */
-        transform-style: preserve-3d;
-        backface-visibility: hidden;
-    }
-
-    /* Pausar al pasar el mouse (opcional, pero útil para hacer clic) */
-    .hover\:pause:hover {
-        animation-play-state: paused;
+    .mask-edges {
+        -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+        mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
     }
 </style>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                // Asegúrate de que tu contenedor de galería tenga una clase identificable
-                // o selecciona directamente los elementos animados
-                const galleryTracks = entry.target.querySelectorAll('.animate-marquee-left, .animate-marquee-right'); // O la clase que uses en Galería
-                
-                if (entry.isIntersecting) {
-                    galleryTracks.forEach(el => el.classList.remove('paused-animation'));
-                } else {
-                    galleryTracks.forEach(el => el.classList.add('paused-animation'));
-                }
-            });
-        }, { threshold: 0.1 });
 
-        // Asegúrate de que tu sección de galería tenga id="galeria" (o el que uses)
-        const gallerySection = document.getElementById('galeria'); 
-        if (gallerySection) observer.observe(gallerySection);
+<script>
+    class GalleryMarquee {
+        constructor(el) {
+            this.row = el;
+            this.track = el.querySelector('.gallery-track');
+            this.btnPrev = el.querySelector('.btn-prev');
+            this.btnNext = el.querySelector('.btn-next');
+            
+            this.direction = parseInt(this.row.dataset.direction || '1');
+            
+            // ELIMINADO: this.track.innerHTML += originalHtml;
+            // Ya no manipulamos el DOM porque Astro nos manda el HTML perfectamente duplicado.
+            // Esto elimina cualquier micro-lag al cargar la web.
+
+            this.position = 0;
+            this.speed = 0.6;
+            this.isHovered = false;
+            
+            this.manualOffset = 0;
+            this.targetOffset = 0;
+            this.pauseTimeout = null;
+            this.lastTime = 0;
+
+            this.updateDimensions();
+            window.addEventListener('resize', () => this.updateDimensions());
+            
+            this.btnPrev.addEventListener('click', () => this.move(-1));
+            this.btnNext.addEventListener('click', () => this.move(1));
+            
+            this.row.addEventListener('mouseenter', () => this.isHovered = true);
+            this.row.addEventListener('mouseleave', () => this.isHovered = false);
+
+            this.tick = this.tick.bind(this);
+            requestAnimationFrame(this.tick);
+        }
+
+        updateDimensions() {
+            // Como Astro ya nos dio el 100% duplicado, la mitad es exactamente scrollWidth / 2
+            this.halfWidth = this.track.scrollWidth / 2;
+            const firstItem = this.track.children[0];
+            const gap = parseFloat(getComputedStyle(this.track).gap) || 24;
+            this.itemWidth = firstItem.offsetWidth + gap;
+        }
+
+        move(direction) {
+            this.targetOffset += direction * this.itemWidth;
+            this.isHovered = true;
+            clearTimeout(this.pauseTimeout);
+            
+            this.pauseTimeout = setTimeout(() => {
+                if (!this.row.matches(':hover')) {
+                    this.isHovered = false;
+                }
+            }, 3000); 
+        }
+
+        tick(time) {
+            if (!this.lastTime) this.lastTime = time;
+            const deltaTime = time - this.lastTime;
+            this.lastTime = time;
+            const timeScale = deltaTime / 16.66; 
+
+            if (Math.abs(this.targetOffset - this.manualOffset) > 0.5) {
+                this.manualOffset += (this.targetOffset - this.manualOffset) * 0.1 * timeScale;
+            } else {
+                this.manualOffset = this.targetOffset;
+            }
+
+            if (!this.isHovered && this.manualOffset === this.targetOffset) {
+                this.position += this.speed * this.direction * timeScale;
+            }
+
+            let currentTranslate = this.position + this.manualOffset;
+
+            // Loop infinito matemático intacto
+            if (currentTranslate >= this.halfWidth) {
+                this.position -= this.halfWidth;
+                currentTranslate -= this.halfWidth;
+            } else if (currentTranslate < 0) {
+                this.position += this.halfWidth;
+                currentTranslate += this.halfWidth;
+            }
+
+            this.track.style.transform = `translate3d(${-currentTranslate}px, 0, 0)`;
+            requestAnimationFrame(this.tick);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.gallery-row').forEach(row => new GalleryMarquee(row));
     });
 </script>

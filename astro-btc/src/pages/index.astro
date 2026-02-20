@@ -5,6 +5,7 @@ import ServerStatus from '../components/ServerStatus.jsx';
 import IPSection from '../components/IPSection.astro';
 import About from '../components/About.astro';
 import Technical from '../components/Technical.astro';
+import SurvivalWorld from '../components/SurvivalWorld.astro'; // <-- IMPORTAMOS EL MUNDO SURVIVAL
 import CreativeProjects from '../components/CreativeProjects.astro';
 import Documentation from '../components/Documentation.astro';
 import Gallery from '../components/Gallery.astro';
@@ -41,12 +42,22 @@ const bgImage = "url('/images/gallery/2_4.avif')";
     </section>
 
     <IPSection />
-    <About />
-    <Gallery />
-    <CreativeProjects />
-    <Documentation />
-    <Technical />
-    <Modpack />
+    
+    <section id="historia" class="relative w-full flex flex-col">
+        <About />
+        <Gallery />
+    </section>
+    
+    <section id="novedades" class="relative w-full flex flex-col">
+        {/* EL PING-PONG NARRATIVO: SURVIVAL VS CREATIVO */}
+        <SurvivalWorld /> 
+        <CreativeProjects />
+        
+        <Documentation />
+        <Technical />
+        <Modpack />
+    </section>
+    
     <Rules />
     <Staff />
     <DiscordWidget />

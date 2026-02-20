@@ -1,4 +1,5 @@
 ---
+// src/components/Navbar.astro
 const leftItems = [
   { name: 'Jugar', href: '#ips' },
   { name: 'Historia', href: '#historia' },
@@ -12,134 +13,199 @@ const rightItems = [
 ];
 ---
 
-<header id="main-header" class="fixed top-0 w-full z-50 transition-transform duration-300 py-4 bg-black/40 backdrop-blur-sm border-b border-transparent">
-  
-  <div class="container mx-auto px-6 h-16 relative flex items-center justify-between">
+<header 
+  id="main-header" 
+  class="fixed top-0 w-full z-50 transition-all duration-500 py-6 bg-transparent border-b border-transparent is-at-top"
+>
+  <div class="container mx-auto px-6 h-16 relative flex items-center justify-center">
 
-    <a href="#inicio" id="logo-link" class="absolute left-0 top-1/2 -translate-y-1/2 z-20 flex items-center gap-2 group transition-all duration-500 origin-left">
-        <img src="/images/logo-text.webp" alt="Builtechraft" class="h-10 md:h-12 w-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform" />
+    {/* LOGO */}
+    <a 
+      href="#inicio" 
+      id="logo-link" 
+      class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex items-center gap-2 transition-all duration-500 opacity-0 scale-50 pointer-events-none"
+    >
+        <img src="/images/logo-text.webp" alt="Builtechraft" class="h-12 w-auto object-contain drop-shadow-md hover:scale-105 transition-transform" />
     </a>
 
-    <nav class="hidden md:flex w-full items-center transition-all duration-500 relative" id="desktop-menu">
-        
-        <div class="flex-1 flex justify-end items-center gap-8 lg:gap-12 transition-all duration-500 pr-8" id="menu-left">
+    <nav class="hidden md:flex items-center justify-center gap-16 transition-all duration-500 relative w-full max-w-5xl" id="desktop-menu">
+        <div class="flex items-center gap-8 lg:gap-12 flex-1 justify-end">
             {leftItems.map(item => (
-                <a href={item.href} class="nav-link text-sm font-bold uppercase tracking-widest text-white/90 hover:text-btc-orange transition-colors relative group py-2">
+                <a 
+                  href={item.href} 
+                  class="nav-link text-sm font-bold uppercase tracking-widest transition-all relative group py-2"
+                  data-target={item.href.replace('#', '')}
+                >
                     {item.name}
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-btc-orange transition-all group-hover:w-full"></span>
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full nav-line"></span>
                 </a>
             ))}
         </div>
 
-        <div id="center-spacer" class="w-0 transition-all duration-500"></div>
+        <div id="center-spacer" class="w-0 transition-all duration-700 ease-in-out"></div>
 
-        <div class="flex-1 flex justify-start items-center gap-8 lg:gap-12 transition-all duration-500 pl-8" id="menu-right">
+        <div class="flex items-center gap-8 lg:gap-12 flex-1 justify-start">
             {rightItems.map(item => (
-                <a href={item.href} class="nav-link text-sm font-bold uppercase tracking-widest text-white/90 hover:text-btc-orange transition-colors relative group py-2">
+                <a 
+                  href={item.href} 
+                  class="nav-link text-sm font-bold uppercase tracking-widest transition-all relative group py-2"
+                  data-target={item.href.replace('#', '')}
+                >
                     {item.name}
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-btc-orange transition-all group-hover:w-full"></span>
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full nav-line"></span>
                 </a>
             ))}
         </div>
     </nav>
+
+    {/* BOTÓN INTERRUPTOR DE TEMA */}
+    <div class="absolute right-6 top-1/2 -translate-y-1/2 z-20 hidden md:block">
+        <button 
+            id="theme-toggle"
+            class="w-10 h-10 rounded-full border transition-all duration-300 flex items-center justify-center"
+            aria-label="Cambiar tema"
+        >
+            <svg id="icon-moon" class="w-5 h-5 block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+            <svg id="icon-sun" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+        </button>
+    </div>
   </div>
 </header>
+
+<style>
+  /* --- ESTILO DEL BOTÓN DE TEMA --- */
+  
+  /* Cuando está en el Hero (At Top) */
+  #main-header.is-at-top #theme-toggle {
+    background-color: rgba(0, 0, 0, 0.4); /* Negro transparente */
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #a1a1aa; /* text-zinc-400 */
+    backdrop-filter: none; /* Sin blur */
+    -webkit-backdrop-filter: none;
+  }
+  #main-header.is-at-top #theme-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #f97316; /* btc-orange */
+    border-color: rgba(249, 115, 22, 0.3);
+  }
+
+  /* Cuando haces Scroll (Scrolled) */
+  #main-header.is-scrolled #theme-toggle {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #a1a1aa;
+  }
+  #main-header.is-scrolled #theme-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #f97316;
+  }
+
+  /* --- COLORES DE LOS LINKS --- */
+  #main-header.is-at-top .nav-link { color: #f97316; }
+  #main-header.is-at-top .nav-link:hover { color: #fbbf24; }
+  #main-header.is-at-top .nav-line { background-color: #fbbf24 !important; }
+
+  #main-header.is-scrolled .nav-link { color: rgba(255, 255, 255, 0.9); }
+  #main-header.is-scrolled .nav-link:hover { color: #f97316; }
+  #main-header.is-scrolled .nav-line { background-color: #f97316 !important; }
+
+  .nav-link.active {
+    color: #fbbf24 !important;
+  }
+  .nav-link.active .nav-line {
+    width: 100% !important;
+    background-color: #fbbf24 !important;
+  }
+</style>
 
 <script is:inline>
   document.addEventListener('DOMContentLoaded', () => {
       const header = document.getElementById('main-header');
       const logoLink = document.getElementById('logo-link');
-      const desktopMenu = document.getElementById('desktop-menu');
       const centerSpacer = document.getElementById('center-spacer');
       const navLinks = document.querySelectorAll('.nav-link');
+      const sections = document.querySelectorAll('section[id]');
       const heroSection = document.getElementById('inicio');
+      const themeToggleBtn = document.getElementById('theme-toggle');
+      const iconMoon = document.getElementById('icon-moon');
+      const iconSun = document.getElementById('icon-sun');
+      const htmlEl = document.documentElement;
 
-      if (!header) return;
-
-      let lastScroll = 0;
-      let ticking = false;
-
-      function updateNav() {
-          const currentScroll = window.scrollY;
-          // Si no encuentra la sección de inicio, asume 800px
-          const heroHeight = heroSection ? heroSection.offsetHeight : 800;
-          const triggerPoint = heroHeight - 150; 
-
-          // Lógica original restaurada
-          if (currentScroll < 100) {
-              // ESTADO 1: Arriba del todo (Hero)
-              header.style.transform = 'translateY(0)';
-              resetMenuToHero();
-          } 
-          else if (currentScroll > 100 && currentScroll < triggerPoint) {
-              // ESTADO 2: Bajando por el Hero (Oculto)
-              header.style.transform = 'translateY(-100%)';
+      const updateThemeIcons = () => {
+          if (htmlEl.classList.contains('light')) {
+              iconMoon.classList.add('hidden');
+              iconMoon.classList.remove('block');
+              iconSun.classList.remove('hidden');
+              iconSun.classList.add('block');
+          } else {
+              iconMoon.classList.remove('hidden');
+              iconMoon.classList.add('block');
+              iconSun.classList.add('hidden');
+              iconSun.classList.remove('block');
           }
-          else if (currentScroll >= triggerPoint) {
-              // ESTADO 3: Scrolled (Sticky visible)
-              header.style.transform = 'translateY(0)';
-              transformMenuToScrolled();
-          }
+      };
 
-          lastScroll = currentScroll;
-          ticking = false;
-      }
+      updateThemeIcons();
 
-      window.addEventListener('scroll', () => {
-          if (!ticking) {
-              window.requestAnimationFrame(updateNav);
-              ticking = true;
-          }
+      themeToggleBtn.addEventListener('click', () => {
+          htmlEl.classList.toggle('light');
+          updateThemeIcons();
+          localStorage.setItem('theme', htmlEl.classList.contains('light') ? 'light' : 'dark');
       });
 
-      function resetMenuToHero() {
-          header.classList.remove('bg-theme-card/95', 'backdrop-blur-xl', 'border-white/10', 'shadow-2xl', 'py-2');
-          header.classList.add('py-4', 'bg-black/40', 'backdrop-blur-sm', 'border-transparent');
+      const handleHeaderAnimation = () => {
+          const currentScroll = window.scrollY;
+          const triggerHeight = heroSection ? (heroSection.offsetHeight - 150) : 600;
 
-          if(logoLink) {
-            logoLink.classList.add('left-0', 'origin-left');
-            logoLink.classList.remove('left-1/2', '-translate-x-1/2', 'scale-125', 'origin-center');
+          if (currentScroll > triggerHeight) {
+              header.classList.replace('is-at-top', 'is-scrolled');
+              header.classList.remove('bg-transparent', 'py-6', 'border-transparent');
+              header.classList.add('bg-black/90', 'backdrop-blur-md', 'py-2', 'border-white/5', 'shadow-2xl');
+              logoLink.classList.remove('opacity-0', 'scale-50', 'pointer-events-none');
+              logoLink.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
+              centerSpacer.classList.add('w-32', 'lg:w-48');
+          } else {
+              header.classList.replace('is-scrolled', 'is-at-top');
+              header.classList.add('bg-transparent', 'py-6', 'border-transparent');
+              header.classList.remove('bg-black/90', 'backdrop-blur-md', 'py-2', 'border-white/5', 'shadow-2xl');
+              logoLink.classList.add('opacity-0', 'scale-50', 'pointer-events-none');
+              logoLink.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+              centerSpacer.classList.remove('w-32', 'lg:w-48');
           }
+      };
 
-          if(desktopMenu) {
-            desktopMenu.classList.remove('justify-center');
-            desktopMenu.classList.add('justify-end'); 
+      const handleScrollSpy = () => {
+          let maxVisibleSectionId = '';
+          let maxVisibleHeight = 0;
+          if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+              const lastLink = navLinks[navLinks.length - 1];
+              if (lastLink) {
+                  navLinks.forEach(link => link.classList.remove('active'));
+                  lastLink.classList.add('active');
+                  return;
+              }
           }
-          
-          if(centerSpacer) {
-            centerSpacer.classList.remove('w-48', 'lg:w-64');
-            centerSpacer.classList.add('w-0');
-          }
-
-          navLinks.forEach(link => {
-              link.classList.add('text-white/90');
-              link.classList.remove('text-theme-main');
+          sections.forEach(section => {
+              const rect = section.getBoundingClientRect();
+              const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+              if (visibleHeight > 0 && visibleHeight > maxVisibleHeight) {
+                  maxVisibleHeight = visibleHeight;
+                  maxVisibleSectionId = section.getAttribute('id');
+              }
           });
-      }
+          if (maxVisibleSectionId) {
+              navLinks.forEach(link => {
+                  link.classList.toggle('active', link.getAttribute('data-target') === maxVisibleSectionId);
+              });
+          }
+      };
 
-      function transformMenuToScrolled() {
-          header.classList.remove('py-4', 'bg-black/40', 'backdrop-blur-sm', 'border-transparent');
-          header.classList.add('bg-theme-card/95', 'backdrop-blur-xl', 'border-white/10', 'shadow-2xl', 'py-2');
-          
-          if(logoLink) {
-            logoLink.classList.remove('left-0', 'origin-left');
-            logoLink.classList.add('left-1/2', '-translate-x-1/2', 'scale-125', 'origin-center');
-          }
-          
-          if(desktopMenu) {
-            desktopMenu.classList.remove('justify-end');
-            desktopMenu.classList.add('justify-center');
-          }
-          
-          if(centerSpacer) {
-            centerSpacer.classList.remove('w-0');
-            centerSpacer.classList.add('w-48', 'lg:w-64');
-          }
+      window.addEventListener('scroll', () => {
+          handleHeaderAnimation();
+          handleScrollSpy();
+      }, { passive: true });
 
-          navLinks.forEach(link => {
-              link.classList.remove('text-white/90');
-              link.classList.add('text-theme-main'); 
-          });
-      }
+      handleHeaderAnimation();
+      handleScrollSpy();
   });
 </script>

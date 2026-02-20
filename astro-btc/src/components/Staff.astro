@@ -4,7 +4,6 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 // --- CONFIGURACIÓN DE ROLES ---
-// Definimos los gradientes completos aquí
 const ROLE_CONFIG = {
     'Líder': { 
         text: 'text-btc-orange', 
@@ -24,7 +23,7 @@ const ROLE_CONFIG = {
     },
     'retired': { 
         text: 'text-zinc-600', 
-        gradient: 'bg-zinc-800' // Color sólido para retirados
+        gradient: 'bg-zinc-800' 
     }
 };
 
@@ -65,41 +64,43 @@ const team = rawTeam.map(member => {
         ...member,
         img: findMemberImage(member.name),
         textColor: style.text,
-        gradientClass: style.gradient, // Guardamos la clase completa del gradiente
+        gradientClass: style.gradient, 
         isRetired: isRetired,
         displayRole: displayRole
     };
 });
 ---
 
-<section id="staff" class="py-24 bg-[#272727] relative overflow-hidden section-optimize">
+<section id="staff" class="py-24 bg-[#272727] relative overflow-hidden">
     <div class="container mx-auto px-6 relative z-10">
         <div class="text-center mb-20">
             <h2 class="text-4xl md:text-5xl font-display font-bold uppercase tracking-tight text-btc-yellow">
                 Nuestro <span class="text-white">Staff</span>
             </h2>
             <p class="text-zinc-400 text-lg max-w-3xl mx-auto mt-6 leading-relaxed">
-                Nuestros hermanos quienes nos ayudan con sus ideas, protegiendo el servidor y manteniendo la comunidad.
+                Conoce a nuestro equipo que incentiva las mentes creativas de quienes deseen entrar
             </p>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-16 max-w-5xl mx-auto">
+        <div class="flex flex-wrap justify-center gap-10 md:gap-x-16 md:gap-y-20 max-w-6xl mx-auto">
             {team.map((member) => (
-                <div class="flex flex-col items-center gap-5 group cursor-default">
+                <div class="flex flex-col items-center gap-5 group w-[140px] md:w-auto">
                     
-                    <div class="relative w-36 h-36 md:w-44 md:h-44 rounded-full shadow-2xl">
+                    {/* 1. ESTRUCTURA PLANA: Un solo contenedor con padding en lugar de 3 absolutos */}
+                    <div class="relative w-36 h-36 md:w-44 md:h-44 rounded-full p-[3px] bg-zinc-700 shadow-md group-hover:shadow-lg transition-shadow duration-300">
                         
-                        <div class="absolute inset-0 rounded-full bg-zinc-700"></div>
-
+                        {/* 2. GRADIENTE: Solo anima la opacidad, la propiedad más barata para el navegador */}
                         {!member.isRetired && (
-                            <div class={`absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${member.gradientClass}`}></div>
+                            <div class={`absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${member.gradientClass}`}></div>
                         )}
 
-                        <div class="absolute inset-[3px] rounded-full overflow-hidden bg-[#18181b] z-10">
+                        {/* 3. IMAGEN: relative en lugar de absolute, se ajusta al padding del padre */}
+                        <div class="relative w-full h-full rounded-full overflow-hidden bg-[#18181b] z-10">
                             <img 
                                 src={member.img} 
-                                alt={`Avatar de ${member.name}`} 
-                                class={`w-full h-full object-cover transition-all duration-500
+                                alt={member.name} 
+                                {/* CAMBIO CLAVE: Quitamos transition-all y usamos solo lo que cambia (filter y opacity) */}
+                                class={`w-full h-full object-cover transition-[filter,opacity] duration-300 
                                     ${member.isRetired 
                                         ? 'grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100' 
                                         : ''
@@ -111,15 +112,15 @@ const team = rawTeam.map(member => {
                     </div>
 
                     <div class="text-center z-10">
-                        <h4 class={`font-display font-bold text-xl tracking-wider transition-colors duration-300 uppercase
+                        <h4 class={`font-display font-bold text-xl tracking-wider transition-colors duration-200 uppercase
                             ${member.isRetired 
                                 ? 'text-zinc-600 line-through decoration-zinc-700 group-hover:text-zinc-400 group-hover:no-underline' 
-                                : 'text-white group-hover:text-white'
+                                : 'text-white'
                             }`}>
                             {member.name}
                         </h4>
                         
-                        <div class={`text-[10px] md:text-xs uppercase font-bold tracking-[0.2em] mt-2 opacity-80 transition-opacity duration-300 group-hover:opacity-100
+                        <div class={`text-[10px] md:text-xs uppercase font-bold tracking-[0.2em] mt-2 opacity-80 transition-opacity duration-200 group-hover:opacity-100
                             ${member.textColor} 
                             ${member.isRetired ? 'italic' : ''} 
                         `}>

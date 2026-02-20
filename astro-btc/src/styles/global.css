@@ -9,7 +9,7 @@
   --font-display: 'Rajdhani', sans-serif;
 }
 
-/* --- TEMA OSCURO (Sin cambios, manteniendo tu estructura) --- */
+/* --- TEMA OSCURO --- */
 :root {
   --bg-app: #272727;
   --bg-section: #272727;
@@ -18,68 +18,80 @@
   --bg-card-hover: #212124;
 
   --text-main: #ffffff;
-  --text-muted: #5b5b60;
+  --text-muted: #a1a1aa; /* mejor que #5b5b60 (muy apagado) */
   --text-accent: #f97316;
   --text-highlight: #fbbf24;
 
-  --border-subtle: rgba(255, 255, 255, 0.05);
-  --border-accent: rgba(249, 115, 22, 0.2);
-  --status-glow: rgba(239, 68, 68, 0.2);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-accent: rgba(249, 115, 22, 0.25);
 
-  /* GRADIENTE DISCORD (3 Colores) */
-  --grad-1: #353644; /* Azul Discord Claro */
-  --grad-2: #6571f9; /* Gris Elegante (No negro, no blanco) */
-  --grad-3: #6571f9; /* Azul Discord Oscuro */
+  /* extras para UI */
+  --shadow-soft: 0 20px 60px rgba(0, 0, 0, 0.45);
+  --img-overlay: rgba(249, 115, 22, 0.1);
 
-  /* GRADIENTE MODPACK (Verdes Modrinth) */
+  /* GRADIENTE DISCORD */
+  --grad-1: #353644;
+  --grad-2: #2c51cb;
+  --grad-3: #6571f9;
+
+  /* GRADIENTE MODPACK */
   --grad-mod-1: #68d979; /* Verde Modrinth Brillante */
   --grad-mod-2: #454545; /* Gris Industrial Oscuro */
   --grad-mod-3: #b0ffc0; /* Verde Bosque Técnico */
   --grad-mod-text: #ffffff; /* Texto Blanco para contraste */
   --text-modrinth: #16a34a;
 
-  /* Colores de texto para este gradiente */
+  /* GRADIENTE SURVIVAL (Naranja/Amarillo Oscuro) */
+  --grad-surv-1: #431407; /* Café muy oscuro */
+  --grad-surv-2: #9a3412; /* Naranja quemado */
+  --grad-surv-3: #f97316; /* Naranja BTC */
+
   --grad-text: #ffffff;
 
   color-scheme: dark;
 }
 
-/* --- TEMA CLARO (Naranja Puro & Contraste Técnico) --- */
+/* --- TEMA CLARO (REAL, basado en tu logo) --- */
 :root.light {
-  /* 1. Fondos: Naranja vibrante y puro */
-  --bg-app: #ff6b00; /* Naranja Puro "International Orange" */
-  --bg-section: #f97316; /* Naranja estándar Tailwind */
-  --bg-alternate: #ea580c; /* Naranja más profundo para secciones */
+  /* Fondos */
+  --bg-app: #fff7f2; /* crema cálida */
+  --bg-section: #ffffff; /* blanco limpio */
+  --bg-alternate: #f6efe9; /* crema suave */
+  --bg-card: #ffffff;
+  --bg-card-hover: #fff1e6;
 
-  /* 2. Componentes: Aquí está el contraste (Gris casi blanco) */
-  --bg-card: #f8fafc; /* Slate 50 (Blanco técnico) */
-  --bg-card-hover: #ffffff; /* Blanco puro */
+  /* Texto */
+  --text-main: #1a1412; /* negro cálido */
+  --text-muted: #6b564d; /* café grisáceo */
+  --text-accent: #f97316; /* marca */
+  --text-highlight: #fbbf24;
 
-  /* 3. Tipografía: Blanco y el "Crema/Piel" anterior */
-  --text-main: #ffffff; /* Texto principal en blanco sobre el naranja */
-  --text-muted: #ffedd5; /* El color "Piel" anterior, ahora como texto secundario */
-  --text-accent: #0f172a; /* Azul/Negro técnico para títulos que necesiten máximo impacto */
-  --text-highlight: #ff6b00; /* Naranja sobre las cards blancas */
+  /* Bordes */
+  --border-subtle: rgba(26, 20, 18, 0.1);
+  --border-accent: rgba(249, 115, 22, 0.3);
 
-  /* 4. Bordes y Brillos */
-  --border-subtle: rgba(255, 255, 255, 0.2);
-  --border-accent: #0f172a; /* Borde oscuro para dar un look de "esquema" */
-  --status-glow: rgba(255, 255, 255, 0.5);
+  /* extras */
+  --shadow-soft: 0 20px 60px rgba(26, 20, 18, 0.14);
+  --img-overlay: rgba(249, 115, 22, 0.06);
 
   /* GRADIENTE DISCORD */
-  --grad-1: #c4c9ff; /* Azul Discord Claro */
-  --grad-2: #f8fafc; /* Gris Elegante (No negro, no blanco) */
-  --grad-3: rgb(101, 113, 249); /* Azul Discord Oscuro */
+  --grad-1: #eef2ff;
+  --grad-2: #bfceff;
+  --grad-3: #6571f9;
 
-  /* GRADIENTE MODPACK CLARO (Verde / Gris / Piel) */
-  --grad-mod-1: #68d979; /* Verde Menta muy claro (Piel verde) */
-  --grad-mod-2: #fff5f5; /* Gris Técnico Medio */
-  --grad-mod-3: #b0ffc0; /* Verde Puro */
-  --grad-mod-text: #0c0c0e; /* Texto Negro para contraste */
-  --text-modrinth: #11e960;
+  /* GRADIENTE MODPACK */
+  --grad-mod-1: #e5ffee;
+  --grad-mod-2: #dcfce7;
+  --grad-mod-3: #bbf7d0;
+  --grad-mod-text: #1a1412;
+  --text-modrinth: #16a34a;
 
-  /* Texto para este gradiente (Negro para contraste) */
-  --grad-text: #0f172a;
+  /* GRADIENTE SURVIVAL (Naranja/Amarillo Claro) */
+  --grad-surv-1: #fff7ed; /* Naranja ultra claro */
+  --grad-surv-2: #fed7aa; /* Naranja melocotón */
+  --grad-surv-3: #f97316; /* Naranja BTC */
+
+  --grad-text: #1a1412;
 
   color-scheme: light;
 }
@@ -127,70 +139,99 @@ body {
 .border-theme-accent {
   border-color: var(--border-accent);
 }
-/* --- CLASE DE UTILIDAD REUTILIZABLE --- */
-/* Esta clase la puedes usar en Discord, en el Hero, o donde quieras */
+
+/* Sombra */
+.shadow-theme {
+  box-shadow: var(--shadow-soft);
+}
+
+/* Gradientes */
 .bg-custom-gradient {
-  background: linear-gradient(92deg, var(--grad-1) 0%, var(--grad-2) 100%, var(--grad-3) 50%);
+  background: linear-gradient(92deg, var(--grad-1) 0%, var(--grad-2) 50%, var(--grad-3) 100%);
 }
 
 .text-gradient-contrast {
   color: var(--grad-text);
 }
-/* CLASE MAESTRA PARA BLOQUEAR EL FONDO DEL TEMA */
+
 .bg-modpack-gradient {
-  /* Usamos !important para asegurar que pise cualquier bg-theme-app del body */
-  background: linear-gradient(272deg, var(--grad-mod-1) 0%, var(--grad-mod-2) 100%, var(--grad-mod-3) 50%) !important;
-}
-/* Esta clase la puedes usar en Discord, en el Hero, o donde quieras */
-.bg-docs-gradient {
-  /* Usamos !important para asegurar que pise cualquier bg-theme-app del body */
   background: linear-gradient(92deg, var(--grad-mod-1) 0%, var(--grad-mod-2) 100%, var(--grad-mod-3) 50%) !important;
 }
-/* Esta clase la puedes usar en Discord, en el Hero, o donde quieras */
-.bg-creative-gradient {
-  background: linear-gradient(272deg, var(--grad-1) 0%, var(--grad-2) 100%, var(--grad-3) 50%);
-}
-/*OPTIMIZACION PARA BLUR DANDO PRIORIDAD EN GPU*/
-.glass-gpu {
-  /* 1. Aplicamos el blur moderno */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px); /* Soporte para Safari */
 
-  /* 2. Inducimos la aceleración por hardware */
+.bg-docs-gradient {
+  background: linear-gradient(272deg, var(--grad-mod-1) 0%, var(--grad-mod-2) 100%, var(--grad-mod-3) 50%) !important;
+}
+
+.bg-creative-gradient {
+  background: linear-gradient(272deg, var(--grad-1) 0%, var(--grad-2) 50%, var(--grad-3) 100%);
+}
+
+.bg-survival-gradient {
+  background: linear-gradient(92deg, var(--grad-surv-1) 0%, var(--grad-surv-2) 50%, var(--grad-surv-3) 100%);
+}
+
+/* blur optimizado */
+.glass-gpu {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   transform: translateZ(0);
   backface-visibility: hidden;
   perspective: 1000;
-
-  /* 3. Optimizamos el renderizado anticipado */
   will-change: backdrop-filter, transform;
 }
-/*OPTIMIZACION DANDO PRIORIDAD A NO MOSTRAR CONTENIDO CUANDO NO ES VISIBLE*/
-.section-optimize {
-  /* Solo renderiza cuando es necesario */
-  content-visibility: auto;
 
-  /* Le damos una altura estimada al navegador para que 
-     sepa cuánto espacio reservar antes de renderizar */
+/* optimización */
+.section-optimize {
+  content-visibility: auto;
   contain-intrinsic-size: 1px 500px;
 }
-/* Para Firefox */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #898989 #121214; /* [Color del tirador] [Color del fondo] */
+
+/* scrollbar (mejorado para ambos temas) */
+:root {
+  --scroll-track: #121214;
+  --scroll-thumb: #898989;
+}
+:root.light {
+  --scroll-track: #efe6df;
+  --scroll-thumb: #c7b4a9;
 }
 
-/* Para Chrome/Edge (lo que ya tendrías) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+}
+
 *::-webkit-scrollbar {
   width: 8px;
 }
 *::-webkit-scrollbar-track {
-  background: #121214;
+  background: var(--scroll-track);
 }
 *::-webkit-scrollbar-thumb {
-  background-color: #898989;
+  background-color: var(--scroll-thumb);
   border-radius: 20px;
 }
-.pixel-fix {
-  image-rendering: -webkit-optimize-contrast; /* Chrome */
-  image-rendering: crisp-edges; /* Firefox */
+
+/* selección de texto */
+::selection {
+  background-color: var(--color-btc-orange);
+  color: #ffffff;
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background-color: var(--color-btc-orange);
+  color: #ffffff;
+}
+
+:root.light ::selection,
+html.light ::selection {
+  background-color: var(--color-btc-orange) !important;
+  color: #ffffff !important;
+}
+
+:root.light ::-moz-selection,
+html.light ::-moz-selection {
+  background-color: var(--color-btc-orange) !important;
+  color: #ffffff !important;
 }
