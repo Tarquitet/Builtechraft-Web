@@ -10,7 +10,7 @@ export default function ServerStatus() {
   useEffect(() => {
     const fetchStatus = async () => {
       try {
-        const timestamp = Date.now(); // Truco anti-caché
+        const timestamp = Date.now();
 
         const [javaRes, bedrockRes] = await Promise.all([
           fetch(`https://api.mcstatus.io/v2/status/java/${javaIP}?t=${timestamp}`).then((res) => res.json()),
@@ -22,6 +22,17 @@ export default function ServerStatus() {
         const isJavaOnline = javaRes.online;
         const isBedrockOnline = bedrockRes.online;
         const isOnline = isJavaOnline || isBedrockOnline;
+
+        // --- EXTRACCIÓN Y ENVÍO DE VERSIONES ---
+        // Extraemos el nombre de la versión (ej: "1.20.5-1.21.11")
+        const versions = javaRes.version?.name_raw || javaRes.version?.name || 'Offline';
+
+        // Despachamos el evento para que IPSection lo escuche
+        window.dispatchEvent(
+          new CustomEvent('btc:server-versions', {
+            detail: { versions, online: isOnline },
+          }),
+        );
 
         let playerCount = 0;
         if (isJavaOnline) {
@@ -38,21 +49,16 @@ export default function ServerStatus() {
         setLoading(false);
 
         // --- LÓGICA DE TEMA Y TÍTULO ---
-        // Actualizar UI Global y Título
         const html = document.documentElement;
         const siteName = 'Builtechraft SMP';
-
-        // NUEVO: Verificamos la variable en memoria (Si no se ha tocado el botón, será undefined/false)
         const isManualOverride = window.isManualThemeOverride === true;
 
         if (isOnline) {
-          // Solo cambia a modo claro si el usuario NO ha tomado el control manual
           if (!isManualOverride && !html.classList.contains('light')) {
             html.classList.add('light');
           }
           document.title = `ON | ${siteName}`;
         } else {
-          // Solo quita el modo claro si el usuario NO ha tomado el control manual
           if (!isManualOverride) {
             html.classList.remove('light');
           }
@@ -61,8 +67,6 @@ export default function ServerStatus() {
       } catch (e) {
         console.error('API Error:', e);
         setLoading(false);
-
-        // También respetamos el override aquí por si hay un error en la API
         const isManualOverride = sessionStorage.getItem('manual-theme-override') === 'true';
         if (!isManualOverride) {
           document.documentElement.classList.remove('light');
@@ -89,20 +93,17 @@ export default function ServerStatus() {
     document.getElementById('ips')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  // El retorno del HTML se mantiene igual para no romper tu diseño del Navbar
   return (
     <div className="flex flex-col items-center gap-6 mt-4 w-full max-w-2xl mx-auto z-20 relative animate-fade-in-up">
-      {/* TARJETA PRINCIPAL */}
       <div className="flex flex-col md:flex-row items-center gap-5 bg-black/60 backdrop-blur-sm border border-white/10 rounded-2xl p-2 pr-6 shadow-2xl transition-all duration-500 hover:border-btc-orange/30 group">
-        {/* INDICADOR DE ESTADO */}
         <div className="flex items-center gap-3 bg-[#0c0c0e] border border-white/5 rounded-xl px-5 py-3 min-w-35 justify-center shadow-inner">
           <div className="relative flex items-center justify-center">
-            {/* Punto Verde/Rojo según estado */}
             <div
               className={`w-3 h-3 rounded-full ${data.online ? 'bg-green-500 shadow-[0_0_10px_#22c55e]' : 'bg-red-500 shadow-[0_0_10px_#ef4444]'} relative z-10 transition-all duration-500`}
             ></div>
             {data.online && <div className="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-75"></div>}
           </div>
-
           <div className="flex flex-col leading-none text-left">
             <span className="font-bold text-white tracking-wide text-sm uppercase">
               {loading ? 'Check...' : data.online ? 'Online' : 'Offline'}
@@ -110,7 +111,6 @@ export default function ServerStatus() {
           </div>
         </div>
 
-        {/* CONTADOR DE JUGADORES */}
         <div className="flex items-center gap-3 px-2 py-2 md:py-0 md:pl-2 min-w-30">
           <div className="bg-white/5 p-2 rounded-lg text-zinc-400 group-hover:text-white transition-colors">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -130,10 +130,8 @@ export default function ServerStatus() {
           </div>
         </div>
 
-        {/* SEPARADOR */}
         <div className="hidden md:block w-px h-8 bg-white/10 mx-2"></div>
 
-        {/* BOTÓN DE ACCIÓN */}
         <button
           onClick={scrollToIPs}
           className="w-full md:w-auto font-bold px-6 py-3 rounded-xl transition-all duration-300 uppercase text-xs tracking-widest cursor-pointer flex items-center justify-center gap-2 group/btn bg-btc-orange text-white hover:bg-white hover:text-btc-orange shadow-lg shadow-btc-orange/10"
@@ -145,7 +143,7 @@ export default function ServerStatus() {
             stroke="currentColor"
             viewBox="0 0 24 24"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
           </svg>
         </button>
       </div>

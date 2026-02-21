@@ -1,11 +1,6 @@
 1.REDACTAR LAS NORMAS PARA QUE NO SUENE MUY A GPT
 
 2.AGREGAR RETROCOMPATIBILIDAD EN ANTERIORES VERSIONES EN MODPACK MODRINTH (PEDIRLO A AGUILA) - DESDE VERSION MINIMA PARA SERVIDOR 1.20.5 REALMENTE ES DESDE LA 1.21.11 (la mas reciente disponible) POR TEMAS DE DROPS
-2.1.AGREGARLO PARA LA WEB EN LA API DE MODRINTH LA PRIMERA VERSION O LA MAS BAJA DISPONIBLE HASTA LA MAS RECIENTE DISPONIBLE
 2.3. MEJORAR DESCRIPCION MODPACK DE BUILTECHRAFT MODRINTH
 
-3.AGREGAR ADVERTENCIA DSDE X VERSION DESDE Y VERSION EN ALGUAN PARTE DE LOS COMPONENTES DE NOVEDADES O EN LA SECCION IP... MAS FACIL LA VERDAD - TODO ESTA OPTIMIZADO PARA LA ULTIMA VERSION SE REOCMIENDA JUGAR EN LA ULTIMA VERSION PARA UNA MEJOR EXPERIENCIA, TAMBIEN EN MODPACK DE MODRINTH
-agrgar informacion de versiones para el servidor tipo desde la 1.20.5 maximo hasta la mas reciente 1.21.11 (la ultima si ya no es esa)
-asi mismo retornar mediante server status esa info de versiones disponibles para bedorck y para java, solo si es posible (agregar ips de servidores secundarios cretivo y survival)
-ajustar config-ip.js para eso anterior y el componente indicando la version del juego como en la seccion de normas con las versiones del juego
-intentar agregar info de versiones disponibles por parte de geysermc si es posible mediante una api como lo hace server status
+probar archivo modrinth si la ia puede buscar esas versiones por nosotros...

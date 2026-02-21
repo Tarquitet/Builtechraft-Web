@@ -1,6 +1,6 @@
 ---
 import { SERVER_INFO } from '../config-ip';
-const { javaIP, bedrockIP, bedrockPort } = SERVER_INFO;
+const { javaIP, bedrockIP, bedrockPort, recommended } = SERVER_INFO;
 ---
 
 <section id="ips" class="py-24 bg-[#272727] relative overflow-hidden">
@@ -11,9 +11,8 @@ const { javaIP, bedrockIP, bedrockPort } = SERVER_INFO;
         </h2>
         
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto mb-16">
-            
-            <div id="card-java" class="group relative bg-[#18181b] border-2 border-zinc-800 rounded-3xl p-8 transition-all duration-300 hover:border-btc-orange hover:shadow-2xl hover:shadow-btc-orange/10 flex flex-col">
-                <div class="offline-badge absolute top-4 right-4 bg-zinc-800 border border-zinc-700 text-zinc-500 text-[10px] font-bold px-2 py-1 rounded hidden uppercase tracking-widest">● Offline</div>
+            <div id="card-java" class="group relative bg-[#18181b] border-2 border-zinc-800 rounded-3xl p-8 transition-all duration-500 flex flex-col">
+                <div class="offline-badge absolute top-4 right-4 bg-red-600 border border-white/20 text-white text-[10px] font-bold px-2 py-1 rounded hidden uppercase tracking-widest z-20">● Offline</div>
                 <div class="flex items-center gap-4 mb-6">
                     <div class="icon-box w-14 h-14 rounded-xl bg-linear-to-br from-orange-600 to-yellow-600 flex items-center justify-center text-3xl shadow-lg border-4 border-[#18181b]">☕</div>
                     <div>
@@ -24,18 +23,17 @@ const { javaIP, bedrockIP, bedrockPort } = SERVER_INFO;
                 <div class="bg-black/40 rounded-xl p-5 border border-zinc-800 mb-6 group-hover:border-btc-orange/50 transition-colors flex-1 flex flex-col justify-center relative">
                     <span class="text-[10px] text-zinc-500 uppercase font-bold tracking-wider mb-2 block">Dirección IP</span>
                     <button onclick={`copyText('${javaIP}', this)`} class="action-btn w-full text-left flex justify-between items-center group/ip cursor-pointer" title="Copiar IP">
-                        <span class="text-lg md:text-xl text-white font-mono font-bold truncate mr-2">{javaIP}</span>
-                        <svg class="copy-icon w-5 h-5 text-zinc-600 group-hover/ip:text-btc-orange transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path class="path-copy" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
-                            <path class="path-check hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                        <span class="text-lg md:text-xl text-white font-mono font-bold truncate mr-2 ip-text">{javaIP}</span>
+                        <svg class="w-5 h-5 text-zinc-600 group-hover/ip:text-btc-orange transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
                         </svg>
                     </button>
                 </div>
                 <button onclick={`copyText('${javaIP}', this)`} class="main-btn w-full py-4 bg-btc-orange text-white rounded-xl font-bold text-sm transition-all duration-300 hover:bg-white hover:text-btc-orange uppercase tracking-widest shadow-lg">Copiar IP Java</button>
             </div>
 
-            <div id="card-bedrock" class="group relative bg-[#18181b] border-2 border-zinc-800 rounded-3xl p-8 transition-all duration-300 hover:border-blue-500 hover:shadow-2xl hover:shadow-blue-500/10 flex flex-col">
-                <div class="offline-badge absolute top-4 right-4 bg-zinc-800 border border-zinc-700 text-zinc-500 text-[10px] font-bold px-2 py-1 rounded hidden uppercase tracking-widest">● Offline</div>
+            <div id="card-bedrock" class="group relative bg-[#18181b] border-2 border-zinc-800 rounded-3xl p-8 transition-all duration-500 flex flex-col">
+                <div class="offline-badge absolute top-4 right-4 bg-red-600 border border-white/20 text-white text-[10px] font-bold px-2 py-1 rounded hidden uppercase tracking-widest z-20">● Offline</div>
                 <div class="flex items-center gap-4 mb-6">
                     <div class="icon-box w-14 h-14 rounded-xl bg-linear-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-3xl shadow-lg border-4 border-[#18181b]">📱</div>
                     <div>
@@ -47,27 +45,25 @@ const { javaIP, bedrockIP, bedrockPort } = SERVER_INFO;
                     <div class="sm:col-span-2 bg-black/40 rounded-xl p-5 border border-zinc-800 group-hover:border-blue-500/30 transition-colors flex flex-col justify-center relative">
                         <span class="text-[10px] text-zinc-500 uppercase font-bold tracking-wider mb-2 block">Dirección IP</span>
                         <button onclick={`copyText('${bedrockIP}', this)`} class="action-btn w-full text-left flex justify-between items-center group/ip cursor-pointer" title="Copiar IP">
-                            <span class="text-lg md:text-xl text-white font-mono font-bold truncate mr-2">{bedrockIP}</span>
-                            <svg class="copy-icon w-4 h-4 text-zinc-600 group-hover:text-blue-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path class="path-copy" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
-                                <path class="path-check hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                            <span class="text-lg md:text-xl text-white font-mono font-bold truncate mr-2 ip-text">{bedrockIP}</span>
+                            <svg class="w-4 h-4 text-zinc-600 group-hover:text-blue-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
                             </svg>
                         </button>
                     </div>
                     <div class="bg-black/40 rounded-xl p-5 border border-zinc-800 text-center flex flex-col justify-center transition-colors group-hover:border-blue-500/30 cursor-pointer relative" onclick={`copyText('${bedrockPort}', this)`}>
                         <span class="text-[10px] text-zinc-500 uppercase font-bold tracking-wider mb-1 block">Puerto</span>
-                        <div class="flex items-center justify-center gap-2">
-                             <code class="text-xl text-blue-400 font-mono font-bold">{bedrockPort}</code>
-                        </div>
+                        <code class="text-xl text-blue-400 font-mono font-bold ip-text">{bedrockPort}</code>
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-3 mt-auto">
-                    <button onclick={`copyText('${bedrockIP}', this)`} class="main-btn py-4 bg-blue-600 text-white rounded-xl font-bold text-[10px] md:text-xs transition-all duration-300 hover:bg-white hover:text-blue-600 uppercase tracking-widest shadow-lg active:scale-95">Copiar IP</button>
+                    <button onclick={`copyText('${bedrockIP}', this)`} class="main-btn py-4 bg-blue-600 text-white rounded-xl font-bold text-[10px] md:text-xs transition-all duration-300 hover:bg-white hover:text-blue-600 uppercase tracking-widest shadow-lg">Copiar IP</button>
                     <a href={`minecraft://?addExternalServer=Builtechraft%7C${bedrockIP}%7C${bedrockPort}`} class="py-4 bg-zinc-800 text-blue-400 border border-blue-500/30 rounded-xl font-bold text-[10px] md:text-xs text-center transition-all duration-300 hover:bg-blue-500 hover:text-white hover:border-blue-500 uppercase tracking-widest flex items-center justify-center">Entrar Directo</a>
                 </div>
             </div>
         </div>
-        <div class="max-w-5xl mx-auto">
+
+        <div class="max-w-5xl mx-auto mb-16">
             <h3 class="text-xs font-bold text-zinc-500 uppercase tracking-[0.2em] mb-12 text-center">
                 PROCESO DE CONEXIÓN
             </h3>
@@ -98,57 +94,101 @@ const { javaIP, bedrockIP, bedrockPort } = SERVER_INFO;
                     <div class="relative z-10">
                         <h4 class="text-zinc-400 font-bold mb-2 uppercase">¡Listo!</h4>
                         <p class="text-zinc-300 leading-relaxed font-medium">
-                            Entra al servidor. Si aparece el mensaje <em class="text-zinc-400 bg-white/5 px-1 rounded not-italic">"Not Whitelisted"</em>, completa tu registro en <a href="#discord" class="text-blue-500 hover:text-btc-orange transition-colors duration-300 font-bold underline underline-offset-4 decoration-blue-500/30 hover:decoration-btc-orange">Discord</a>.
+                            Entra al servidor. Si aparece el mensaje <em class="text-zinc-400 bg-white/5 px-1 rounded not-italic">"Not Whitelisted"</em>. Regresa al paso 1.
                         </p>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div id="version-warning-box" class="max-w-4xl mx-auto bg-amber-500/5 border border-amber-500/20 rounded-2xl p-6 transition-all opacity-50">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+                <div class="space-y-1">
+                    <h4 class="text-amber-500 font-bold uppercase tracking-widest text-xs flex items-center justify-center md:justify-start gap-2 m-0">
+                        ⚠️ ADVERTENCIA DE COMPATIBILIDAD
+                    </h4>
+                    <p id="version-text" class="text-zinc-400 text-sm leading-relaxed m-0">
+                        Consultando información...
+                    </p>
+                </div>
+
+                <a href="#discord" class="whitespace-nowrap bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-[10px] font-bold py-2.5 px-5 rounded-xl border border-zinc-700 transition-all uppercase tracking-widest shadow-lg hover:text-white">
+                    Más info en Discord
+                </a>
+            </div>
+        </div>
+
     </div>
 </section>
 
-<script is:inline define:vars={{ javaIP, bedrockIP, bedrockPort }}>
+<script is:inline define:vars={{ recommended }}>
+    // 1. Escuchar el evento que manda el ServerStatus.jsx
+    window.addEventListener('btc:server-versions', (e) => {
+        const warningBox = document.getElementById('version-warning-box');
+        const versionText = document.getElementById('version-text');
+        const cardJava = document.getElementById('card-java');
+        const cardBedrock = document.getElementById('card-bedrock');
+        const { versions, online } = e.detail;
+
+        if (warningBox && versionText) {
+            if (online) {
+                // Online: Muestra el rango (Min y Max) detectado por la API
+                warningBox.classList.remove('opacity-50');
+                cardJava?.classList.remove('is-offline');
+                cardBedrock?.classList.remove('is-offline');
+                
+                // Si el formato es "Min-Max" lo separamos, si no lo mostramos tal cual
+                const vParts = versions.split('-');
+                if(vParts.length > 1) {
+                    versionText.innerHTML = `Soportamos desde la versión <span class="text-white font-mono font-bold">${vParts[0]}</span> hasta la <span class="text-white font-mono font-bold">${vParts[1]}</span>. Recomendamos la <strong class="text-amber-400 font-bold underline decoration-amber-400/30 underline-offset-4">${recommended}</strong>.`;
+                } else {
+                    versionText.innerHTML = `Soportamos las versiones <span class="text-white font-mono font-bold">${versions}</span>. Recomendamos la <strong class="text-amber-400 font-bold underline decoration-amber-400/30 underline-offset-4">${recommended}</strong>.`;
+                }
+            } else {
+                // Offline: Muestra solo la versión recomendada/más reciente
+                warningBox.classList.add('opacity-50');
+                cardJava?.classList.add('is-offline');
+                cardBedrock?.classList.add('is-offline');
+                versionText.innerHTML = `Servidor fuera de línea. Puedes ir a nuestro de Discord para más información.`;
+            }
+        }
+    });
+
+    // 2. Función de copiado con bloqueo de seguridad cuando está Offline
     window.copyText = async function(text, btnElement) {
+        if (btnElement.closest('.is-offline')) return;
+
         try {
             await navigator.clipboard.writeText(text);
+            const textEl = btnElement.querySelector('.ip-text') || btnElement;
+            const original = textEl.innerText;
             
-            // Si es el botón grande (main-btn), cambiamos el texto
+            if (original === "¡COPIADO!") return;
+            
+            textEl.innerText = "¡COPIADO!";
             if (btnElement.classList.contains('main-btn')) {
-                const originalText = btnElement.innerText;
-                btnElement.innerText = "¡COPIADO!";
                 btnElement.classList.add('!bg-green-600', '!text-white');
-                setTimeout(() => {
-                    btnElement.innerText = originalText;
-                    btnElement.classList.remove('!bg-green-600', '!text-white');
-                }, 2000);
-            } 
-            
-            // Si es la caja de la IP (action-btn) o un contenedor con icono
-            const icon = btnElement.querySelector('.copy-icon');
-            if (icon) {
-                const pathCopy = icon.querySelector('.path-copy');
-                const pathCheck = icon.querySelector('.path-check');
-                
-                // Cambiamos el icono sin borrar el texto
-                pathCopy.classList.add('hidden');
-                pathCheck.classList.remove('hidden');
-                icon.classList.add('text-green-500');
-                
-                setTimeout(() => {
-                    pathCopy.classList.remove('hidden');
-                    pathCheck.classList.add('hidden');
-                    icon.classList.remove('text-green-500');
-                }, 2000);
+            } else {
+                textEl.classList.add('text-green-500');
             }
-        } catch (err) {
-            console.error('Error al copiar: ', err);
-        }
+
+            setTimeout(() => {
+                textEl.innerText = original;
+                textEl.classList.remove('text-green-500');
+                btnElement.classList.remove('!bg-green-600', '!text-white');
+            }, 2000);
+        } catch (err) { console.error('Error al copiar: ', err); }
     };
 </script>
 
 <style>
-    /* Estilos base para evitar parpadeos */
-    .hidden { display: none; }
-    .is-offline { filter: grayscale(0.8); opacity: 0.6; pointer-events: none; }
-    .is-offline button { pointer-events: auto; cursor: not-allowed; }
+    .hidden { display: none !important; }
+    /* Estilo "Apagado" que bloquea interacción si está Offline */
+    .is-offline { 
+        filter: grayscale(1); 
+        opacity: 0.4; 
+        pointer-events: none !important; 
+        cursor: not-allowed;
+    }
+    .is-offline .offline-badge { display: block; }
 </style>

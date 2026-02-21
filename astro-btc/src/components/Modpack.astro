@@ -9,83 +9,64 @@ const elyPrismUrl = "https://elyprismlauncher.github.io/";
     <div class="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12 max-w-6xl relative z-10">
         
         <div class="w-full md:w-1/2 text-center md:text-left">
-    
-    <div class="bg-black/30 backdrop-blur-md p-8 md:p-10 rounded-3xl border border-white/5 shadow-xl glass-gpu">
-        
-        <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-4 uppercase tracking-tight">
-            Potencia tu <span class="text-(--text-modrinth)">Experiencia</span>
-        </h2>
-        <div class="h-1.5 w-24 bg-(--text-modrinth) mb-8 mx-auto md:mx-0 rounded-full"></div>
-        
-        <p class="text-white text-lg leading-relaxed mb-8 opacity-95 text-justify md:text-left">
-            Nuestro modpack oficial integra las herramientas técnicas esenciales y optimizaciones clave para Builtechraft. Un entorno preparado para la ingeniería y la creación sin límites.
-        </p>
-
-        <ul class="space-y-3 mb-10">
-            <li class="flex items-center gap-4 p-3 rounded-xl border border-white/10">
-                <span class="text-xl">🚀</span> 
-                <span class="text-sm md:text-base text-white">Optimización de FPS (Sodium/Culling)</span>
-            </li>
-            <li class="flex items-center gap-4 p-3 rounded-xl border border-white/10">
-                <span class="text-xl">🛠️</span> 
-                <span class="text-sm md:text-base text-white">Herramientas Técnicas (Litematica/WorldEdit)</span>
-            </li>
-        </ul>
-
-        <div class="space-y-4">
-            <p class="text-xs uppercase tracking-widest text-white font-bold">Se recomienda utilizar los launchers:</p>
-            <div class="flex flex-wrap justify-center md:justify-start gap-4">
+            <div class="bg-black/30 backdrop-blur-md p-8 md:p-10 rounded-3xl border border-white/5 shadow-xl glass-gpu">
                 
-                <a href={prismUrl} target="_blank" class="flex items-center gap-3 bg-black/40 hover:bg-black/60 border border-white/10 px-4 py-2.5 rounded-xl transition-all group overflow-hidden">
-                    <img 
-                        src="https://prismlauncher.org/_astro/logo.CWs3Bi2E_Z1HYzg2.svg" 
-                        alt="Logo Prism Launcher" 
-                        class="w-6 h-6 object-contain group-hover:scale-110 transition-transform duration-300"
-                    />
-                    <span class="text-sm font-bold text-zinc-200 group-hover:text-white transition-colors">Prism Launcher</span>
-                </a>
+                <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-4 uppercase tracking-tight">
+                    Potencia tu <span class="text-(--text-modrinth)">Experiencia</span>
+                </h2>
+                <div class="h-1.5 w-24 bg-(--text-modrinth) mb-8 mx-auto md:mx-0 rounded-full"></div>
+                
+                <p class="text-white text-lg leading-relaxed mb-8 opacity-95 text-justify md:text-left">
+                    Nuestro modpack oficial integra las herramientas técnicas esenciales y optimizaciones clave para Builtechraft. Un entorno preparado para la ingeniería y la creación sin límites.
+                </p>
 
-                <a href={elyPrismUrl} target="_blank" class="flex items-center gap-3 bg-black/40 hover:bg-black/60 border border-white/10 px-4 py-2.5 rounded-xl transition-all group overflow-hidden">
-                    <img 
-                        src="https://elyprismlauncher.github.io/assets/svg/icon.svg" 
-                        alt="Logo ElyPrism Launcher" 
-                        class="w-6 h-6 object-contain group-hover:scale-110 transition-transform duration-300"
-                    />
-                    <div>
-                        <span class="text-sm font-bold text-zinc-200 group-hover:text-white transition-colors">ElyPrism</span>
-                        <span class="text-[10px] text-btc-orange font-bold uppercase">[No-Premium]</span>
+                <ul class="space-y-3 mb-10 text-left">
+                    <li class="flex items-center gap-4 p-3 rounded-xl border border-white/10 bg-black/20">
+                        <span class="text-xl">🚀</span> 
+                        <span class="text-sm md:text-base text-white">Optimización de FPS (Sodium/Lithium)</span>
+                    </li>
+                    <li class="flex items-center gap-4 p-3 rounded-xl border border-white/10 bg-black/20">
+                        <span class="text-xl">🛠️</span> 
+                        <span class="text-sm md:text-base text-white">Herramientas Técnicas (Litematica/MiniHUD)</span>
+                    </li>
+                </ul>
+
+                <div class="space-y-4 text-left">
+                    <p class="text-xs uppercase tracking-widest text-white font-bold">Launchers recomendados:</p>
+                    <div class="flex flex-wrap justify-center md:justify-start gap-4">
+                        <a href={prismUrl} target="_blank" class="flex items-center gap-3 bg-black/40 hover:bg-black/60 border border-white/10 px-4 py-2.5 rounded-xl transition-all group overflow-hidden">
+                            <img src="https://prismlauncher.org/_astro/logo.CWs3Bi2E_Z1HYzg2.svg" alt="Prism Launcher" class="w-6 h-6 object-contain group-hover:scale-110 transition-transform duration-300"/>
+                            <span class="text-sm font-bold text-zinc-200 group-hover:text-white transition-colors">Prism Launcher</span>
+                        </a>
+
+                        <a href={elyPrismUrl} target="_blank" class="flex items-center gap-3 bg-black/40 hover:bg-black/60 border border-white/10 px-4 py-2.5 rounded-xl transition-all group overflow-hidden">
+                            <img src="https://elyprismlauncher.github.io/assets/svg/icon.svg" alt="ElyPrism Launcher" class="w-6 h-6 object-contain group-hover:scale-110 transition-transform duration-300"/>
+                            <div>
+                                <span class="text-sm font-bold text-zinc-200 group-hover:text-white transition-colors">ElyPrism</span>
+                                <span class="text-[10px] text-btc-orange font-bold uppercase ml-1">[No-Premium]</span>
+                            </div>
+                        </a>
                     </div>
-                </a>
-
+                </div>
             </div>
         </div>
 
-    </div> </div>
-
         <div class="w-full md:w-1/2">
-            <a href={modpackUrl} target="_blank" 
-               class="modpack-card group relative block bg-black/50 p-10 rounded-3xl overflow-hidden transition-all duration-300 hover:bg-white hover:scale-105 shadow-2xl"
-               data-modrinth-url={modpackUrl}>
-                
+            <a href={modpackUrl} target="_blank" class="modpack-card group relative block bg-black/50 p-10 rounded-3xl overflow-hidden transition-all duration-300 hover:bg-white hover:scale-105 shadow-2xl" data-modrinth-url={modpackUrl}>
                 <div class="relative z-10 flex flex-col items-center justify-center text-center h-full gap-6">
                     <div class="modpack-icon-container w-24 h-24 bg-[#1bd96a]/20 rounded-2xl flex items-center justify-center group-hover:bg-[#1bd96a]/10 transition-colors border border-[#1bd96a]/20 overflow-hidden">
                         <span class="text-5xl modpack-emoji group-hover:scale-110 transition-transform">📦</span>
                     </div>
 
                     <div>
-                        <h3 class="text-2xl font-bold text-white group-hover:text-zinc-900 transition-colors mb-2">
-                            Descargar Modpack
-                        </h3>
-                        <p class="text-zinc-300 group-hover:text-zinc-600 text-lg">
-                            Instalación vía Modrinth
-                        </p>
+                        <h3 class="text-2xl font-bold text-white group-hover:text-zinc-900 transition-colors mb-2">Descargar Modpack</h3>
+                        <p class="text-zinc-300 group-hover:text-zinc-600 text-lg">Instalación vía Modrinth</p>
                     </div>
                     
-                    <div id="modpack-version" class="text-[#1bd96a] font-bold text-sm uppercase tracking-widest border-b-2 border-transparent group-hover:border-[#1bd96a] transition-all">
-                        Cargando versión...
+                    <div id="modpack-version-badge" class="text-[#1bd96a] font-bold text-sm tracking-widest border-b-2 border-transparent group-hover:border-[#1bd96a] transition-all">
+                        Consultando API...
                     </div>
                 </div>
-
                 <div class="absolute inset-0 bg-linear-to-br from-[#1bd96a]/0 to-[#1bd96a]/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
             </a>
         </div>
@@ -93,7 +74,6 @@ const elyPrismUrl = "https://elyprismlauncher.github.io/";
 </section>
 
 <script>
-    // El script de Modrinth se mantiene igual que antes
     document.addEventListener('DOMContentLoaded', async () => {
         const card = document.querySelector('.modpack-card');
         if (!card) return;
@@ -101,7 +81,7 @@ const elyPrismUrl = "https://elyprismlauncher.github.io/";
         const url = card.getAttribute('data-modrinth-url');
         const container = card.querySelector('.modpack-icon-container');
         const emoji = card.querySelector('.modpack-emoji');
-        const versionDisplay = document.getElementById('modpack-version');
+        const badgeDisplay = document.getElementById('modpack-version-badge');
 
         const getSlug = (u) => {
             const parts = u.split('?')[0].split('/');
@@ -111,6 +91,7 @@ const elyPrismUrl = "https://elyprismlauncher.github.io/";
         const slug = getSlug(url);
         
         try {
+            // 1. Obtener Icono
             const projectRes = await fetch(`https://api.modrinth.com/v2/project/${slug}`);
             if (projectRes.ok) {
                 const data = await projectRes.json();
@@ -123,18 +104,32 @@ const elyPrismUrl = "https://elyprismlauncher.github.io/";
                 }
             }
 
+            // 2. Obtener Versiones
             const versionsRes = await fetch(`https://api.modrinth.com/v2/project/${slug}/version`);
             if (versionsRes.ok) {
                 const versions = await versionsRes.json();
+                
                 if (versions.length > 0) {
-                    const latest = versions[0];
-                    if (versionDisplay) {
-                        versionDisplay.textContent = `v${latest.version_number} • MC ${latest.game_versions[0]}`;
+                    let allGameVersions = new Set();
+                    versions.forEach(v => {
+                        v.game_versions.forEach(gv => allGameVersions.add(gv));
+                    });
+                    
+                    // Ordenamiento algorítmico para versiones semánticas
+                    const sortedVersions = Array.from(allGameVersions).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+                    
+                    const oldest = sortedVersions[0];
+                    const newest = sortedVersions[sortedVersions.length - 1];
+                    const latestModVersion = versions[0].version_number;
+
+                    if (badgeDisplay) {
+                        badgeDisplay.innerHTML = `V${latestModVersion} • MC ${oldest} - ${newest}`;
                     }
                 }
             }
         } catch (e) {
-            if (versionDisplay) versionDisplay.textContent = "Ver en Modrinth";
+            if (badgeDisplay) badgeDisplay.textContent = "Ver en Modrinth";
+            console.error("Error consultando Modrinth API:", e);
         }
     });
 </script>
