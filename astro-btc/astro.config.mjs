@@ -12,4 +12,7 @@ export default defineConfig({
   },
 
   integrations: [react()],
+  image: {
+    domains: ['cdn.modrinth.com', 'avatars.githubusercontent.com'],
+  },
 });
