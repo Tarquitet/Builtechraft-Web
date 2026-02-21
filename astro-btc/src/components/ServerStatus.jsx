@@ -69,7 +69,7 @@ export default function ServerStatus() {
 
         // --- LÓGICA DE TEMA Y TÍTULO ---
         const html = document.documentElement;
-        const siteName = 'Builtechraft SMP';
+        const siteName = 'Builtechraft SMP - Minecraft Server';
         const isManualOverride = window.isManualThemeOverride === true;
 
         if (isOnline) {
