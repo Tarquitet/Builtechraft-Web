@@ -5,7 +5,9 @@ export default function ServerStatus() {
   const [data, setData] = useState({ online: false, players: 0, platform: null });
   const [loading, setLoading] = useState(true);
 
-  const { javaIP, bedrockIP, bedrockPort } = SERVER_INFO;
+  // Extraemos las IPs y la versión mínima del config
+  const { javaIP, bedrockIP, bedrockPort, versions } = SERVER_INFO;
+  const { minJava, recommended: defaultRecommended } = versions;
 
   useEffect(() => {
     const fetchStatus = async () => {
@@ -23,14 +25,31 @@ export default function ServerStatus() {
         const isBedrockOnline = bedrockRes.online;
         const isOnline = isJavaOnline || isBedrockOnline;
 
-        // --- EXTRACCIÓN Y ENVÍO DE VERSIONES ---
-        // Extraemos el nombre de la versión (ej: "1.20.5-1.21.11")
-        const versions = javaRes.version?.name_raw || javaRes.version?.name || 'Offline';
+        // --- EXTRACCIÓN INTELIGENTE DE LA VERSIÓN MÁXIMA (VELOCITY) ---
+        let javaMaxExtracted = defaultRecommended; // Por defecto usa la del config si falla
+        const rawJavaVersion = javaRes.version?.name_raw || javaRes.version?.name || '';
 
-        // Despachamos el evento para que IPSection lo escuche
+        // Busca todos los números de versión (ej. 1.20, 1.21.11) en el string de Velocity
+        const versionMatches = rawJavaVersion.match(/([0-9]+\.[0-9]+(?:\.[0-9]+)?)/g);
+        if (versionMatches && versionMatches.length > 0) {
+          // Toma el último número encontrado, que en "Velocity 1.7.2-1.21.11" será "1.21.11"
+          javaMaxExtracted = versionMatches[versionMatches.length - 1];
+        }
+
+        // --- VERSIÓN BEDROCK (Directo del servidor, no de la API de Geyser) ---
+        // Esto toma la versión de tu propio plugin Geyser instalado
+        const bedrockVersion = bedrockRes.version?.name || 'Desconocida';
+
+        // --- ENVIAMOS LOS DATOS A TRAVÉS DEL EVENTO ---
         window.dispatchEvent(
           new CustomEvent('btc:server-versions', {
-            detail: { versions, online: isOnline },
+            detail: {
+              online: isOnline,
+              javaMin: minJava, // Del config
+              javaMax: javaMaxExtracted, // Extraído de Velocity (Ej: 1.21.11)
+              bedrockVersion: bedrockVersion, // De tu ping Bedrock
+              recommended: javaMaxExtracted, // La recomendada ahora es la máxima de Velocity
+            },
           }),
         );
 
@@ -67,6 +86,14 @@ export default function ServerStatus() {
       } catch (e) {
         console.error('API Error:', e);
         setLoading(false);
+
+        // Si la API falla, avisamos que está offline enviando la info de respaldo
+        window.dispatchEvent(
+          new CustomEvent('btc:server-versions', {
+            detail: { online: false, recommended: defaultRecommended },
+          }),
+        );
+
         const isManualOverride = sessionStorage.getItem('manual-theme-override') === 'true';
         if (!isManualOverride) {
           document.documentElement.classList.remove('light');
@@ -93,7 +120,6 @@ export default function ServerStatus() {
     document.getElementById('ips')?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  // El retorno del HTML se mantiene igual para no romper tu diseño del Navbar
   return (
     <div className="flex flex-col items-center gap-6 mt-4 w-full max-w-2xl mx-auto z-20 relative animate-fade-in-up">
       <div className="flex flex-col md:flex-row items-center gap-5 bg-black/60 backdrop-blur-sm border border-white/10 rounded-2xl p-2 pr-6 shadow-2xl transition-all duration-500 hover:border-btc-orange/30 group">

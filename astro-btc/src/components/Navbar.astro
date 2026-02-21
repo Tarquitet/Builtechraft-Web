@@ -15,7 +15,7 @@ const rightItems = [
 
 <header 
   id="main-header" 
-  class="fixed top-0 w-full z-50 transition-all duration-500 py-6 bg-transparent border-b border-transparent is-at-top"
+  class="hidden lg:block fixed top-0 w-full z-50 transition-all duration-500 py-6 bg-transparent border-b border-transparent is-at-top"
 >
   <div class="container mx-auto px-6 h-16 relative flex items-center justify-center">
 
@@ -28,7 +28,7 @@ const rightItems = [
         <img src="/images/logo-text.webp" alt="Builtechraft" class="h-12 w-auto object-contain drop-shadow-md hover:scale-105 transition-transform" />
     </a>
 
-    <nav class="hidden md:flex items-center justify-center gap-16 transition-all duration-500 relative w-full max-w-5xl" id="desktop-menu">
+    <nav class="hidden lg:flex items-center justify-center gap-16 transition-all duration-500 relative w-full max-w-5xl" id="desktop-menu">
         <div class="flex items-center gap-8 lg:gap-12 flex-1 justify-end">
             {leftItems.map(item => (
                 <a 
@@ -59,7 +59,7 @@ const rightItems = [
     </nav>
 
     {/* BOTÓN INTERRUPTOR DE TEMA */}
-    <div class="absolute right-6 top-1/2 -translate-y-1/2 z-20 hidden md:block">
+    <div class="absolute right-6 top-1/2 -translate-y-1/2 z-20 hidden lg:block">
         <button 
             id="theme-toggle"
             class="w-10 h-10 rounded-full border transition-all duration-300 flex items-center justify-center"
@@ -74,22 +74,19 @@ const rightItems = [
 
 <style>
   /* --- ESTILO DEL BOTÓN DE TEMA --- */
-  
-  /* Cuando está en el Hero (At Top) */
   #main-header.is-at-top #theme-toggle {
-    background-color: rgba(0, 0, 0, 0.4); /* Negro transparente */
+    background-color: rgba(0, 0, 0, 0.4); 
     border-color: rgba(255, 255, 255, 0.1);
-    color: #a1a1aa; /* text-zinc-400 */
-    backdrop-filter: none; /* Sin blur */
+    color: #a1a1aa; 
+    backdrop-filter: none; 
     -webkit-backdrop-filter: none;
   }
   #main-header.is-at-top #theme-toggle:hover {
     background-color: rgba(0, 0, 0, 0.6);
-    color: #f97316; /* btc-orange */
+    color: #f97316; 
     border-color: rgba(249, 115, 22, 0.3);
   }
 
-  /* Cuando haces Scroll (Scrolled) */
   #main-header.is-scrolled #theme-toggle {
     background-color: rgba(255, 255, 255, 0.05);
     border-color: rgba(255, 255, 255, 0.1);
@@ -151,7 +148,10 @@ const rightItems = [
           htmlEl.classList.toggle('light');
           updateThemeIcons();
           localStorage.setItem('theme', htmlEl.classList.contains('light') ? 'light' : 'dark');
+          window.dispatchEvent(new Event('theme-changed'));
       });
+      
+      window.addEventListener('theme-changed', updateThemeIcons);
 
       const handleHeaderAnimation = () => {
           const currentScroll = window.scrollY;

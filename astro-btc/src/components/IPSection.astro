@@ -1,6 +1,6 @@
 ---
 import { SERVER_INFO } from '../config-ip';
-const { javaIP, bedrockIP, bedrockPort, recommended } = SERVER_INFO;
+const { javaIP, bedrockIP, bedrockPort } = SERVER_INFO;
 ---
 
 <section id="ips" class="py-24 bg-[#272727] relative overflow-hidden">
@@ -64,13 +64,13 @@ const { javaIP, bedrockIP, bedrockPort, recommended } = SERVER_INFO;
         </div>
 
         <div class="max-w-5xl mx-auto mb-16">
-            <h3 class="text-xs font-bold text-zinc-500 uppercase tracking-[0.2em] mb-12 text-center">
+            <h3 class="text-xs font-bold text-zinc-300 uppercase tracking-[0.2em] mb-12 text-center">
                 PROCESO DE CONEXIÓN
             </h3>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 text-sm">
                 <div class="relative pl-8 md:pl-0 text-left md:text-center border-l-2 border-btc-orange md:border-l-0 md:border-t-2 md:pt-6">
-                    <span class="text-4xl font-black text-btc-orange/10 absolute -top-3 left-8 md:left-1/2 md:-translate-x-1/2 md:-top-10 z-0 select-none">1</span>
+                    <span class="text-4xl font-black text-btc-orange/50 absolute -top-3 left-8 md:left-1/2 md:-translate-x-1/2 md:-top-10 z-0 select-none">1</span>
                     <div class="relative z-10">
                         <h4 class="text-btc-orange font-bold mb-2 uppercase">Normas y Whitelist</h4>
                         <p class="text-zinc-300 leading-relaxed font-medium">
@@ -80,7 +80,7 @@ const { javaIP, bedrockIP, bedrockPort, recommended } = SERVER_INFO;
                 </div>
 
                 <div class="relative pl-8 md:pl-0 text-left md:text-center border-l-2 border-zinc-600 md:border-l-0 md:border-t-2 md:pt-6">
-                    <span class="text-4xl font-black text-white/5 absolute -top-3 left-8 md:left-1/2 md:-translate-x-1/2 md:-top-10 z-0 select-none">2</span>
+                    <span class="text-4xl font-black text-white/50 absolute -top-3 left-8 md:left-1/2 md:-translate-x-1/2 md:-top-10 z-0 select-none">2</span>
                     <div class="relative z-10">
                         <h4 class="text-zinc-400 font-bold mb-2 uppercase">Configura</h4>
                         <p class="text-zinc-300 leading-relaxed font-medium">
@@ -90,7 +90,7 @@ const { javaIP, bedrockIP, bedrockPort, recommended } = SERVER_INFO;
                 </div>
 
                 <div class="relative pl-8 md:pl-0 text-left md:text-center border-l-2 border-zinc-600 md:border-l-0 md:border-t-2 md:pt-6">
-                    <span class="text-4xl font-black text-white/5 absolute -top-3 left-8 md:left-1/2 md:-translate-x-1/2 md:-top-10 z-0 select-none">3</span>
+                    <span class="text-4xl font-black text-white/50 absolute -top-3 left-8 md:left-1/2 md:-translate-x-1/2 md:-top-10 z-0 select-none">3</span>
                     <div class="relative z-10">
                         <h4 class="text-zinc-400 font-bold mb-2 uppercase">¡Listo!</h4>
                         <p class="text-zinc-300 leading-relaxed font-medium">
@@ -103,11 +103,11 @@ const { javaIP, bedrockIP, bedrockPort, recommended } = SERVER_INFO;
 
         <div id="version-warning-box" class="max-w-4xl mx-auto bg-amber-500/5 border border-amber-500/20 rounded-2xl p-6 transition-all opacity-50">
             <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-                <div class="space-y-1">
+                <div class="space-y-2 flex-1">
                     <h4 class="text-amber-500 font-bold uppercase tracking-widest text-xs flex items-center justify-center md:justify-start gap-2 m-0">
-                        ⚠️ ADVERTENCIA DE COMPATIBILIDAD
+                        ⚠️ INFORMACIÓN IMPORTANTE
                     </h4>
-                    <p id="version-text" class="text-zinc-400 text-sm leading-relaxed m-0">
+                    <p id="version-text" class="text-zinc-300 text-sm leading-relaxed m-0">
                         Consultando información...
                     </p>
                 </div>
@@ -121,40 +121,47 @@ const { javaIP, bedrockIP, bedrockPort, recommended } = SERVER_INFO;
     </div>
 </section>
 
-<script is:inline define:vars={{ recommended }}>
+<script is:inline>
     // 1. Escuchar el evento que manda el ServerStatus.jsx
     window.addEventListener('btc:server-versions', (e) => {
         const warningBox = document.getElementById('version-warning-box');
         const versionText = document.getElementById('version-text');
         const cardJava = document.getElementById('card-java');
         const cardBedrock = document.getElementById('card-bedrock');
-        const { versions, online } = e.detail;
+        
+        // Obtenemos los datos limpiados del React
+        const { online, javaMin, javaMax, bedrockVersion, recommended } = e.detail;
 
         if (warningBox && versionText) {
             if (online) {
-                // Online: Muestra el rango (Min y Max) detectado por la API
+                // ONLINE
                 warningBox.classList.remove('opacity-50');
                 cardJava?.classList.remove('is-offline');
                 cardBedrock?.classList.remove('is-offline');
                 
-                // Si el formato es "Min-Max" lo separamos, si no lo mostramos tal cual
-                const vParts = versions.split('-');
-                if(vParts.length > 1) {
-                    versionText.innerHTML = `Soportamos desde la versión <span class="text-white font-mono font-bold">${vParts[0]}</span> hasta la <span class="text-white font-mono font-bold">${vParts[1]}</span>. Recomendamos la <strong class="text-amber-400 font-bold underline decoration-amber-400/30 underline-offset-4">${recommended}</strong>.`;
-                } else {
-                    versionText.innerHTML = `Soportamos las versiones <span class="text-white font-mono font-bold">${versions}</span>. Recomendamos la <strong class="text-amber-400 font-bold underline decoration-amber-400/30 underline-offset-4">${recommended}</strong>.`;
+                // Lógica condicional para Bedrock (por si en el futuro trae un rango separado por guion)
+                let bedrockHtml = `📱 Compatible con <strong>Bedrock</strong> desde la versión <span class="text-white font-mono font-bold">${bedrockVersion}</span>.`;
+                if (bedrockVersion && bedrockVersion.includes('-')) {
+                    const parts = bedrockVersion.split('-');
+                    bedrockHtml = `📱 Compatible con <strong>Bedrock</strong> desde la versión <span class="text-white font-mono font-bold">${parts[0].trim()}</span> hasta la <span class="text-white font-mono font-bold">${parts[1].trim()}</span>.`;
                 }
+
+                versionText.innerHTML = `
+                    <span class="block mb-2">☕ Soportamos para <strong>Java</strong> desde la versión <span class="text-white font-mono font-bold">${javaMin}</span> hasta la <span class="text-white font-mono font-bold">${javaMax}</span> (recomendada).</span>
+                    <span class="block mb-1">${bedrockHtml}</span>
+                `;
             } else {
-                // Offline: Muestra solo la versión recomendada/más reciente
+                // OFFLINE
                 warningBox.classList.add('opacity-50');
                 cardJava?.classList.add('is-offline');
                 cardBedrock?.classList.add('is-offline');
-                versionText.innerHTML = `Servidor fuera de línea. Puedes ir a nuestro de Discord para más información.`;
+                
+                versionText.innerHTML = `Servidor fuera de línea. La versión recomendada para conectarse es la <span class="text-white font-mono font-bold">${recommended}</span>.`;
             }
         }
     });
 
-    // 2. Función de copiado con bloqueo de seguridad cuando está Offline
+    // 2. Función de copiado con bloqueo estricto cuando está Offline
     window.copyText = async function(text, btnElement) {
         if (btnElement.closest('.is-offline')) return;
 
@@ -183,7 +190,7 @@ const { javaIP, bedrockIP, bedrockPort, recommended } = SERVER_INFO;
 
 <style>
     .hidden { display: none !important; }
-    /* Estilo "Apagado" que bloquea interacción si está Offline */
+    /* Bloqueo visual y de interacción cuando está Offline */
     .is-offline { 
         filter: grayscale(1); 
         opacity: 0.4; 
