@@ -5,39 +5,57 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import NavbarMobile from '../components/NavbarMobile.astro';
 
+// 1. Agregamos description e image como opciones válidas
 interface Props {
-	title: string;
+    title: string;
+    description?: string;
+    image?: string;
 }
 
-const { title } = Astro.props;
+// 2. Las extraemos con valores por defecto por si en alguna página no las pones
+const { 
+    title, 
+    description = "Builtechraft - Servidor de Minecraft Técnico y Creativo",
+    image = "/images/logo-text.webp"
+} = Astro.props;
 ---
 
 <!doctype html>
 <html lang="es" class="scroll-smooth">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Builtechraft - Servidor de Minecraft Técnico y Creativo" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		
-		<link rel="icon" type="image/png" href="/images/favicon.png" />
-		<link rel="apple-touch-icon" href="/images/favicon.png" />
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
-		
-		<title>{title}</title>
-	</head>
-	<body class="bg-btc-dark text-white font-sans antialiased selection:bg-btc-orange selection:text-white flex flex-col min-h-screen">
-		
-		<Navbar />
-		<NavbarMobile />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content={description} />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={new URL(image, Astro.url)} />
+        
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:title" content={title} />
+        <meta property="twitter:description" content={description} />
+        <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
-		<main class="grow">
-			<slot />
-		</main>
+        <link rel="icon" type="image/png" href="/images/favicon.png" />
+        <link rel="apple-touch-icon" href="/images/favicon.png" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+        
+        <title>{title}</title>
+    </head>
+    <body class="bg-btc-dark text-white font-sans antialiased selection:bg-btc-orange selection:text-white flex flex-col min-h-screen">
+        
+        <Navbar />
+        <NavbarMobile />
 
-		<Footer />
-		
-	</body>
+        <main class="grow">
+            <slot />
+        </main>
+
+        <Footer />
+        
+    </body>
 </html>
