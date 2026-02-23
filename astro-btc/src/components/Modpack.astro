@@ -125,6 +125,16 @@ const elyPrismUrl = "https://elyprismlauncher.github.io/";
                     if (badgeDisplay) {
                         badgeDisplay.innerHTML = `V${latestModVersion} • MC ${oldest} - ${newest}`;
                     }
+
+                    // --- ¡NUEVO! ENVIAR LA VERSIÓN AL RESTO DE LA PÁGINA ---
+                    window.dispatchEvent(
+                        new CustomEvent('btc:modrinth-versions', {
+                            detail: {
+                                modpackMin: oldest,
+                                modpackMax: newest
+                            }
+                        })
+                    );
                 }
             }
         } catch (e) {

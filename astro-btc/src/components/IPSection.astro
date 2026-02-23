@@ -129,8 +129,8 @@ const { javaIP, bedrockIP, bedrockPort } = SERVER_INFO;
         const cardJava = document.getElementById('card-java');
         const cardBedrock = document.getElementById('card-bedrock');
         
-        // Obtenemos los datos limpiados del React
-        const { online, javaMin, javaMax, bedrockVersion, recommended } = e.detail;
+        // Obtenemos los datos directos del React
+        const { online, javaMin, javaMax, bedrockVersion } = e.detail;
 
         if (warningBox && versionText) {
             if (online) {
@@ -139,7 +139,6 @@ const { javaIP, bedrockIP, bedrockPort } = SERVER_INFO;
                 cardJava?.classList.remove('is-offline');
                 cardBedrock?.classList.remove('is-offline');
                 
-                // Lógica condicional para Bedrock (por si en el futuro trae un rango separado por guion)
                 let bedrockHtml = `📱 Compatible con <strong>Bedrock</strong> desde la versión <span class="text-white font-mono font-bold">${bedrockVersion}</span>.`;
                 if (bedrockVersion && bedrockVersion.includes('-')) {
                     const parts = bedrockVersion.split('-');
@@ -156,7 +155,7 @@ const { javaIP, bedrockIP, bedrockPort } = SERVER_INFO;
                 cardJava?.classList.add('is-offline');
                 cardBedrock?.classList.add('is-offline');
                 
-                versionText.innerHTML = `Servidor fuera de línea. La versión recomendada para conectarse es la <span class="text-white font-mono font-bold">${recommended}</span>.`;
+                versionText.innerHTML = `Servidor fuera de línea. La versión recomendada para conectarse es la <span class="text-white font-mono font-bold">${javaMax}</span>.`;
             }
         }
     });
