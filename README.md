@@ -1,6 +1,9 @@
 ### Página web para el servidor de Minecraft: Builtechraft SMP
 ------------
 > *Desarrollado por el jugador Tarquitet.*
+------------
+
+![image](https://raw.githubusercontent.com/Tarquitet/Builtechraft-Web/refs/heads/main/images/btc-2026.avif)
 
 Builtechraft es un servidor privado de Minecraft con el objetivo de construir un mundo grande y épico mediante el uso de la ingeniería, codificación, arquitectura y el arte.
 
