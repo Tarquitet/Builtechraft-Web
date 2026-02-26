@@ -1,5 +1,3 @@
 1.REDACTAR LAS NORMAS PARA QUE NO SUENE MUY A GPT
 
 2. PEDIRLO A AGUILA - AGREGAR MAS VERSIONES MODPACK VERSION MINIMA PARA SERVIDOR 1.20.5 HASTA 1.21.11
-
-probar archivo modrinth si la IA puede buscar esas versiones por nosotros...
