@@ -3,347 +3,297 @@
 const groups = [
     {
         id: "core",
-        title: "Fundamentos del Servidor",
-        desc: "Dogma, Infraestructura y Seguridad (Secciones I - III)",
-        icon: "🛡️",
+        title: "Bases de la Comunidad",
+        desc: "Valores, seguridad y nuestro equipo técnico (Secciones I - III)",
+        icon: "🏠",
         startIndex: 0,
-        endIndex: 3 // Corta antes del 3 (toma 0, 1, 2)
+        endIndex: 3 // Toma las secciones 0, 1 y 2 (I, II, III)
     },
     {
         id: "ops",
-        title: "Operativa & Mantenimiento",
-        desc: "Actualizaciones, Estética y Contingencias (Secciones IV - VI)",
+        title: "Día a Día",
+        desc: "Actualizaciones y normas de arte (Secciones IV - V)",
         icon: "⚙️",
         startIndex: 3,
-        endIndex: 6
+        endIndex: 5 // Toma las secciones 3 y 4 (IV, V)
     },
     {
         id: "civil",
-        title: "Código Civil & Ética",
-        desc: "Propiedad, AFK, Staff y Cuentas (Secciones VII - XI)",
-        icon: "⚖️",
-        startIndex: 6,
-        endIndex: 11
+        title: "Convivencia y Propiedad",
+        desc: "Construcciones, AFK y el equipo Staff (Secciones VII - XI)",
+        icon: "🤝",
+        startIndex: 5,
+        endIndex: 10 // Toma el resto de las secciones (VII en adelante)
     }
 ];
-
 // TUS DATOS ORIGINALES (No tocamos nada del contenido)
 const allSections = [
     {
         id: "I",
-        title: "Dogma y Convivencia (El Kernel Moral)",
-        icon: "⚖️",
+        title: "Convivencia y Respeto",
+        icon: "✨",
         rules: [
             {
                 num: "1.1",
-                text: "Axioma de Integridad Cristiana",
-                sub: "Builtechraft no es un servidor secular genérico. Nuestro 'Kernel' (núcleo) opera bajo principios y valores cristianos.",
+                text: "Respeto a las Creencias y Valores",
+                sub: "Builtechraft es un espacio para todos. El respeto es nuestra base principal.",
                 details: [
-                    "1.1.a: Firewall de Respeto: La blasfemia, el uso del nombre de Dios en vano y el lenguaje soez son tratados como 'corrupción de datos' crítica. Resultan en silencio (mute) o expulsión inmediata.",
-                    "1.1.b: Toxicidad Cero: El acoso, el doxxing (revelar info personal) o la hostilidad sistemática no tienen cabida en nuestra ingeniería social."
+                    "1.1.a: Respeta la religión y las creencias de cada usuario. No todos los que entran al servidor comparten la misma fe, por lo que pedimos ser muy respetuosos con estos temas.",
+                    "1.1.b: Se pide amablemente que no digan groserías ni usen lenguaje soez. El respeto entre usuarios es clave para que todos estemos a gusto.",
+                    "1.1.c: El acoso, las peleas constantes o revelar información personal de otros está estrictamente prohibido[cite: 6]."
                 ]
             },
             {
                 num: "1.2",
-                text: "Protocolo de Neutralidad (Cero Ideología)",
-                sub: "Minecraft es un lienzo para la ingeniería y el arte, no un tablón de anuncios político o ideológico.",
+                text: "Espacio para Crear (Sin Ideologías)",
+                sub: "Venimos a diseñar catedrales, optimizar granjas y crear arte, no a discutir de política.",
                 details: [
-                    "1.2.a: Prohibición de Simbología: No se permite la construcción, exhibición o distribución de banderas de ideología de género, partidos políticos o movimientos sociales divisivos.",
-                    "1.2.b: El Argumento Creativo: Si tu única capacidad de expresión es poner una bandera de colores, te falta imaginación. Aquí venimos a diseñar catedrales, optimizar granjas y crear arte complejo. Tu identidad se demuestra con tu talento, no con una tela.",
-                    "1.2.c: Rebelión: Insistir en romper esta norma bajo el pretexto de 'libertad de expresión' o 'inclusión forzada' será considerado un ataque directo a la soberanía del servidor."
+                    "1.2.a: Aunque respetamos la diversidad, pedimos amablemente que no se construyan banderas de movimientos políticos, ideologías de género o símbolos polémicos.",
+                    "1.2.b: Las construcciones famosas o históricas (como el Cristo Redentor o el Taj Mahal) sí están permitidas y son bienvenidas por su valor artístico.",
+                    "1.2.c: No se permite imponer ideologías a los demás. El comportamiento agresivo o intentar obligar a otros a aceptar ciertos pensamientos no será tolerado."
                 ]
             },
             {
                 num: "1.3",
-                text: "Gestión de la Frustración (Madurez)",
-                sub: "Exigimos un nivel mínimo de madurez emocional para operar en este entorno.",
+                text: "Madurez y Comunicación",
+                sub: "Buscamos un nivel mínimo de tranquilidad para que la comunidad funcione bien[cite: 10].",
                 details: [
-                    "1.3.a: Cláusula 'Chavo del Ocho': No toleramos berrinches ni dramas infantiles porque no se te permite romper las reglas (ej. poner tu bandera o recuperar ítems perdidos). Si vas a llorar y patear el suelo, este no es tu servidor.",
-                    "1.3.b: Si algo no te gusta, se reporta con argumentos técnicos en un ticket privado. El drama público es motivo de sanción."
-                ]
-            },
-            {
-                num: "1.4",
-                text: "Resolución de Conflictos (Topología de Red)",
-                sub: "Los problemas entre usuarios no deben afectar el ancho de banda del chat global.",
-                details: [
-                    "1.4.a: Canal Privado: Las disputas personales se resuelven en /msg o en DMs de Discord. No contamines el chat global con peleas domésticas.",
-                    "1.4.b: Intervención del Staff: Si el Staff debe intervenir para mediar, su decisión es final y no está sujeta a debate público."
+                    "1.3.a: No toleramos dramas públicos ni quejas excesivas porque no se te permita romper las reglas (como poner banderas no permitidas). Si algo te molesta, actúa con calma.",
+                    "1.3.b: Si tienes un problema, repórtalo de forma privada mediante un ticket con argumentos claros. Las discusiones personales deben quedarse en privado para no molestar a los demás en el chat global[cite: 11, 13]."
                 ]
             }
         ]
     },
     {
         id: "II",
-        title: "Infraestructura Física (El Legacy 2020)",
-        icon: "💾",
+        title: "Sobre nuestra Computadora",
+        icon: "💻",
         rules: [
             {
-                num: "3.1",
-                text: "Estado del Servidor Físico (Host)",
-                sub: "El servidor no vive en la nube, vive en una laptop de 2020 que ha operado 24/7 con honor.",
+                num: "2.1",
+                text: "Estado del Equipo",
+                sub: "El servidor no está en una empresa; funciona en una laptop personal de 2020[cite: 15].",
                 details: [
-                    "3.1.a: Fatiga de Materiales: El disco duro ha sufrido años de escritura continua. Si escuchas lag, es la máquina pidiendo clemencia. Se exige paciencia técnica.",
-                    "3.1.b: Limitaciones Domésticas: Al ser un host residencial, estamos sujetos a fallos de luz, cortes de internet (ISP) o mantenimiento del hogar que escapan al control del Staff."
+                    "2.1.a: Paciencia con el rendimiento: La computadora lleva años encendida y a veces puede tener lag. Si el juego se traba un poco, te pedimos paciencia con la máquina[cite: 16].",
+                    "2.1.b: Fallos externos: Al ser un servidor casero, dependemos de la luz y el internet de la casa. Si hay un corte de energía o internet en la zona, el servidor se apagará[cite: 17].",
+                    "2.1.c: Regreso automático: El servidor volverá a estar en línea en cuanto los servicios públicos se normalicen. No es necesario preguntar qué pasó si es un corte de luz evidente[cite: 52]."
                 ]
             },
             {
-                num: "3.2",
-                text: "Ciclos Circadianos (Horarios)",
-                sub: "Para preservar la vida útil del hardware (y la salud mental del Host), existen ventanas de apagado.",
+                num: "2.2",
+                text: "Horarios de Descanso",
+                sub: "Apagamos el equipo unas horas para evitar que se dañe por el calor[cite: 18].",
                 details: [
-                    "3.2.a: Ventana de Sueño: El servidor se apaga automáticamente a la 01:00 AM (Hora Colombia) para enfriamiento térmico.",
-                    "3.2.b: Protocolo de Inicio: Los sistemas se reactivan automáticamente antes de las 10:00 AM (Hora Colombia).",
-                    "3.2.c: Intervención Remota: El Staff posee un panel de control externo. Si la laptop física está encendida fuera de horario, pueden activar el servidor remotamente para mantenimiento o emergencias."
+                    "2.2.a: Descanso nocturno: El servidor se apaga automáticamente a la 01:00 AM (Hora Colombia) para que la laptop pueda enfriarse[cite: 19].",
+                    "2.2.b: Hora de encendido: El sistema vuelve a estar disponible antes de las 10:00 AM (Hora Colombia)[cite: 20].",
+                    "2.2.c: Ajustes del Staff: El equipo de administración puede entrar de forma remota para encender el servidor fuera de horario si hay una emergencia o mantenimiento necesario[cite: 20]."
                 ]
             }
         ]
     },
     {
         id: "III",
-        title: "Protocolos de Seguridad y Accesos",
+        title: "Seguridad y Entrada",
         icon: "🔐",
         rules: [
             {
-                num: "4.1",
-                text: "Historial de Vulnerabilidad",
-                sub: "Nuestras medidas actuales son cicatrices de batallas pasadas.",
+                num: "3.1",
+                text: "Por qué nos cuidamos tanto",
+                sub: "Nuestras reglas actuales existen para evitar problemas que tuvimos en el pasado.",
                 details: [
-                    "4.1.a: El Incidente 'Identity Theft': En la era No-Premium, sufrimos la suplantación del dueño, comprometiendo el mundo. Desde entonces, la seguridad no es negociable.",
-                    "4.1.b: Evolución Defensiva: Hemos migrado de un simple '/login' a Whitelist estricta, y ahora a un sistema de validación híbrido."
+                    "3.1.a: Lecciones aprendidas: Hace tiempo, alguien se hizo pasar por el dueño del servidor y puso en riesgo todo el mundo. Por eso, ahora la seguridad es obligatoria[cite: 22].",
+                    "3.1.b: Mejoras constantes: Hemos pasado de usar contraseñas simples a sistemas mucho más seguros para proteger tus construcciones y tu progreso[cite: 23]."
                 ]
             },
             {
-                num: "4.2",
-                text: "El Desafío de la Autenticación (Ely.by)",
-                sub: "Buscamos el equilibrio perfecto entre seguridad Premium y acceso gratuito.",
+                num: "3.2",
+                text: "Cómo entrar a jugar (Ely.by)",
+                sub: "Queremos que entrar sea fácil para todos, sin importar si tienes cuenta comprada o no.",
                 details: [
-                    "4.2.a: Estado Actual: Usamos servicios como Ely.by para permitir skins y acceso seguro sin '/register'.",
-                    "4.2.b: Alerta de Obsolescencia: El plugin 'Multilogin' está perdiendo soporte en Velocity. Estamos en una fase activa de investigación (I+D) para implementar alternativas moddeadas.",
-                    "4.2.c: Colaboración: Se pide paciencia a la comunidad mientras el Staff prueba nuevos métodos de entrada que no comprometan la seguridad del núcleo."
+                    "3.2.a: Uso de Skins: Usamos servicios como Ely.by para que puedas ver tu skin y entrar de forma segura sin tener que escribir comandos de registro dentro del juego.",
+                    "3.2.b: Pruebas de mejora: Siempre estamos buscando nuevas formas de que la entrada al servidor sea más rápida y segura.",
+                    "3.2.c: Paciencia en los cambios: Si el Staff está probando un nuevo método para entrar, te pedimos paciencia. Todo cambio es para que nadie pueda robar tu cuenta[cite: 26]."
                 ]
             }
         ]
     },
     {
         id: "IV",
-        title: "Mantenimiento y Factor Humano",
-        icon: "⚠️",
+        title: "Actualizaciones y Equipo",
+        icon: "🛠️",
         rules: [
             {
-                num: "5.1",
-                text: "Protocolo de Actualización (La Cuarentena)",
-                sub: "La estabilidad prima sobre la novedad. No actualizamos el día 1.",
+                num: "4.1",
+                text: "Sobre las nuevas versiones",
+                sub: "Preferimos que el servidor sea estable antes que tener lo último con errores.",
                 details: [
-                    "5.1.a: Ventana de Espera: Tras una nueva versión de Minecraft, el servidor espera de 2 a 3 semanas.",
-                    "5.1.b: Justificación Técnica: Este tiempo es necesario para que los Mods (Fabric/Quilt) y Datapacks se actualicen y para auditar posibles bugs que corrompan el mapa."
+                    "4.1.a: Tiempo de espera: Cuando sale una nueva versión de Minecraft, solemos esperar de 2 a 3 semanas antes de actualizar el servidor[cite: 27].",
+                    "4.1.b: Seguridad del mapa: Este tiempo es necesario para que los complementos del servidor se actualicen y para evitar errores que puedan dañar tus construcciones o el mundo."
                 ]
             },
             {
-                num: "5.2",
-                text: "Falibilidad del Operador",
-                sub: "Detrás de la consola hay un humano (Tarquitet), no una IA.",
+                num: "4.2",
+                text: "Somos humanos",
+                sub: "Detrás del servidor hay una persona real (Tarquitet), no una máquina.",
                 details: [
-                    "5.2.a: Error Humano: Ocasionalmente, el servidor puede no encenderse a la hora exacta por olvido, sueño o fallos en la automatización. No spamear al Staff.",
-                    "5.2.b: Comunidad Humilde: Somos una comunidad pequeña gestionada con pasión, no una corporación con SLAs de 99.9%. Agradecemos tu comprensión."
+                    "4.2.a: Errores comunes: A veces el servidor puede no encenderse a la hora exacta por olvido o falta de tiempo del dueño; por favor, evita presionar al Staff[cite: 30].",
+                    "4.2.b: Comunidad pequeña: No somos una empresa grande, somos una comunidad gestionada con pasión. Agradecemos mucho tu comprensión y paciencia[cite: 31]."
                 ]
             }
         ]
     },
     {
         id: "V",
-        title: "Criterio Estético y la Paradoja del Pixel",
+        title: "Reglas de Arte",
         icon: "🎨",
         rules: [
             {
-                num: "6.1",
-                text: "Protocolo de Contención (NSFW-Lite)",
-                sub: "Mantenemos una política de 'Libertad Vigilada' respecto al arte pixelado de carácter sugerente o 'ejem' (Borderline NSFW).",
+                num: "5.1",
+                text: "Arte Sugerente",
+                sub: "Permitimos libertad creativa, pero con límites para mantener un ambiente cómodo.",
                 details: [
-                    "6.1.a: Cuota de Tolerancia: Se permite un máximo estricto de dos (2) obras de arte sugerentes por usuario. No es una galería, es una concesión.",
-                    "6.1.b: Recinto Privado: Estas obras deben permanecer en recintos privados (sótanos, bunkers, zonas restringidas). Si un usuario expone este contenido en el Spawn o zonas públicas, será tratado como vandalismo moral.",
-                    "6.1.c: Responsabilidad de Fuga: Si un menor de edad o un tercero ve tu mapa por accidente debido a tu negligencia (puertas abiertas, marcos visibles), la sanción recae 100% sobre ti."
+                    "5.1.a: Límite de obras: Cada usuario puede tener un máximo de dos (2) obras de arte de carácter sugerente. No queremos que el servidor se convierta en una galería de este tipo[cite: 33].",
+                    "5.1.b: Solo en zonas privadas: Estas obras deben estar en lugares cerrados o privados (como sótanos o habitaciones). Mostrarlas en zonas públicas o el Spawn se considera una falta de respeto[cite: 34].",
+                    "5.1.c: Tu responsabilidad: Si alguien ve tu contenido porque no protegiste bien tu zona, la responsabilidad es totalmente tuya[cite: 34]."
                 ]
             },
             {
-                num: "6.2",
-                text: "La Ley de la Escalada (Competencia de Perversión)",
-                sub: "El nivel de 'peligro' del contenido está regulado por la comunidad bajo supervisión estricta.",
+                num: "5.2",
+                text: "Nivel de Contenido",
+                sub: "El Staff supervisa que el tono del servidor no se vuelva inapropiado.",
                 details: [
-                    "6.2.a: El Techo de Cristal: Ningún mapa nuevo puede superar el nivel de explicitud o 'perversión' de los mapas ya existentes aprobados. Si tu obra es más 'peligrosa' que la del vecino, debe ser destruida o censurada.",
-                    "6.2.b: Desescalada Obligatoria: Si el servidor considera que el tono general está subiendo demasiado, se ordenará una purga masiva de mapas para 'bajar la temperatura'.",
-                    "6.2.c: Criterio del Juez: El Staff tiene la última palabra sobre qué es 'arte' y qué es 'pornografía'. No hay apelación técnica aquí."
+                    "5.2.a: Respetar los límites: Ninguna obra nueva puede ser más explícita que las que ya han sido permitidas anteriormente[cite: 36].",
+                    "5.2.b: Ajustes necesarios: Si el ambiente se vuelve muy pesado, el Staff podrá pedir que se retiren o censuren algunas obras para mantener el orden[cite: 37].",
+                    "5.2.c: Decisión final: El Staff tiene la última palabra sobre qué es arte y qué es contenido prohibido. No se aceptarán discusiones sobre esto[cite: 38]."
                 ]
             },
             {
-                num: "6.3",
-                text: "La Auditoría Psicológica",
-                sub: "No prohibimos el arte extraño, pero lo usamos para juzgarte.",
+                num: "5.3",
+                text: "Ambiente de la Comunidad",
+                sub: "Cuidamos que el servidor sea un lugar sano para todos.",
                 details: [
-                    "6.3.a: El Staff monitorea tu galería personal no solo para moderar, sino para evaluar tu perfil psicológico. Si tu arte es excesivamente perturbador o 'raro', cuestionaremos tu idoneidad para permanecer en nuestra comunidad cristiana.",
-                    "6.3.b: Considera esto una prueba de carácter: ¿Puedes manejar la libertad sin degradarte?"
+                    "5.3.a: Revisión de contenido: El Staff revisa lo que se construye para asegurar que el ambiente siga siendo respetuoso y acorde a nuestros valores.",
+                    "5.3.b: Comportamiento: Si el contenido que creas es demasiado perturbador o extraño, evaluaremos si tu perfil es adecuado para permanecer en esta comunidad.",
+                    "5.3.c: Prueba de madurez: Te pedimos manejar tu libertad con respeto hacia los demás jugadores[cite: 40]."
                 ]
             }
         ]
     },
+    //El 6 - VI eliminado por rebundancia innecesaria que ya esta en otros textos
     {
         id: "VI",
-        title: "Factor Humano y Contingencias Operativas",
-        icon: "⚠️",
+        title: "Tu Espacio y el de los Demás",
+        icon: "🛡️",
         rules: [
             {
                 num: "7.1",
-                text: "La Realidad de la Escala (Humildad Técnica)",
-                sub: "No somos Hypixel ni una corporación. Somos una familia de ingenieros operando desde un 'Garaje Digital'.",
+                text: "Respeto a las Construcciones",
+                sub: "Lo que no es tuyo no se toca. Tenemos herramientas para saber quién puso o quitó cada bloque.",
                 details: [
-                    "7.1.a: Ausencia de SLA (Service Level Agreement): No garantizamos un tiempo de actividad (Uptime) del 99.9%. Los cortes de servicio son parte natural de la experiencia de un servidor casero.",
-                    "7.1.b: Staff Voluntario: Nuestros administradores tienen vidas, trabajos y estudios. No son bots ni empleados pagados; su tiempo es un regalo a la comunidad, no una obligación contractual."
+                    "7.1.a: No al vandalismo: Destruir o alterar construcciones ajenas sin permiso resultará en una expulsión permanente. No hay advertencias.",
+                    "7.1.b: No robar: Tomar objetos de cofres o almacenes ajenos (aunque no tengan protección) se considera una falta grave de honestidad[cite: 54]."
                 ]
             },
             {
                 num: "7.2",
-                text: "Latencia Humana (El Host)",
-                sub: "Detrás de la terminal hay un ser humano (Tarquitet), sujeto a fatiga, olvidos y leyes biológicas.",
+                text: "Reglas para las Bromas",
+                sub: "La diversión termina cuando molestas el trabajo de los demás[cite: 56].",
                 details: [
-                    "7.2.a: Error de Capa 8: Ocasionalmente, el servidor puede no encenderse a la hora exacta porque el Host se durmió, salió o simplemente olvidó ejecutar el script de inicio. Se exige paciencia, no spam.",
-                    "7.2.b: Derecho a Descanso: Si el Host está enfermo o de viaje, el servidor puede permanecer apagado. Jugar aquí es un privilegio invitado, no un derecho adquirido.",
-                    "7.2.c: Ventana de Sueño: Si el servidor se apaga a la 1:00 AM, es para que el Host (y la laptop) puedan dormir. No insistas."
+                    "7.2.a: Solo con amigos: Haz bromas únicamente a jugadores con los que tengas mucha confianza. Si no sabes cómo reaccionarán, mejor no lo hagas[cite: 56].",
+                    "7.2.b: Limpieza obligatoria: Si haces una broma, estás obligado a limpiar y dejar todo como estaba si la otra persona te lo pide[cite: 56].",
+                    "7.2.c: Nada de destrucción: Están prohibidas las bromas que usen fuego, TNT, lava o cualquier cosa que pueda destruir objetos de forma permanente[cite: 57]."
                 ]
             },
             {
                 num: "7.3",
-                text: "Protocolo de Actualización (La Cuarentena)",
-                sub: "La estabilidad del mundo prima sobre la novedad de la versión.",
+                text: "Caminos y Portales",
+                sub: "El transporte en el servidor debe ser ordenado y respetuoso.",
                 details: [
-                    "7.3.a: Ventana de Espera: Tras una nueva versión de Minecraft (Update), el servidor entra en 'Cuarentena Técnica' obligatoria de 2 a 3 semanas.",
-                    "7.3.b: Justificación de Ingeniería: Este tiempo es crítico para que el ecosistema de Mods (Fabric/Quilt) y Datapacks se estabilice. No actualizamos el Día 1 para evitar la corrupción irreversible de chunks.",
-                    "7.3.c: Cero Presión: Preguntar repetidamente '¿Cuándo actualizan?' será considerado spam y reinicia el contador de paciencia del Staff."
-                ]
-            },
-            {
-                num: "7.4",
-                text: "Fuerza Mayor (Infraestructura Local)",
-                sub: "Operamos bajo las leyes de la física y los servicios públicos de Colombia.",
-                details: [
-                    "7.4.a: Fallo de Suministro: Si se va la luz o cae el internet en la sede del Host, el servidor cae instantáneamente. No contamos con generadores diésel de respaldo ni enlaces satelitales.",
-                    "7.4.b: El servidor volverá automáticamente cuando los servicios públicos se restablezcan. No es necesario abrir tickets preguntando lo obvio."
+                    "7.3.a: Portales ordenados: Si tu portal estorba en la base de otra persona y no tiene un cartel con tu nombre, el dueño de la zona puede quitarlo.",
+                    "7.3.b: Identificación: Todo portal debe tener un cartel con coordenadas o el nombre del dueño para evitar confusiones[cite: 60]."
                 ]
             }
         ]
     },
     {
         id: "VII",
-        title: "Jus Soli (Propiedad y Territorio)",
-        icon: "🛡️",
+        title: "Jugadores Inactivos (AFK)",
+        icon: "💤",
         rules: [
             {
-                num: "7.1",
-                text: "Auditoría Forense (CoreProtect)",
-                sub: "Cada bloque tiene firma digital. El crimen perfecto no existe.",
+                num: "8.1",
+                text: "Uso Responsable del Espacio",
+                sub: "Si no estás jugando activamente, intenta no ocupar un lugar innecesario en el servidor.",
                 details: [
-                    "7.1.a: Griefing: La destrucción o alteración de estructuras ajenas es Ban Permanente. No hay advertencias.",
-                    "7.1.b: Hurto: Tomar ítems de contenedores ajenos (estén protegidos o no) es un delito de integridad."
+                    "8.1.a: Solo se permite quedarse quieto (AFK) si estás operando una granja automática o esperando un proceso técnico del juego. Quedarse quieto en el punto de aparición (Spawn) solo para 'sumar horas' no está permitido[cite: 61, 62].",
+                    "8.1.b: Para que otros puedan entrar a jugar, el sistema te sacará automáticamente después de 20 minutos de inactividad si detecta que el servidor está muy lleno."
                 ]
             },
             {
-                num: "7.2",
-                text: "Ley de Bromas (Pranks) y Restauración",
-                sub: "La comedia termina donde empieza el trabajo ajeno.",
+                num: "8.2",
+                text: "Cuida tu Personaje",
+                sub: "Desconectarte cuando no juegas ayuda al servidor y te protege a ti.",
                 details: [
-                    "7.2.a: Consentimiento Tácito: Solo haz bromas a jugadores con los que tengas confianza. Si no sabes cómo reaccionará, no lo hagas.",
-                    "7.2.b: Cláusula de Restauración: El bromista (Prankster) está OBLIGADO a limpiar y restaurar todo a su estado original si la víctima lo solicita. Dejar el desorden para que lo limpie otro es vandalismo.",
-                    "7.2.c: Prohibido Fuego/TNT/Lava: Bromas que puedan destruir ítems permanentemente o quemar estructuras de madera están terminantemente prohibidas."
-                ]
-            },
-            {
-                num: "7.3",
-                text: "Urbanismo del Nether",
-                sub: "La red de transporte requiere precisión y respeto.",
-                details: [
-                    "7.3.a: Colisión de Portales: Si tu portal interfiere con una base ajena y no está señalizado, el afectado puede destruirlo.",
-                    "7.3.b: Señalización: Portal sin cartel de coordenadas = Portal abandonado."
+                    "8.2.a: Si vas a salir a comer o a dormir, por favor desconéctate. Esto ayuda a que la computadora del servidor no trabaje de más procesando zonas donde no hay nadie[cite: 64].",
+                    "8.2.b: Si dejas a tu personaje solo y muere de hambre o por un monstruo, el Staff no podrá devolverte tus objetos. Mantener a tu personaje a salvo es tu responsabilidad activa."
                 ]
             }
         ]
     },
     {
         id: "VIII",
-        title: "Ética de la Ausencia (Protocolo AFK)",
-        icon: "💤",
+        title: "El Trato con el Equipo (Staff)",
+        icon: "🛡️",
         rules: [
             {
                 num: "9.1",
-                text: "AFK Responsable",
-                sub: "El servidor no es un hotel. Si no estás produciendo, no consumas RAM.",
+                text: "Somos Voluntarios",
+                sub: "El equipo del servidor ayuda porque quiere, no porque sea su trabajo[cite: 66].",
                 details: [
-                    "9.1.a: Propósito Productivo: Solo se permite quedarse AFK si estás operando una granja automática o esperando un proceso técnico. Quedarse AFK en el Spawn solo 'para sumar horas' está prohibido.",
-                    "9.1.b: Límite de Inactividad: El sistema expulsará automáticamente a los usuarios inactivos tras 20 minutos si el servidor detecta carga alta (TPS bajo)."
+                    "9.1.a: Ten paciencia con las respuestas: Por favor, no exijas atención inmediata. Un ticket puede tardar en responderse si el equipo está trabajando, estudiando o descansando[cite: 67].",
+                    "9.1.b: No usar menciones innecesarias: Etiquetar muchas veces a los administradores o al dueño en Discord sin una emergencia real es motivo de sanción[cite: 68]."
                 ]
             },
             {
                 num: "9.2",
-                text: "Desconexión de Seguridad",
-                sub: "Protege tu inventario y el rendimiento global.",
+                text: "Respeto y Soluciones",
+                sub: "Todos somos humanos y podemos equivocarnos. Lo importante es hablarlo con respeto.",
                 details: [
-                    "9.2.a: Si vas a salir a comer o dormir, desconéctate. No dejes tu personaje cargando chunks innecesarios que calientan la CPU del Host.",
-                    "9.2.b: Muerte por AFK: Si mueres de hambre o por un mob mientras estás AFK fuera de una zona segura, el Staff no devolverá tus ítems. La seguridad de tu personaje es tu responsabilidad activa."
+                    "9.2.a: Si hay un error, avísanos: Si un administrador se equivoca con una sanción o borra algo sin querer, repórtalo con calma y respeto. Lo investigaremos para arreglarlo.",
+                    "9.2.b: Trato amable: Insultar o menospreciar a un miembro del equipo por sus decisiones hará que se te retire el acceso al servidor."
                 ]
             }
         ]
     },
     {
         id: "IX",
-        title: "Protocolo Administrativo (Relación Staff-Usuario)",
-        icon: "🛡️",
+        title: "Tu Cuenta y Seguridad",
+        icon: "👤",
         rules: [
             {
                 num: "10.1",
-                text: "Principio de Voluntariado",
-                sub: "El Staff no son empleados pagados, son voluntarios que donan su tiempo libre.",
+                text: "Cuidando tu identidad",
+                sub: "Tu personaje es tu identidad en el servidor y tú eres el único responsable de lo que pase con él[cite: 71].",
                 details: [
-                    "10.1.a: Tiempos de Respuesta: No exijas atención inmediata. Un ticket puede tardar horas en responderse si el Staff está trabajando, estudiando o durmiendo.",
-                    "10.1.b: Prohibido el 'Ping' Masivo: Etiquetar repetidamente al Staff o al Host en Discord sin una emergencia real (servidor caído o griefing activo) es motivo de sanción."
-                ]
-            },
-            {
-                num: "10.2",
-                text: "Falibilidad y Respeto Mutuo",
-                sub: "El Staff puede equivocarse. El usuario puede equivocarse. Lo resolvemos hablando.",
-                details: [
-                    "10.2.a: Errores Administrativos: Si un Admin comete un error (te banea por error o borra algo sin querer), repórtalo con respeto. Se investigará y se compensará si corresponde.",
-                    "10.2.b: Cero Abuso: Insultar, menospreciar o tratar con altivez a un miembro del Staff por una decisión técnica resultará en la revocación del acceso."
+                    "10.1.a: La excusa de terceros: Si un amigo, un familiar o cualquier otra persona entra con tu cuenta y rompe las reglas, la sanción se aplicará a la CUENTA, sin importar quién estaba jugando en ese momento.",
+                    "10.1.b: Seguridad personal: Es tu deber mantener segura tu contraseña y tu cuenta de Minecraft o Discord. El equipo no retirará sanciones que ocurran por descuidos de seguridad de tu parte."
                 ]
             }
         ]
     },
     {
         id: "X",
-        title: "Responsabilidad de Credenciales",
-        icon: "🔐",
-        rules: [
-            {
-                num: "11.1",
-                text: "La Ley del 'Hermano Pequeño'",
-                sub: "Tu cuenta es tu identidad digital y eres responsable de todo lo que se haga con ella.",
-                details: [
-                    "11.1.a: Intransferibilidad: Si 'tu hermano', 'tu primo' o 'un hacker' entra con tu cuenta y rompe las reglas, la sanción se mantiene en la CUENTA, no en la persona.",
-                    "11.1.b: Seguridad: Es tu deber proteger tu contraseña (si usas Auth) o tu cuenta de Minecraft/Discord. El Staff no retirará baneos por descuidos de seguridad personal."
-                ]
-            }
-        ]
-    },
-    {
-        id: "XI",
-        title: "Cláusula de Vacío Legal (Sentido Común)",
+        title: "Sentido Común",
         icon: "🧠",
         rules: [
             {
-                num: "12.1",
-                text: "El Espíritu de la Ley",
-                sub: "No juegues a ser abogado con las reglas.",
+                num: "11.1",
+                text: "Uso del Buen Juicio",
+                sub: "No todo tiene que estar escrito paso a paso para saber qué está bien y qué está mal.",
                 details: [
-                    "12.1.a: Cobertura Universal: El hecho de que algo no esté específicamente prohibido en esta lista no significa que esté permitido. Si algo parece incorrecto, injusto o daña el servidor, probablemente lo sea.",
-                    "12.1.b: Decisión Final: En situaciones no contempladas por este texto, el Staff aplicará el sentido común y su decisión será inapelable. Intentar buscar 'agujeros' en la normativa para molestar será sancionado."
+                    "11.1.a: Lo que no está en la lista: El hecho de que algo no aparezca específicamente en estas reglas no significa que esté permitido. Si una acción parece injusta o daña el servidor, se tratará como una falta.",
+                    "11.1.b: Decisiones del equipo: En situaciones que no hayamos previsto en este texto, el Staff aplicará el sentido común y su decisión será definitiva.",
+                    "11.1.c: Evita buscar fallos: Intentar buscar 'agujeros' o trucos en estas normas para molestar a otros o al servidor también será motivo de sanción."
                 ]
             }
         ]

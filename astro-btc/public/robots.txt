@@ -1,12 +1,5 @@
-# Archivo public/robots.txt para Builtechraft SMP
-
 User-agent: *
 Allow: /
+Disallow: /api/
 
-# Bloquear rutas privadas o de testeo (si tienes alguna en el futuro)
-# Disallow: /admin/
-# Disallow: /test/
-
-# Indicar a Google dónde está el mapa de tu sitio (muy importante)
-# ¡Asegúrate de poner tu dominio real aquí!
-Sitemap: https://builtechraft.tarquitet.com/sitemap-index.xml
+Sitemap: https://www.verdadyfe.org/sitemap-index.xml
