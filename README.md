@@ -14,20 +14,27 @@
 
 **Builtechraft** es un servidor privado de Minecraft con integración Crossplay. Nuestro objetivo principal es construir un mundo masivo y épico unificando disciplinas como la ingeniería, la programación, la arquitectura y el arte.
 
-Este repositorio contiene el código fuente de nuestra **Landing Page oficial**. El diseño actual prioriza el rendimiento extremo y la claridad informativa a través de una arquitectura de componentes modulares, permitiendo a los jugadores ver el estado del servidor en tiempo real y conectarse fácilmente.
+Este repositorio contiene el código fuente de nuestra **Landing Page oficial**. El diseño actual prioriza el rendimiento extremo y la claridad informativa a través de una arquitectura de componentes modulares.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Tarquitet/Builtechraft-Web/refs/heads/main/images/btc-2026.avif" alt="Vista previa de Builtechraft Web" style="border-radius: 8px; max-width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.15); margin: 20px 0;" />
 </div>
 
-## 🚀 La actualización: Rama `v2-astro`
+## 🚀 Evolución y Rama `v2-astro`
 
-Esta versión del repositorio integra los avances de la rama **`v2-astro`**, marcando la evolución de la web hacia la ingeniería moderna (dejando atrás las antiguas versiones en HTML puro y Adobe Dreamweaver).
+El proyecto ha recorrido un largo camino desde sus inicios. Esta versión del repositorio integra los avances de la rama **`v2-astro`**, marcando la madurez técnica del sitio:
 
-La página fue reconstruida desde cero para maximizar la velocidad y la eficiencia utilizando:
-* **Astro (Islands Architecture):** Para tiempos de carga casi instantáneos.
-* **React:** Para manejar la lógica de estados asíncronos y el monitoreo en vivo del servidor mediante la API de `mcstatus.io`.
-* **Tailwind CSS:** Para un diseño moderno, responsivo y animaciones fluidas a medida.
+1.  **Orígenes Académicos (v1.0):** El proyecto nació en un entorno universitario, desarrollado durante el primer semestre mientras explorábamos los fundamentos de la web. Esta etapa inicial contó con el apoyo fundamental de [**Sant-Hen**](https://github.com/Sant-Hen), quien colaboró en la creación de la primera versión.
+2.  **Era Dreamweaver (v2.0):** Una transición hacia un enfoque más visual y estructurado.
+3.  **Ingeniería Moderna (v3.0 - Actual):** Reconstrucción total desde cero para maximizar la velocidad utilizando **Astro (Islands Architecture)**, **React** y **Tailwind CSS**.
+
+---
+
+## 🛠️ Especificaciones Técnicas
+
+* **Framework:** Astro (para tiempos de carga casi instantáneos).
+* **Lógica:** React (Hooks para el monitoreo en vivo del servidor vía `mcstatus.io`).
+* **Estilos:** Tailwind CSS (diseño responsivo y animaciones fluidas).
 
 ---
 
