@@ -1,8 +1,8 @@
 // src/config-ip.js
 export const SERVER_INFO = {
-  javaIP: 'rock-partition.gl.joinmc.link',
-  bedrockIP: 'warning-fc.gl.at.ply.gg',
-  bedrockPort: '55879',
+  javaIP: 'btc.tarquitet.com',
+  bedrockIP: 'btcbed.tarquitet.com',
+  bedrockPort: '20367',
   versions: {
     minJava: '1.20.5',
   },

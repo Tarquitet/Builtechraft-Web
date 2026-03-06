@@ -1,57 +1,5 @@
 ---
-// src/components/Technical.astro
-
-// DATAPACKS
-const rawDatapacks = [
-    { name: "LodestoneTP", desc: "Waystones inmersivas", icon: "🧭", url: "https://modrinth.com/datapack/lodestonetp" },
-    { name: "Graves", desc: "Tumbas al morir", icon: "🪦", url: "https://vanillatweaks.net/picker/datapacks/" },
-    { name: "Custom Trades", desc: "Comercio custom", icon: "⚖️", url: "https://vanillatweaks.net/picker/datapacks/" },
-    { name: "Durability Ping", desc: "Aviso durabilidad", icon: "🛠️", url: "https://vanillatweaks.net/picker/datapacks/" },
-    { name: "More Mob Heads", desc: "Cabezas decorativas", icon: "👤", url: "https://vanillatweaks.net/picker/datapacks/" },
-    { name: "DayCount", desc: "Contador de días", icon: "📅", url: "https://modrinth.com/project/WJsYNvCZ" },
-    { name: "Skull [Portable]", desc: "Cabezas custom", icon: "💀", url: "https://modrinth.com/project/skull-portable" }
-];
-
-// MODS
-const rawMods = [
-    // Optimización
-    { name: "Lithium", desc: "Optimización de físicas e IA.", icon: "⚡", url: "https://modrinth.com/mod/lithium" },
-    { name: "Alternate Current", desc: "Redstone optimizado sin lag.", icon: "🔌", url: "https://modrinth.com/mod/alternate-current" },
-    { name: "FerriteCore", desc: "Reducción de uso de RAM.", icon: "💾", url: "https://modrinth.com/mod/ferrite-core" },
-    { name: "Krypton", desc: "Optimización de red.", icon: "🌐", url: "https://modrinth.com/mod/krypton" },
-    { name: "Scalablelux", desc: "Mejora de paquetes de red.", icon: "📈", url: "https://modrinth.com/mod/scalablelux" },
-    { name: "Hibernate Fabric", desc: "Pausa inteligente del server.", icon: "💤", url: "https://modrinth.com/mod/hibernate-fabric" },
-    { name: "Footprint", desc: "Reductor de chunks al guardar mundo.", icon: "👣", url: "https://modrinth.com/mod/footprint" },
-    // Core & Herramientas
-    { name: "Carpet Mod", desc: "Control técnico total.", icon: "🧶", url: "https://modrinth.com/mod/carpet" },
-    { name: "Carpet TIS Addition", desc: "Extensiones técnicas extra.", icon: "➕", url: "https://modrinth.com/mod/carpet-tis-addition" },
-    { name: "Syncmatica", desc: "Esquemas Litematica compartidos.", icon: "🏗️", url: "https://modrinth.com/mod/syncmatica" },
-    { name: "WorldEdit", desc: "Edición de mundo masiva.", icon: "🎨", url: "https://modrinth.com/mod/worldedit" },
-    { name: "Fabric API", desc: "Librería base esencial.", icon: "🛠️", url: "https://modrinth.com/mod/fabric-api" },
-    { name: "Packet Fixer", desc: "Corrección de paquetes.", icon: "📦", url: "https://modrinth.com/mod/packet-fixer" },
-    // Conectividad
-    { name: "Geyser Fabric", desc: "Entrada Bedrock (Móvil/Consola).", icon: "📱", url: "https://modrinth.com/mod/geyser" },
-    { name: "Floodgate", desc: "Autenticación Bedrock.", icon: "🌉", url: "https://modrinth.com/mod/floodgate" },
-    { name: "FabricProxy-Lite", desc: "Gestión tras proxy.", icon: "📡", url: "https://modrinth.com/mod/fabricproxy-lite" },
-    { name: "Velocitab", desc: "Sincronización de tabulador.", icon: "📑", url: "https://modrinth.com/plugin/velocitab" },
-    { name: "ViaVersion", desc: "Versiones nuevas soportadas.", icon: "🔄", url: "https://modrinth.com/mod/viaversion" },
-    { name: "ViaBackwards", desc: "Versiones viejas soportadas.", icon: "◀️", url: "https://modrinth.com/mod/viabackwards" },
-    // Gestión & Seguridad
-    { name: "LuckPerms", desc: "Gestión de rangos y permisos.", icon: "🔑", url: "https://modrinth.com/mod/luckperms" },
-    { name: "Vanilla Permissions", desc: "Permisos ligeros.", icon: "🛡️", url: "https://modrinth.com/mod/vanilla-permissions" },
-    { name: "No Chat Reports", desc: "Privacidad de chat total.", icon: "🤐", url: "https://modrinth.com/mod/no-chat-reports" },
-    { name: "SimpleWhitelist", desc: "Lista blanca segura.", icon: "📝", url: "https://modrinth.com/plugin/simplewhitelist" },
-    { name: "SkinRestorer", desc: "Skins para todos.", icon: "👕", url: "https://modrinth.com/mod/skinrestorer" },
-    { name: "MiniMotd", desc: "Mensaje de servidor dinámico.", icon: "📄", url: "https://modrinth.com/mod/minimotd" },
-    { name: "Placeholder API", desc: "Variables en textos.", icon: "🏷️", url: "https://modrinth.com/mod/placeholder-api" },
-    { name: "Discord: JustSync", desc: "Chat Minecraft <-> Discord.", icon: "💬", url: "https://modrinth.com/mod/discord-justsync" },
-    // Utilidades
-    { name: "Servux", desc: "Soporte MiniHUD y Litematica.", icon: "🔧", url: "https://modrinth.com/mod/servux" },
-    { name: "JourneyMap", desc: "Mapa en tiempo real.", icon: "🗺️", url: "https://modrinth.com/mod/journeymap" },
-    { name: "Multilogin", desc: "No premium accede como premium.", icon: "👥", url: "https://www.spigotmc.org/resources/multilogin.115996/" }
-];
-
-// ROADMAP
+// ROADMAP ESTÁTICO (Lo dejamos aquí en el servidor porque rara vez cambia)
 const rawRoadmap = [
     {
         title: "Identidad Social",
@@ -95,12 +43,11 @@ const rawRoadmap = [
     }
 ];
 
-// --- SOLUCIÓN DE MATEMÁTICAS ---
-// Para que translate(-50%) funcione perfecto, debe haber exactamente MITAD y MITAD.
-const doubleDatapacks = [...rawDatapacks, ...rawDatapacks];
-const doubleMods = [...rawMods, ...rawMods]; // ANTES: Estaba en x1 (Tirón)
-const doubleRoadmap = [...rawRoadmap, ...rawRoadmap, ...rawRoadmap, ...rawRoadmap]; // ANTES: Estaba en x3 (Tirón). Lo ponemos en x4 para que la mitad exacta sea x2.
+// Duplicamos x4 para que la animación infinita sea perfecta
+const doubleRoadmap = [...rawRoadmap, ...rawRoadmap, ...rawRoadmap, ...rawRoadmap]; 
 ---
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js" is:inline></script>
 
 <section id="tecnico" class="py-24 bg-theme-panel relative overflow-hidden transition-colors duration-300">
 
@@ -109,68 +56,47 @@ const doubleRoadmap = [...rawRoadmap, ...rawRoadmap, ...rawRoadmap, ...rawRoadma
             Ingeniería <span class="text-theme-accent">Interna</span>
         </h2>
         <p class="text-theme-main opacity-80 text-lg max-w-2xl mx-auto mt-4">
-            Nuestro servidor cuenta con varios mods y datapacks cuidadosamente seleccionados para mejorar el rendimiento, la experiencia de juego y la personalización, sin sacrificar la esencia del Minecraft vanilla.
+            Nuestro servidor cuenta con varios mods y datapacks sincronizados en tiempo real. Están cuidadosamente seleccionados para mejorar el rendimiento, la experiencia de juego y la personalización, sin sacrificar la esencia del Minecraft vanilla.
         </p>
     </div>
 
-    <div class="container mx-auto px-6 relative z-20 mb-4">
-        <div class="flex items-center gap-3">
-            <span class="text-2xl">📦</span>
-            <h3 class="text-2xl font-display font-bold text-btc-yellow uppercase tracking-widest border-b-2 border-yellow-500/50 pb-1">
-                Datapacks
-            </h3>
+    {/* ESTADO DE CARGA */}
+    <div id="loading-mods" class="flex flex-col justify-center items-center py-10 mb-20 text-zinc-500 gap-3">
+        <span class="text-3xl animate-bounce">📡</span>
+        <span class="animate-pulse font-bold tracking-widest uppercase text-sm">Sincronizando base de datos...</span>
+    </div>
+
+    {/* SECCIÓN: DATAPACKS (Oculta hasta que JS la llene) */}
+    <div id="datapacks-section" class="hidden">
+        <div class="container mx-auto px-6 relative z-20 mb-4">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl">📦</span>
+                <h3 class="text-2xl font-display font-bold text-btc-yellow uppercase tracking-widest border-b-2 border-yellow-500/50 pb-1">
+                    Datapacks
+                </h3>
+            </div>
+        </div>
+        <div class="flex marquee-container mb-16 relative z-20">
+            <div id="datapacks-track" class="flex animate-marquee-left whitespace-nowrap pause-on-hover"></div>
         </div>
     </div>
 
-    <div class="flex marquee-container mb-16 relative z-20">
-        <div class="flex animate-marquee-left whitespace-nowrap pause-on-hover">
-            {doubleDatapacks.map((item) => (
-                <div class="inline-block px-3">
-                    <a href={item.url} target="_blank" class="mod-card block w-64 p-4 bg-zinc-900 border border-white/10 rounded-xl hover:border-btc-orange transition-colors group relative" data-modrinth-url={item.url}>
-                        <div class="flex items-center gap-4">
-                            <div class="icon-container shrink-0 w-12 h-12 flex items-center justify-center bg-black/40 rounded-lg group-hover:scale-110 transition-transform overflow-hidden border border-white/5">
-                                <span class="text-2xl icon-emoji">{item.icon}</span>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-zinc-100 text-sm group-hover:text-btc-orange transition-colors">{item.name}</h4>
-                                <p class="text-xs text-zinc-400 truncate w-32">{item.desc}</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            ))}
+    {/* SECCIÓN: MODS Y PLUGINS (Oculta hasta que JS la llene) */}
+    <div id="mods-section" class="hidden">
+        <div class="container mx-auto px-6 relative z-20 mb-4">
+            <div class="flex items-center gap-3 justify-end md:justify-start"> 
+                <span class="text-2xl">⚡</span>
+                <h3 class="text-2xl font-display font-bold text-blue-500 uppercase tracking-widest border-b-2 border-blue-500/30 pb-1">
+                    Mods & Plugins
+                </h3>
+            </div>
+        </div>
+        <div class="flex marquee-container mb-24 relative z-20">
+            <div id="mods-track" class="flex animate-marquee-right whitespace-nowrap pause-on-hover"></div>
         </div>
     </div>
 
-    <div class="container mx-auto px-6 relative z-20 mb-4">
-        <div class="flex items-center gap-3 justify-end md:justify-start"> 
-            <span class="text-2xl">⚡</span>
-            <h3 class="text-2xl font-display font-bold text-blue-500 uppercase tracking-widest border-b-2 border-blue-500/30 pb-1">
-                Mods (Fabric)
-            </h3>
-        </div>
-    </div>
-
-    <div class="flex marquee-container mb-24 relative z-20">
-        <div class="flex animate-marquee-right whitespace-nowrap pause-on-hover">
-            {doubleMods.map((item) => (
-                <div class="inline-block px-3">
-                    <a href={item.url} target="_blank" class="mod-card block w-64 p-4 bg-zinc-900 border border-white/10 rounded-xl hover:border-blue-500 transition-colors group relative" data-modrinth-url={item.url}>
-                        <div class="flex items-center gap-4">
-                            <div class="icon-container shrink-0 w-12 h-12 flex items-center justify-center bg-black/40 rounded-lg group-hover:scale-110 transition-transform overflow-hidden border border-white/5">
-                                <span class="text-2xl icon-emoji">{item.icon}</span>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-zinc-100 text-sm group-hover:text-blue-500 transition-colors">{item.name}</h4>
-                                <p class="text-xs text-zinc-400 truncate w-32">{item.desc}</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            ))}
-        </div>
-    </div>
-
+    {/* ROADMAP ESTÁTICO */}
     <div class="container mx-auto px-6 relative z-20 mb-12 text-center">
         <div class="inline-block p-3 rounded-full bg-black/30 backdrop-blur-sm mb-4 border border-white/5">
             <span class="text-3xl">🚀</span>
@@ -220,57 +146,158 @@ const doubleRoadmap = [...rawRoadmap, ...rawRoadmap, ...rawRoadmap, ...rawRoadma
 
 </section>
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const cards = document.querySelectorAll('.mod-card');
+<script is:inline>
+document.addEventListener('DOMContentLoaded', async () => {
+    // 1. EL ENLACE DE EXPORTACIÓN DE TU EXCEL
+    const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1Iz5vklWMbVcgOCYRVN5NOEBX91VLfOCkHtI5ilxut-c/export?format=csv";
 
-        const getSlug = (url) => {
-            if (!url.includes('modrinth.com')) return null;
-            const cleanUrl = url.split('?')[0];
-            const parts = cleanUrl.split('/');
-            return parts[parts.length - 1] || parts[parts.length - 2];
-        };
+    const datapacksTrack = document.getElementById('datapacks-track');
+    const modsTrack = document.getElementById('mods-track');
+    const dpSection = document.getElementById('datapacks-section');
+    const modsSection = document.getElementById('mods-section');
+    const loadingEl = document.getElementById('loading-mods');
 
-        const iconCache = {};
+    // Utilidades visuales
+    const getIcon = (tipo) => {
+        const t = tipo?.toLowerCase() || '';
+        if(t.includes('mod')) return '⚡';
+        if(t.includes('plugin')) return '🧩';
+        if(t.includes('proxy')) return '📡';
+        if(t.includes('datapack')) return '📦';
+        return '⚙️';
+    };
 
-        cards.forEach(async (card) => {
-            const url = card.getAttribute('data-modrinth-url');
-            if (!url) return;
+    const getColor = (tipo) => {
+        const t = tipo?.toLowerCase() || '';
+        if(t.includes('mod')) return 'text-blue-500 hover:border-blue-500';
+        if(t.includes('plugin')) return 'text-orange-500 hover:border-orange-500';
+        if(t.includes('proxy')) return 'text-emerald-500 hover:border-emerald-500';
+        if(t.includes('datapack')) return 'text-btc-yellow hover:border-btc-yellow';
+        return 'text-zinc-400 hover:border-zinc-400';
+    };
 
-            const slug = getSlug(url);
-            if (!slug) return;
+    // Plantilla de las tarjetas (Añadido data-query-id para que el script lo encuentre)
+    const createCardHTML = (item) => `
+        <div class="inline-block px-3">
+            <a href="${item.url}" target="_blank" class="mod-card block w-64 p-4 bg-zinc-900 border border-white/10 rounded-xl transition-colors group relative ${getColor(item.type)}" data-query-id="${item.queryId}">
+                <div class="flex items-center gap-4">
+                    <div class="icon-container shrink-0 w-12 h-12 flex items-center justify-center bg-black/40 rounded-lg group-hover:scale-110 transition-transform overflow-hidden border border-white/5">
+                        <span class="text-2xl icon-emoji">${item.icon}</span>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-zinc-100 text-sm transition-colors truncate w-32">${item.name}</h4>
+                        <p class="text-xs text-zinc-400 truncate w-32">${item.desc}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    `;
 
-            const container = card.querySelector('.icon-container');
-            const emojiSpan = card.querySelector('.icon-emoji');
+    try {
+        const response = await fetch(SHEET_CSV_URL);
+        const csvText = await response.text();
+        
+        // PARSEO DE LA MATRIZ DE TU EXCEL
+        Papa.parse(csvText, {
+            header: false, // Apagado porque tus celdas de arriba están combinadas
+            skipEmptyLines: true,
+            complete: async function(results) {
+                let mods = [];
+                let datapacks = [];
+                let modrinthIdsToFetch = [];
 
-            if (iconCache[slug]) {
-                injectImage(container, emojiSpan, iconCache[slug]);
-                return;
-            }
+                // Recorremos fila por fila
+                results.data.forEach((row, index) => {
+                    // Ignoramos las primeras 4 filas (Títulos y celdas combinadas)
+                    if (index < 4) return; 
 
-            try {
-                const response = await fetch(`https://api.modrinth.com/v2/project/${slug}`);
-                if (response.ok) {
-                    const data = await response.json();
-                    if (data.icon_url) {
-                        iconCache[slug] = data.icon_url; 
-                        injectImage(container, emojiSpan, data.icon_url);
+                    const colNombre = row[0];       // Col A
+                    const colDesc = row[1];         // Col B
+                    const colURL = row[2];          // Col C
+                    const colID = row[3];           // Col D (ID Modrinth)
+                    const colContenido = row[4];    // Col E (Tipo)
+                    const colEnUso = row[7];        // Col H (EN USO)
+
+                    // FILTRO: Solo dejamos pasar los que dicen "SI" en la columna H
+                    if (colEnUso?.trim().toUpperCase() !== "SI") return;
+                    if (!colNombre || colNombre.trim() === "") return;
+
+                    let url = colURL?.trim() || "";
+                    let queryId = "";
+                    
+                    // Si tiene un ID de Modrinth, armamos el link
+                    if (colID && colID.trim() !== "") {
+                        queryId = colID.trim();
+                        url = `https://modrinth.com/project/${queryId}`;
+                        modrinthIdsToFetch.push(queryId); // Lo guardamos para pedir el icono luego
+                    } else if (url === "") {
+                        // Fallback si no hay link ni ID
+                        const query = encodeURIComponent(colNombre.trim());
+                        url = `https://modrinth.com/mods?q=${query}`;
                     }
+
+                    const item = {
+                        name: colNombre.trim(),
+                        desc: colDesc ? colDesc.trim() : "Optimización técnica",
+                        type: colContenido ? colContenido.trim() : "Misc",
+                        icon: getIcon(colContenido),
+                        url: url,
+                        queryId: queryId
+                    };
+
+                    // CLASIFICACIÓN PARA LAS CINTAS
+                    if (item.type.toLowerCase().includes('datapack')) {
+                        datapacks.push(item);
+                    } else {
+                        mods.push(item);
+                    }
+                });
+
+                // MATEMÁTICAS PARA LA ANIMACIÓN INFINITA
+                const doubleDatapacks = [...datapacks, ...datapacks];
+                const doubleMods = [...mods, ...mods];
+
+                // INYECCIÓN AL HTML
+                if (doubleDatapacks.length > 0 && dpSection) {
+                    datapacksTrack.innerHTML = doubleDatapacks.map(createCardHTML).join('');
+                    dpSection.classList.remove('hidden');
                 }
-            } catch (err) {}
+                if (doubleMods.length > 0 && modsSection) {
+                    modsTrack.innerHTML = doubleMods.map(createCardHTML).join('');
+                    modsSection.classList.remove('hidden');
+                }
+                
+                if(loadingEl) loadingEl.style.display = 'none';
+
+                // DESCARGA DE ICONOS DE MODRINTH (CON LA LÓGICA CORREGIDA)
+                if (modrinthIdsToFetch.length > 0) {
+                    const uniqueIds = [...new Set(modrinthIdsToFetch)].slice(0, 100);
+                    try {
+                        const mrRes = await fetch(`https://api.modrinth.com/v2/projects?ids=${JSON.stringify(uniqueIds)}`);
+                        if (mrRes.ok) {
+                            const mrData = await mrRes.json();
+                            mrData.forEach(project => {
+                                if (project.icon_url) {
+                                    // MAGIA: Buscamos la tarjeta comparando con el ID corto (project.id) o el slug
+                                    const cards = document.querySelectorAll(`.mod-card[data-query-id="${project.id}"], .mod-card[data-query-id="${project.slug}"]`);
+                                    cards.forEach(card => {
+                                        const container = card.querySelector('.icon-container');
+                                        if (container) {
+                                            container.innerHTML = `<img src="${project.icon_url}" alt="${project.title}" class="w-full h-full object-cover p-1 animate-fade-in" />`;
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    } catch (e) { console.warn("Límite de peticiones de iconos alcanzado."); }
+                }
+            }
         });
-
-        function injectImage(container, emojiSpan, iconUrl) {
-            if (!container) return;
-            if (emojiSpan) emojiSpan.style.display = 'none';
-
-            const img = document.createElement('img');
-            img.src = iconUrl;
-            img.className = "w-full h-full object-cover animate-fade-in";
-            img.alt = "Icon";
-            container.appendChild(img);
-        }
-    });
+    } catch (err) {
+        console.error("Error cargando el Excel:", err);
+        if(loadingEl) loadingEl.innerHTML = "Error sincronizando base de datos. Recarga la página.";
+    }
+});
 </script>
 
 <style>
@@ -294,7 +321,6 @@ const doubleRoadmap = [...rawRoadmap, ...rawRoadmap, ...rawRoadmap, ...rawRoadma
         display: flex;
         width: max-content;
         animation: marquee-left 60s linear infinite;
-        /* OPTIMIZACIÓN GPU EXTREMA */
         transform: translateZ(0);
         will-change: transform;
         backface-visibility: hidden;
@@ -304,7 +330,6 @@ const doubleRoadmap = [...rawRoadmap, ...rawRoadmap, ...rawRoadmap, ...rawRoadma
         display: flex;
         width: max-content;
         animation: marquee-right 60s linear infinite;
-        /* OPTIMIZACIÓN GPU EXTREMA */
         transform: translateZ(0);
         will-change: transform;
         backface-visibility: hidden;
@@ -322,10 +347,7 @@ const doubleRoadmap = [...rawRoadmap, ...rawRoadmap, ...rawRoadmap, ...rawRoadma
         width: 100%;
         overflow: hidden;
         min-height: 120px; 
-        
-        /* Aisla las cintas para que el navegador no recalcule todo el DOM al moverse */
         contain: paint; 
-        
         -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
         mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
     }
