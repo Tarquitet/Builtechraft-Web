@@ -1,0 +1,126 @@
+{
+  "id": "civil",
+  "title": "Convivencia y Propiedad",
+  "desc": "Construcciones, AFK y el equipo Staff (Secciones VII - X)",
+  "icon": "🤝",
+  "sections": [
+    {
+      "id": "VII",
+      "title": "Tu Espacio y el de los Demás",
+      "icon": "🛡️",
+      "rules": [
+        {
+          "num": "7.1",
+          "text": "Respeto a las Construcciones",
+          "sub": "Lo que no es tuyo no se toca. Tenemos herramientas para saber quién puso o quitó cada bloque.",
+          "details": [
+            "7.1.a: No al vandalismo: Destruir o alterar construcciones ajenas sin permiso resultará en una expulsión permanente. No hay advertencias.",
+            "7.1.b: No robar: Tomar objetos de cofres o almacenes ajenos (aunque no tengan protección) se considera una falta grave de honestidad."
+          ]
+        },
+        {
+          "num": "7.2",
+          "text": "Reglas para las Bromas",
+          "sub": "La diversión termina cuando molestas el trabajo de los demás.",
+          "details": [
+            "7.2.a: Solo con amigos: Haz bromas únicamente a jugadores con los que tengas mucha confianza. Si no sabes cómo reaccionarán, mejor no lo hagas.",
+            "7.2.b: Limpieza obligatoria: Si haces una broma, estás obligado a limpiar y dejar todo como estaba si la otra persona te lo pide.",
+            "7.2.c: Nada de destrucción: Están prohibidas las bromas que usen fuego, TNT, lava o cualquier cosa que pueda destruir objetos de forma permanente."
+          ]
+        },
+        {
+          "num": "7.3",
+          "text": "Caminos y Portales",
+          "sub": "El transporte en el servidor debe ser ordenado y respetuoso.",
+          "details": [
+            "7.3.a: Portales ordenados: Si tu portal estorba en la base de otra persona y no tiene un cartel con tu nombre, el dueño de la zona puede quitarlo.",
+            "7.3.b: Identificación: Todo portal debe tener un cartel con coordenadas o el nombre del dueño para evitar confusiones."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "VIII",
+      "title": "Jugadores Inactivos (AFK)",
+      "icon": "💤",
+      "rules": [
+        {
+          "num": "8.1",
+          "text": "Uso Responsable del Espacio",
+          "sub": "Si no estás jugando activamente, intenta no ocupar un lugar innecesario en el servidor.",
+          "details": [
+            "8.1.a: Solo se permite quedarse quieto (AFK) si estás operando una granja automática o esperando un proceso técnico del juego. Quedarse quieto en el punto de aparición (Spawn) solo para 'sumar horas' no está permitido.",
+            "8.1.b: Para que otros puedan entrar a jugar, el sistema te sacará automáticamente después de 20 minutos de inactividad si detecta que el servidor está muy lleno."
+          ]
+        },
+        {
+          "num": "8.2",
+          "text": "Cuida tu Personaje",
+          "sub": "Desconectarte cuando no juegas ayuda al servidor y te protege a ti.",
+          "details": [
+            "8.2.a: Si vas a salir a comer o a dormir, por favor desconéctate. Esto ayuda a que la computadora del servidor no trabaje de más procesando zonas donde no hay nadie.",
+            "8.2.b: Si dejas a tu personaje solo y muere de hambre o por un monstruo, el Staff no podrá devolverte tus objetos. Mantener a tu personaje a salvo es tu responsabilidad activa."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "IX",
+      "title": "El Trato con el Equipo (Staff)",
+      "icon": "🛡️",
+      "rules": [
+        {
+          "num": "9.1",
+          "text": "Somos Voluntarios",
+          "sub": "El equipo del servidor ayuda porque quiere, no porque sea su trabajo.",
+          "details": [
+            "9.1.a: Ten paciencia con las respuestas: Por favor, no exijas atención inmediata. Un ticket puede tardar en responderse si el equipo está trabajando, estudiando o descansando.",
+            "9.1.b: No usar menciones innecesarias: Etiquetar muchas veces a los administradores o al dueño en Discord sin una emergencia real es motivo de sanción."
+          ]
+        },
+        {
+          "num": "9.2",
+          "text": "Respeto y Soluciones",
+          "sub": "Todos somos humanos y podemos equivocarnos. Lo importante es hablarlo con respeto.",
+          "details": [
+            "9.2.a: Si hay un error, avísanos: Si un administrador se equivoca con una sanción o borra algo sin querer, repórtalo con calma y respeto. Lo investigaremos para arreglarlo.",
+            "9.2.b: Trato amable: Insultar o menospreciar a un miembro del equipo por sus decisiones hará que se te retire el acceso al servidor."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "X",
+      "title": "Tu Cuenta y Seguridad",
+      "icon": "👤",
+      "rules": [
+        {
+          "num": "10.1",
+          "text": "Cuidando tu identidad",
+          "sub": "Tu personaje es tu identidad en el servidor y tú eres el único responsable de lo que pase con él.",
+          "details": [
+            "10.1.a: La excusa de terceros: Si un amigo, un familiar o cualquier otra persona entra con tu cuenta y rompe las reglas, la sanción se aplicará a la CUENTA, sin importar quién estaba jugando en ese momento.",
+            "10.1.b: Seguridad personal: Es tu deber mantener segura tu contraseña y tu cuenta de Minecraft o Discord. El equipo no retirará sanciones que ocurran por descuidos de seguridad de tu parte."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "XI",
+      "title": "Sentido Común",
+      "icon": "🧠",
+      "rules": [
+        {
+          "num": "11.1",
+          "text": "Uso del Buen Juicio",
+          "sub": "No todo tiene que estar escrito paso a paso para saber qué está bien y qué está mal.",
+          "details": [
+            "11.1.a: Lo que no está en la lista: El hecho de que algo no aparezca específicamente en estas reglas no significa que esté permitido. Si una acción parece injusta o daña el servidor, se tratará como una falta.",
+            "11.1.b: Decisiones del equipo: En situaciones que no hayamos previsto en este texto, el Staff aplicará el sentido común y su decisión será definitiva.",
+            "11.1.c: Evita buscar fallos: Intentar buscar 'agujeros' o trucos en estas normas para molestar a otros o al servidor también será motivo de sanción."
+          ]
+        }
+      ]
+    }
+  ]
+}

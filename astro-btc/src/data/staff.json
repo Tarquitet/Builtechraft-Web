@@ -1,0 +1,34 @@
+{
+  "tarquitet": {
+    "name": "Tarquitet",
+    "bio": "Fundador y arquitecto principal del servidor. Amante del detalle técnico y la optimización extrema.",
+    "socials": {
+      "twitch": "https://www.twitch.tv/tarquitet",
+      "youtube": "https://youtube.com/@Tarquitet",
+      "github": "https://github.com/Tarquitet"
+    }
+  },
+  "aguila003": {
+    "name": "Aguila003",
+    "bio": "Encargado de la gestión de la comunidad. Siempre dispuesto a ayudar a mantener la paz y dar buenas ideas.",
+    "socials": {
+      "youtube": "https://www.youtube.com/@MENUEVT",
+      "twitch": "https://www.twitch.tv/menuevt"
+    }
+  },
+  "soshy": {
+    "name": "Soshy",
+    "bio": "Especialista en .",
+    "socials": {
+      "youtube": "https://www.youtube.com/@soshyyt2040"
+    }
+  },
+  "kittycupcake": {
+    "name": "KittyCupcake",
+    "bio": "Vigilante veterana de la comunidad. Ayudó a probar.",
+    "socials": {
+      "twitch": "https://www.twitch.tv/x_kittycupcake_x",
+      "youtube": "https://www.youtube.com/channel/UCVEf2GUc_0LkQzXB1fwE4QQ"
+    }
+  }
+}

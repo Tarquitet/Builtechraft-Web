@@ -1,7 +1,7 @@
 ---
 // src/pages/index.astro
 import Layout from '../layouts/Layout.astro';
-import ServerStatus from '../components/ServerStatus.jsx';
+import ConnectButton from '../components/ConnectButton.astro';
 import IPSection from '../components/IPSection.astro';
 import About from '../components/About.astro';
 import Technical from '../components/Technical.astro';
@@ -33,32 +33,30 @@ const bgImage = "url('/images/gallery/2_4.avif')";
             <img src="/images/logo-text.webp" alt="Builtechraft Header" loading="eager" class="w-full max-w-2xl md:max-w-3xl mb-8 drop-shadow-2xl animate-float" />
             
             <p class="text-white font-mono text-sm md:text-base tracking-widest uppercase mb-8 bg-black/60 px-6 py-2 rounded-full border border-white/10 shadow-lg">
-                Servidor de Minecraft - Únete haciendo clic abajo
+                Servidor privado de Minecraft
             </p>
 
-            <ServerStatus client:load />
+            <ConnectButton />
 
         </div>
     </section>
 
     <IPSection />
-    
-    <section id="historia" class="relative w-full flex flex-col">
-        <About />
-        <Gallery />
-    </section>
+    <Rules />
+    <Gallery />
     
     <section id="novedades" class="relative w-full flex flex-col">
         {/* EL PING-PONG NARRATIVO: SURVIVAL VS CREATIVO */}
         <SurvivalWorld /> 
         <CreativeProjects />
-        
-        <Documentation />
         <Technical />
         <Modpack />
     </section>
+
+    <section id="historia" class="relative w-full flex flex-col">
+        <About />
+    </section>
     
-    <Rules />
     <Staff />
     <DiscordWidget />
 

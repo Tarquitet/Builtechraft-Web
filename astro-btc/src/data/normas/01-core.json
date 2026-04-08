@@ -1,0 +1,97 @@
+{
+  "id": "core",
+  "title": "Bases de la Comunidad",
+  "desc": "Valores, seguridad y nuestro equipo técnico (Secciones I - III)",
+  "icon": "🏠",
+  "sections": [
+    {
+      "id": "I",
+      "title": "Convivencia y Respeto",
+      "icon": "✨",
+      "rules": [
+        {
+          "num": "1.1",
+          "text": "Respeto a las Creencias y Valores",
+          "sub": "Builtechraft es un espacio para todos. El respeto es nuestra base principal.",
+          "details": [
+            "1.1.a: Respeta la religión y las creencias de cada usuario. No todos los que entran al servidor comparten la misma fe, por lo que pedimos ser muy respetuosos con estos temas.",
+            "1.1.b: Se pide amablemente que no digan groserías ni usen lenguaje soez. El respeto entre usuarios es clave para que todos estemos a gusto.",
+            "1.1.c: El acoso, las peleas constantes o revelar información personal de otros está estrictamente prohibido"
+          ]
+        },
+        {
+          "num": "1.2",
+          "text": "Espacio para Crear (Sin Ideologías)",
+          "sub": "Venimos a diseñar catedrales, optimizar granjas y crear arte, no a discutir de política.",
+          "details": [
+            "1.2.a: Aunque respetamos la diversidad, pedimos amablemente que no se construyan banderas de movimientos políticos, ideologías de género o símbolos polémicos.",
+            "1.2.b: Las construcciones famosas o históricas (como el Cristo Redentor o el Taj Mahal) sí están permitidas y son bienvenidas por su valor artístico.",
+            "1.2.c: No se permite imponer ideologías a los demás. El comportamiento agresivo o intentar obligar a otros a aceptar ciertos pensamientos no será tolerado."
+          ]
+        },
+        {
+          "num": "1.3",
+          "text": "Madurez y Comunicación",
+          "sub": "Buscamos un nivel mínimo de tranquilidad para que la comunidad funcione bien.",
+          "details": [
+            "1.3.a: No toleramos dramas públicos ni quejas excesivas porque no se te permita romper las reglas (como poner banderas no permitidas). Si algo te molesta, actúa con calma.",
+            "1.3.b: Si tienes un problema, repórtalo de forma privada mediante un ticket con argumentos claros. Las discusiones personales deben quedarse en privado para no molestar a los demás en el chat global."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "II",
+      "title": "Sobre nuestra Computadora",
+      "icon": "💻",
+      "rules": [
+        {
+          "num": "2.1",
+          "text": "Estado del Equipo",
+          "sub": "El servidor no está en una empresa; funciona en una laptop personal de 2020.",
+          "details": [
+            "2.1.a: Paciencia con el rendimiento: La computadora lleva años encendida y a veces puede tener lag. Si el juego se traba un poco, te pedimos paciencia con la máquina.",
+            "2.1.b: Fallos externos: Al ser un servidor casero, dependemos de la luz y el internet de la casa. Si hay un corte de energía o internet en la zona, el servidor se apagará.",
+            "2.1.c: Regreso automático: El servidor volverá a estar en línea en cuanto los servicios públicos se normalicen. No es necesario preguntar qué pasó si es un corte de luz evidente."
+          ]
+        },
+        {
+          "num": "2.2",
+          "text": "Horarios de Descanso",
+          "sub": "Apagamos el equipo unas horas para evitar que se dañe por el calor.",
+          "details": [
+            "2.2.a: Descanso nocturno: El servidor se apaga automáticamente a la 01:00 AM (Hora Colombia) para que la laptop pueda enfriarse.",
+            "2.2.b: Hora de encendido: El sistema vuelve a estar disponible antes de las 10:00 AM (Hora Colombia).",
+            "2.2.c: Ajustes del Staff: El equipo de administración puede entrar de forma remota para encender el servidor fuera de horario si hay una emergencia o mantenimiento necesario."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "III",
+      "title": "Seguridad y Entrada",
+      "icon": "🔐",
+      "rules": [
+        {
+          "num": "3.1",
+          "text": "Por qué nos cuidamos tanto",
+          "sub": "Nuestras reglas actuales existen para evitar problemas que tuvimos en el pasado.",
+          "details": [
+            "3.1.a: Lecciones aprendidas: Hace tiempo, alguien se hizo pasar por el dueño del servidor y puso en riesgo todo el mundo. Por eso, ahora la seguridad es obligatoria.",
+            "3.1.b: Mejoras constantes: Hemos pasado de usar contraseñas simples a sistemas mucho más seguros para proteger tus construcciones y tu progreso."
+          ]
+        },
+        {
+          "num": "3.2",
+          "text": "Cómo entrar a jugar (Ely.by)",
+          "sub": "Queremos que entrar sea fácil para todos, sin importar si tienes cuenta comprada o no.",
+          "details": [
+            "3.2.a: Uso de Skins: Usamos servicios como Ely.by para que puedas ver tu skin y entrar de forma segura sin tener que escribir comandos de registro dentro del juego.",
+            "3.2.b: Pruebas de mejora: Siempre estamos buscando nuevas formas de que la entrada al servidor sea más rápida y segura.",
+            "3.2.c: Paciencia en los cambios: Si el Staff está probando un nuevo método para entrar, te pedimos paciencia. Todo cambio es para que nadie pueda robar tu cuenta."
+          ]
+        }
+      ]
+    }
+  ]
+}

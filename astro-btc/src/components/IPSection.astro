@@ -12,9 +12,8 @@ const { javaIP, bedrockIP, bedrockPort } = SERVER_INFO;
         
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto mb-16">
             <div id="card-java" class="group relative bg-[#18181b] border-2 border-zinc-800 rounded-3xl p-8 transition-all duration-500 flex flex-col">
-                <div class="offline-badge absolute top-4 right-4 bg-red-600 border border-white/20 text-white text-[10px] font-bold px-2 py-1 rounded hidden uppercase tracking-widest z-20">● Offline</div>
                 <div class="flex items-center gap-4 mb-6">
-                    <div class="icon-box w-14 h-14 rounded-xl bg-linear-to-br from-orange-600 to-yellow-600 flex items-center justify-center text-3xl shadow-lg border-4 border-[#18181b]">☕</div>
+                    <div class="icon-box w-14 h-14 rounded-xl bg-gradient-to-br from-orange-600 to-yellow-600 flex items-center justify-center text-3xl shadow-lg border-4 border-[#18181b]">☕</div>
                     <div>
                         <h3 class="text-2xl font-bold text-white uppercase leading-none">JAVA</h3>
                         <span class="text-[10px] font-bold text-btc-orange uppercase tracking-widest">PC Edition (Fabric)</span>
@@ -33,9 +32,8 @@ const { javaIP, bedrockIP, bedrockPort } = SERVER_INFO;
             </div>
 
             <div id="card-bedrock" class="group relative bg-[#18181b] border-2 border-zinc-800 rounded-3xl p-8 transition-all duration-500 flex flex-col">
-                <div class="offline-badge absolute top-4 right-4 bg-red-600 border border-white/20 text-white text-[10px] font-bold px-2 py-1 rounded hidden uppercase tracking-widest z-20">● Offline</div>
                 <div class="flex items-center gap-4 mb-6">
-                    <div class="icon-box w-14 h-14 rounded-xl bg-linear-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-3xl shadow-lg border-4 border-[#18181b]">📱</div>
+                    <div class="icon-box w-14 h-14 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-3xl shadow-lg border-4 border-[#18181b]">📱</div>
                     <div>
                         <h3 class="text-2xl font-bold text-white uppercase leading-none">BEDROCK</h3>
                         <span class="text-[10px] font-bold text-blue-400 uppercase tracking-widest">Móvil / Consola</span>
@@ -101,14 +99,14 @@ const { javaIP, bedrockIP, bedrockPort } = SERVER_INFO;
             </div>
         </div>
 
-        <div id="version-warning-box" class="max-w-4xl mx-auto bg-amber-500/5 border border-amber-500/20 rounded-2xl p-6 transition-all opacity-50">
+        <div class="max-w-4xl mx-auto bg-amber-500/5 border border-amber-500/20 rounded-2xl p-6 transition-all">
             <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
                 <div class="space-y-2 flex-1">
                     <h4 class="text-amber-500 font-bold uppercase tracking-widest text-xs flex items-center justify-center md:justify-start gap-2 m-0">
-                        ⚠️ INFORMACIÓN IMPORTANTE
+                        ⚠️ VERSIONES SOPORTADAS
                     </h4>
-                    <p id="version-text" class="text-zinc-300 text-sm leading-relaxed m-0">
-                        Consultando información...
+                    <p id="version-text" class="text-zinc-300 text-sm leading-relaxed m-0 animate-pulse">
+                        Cargando información desde el servidor...
                     </p>
                 </div>
 
@@ -121,63 +119,79 @@ const { javaIP, bedrockIP, bedrockPort } = SERVER_INFO;
     </div>
 </section>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js" is:inline></script>
+
 <script is:inline>
-    // 1. Escuchar el evento que manda el ServerStatus.jsx
-    window.addEventListener('btc:server-versions', (e) => {
-        const warningBox = document.getElementById('version-warning-box');
-        const versionText = document.getElementById('version-text');
-        const cardJava = document.getElementById('card-java');
-        const cardBedrock = document.getElementById('card-bedrock');
-        
-        // Obtenemos los datos directos del React
-        const { online, javaMin, javaMax, bedrockVersion } = e.detail;
+document.addEventListener('DOMContentLoaded', async () => {
+    // ⚠️ PON AQUÍ TU ENLACE. DEBE TERMINAR EN output=csv
+    const sheetCSVUrl = "https://docs.google.com/spreadsheets/d/1Iz5vklWMbVcgOCYRVN5NOEBX91VLfOCkHtI5ilxut-c/export?format=csv";
 
-        if (warningBox && versionText) {
-            if (online) {
-                // ONLINE
-                warningBox.classList.remove('opacity-50');
-                cardJava?.classList.remove('is-offline');
-                cardBedrock?.classList.remove('is-offline');
-                
-                let bedrockHtml = `📱 Compatible con <strong>Bedrock</strong> desde la versión <span class="text-white font-mono font-bold">${bedrockVersion}</span>.`;
-                if (bedrockVersion && bedrockVersion.includes('-')) {
-                    const parts = bedrockVersion.split('-');
-                    bedrockHtml = `📱 Compatible con <strong>Bedrock</strong> desde la versión <span class="text-white font-mono font-bold">${parts[0].trim()}</span> hasta la <span class="text-white font-mono font-bold">${parts[1].trim()}</span>.`;
+    const versionText = document.getElementById('version-text');
+
+    try {
+        const response = await fetch(sheetCSVUrl);
+        const csvText = await response.text();
+
+        Papa.parse(csvText, {
+            header: false,
+            // ⚠️ QUITO EL skipEmptyLines PARA NO DESTRUIR EL ORDEN DE LAS COLUMNAS
+            complete: function(results) {
+                // results.data[1] es exactamente la Fila 2 de tu Excel
+                const fila2 = results.data[1]; 
+
+                if (fila2) {
+                    // EXTRACCIÓN MATEMÁTICA EXACTA:
+                    // Columna U (índice 20) -> Bedrock
+                    // Columna Y (índice 24) -> Java Min
+                    // Columna AA (índice 26) -> Java Max
+                    
+                    const bedrockVer = fila2[20] ? fila2[20].trim() : "1.21.300";
+                    const javaMin = fila2[24] ? fila2[24].trim() : "1.20.5";
+                    const javaMax = fila2[26] ? fila2[26].trim() : "1.21.11";
+
+                    // ACTUALIZAMOS LA CAJA AMARILLA
+                    versionText.classList.remove('animate-pulse');
+                    versionText.innerHTML = `
+                        <span class="block mb-2">☕ Soportamos para <strong>Java</strong> desde la versión <span class="text-white font-mono font-bold">${javaMin}</span> hasta la <span class="text-white font-mono font-bold">${javaMax}</span> (recomendada).</span>
+                        <span class="block mb-1">📱 Compatible con <strong>Bedrock</strong> en la versión <span class="text-white font-mono font-bold">${bedrockVer}</span>.</span>
+                    `;
+
+                    // AVISAMOS AL RESTO DE LA WEB (Navbar, etc.)
+                    window.dispatchEvent(
+                        new CustomEvent('btc:server-versions', {
+                            detail: {
+                                online: true,
+                                javaMin: javaMin,
+                                javaMax: javaMax,
+                                bedrockVersion: bedrockVer,
+                                recommended: javaMax,
+                            },
+                        })
+                    );
+                } else {
+                    throw new Error("La fila 2 está vacía o no existe en el CSV.");
                 }
-
-                versionText.innerHTML = `
-                    <span class="block mb-2">☕ Soportamos para <strong>Java</strong> desde la versión <span class="text-white font-mono font-bold">${javaMin}</span> hasta la <span class="text-white font-mono font-bold">${javaMax}</span> (recomendada).</span>
-                    <span class="block mb-1">${bedrockHtml}</span>
-                `;
-            } else {
-                // OFFLINE
-                warningBox.classList.add('opacity-50');
-                cardJava?.classList.add('is-offline');
-                cardBedrock?.classList.add('is-offline');
-                
-                versionText.innerHTML = `Servidor fuera de línea. Puedes ir a nuestro servidor de Discord para más información.`;
             }
-        }
-    });
+        });
+    } catch (error) {
+        console.error("Error leyendo el Sheets:", error);
+        versionText.classList.remove('animate-pulse');
+        versionText.innerHTML = `❌ No se pudo conectar con el Excel. Conéctate con la versión más reciente.`;
+    }
 
-    // 2. Función de copiado con bloqueo estricto cuando está Offline
+    // Lógica de copiado de IP
     window.copyText = async function(text, btnElement) {
-        if (btnElement.closest('.is-offline')) return;
-
         try {
             await navigator.clipboard.writeText(text);
             const textEl = btnElement.querySelector('.ip-text') || btnElement;
             const original = textEl.innerText;
-            
             if (original === "¡COPIADO!") return;
-            
             textEl.innerText = "¡COPIADO!";
             if (btnElement.classList.contains('main-btn')) {
                 btnElement.classList.add('!bg-green-600', '!text-white');
             } else {
                 textEl.classList.add('text-green-500');
             }
-
             setTimeout(() => {
                 textEl.innerText = original;
                 textEl.classList.remove('text-green-500');
@@ -185,16 +199,9 @@ const { javaIP, bedrockIP, bedrockPort } = SERVER_INFO;
             }, 2000);
         } catch (err) { console.error('Error al copiar: ', err); }
     };
+});
 </script>
 
 <style>
     .hidden { display: none !important; }
-    /* Bloqueo visual y de interacción cuando está Offline */
-    .is-offline { 
-        filter: grayscale(1); 
-        opacity: 0.4; 
-        pointer-events: none !important; 
-        cursor: not-allowed;
-    }
-    .is-offline .offline-badge { display: block; }
 </style>

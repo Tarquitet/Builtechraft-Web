@@ -1,52 +1,3 @@
----
-// ROADMAP ESTÁTICO (Lo dejamos aquí en el servidor porque rara vez cambia)
-const rawRoadmap = [
-    {
-        title: "Identidad Social",
-        desc: "Sistema completo para destacar tu personalidad en el chat y el juego.",
-        details: ["Rangos (Sufijos/Prefijos)", "Nicks Custom (Chat/Tab)", "Nombre sobre jugador"],
-        status: "En Progreso",
-        icon: "💬",
-        statusIcon: "✨", 
-        statusColor: "text-btc-orange",
-        borderColor: "hover:border-btc-orange/50"
-    },
-    {
-        title: "Arte & Decoración",
-        desc: "Expansión visual respetando la estética vanilla.",
-        details: ["Nuevos Cuadros (Paintings)", "Bloques Decorativos", "Items 3D en Marcos"],
-        status: "Planeado",
-        icon: "🎨",
-        statusIcon: "🖌️",
-        statusColor: "text-blue-400",
-        borderColor: "hover:border-blue-400/50"
-    },
-    {
-        title: "Audio Inmersivo",
-        desc: "Nueva banda sonora para momentos especiales.",
-        details: ["Discos con Canciones Custom", "Música de Eventos", "Ambiente por zonas"],
-        status: "En Pruebas",
-        icon: "🎵",
-        statusIcon: "🎧",
-        statusColor: "text-purple-400",
-        borderColor: "hover:border-purple-400/50"
-    },
-    {
-        title: "Economía de Eventos",
-        desc: "Sistema de comercio físico para minijuegos y premios.",
-        details: ["Moneda Física (Item 3D)", "Aldeanos Custom Trades", "Recompensas Únicas"],
-        status: "Concepto",
-        icon: "💎",
-        statusIcon: "💡",
-        statusColor: "text-emerald-400",
-        borderColor: "hover:border-emerald-400/50"
-    }
-];
-
-// Duplicamos x4 para que la animación infinita sea perfecta
-const doubleRoadmap = [...rawRoadmap, ...rawRoadmap, ...rawRoadmap, ...rawRoadmap]; 
----
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js" is:inline></script>
 
 <section id="tecnico" class="py-24 bg-theme-panel relative overflow-hidden transition-colors duration-300">
@@ -60,13 +11,13 @@ const doubleRoadmap = [...rawRoadmap, ...rawRoadmap, ...rawRoadmap, ...rawRoadma
         </p>
     </div>
 
-    {/* ESTADO DE CARGA */}
+    {/* ESTADO DE CARGA MODS */}
     <div id="loading-mods" class="flex flex-col justify-center items-center py-10 mb-20 text-zinc-500 gap-3">
         <span class="text-3xl animate-bounce">📡</span>
         <span class="animate-pulse font-bold tracking-widest uppercase text-sm">Sincronizando base de datos...</span>
     </div>
 
-    {/* SECCIÓN: DATAPACKS (Oculta hasta que JS la llene) */}
+    {/* SECCIÓN: DATAPACKS */}
     <div id="datapacks-section" class="hidden">
         <div class="container mx-auto px-6 relative z-20 mb-4">
             <div class="flex items-center gap-3">
@@ -81,7 +32,7 @@ const doubleRoadmap = [...rawRoadmap, ...rawRoadmap, ...rawRoadmap, ...rawRoadma
         </div>
     </div>
 
-    {/* SECCIÓN: MODS Y PLUGINS (Oculta hasta que JS la llene) */}
+    {/* SECCIÓN: MODS Y PLUGINS */}
     <div id="mods-section" class="hidden">
         <div class="container mx-auto px-6 relative z-20 mb-4">
             <div class="flex items-center gap-3 justify-end md:justify-start"> 
@@ -96,68 +47,137 @@ const doubleRoadmap = [...rawRoadmap, ...rawRoadmap, ...rawRoadmap, ...rawRoadma
         </div>
     </div>
 
-    {/* ROADMAP ESTÁTICO */}
-    <div class="container mx-auto px-6 relative z-20 mb-12 text-center">
+    {/* ROADMAP DINÁMICO DESDE SHEETS (CINTA TRANSPORTADORA) */}
+    <div class="container mx-auto px-6 relative z-20 mb-12 text-center mt-12">
         <div class="inline-block p-3 rounded-full bg-black/30 backdrop-blur-sm mb-4 border border-white/5">
             <span class="text-3xl">🚀</span>
         </div>
         <h2 class="text-3xl md:text-4xl font-display font-bold text-theme-text uppercase tracking-tight">
-            Roadmap <span class="text-btc-yellow">Visual</span>
+            Roadmap <span class="text-btc-yellow">Público</span>
         </h2>
         <p class="text-theme-main opacity-80 text-lg max-w-2xl mx-auto mt-4">
             Planes futuros para expandir la inmersión, el arte y la personalización del servidor sin alterar las mecánicas vanilla ni el rendimiento.
         </p>
     </div>
 
-    <div class="flex marquee-container relative z-20 pb-10">
-        <div class="flex animate-marquee-left whitespace-nowrap pause-on-hover" style="animation-duration: 90s;">
-            {doubleRoadmap.map((feature) => (
-                <div class="inline-block px-4">
-                    <div class={`w-80 md:w-96 bg-zinc-900 p-6 rounded-2xl border border-white/10 transition-all group relative overflow-hidden ${feature.borderColor}`}>
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="flex items-center gap-3">
-                                <span class="text-3xl bg-black/40 p-2 rounded-lg border border-white/5">{feature.icon}</span>
-                                <div>
-                                    <h4 class="font-bold text-white text-lg tracking-tight group-hover:text-btc-yellow transition-colors">{feature.title}</h4>
-                                    <span class={`text-[10px] font-bold uppercase tracking-wider ${feature.statusColor} flex items-center gap-1`}>
-                                        {feature.statusIcon} {feature.status}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-zinc-300 text-sm leading-relaxed mb-4 whitespace-normal h-10 line-clamp-2">
-                            {feature.desc}
-                        </p>
-                        <div class="bg-black/20 rounded-xl p-3 border border-white/5">
-                            <ul class="space-y-1">
-                                {feature.details.map(detail => (
-                                    <li class="flex items-center gap-2 text-xs text-zinc-300 whitespace-normal">
-                                        <span class="w-1 h-1 rounded-full bg-btc-yellow/50 shrink-0"></span>
-                                        {detail}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            ))}
-        </div>
+    <div id="roadmap-section" class="hidden flex marquee-container relative z-20 pb-10">
+        <div id="roadmap-track" class="flex animate-marquee-left whitespace-nowrap pause-on-hover" style="animation-duration: 90s;"></div>
     </div>
 
 </section>
 
 <script is:inline>
 document.addEventListener('DOMContentLoaded', async () => {
-    // 1. EL ENLACE DE EXPORTACIÓN DE TU EXCEL
-    const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1Iz5vklWMbVcgOCYRVN5NOEBX91VLfOCkHtI5ilxut-c/export?format=csv";
+    // ==========================================
+    // ENLACES DE GOOGLE SHEETS
+    // ==========================================
+    const MODS_CSV_URL = "https://docs.google.com/spreadsheets/d/1Iz5vklWMbVcgOCYRVN5NOEBX91VLfOCkHtI5ilxut-c/export?format=csv";
+    const ROADMAP_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSFamJKSgtbjYKglTus-BHOljT6p42eSAq8vT9sE_7BFj5EBlDp2dx1iRgeHjZoyWb0zIoSccN8nUSe/pub?gid=877286509&single=true&output=csv";
 
+    // ==========================================
+    // 1. LÓGICA DEL ROADMAP (CINTA TRANSPORTADORA)
+    // ==========================================
+    
+    // Mapeo de estilos según el "Estado" escrito en el Excel
+    const getStatusStyle = (estado) => {
+        const s = estado?.toLowerCase().trim() || '';
+        if (s.includes('progreso')) return { color: 'text-btc-orange', border: 'hover:border-btc-orange/50', icon: '✨' };
+        if (s.includes('planeado')) return { color: 'text-blue-400', border: 'hover:border-blue-400/50', icon: '📋' };
+        if (s.includes('prueba'))   return { color: 'text-purple-400', border: 'hover:border-purple-400/50', icon: '🧪' };
+        if (s.includes('concepto')) return { color: 'text-emerald-400', border: 'hover:border-emerald-400/50', icon: '💡' };
+        return { color: 'text-zinc-400', border: 'hover:border-zinc-400/50', icon: '💡' }; // Por defecto
+    };
+
+    const createRoadmapCard = (item) => {
+        const style = getStatusStyle(item.Estado);
+        
+        // Formateo de los detalles (por salto de línea Alt+Enter)
+        const detallesHtml = item.Detalles ? item.Detalles.split('\n').filter(d => d.trim() !== '').map(d => `
+            <li class="flex items-center gap-2 text-xs text-zinc-300 whitespace-normal">
+                <span class="w-1 h-1 rounded-full bg-btc-yellow/50 shrink-0"></span>
+                ${d.trim()}
+            </li>
+        `).join('') : '';
+
+        // Mostrar contenedor de icono solo si existe en el Sheets
+        const iconHTML = item.Icono 
+            ? `<span class="text-3xl bg-black/40 p-2 rounded-lg border border-white/5 shrink-0">${item.Icono}</span>`
+            : '';
+
+        return `
+            <div class="inline-block px-4">
+                <div class="w-80 md:w-96 bg-zinc-900 p-6 rounded-2xl border border-white/10 transition-all group relative overflow-hidden ${style.border} h-full flex flex-col justify-between">
+                    <div class="flex flex-col gap-3">
+                        <div class="flex items-start gap-3 mb-1">
+                            ${iconHTML}
+                            <div class="overflow-hidden flex-1">
+                                <h4 class="font-bold text-white text-lg tracking-tight group-hover:text-btc-yellow transition-colors truncate">${item.Titulo}</h4>
+                                <span class="text-[10px] font-bold uppercase tracking-wider ${style.color} flex items-center gap-1">
+                                    ${style.icon} ${item.Estado || 'Pendiente'}
+                                </span>
+                            </div>
+                        </div>
+                        <p class="text-zinc-300 text-sm leading-relaxed whitespace-normal h-10 line-clamp-2">
+                            ${item.Descripcion}
+                        </p>
+                    </div>
+                    
+                    ${detallesHtml ? `
+                    <div class="bg-black/20 rounded-xl p-3 border border-white/5 mt-4">
+                        <ul class="space-y-1">${detallesHtml}</ul>
+                    </div>` : ''}
+                </div>
+            </div>
+        `;
+    };
+
+    async function loadRoadmap() {
+        const roadmapTrack = document.getElementById('roadmap-track');
+        const roadmapSection = document.getElementById('roadmap-section');
+
+        try {
+            const response = await fetch(ROADMAP_CSV_URL);
+            const csvText = await response.text();
+
+            Papa.parse(csvText, {
+                header: true,
+                skipEmptyLines: true,
+                complete: function(results) {
+                    // ⚠️ MAGIA AQUÍ: Filtramos filas vacías, y también las que digan "Completado" o "Descartado"
+                    const data = results.data.filter(item => {
+                        if (!item.Titulo || item.Titulo.trim() === '') return false;
+                        const estado = item.Estado ? item.Estado.toLowerCase().trim() : '';
+                        if (estado.includes('completado') || estado.includes('descartado')) return false;
+                        return true;
+                    });
+                    
+                    if (data.length > 0) {
+                        // Multiplicamos por 4 para asegurar que el loop infinito nunca se corte
+                        const doubleRoadmap = [...data, ...data, ...data, ...data];
+                        roadmapTrack.innerHTML = doubleRoadmap.map(createRoadmapCard).join('');
+                        roadmapSection.classList.remove('hidden');
+                        roadmapSection.classList.add('flex');
+                    } else {
+                        // Si todas las tarjetas están completadas/descartadas, ocultamos la sección
+                        roadmapSection.classList.add('hidden');
+                        roadmapSection.classList.remove('flex');
+                    }
+                }
+            });
+        } catch (error) {
+            console.error("Error cargando el Roadmap:", error);
+        }
+    }
+
+    // ==========================================
+    // 2. LÓGICA DE LOS MODS (INTACTA)
+    // ==========================================
     const datapacksTrack = document.getElementById('datapacks-track');
     const modsTrack = document.getElementById('mods-track');
     const dpSection = document.getElementById('datapacks-section');
     const modsSection = document.getElementById('mods-section');
     const loadingEl = document.getElementById('loading-mods');
 
-    // Utilidades visuales
     const getIcon = (tipo) => {
         const t = tipo?.toLowerCase() || '';
         if(t.includes('mod')) return '⚡';
@@ -176,8 +196,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         return 'text-zinc-400 hover:border-zinc-400';
     };
 
-    // Plantilla de las tarjetas (Añadido data-query-id para que el script lo encuentre)
-    const createCardHTML = (item) => `
+    const createModCardHTML = (item) => `
         <div class="inline-block px-3">
             <a href="${item.url}" target="_blank" class="mod-card block w-64 p-4 bg-zinc-900 border border-white/10 rounded-xl transition-colors group relative ${getColor(item.type)}" data-query-id="${item.queryId}">
                 <div class="flex items-center gap-4">
@@ -193,115 +212,109 @@ document.addEventListener('DOMContentLoaded', async () => {
         </div>
     `;
 
-    try {
-        const response = await fetch(SHEET_CSV_URL);
-        const csvText = await response.text();
-        
-        // PARSEO DE LA MATRIZ DE TU EXCEL
-        Papa.parse(csvText, {
-            header: false, // Apagado porque tus celdas de arriba están combinadas
-            skipEmptyLines: true,
-            complete: async function(results) {
-                let mods = [];
-                let datapacks = [];
-                let modrinthIdsToFetch = [];
+    async function loadMods() {
+        try {
+            const response = await fetch(MODS_CSV_URL);
+            const csvText = await response.text();
+            
+            Papa.parse(csvText, {
+                header: false,
+                skipEmptyLines: true,
+                complete: async function(results) {
+                    let mods = [];
+                    let datapacks = [];
+                    let modrinthIdsToFetch = [];
 
-                // Recorremos fila por fila
-                results.data.forEach((row, index) => {
-                    // Ignoramos las primeras 4 filas (Títulos y celdas combinadas)
-                    if (index < 4) return; 
+                    results.data.forEach((row, index) => {
+                        if (index < 4) return; 
 
-                    const colNombre = row[0];       // Col A
-                    const colDesc = row[1];         // Col B
-                    const colURL = row[2];          // Col C
-                    const colID = row[3];           // Col D (ID Modrinth)
-                    const colContenido = row[4];    // Col E (Tipo)
-                    const colEnUso = row[7];        // Col H (EN USO)
+                        const colNombre = row[0];       
+                        const colDesc = row[1];         
+                        const colURL = row[2];          
+                        const colID = row[3];           
+                        const colContenido = row[4];    
+                        const colEnUso = row[7];        
 
-                    // FILTRO: Solo dejamos pasar los que dicen "SI" en la columna H
-                    if (colEnUso?.trim().toUpperCase() !== "SI") return;
-                    if (!colNombre || colNombre.trim() === "") return;
+                        if (colEnUso?.trim().toUpperCase() !== "SI") return;
+                        if (!colNombre || colNombre.trim() === "") return;
 
-                    let url = colURL?.trim() || "";
-                    let queryId = "";
-                    
-                    // Si tiene un ID de Modrinth, armamos el link
-                    if (colID && colID.trim() !== "") {
-                        queryId = colID.trim();
-                        url = `https://modrinth.com/project/${queryId}`;
-                        modrinthIdsToFetch.push(queryId); // Lo guardamos para pedir el icono luego
-                    } else if (url === "") {
-                        // Fallback si no hay link ni ID
-                        const query = encodeURIComponent(colNombre.trim());
-                        url = `https://modrinth.com/mods?q=${query}`;
-                    }
-
-                    const item = {
-                        name: colNombre.trim(),
-                        desc: colDesc ? colDesc.trim() : "Optimización técnica",
-                        type: colContenido ? colContenido.trim() : "Misc",
-                        icon: getIcon(colContenido),
-                        url: url,
-                        queryId: queryId
-                    };
-
-                    // CLASIFICACIÓN PARA LAS CINTAS
-                    if (item.type.toLowerCase().includes('datapack')) {
-                        datapacks.push(item);
-                    } else {
-                        mods.push(item);
-                    }
-                });
-
-                // MATEMÁTICAS PARA LA ANIMACIÓN INFINITA
-                const doubleDatapacks = [...datapacks, ...datapacks];
-                const doubleMods = [...mods, ...mods];
-
-                // INYECCIÓN AL HTML
-                if (doubleDatapacks.length > 0 && dpSection) {
-                    datapacksTrack.innerHTML = doubleDatapacks.map(createCardHTML).join('');
-                    dpSection.classList.remove('hidden');
-                }
-                if (doubleMods.length > 0 && modsSection) {
-                    modsTrack.innerHTML = doubleMods.map(createCardHTML).join('');
-                    modsSection.classList.remove('hidden');
-                }
-                
-                if(loadingEl) loadingEl.style.display = 'none';
-
-                // DESCARGA DE ICONOS DE MODRINTH (CON LA LÓGICA CORREGIDA)
-                if (modrinthIdsToFetch.length > 0) {
-                    const uniqueIds = [...new Set(modrinthIdsToFetch)].slice(0, 100);
-                    try {
-                        const mrRes = await fetch(`https://api.modrinth.com/v2/projects?ids=${JSON.stringify(uniqueIds)}`);
-                        if (mrRes.ok) {
-                            const mrData = await mrRes.json();
-                            mrData.forEach(project => {
-                                if (project.icon_url) {
-                                    // MAGIA: Buscamos la tarjeta comparando con el ID corto (project.id) o el slug
-                                    const cards = document.querySelectorAll(`.mod-card[data-query-id="${project.id}"], .mod-card[data-query-id="${project.slug}"]`);
-                                    cards.forEach(card => {
-                                        const container = card.querySelector('.icon-container');
-                                        if (container) {
-                                            container.innerHTML = `<img src="${project.icon_url}" alt="${project.title}" class="w-full h-full object-cover p-1 animate-fade-in" />`;
-                                        }
-                                    });
-                                }
-                            });
+                        let url = colURL?.trim() || "";
+                        let queryId = "";
+                        
+                        if (colID && colID.trim() !== "") {
+                            queryId = colID.trim();
+                            url = `https://modrinth.com/project/${queryId}`;
+                            modrinthIdsToFetch.push(queryId); 
+                        } else if (url === "") {
+                            const query = encodeURIComponent(colNombre.trim());
+                            url = `https://modrinth.com/mods?q=${query}`;
                         }
-                    } catch (e) { console.warn("Límite de peticiones de iconos alcanzado."); }
+
+                        const item = {
+                            name: colNombre.trim(),
+                            desc: colDesc ? colDesc.trim() : "Optimización técnica",
+                            type: colContenido ? colContenido.trim() : "Misc",
+                            icon: getIcon(colContenido),
+                            url: url,
+                            queryId: queryId
+                        };
+
+                        if (item.type.toLowerCase().includes('datapack')) {
+                            datapacks.push(item);
+                        } else {
+                            mods.push(item);
+                        }
+                    });
+
+                    const doubleDatapacks = [...datapacks, ...datapacks];
+                    const doubleMods = [...mods, ...mods];
+
+                    if (doubleDatapacks.length > 0 && dpSection) {
+                        datapacksTrack.innerHTML = doubleDatapacks.map(createModCardHTML).join('');
+                        dpSection.classList.remove('hidden');
+                    }
+                    if (doubleMods.length > 0 && modsSection) {
+                        modsTrack.innerHTML = doubleMods.map(createModCardHTML).join('');
+                        modsSection.classList.remove('hidden');
+                    }
+                    
+                    if(loadingEl) loadingEl.style.display = 'none';
+
+                    if (modrinthIdsToFetch.length > 0) {
+                        const uniqueIds = [...new Set(modrinthIdsToFetch)].slice(0, 100);
+                        try {
+                            const mrRes = await fetch(`https://api.modrinth.com/v2/projects?ids=${JSON.stringify(uniqueIds)}`);
+                            if (mrRes.ok) {
+                                const mrData = await mrRes.json();
+                                mrData.forEach(project => {
+                                    if (project.icon_url) {
+                                        const cards = document.querySelectorAll(`.mod-card[data-query-id="${project.id}"], .mod-card[data-query-id="${project.slug}"]`);
+                                        cards.forEach(card => {
+                                            const container = card.querySelector('.icon-container');
+                                            if (container) {
+                                                container.innerHTML = `<img src="${project.icon_url}" alt="${project.title}" class="w-full h-full object-cover p-1 animate-fade-in" />`;
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        } catch (e) { console.warn("Límite de peticiones de iconos alcanzado."); }
+                    }
                 }
-            }
-        });
-    } catch (err) {
-        console.error("Error cargando el Excel:", err);
-        if(loadingEl) loadingEl.innerHTML = "Error sincronizando base de datos. Recarga la página.";
+            });
+        } catch (err) {
+            console.error("Error cargando los mods:", err);
+            if(loadingEl) loadingEl.innerHTML = "Error sincronizando base de datos. Recarga la página.";
+        }
     }
+
+    // Carga paralela para máxima velocidad
+    Promise.all([loadRoadmap(), loadMods()]);
 });
 </script>
 
 <style>
-    /* OPTIMIZACIÓN GPU: translate3d en vez de translateX */
+    /* Estilos de la cinta (marquee) */
     @keyframes marquee-left {
         0% { transform: translate3d(0, 0, 0); }
         100% { transform: translate3d(-50%, 0, 0); }
@@ -323,7 +336,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         animation: marquee-left 60s linear infinite;
         transform: translateZ(0);
         will-change: transform;
-        backface-visibility: hidden;
     }
 
     .animate-marquee-right {
@@ -332,7 +344,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         animation: marquee-right 60s linear infinite;
         transform: translateZ(0);
         will-change: transform;
-        backface-visibility: hidden;
     }
     
     .animate-fade-in {
