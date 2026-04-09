@@ -1,0 +1,19 @@
+{
+  "left": [
+    { "name": "Jugar", "href": "/#ips", "id": "ips" },
+    { "name": "Normas", "href": "/#reglas", "id": "reglas" }
+  ],
+  "right": [
+    { "name": "Historia", "href": "/#historia", "id": "historia" },
+    { "name": "Staff", "href": "/#staff", "id": "staff" },
+    { "name": "Comunidad", "href": "/#discord", "id": "discord" }
+  ],
+  "novedades": [
+    { "name": "Mundo Survival", "href": "/#survival", "id": "survival" },
+    { "name": "Mundo Creativo", "href": "/#creativo", "id": "creativo" },
+    { "name": "Mapa Survival", "href": "/maps/survival", "id": "map-sv" },
+    { "name": "Mapa Creativo", "href": "/maps/creative", "id": "map-cr" },
+    { "name": "Datapacks & Mods", "href": "/#tecnico", "id": "tecnico" },
+    { "name": "Modpack", "href": "/#modpack", "id": "modpack" }
+  ]
+}

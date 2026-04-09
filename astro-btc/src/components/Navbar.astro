@@ -1,29 +1,33 @@
 ---
-// src/components/Navbar.astro
-const leftItems = [
-  { name: 'Jugar', href: '#ips' },
-  { name: 'Normas', href: '#reglas' },
-  { name: 'Novedades', href: '#novedades' },
-];
+import navData from '../data/navigation.json';
 
-const rightItems = [
-  { name: 'Historia', href: '#historia' },
-  { name: 'Staff', href: '#staff' },
-  { name: 'Comunidad', href: '#discord' },
-];
+const leftItems = navData.left;
+const rightItems = navData.right;
+const novedadItems = navData.novedades;
+
+const isMapPage = Astro.url.pathname.includes('/maps/');
 ---
 
 <header 
   id="main-header" 
-  class="hidden lg:block fixed top-0 w-full z-50 transition-all duration-500 py-6 bg-transparent border-b border-transparent is-at-top"
+  class:list={[
+    "hidden lg:block fixed top-0 w-full z-50 transition-all duration-500 border-b",
+    /* ARREGLO 1: Separamos correctamente las clases para que no choquen */
+    isMapPage 
+      ? "is-scrolled bg-black py-2 border-white/5 shadow-2xl" 
+      : "is-at-top bg-transparent py-6 border-transparent"
+  ]}
 >
   <div class="container mx-auto px-6 h-16 relative flex items-center justify-center">
 
     {/* LOGO */}
     <a 
-      href="#inicio" 
+      href="/#inicio" 
       id="logo-link" 
-      class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex items-center gap-2 transition-all duration-500 opacity-0 scale-50 pointer-events-none"
+      class:list={[
+        "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex items-center gap-2 transition-all duration-500",
+        isMapPage ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-50 pointer-events-none"
+      ]}
     >
         <img src="/images/logo-text.webp" alt="Builtechraft" loading="eager" class="h-12 w-auto object-contain drop-shadow-md hover:scale-105 transition-transform" />
     </a>
@@ -31,26 +35,40 @@ const rightItems = [
     <nav class="hidden lg:flex items-center justify-center gap-16 transition-all duration-500 relative w-full max-w-5xl" id="desktop-menu">
         <div class="flex items-center gap-8 lg:gap-12 flex-1 justify-end">
             {leftItems.map(item => (
-                <a 
-                  href={item.href} 
-                  class="nav-link text-sm font-bold uppercase tracking-widest transition-all relative group py-2"
-                  data-target={item.href.replace('#', '')}
-                >
+                <a href={item.href} class="nav-link text-sm font-bold uppercase tracking-widest transition-all relative group py-2" data-target={item.id}>
                     {item.name}
                     <span class="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full nav-line"></span>
                 </a>
             ))}
+
+            {/* BOTÓN NOVEDADES */}
+            <div class="relative py-2">
+                <button 
+                  id="nov-btn" 
+                  class="nav-link text-sm font-bold uppercase tracking-widest transition-all relative group flex items-center gap-1 cursor-pointer outline-none"
+                  data-novedades-parent
+                >
+                    Novedades
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full nav-line"></span>
+                </button>
+
+                <div id="nov-drop" class="absolute top-full right-0 mt-6 w-64 bg-black border border-white/10 rounded-md p-4 shadow-[0_20px_50px_rgba(0,0,0,0.8)] opacity-0 invisible scale-95 transition-all duration-300 z-50 pointer-events-none">
+                    <div class="flex flex-col gap-1">
+                        {novedadItems.map(item => (
+                            <a href={item.href} class="submenu-link text-[11px] font-bold text-zinc-400 uppercase tracking-widest px-6 py-3 rounded-md hover:bg-white/5 hover:text-btc-orange transition-all" data-target={item.id}>
+                                {item.name}
+                            </a>
+                        ))}
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div id="center-spacer" class="w-0 transition-all duration-700 ease-in-out"></div>
+        <div id="center-spacer" class:list={["transition-all duration-700 ease-in-out", isMapPage ? "w-32 lg:w-48" : "w-0"]}></div>
 
         <div class="flex items-center gap-8 lg:gap-12 flex-1 justify-start">
             {rightItems.map(item => (
-                <a 
-                  href={item.href} 
-                  class="nav-link text-sm font-bold uppercase tracking-widest transition-all relative group py-2"
-                  data-target={item.href.replace('#', '')}
-                >
+                <a href={item.href} class="nav-link text-sm font-bold uppercase tracking-widest transition-all relative group py-2" data-target={item.id}>
                     {item.name}
                     <span class="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full nav-line"></span>
                 </a>
@@ -58,13 +76,9 @@ const rightItems = [
         </div>
     </nav>
 
-    {/* BOTÓN INTERRUPTOR DE TEMA */}
+    {/* BOTÓN TEMA */}
     <div class="absolute right-6 top-1/2 -translate-y-1/2 z-20 hidden lg:block">
-        <button 
-            id="theme-toggle"
-            class="w-10 h-10 rounded-full border transition-all duration-300 flex items-center justify-center"
-            aria-label="Cambiar tema"
-        >
+        <button id="theme-toggle" class="w-10 h-10 rounded-full border transition-all duration-300 flex items-center justify-center">
             <svg id="icon-moon" class="w-5 h-5 block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
             <svg id="icon-sun" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
         </button>
@@ -73,31 +87,12 @@ const rightItems = [
 </header>
 
 <style>
-  /* --- ESTILO DEL BOTÓN DE TEMA --- */
-  #main-header.is-at-top #theme-toggle {
-    background-color: rgba(0, 0, 0, 0.4); 
-    border-color: rgba(255, 255, 255, 0.1);
-    color: #a1a1aa; 
-    backdrop-filter: none; 
-    -webkit-backdrop-filter: none;
-  }
-  #main-header.is-at-top #theme-toggle:hover {
-    background-color: rgba(0, 0, 0, 0.6);
-    color: #f97316; 
-    border-color: rgba(249, 115, 22, 0.3);
-  }
+  /* --- ESTILOS ORIGINALES INTACTOS --- */
+  #main-header.is-at-top #theme-toggle { background-color: rgba(0, 0, 0, 0.4); border-color: rgba(255, 255, 255, 0.1); color: #a1a1aa; }
+  #main-header.is-at-top #theme-toggle:hover { background-color: rgba(0, 0, 0, 0.6); color: #f97316; border-color: rgba(249, 115, 22, 0.3); }
+  #main-header.is-scrolled #theme-toggle { background-color: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.1); color: #a1a1aa; }
+  #main-header.is-scrolled #theme-toggle:hover { background-color: rgba(255, 255, 255, 0.1); color: #f97316; }
 
-  #main-header.is-scrolled #theme-toggle {
-    background-color: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.1);
-    color: #a1a1aa;
-  }
-  #main-header.is-scrolled #theme-toggle:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #f97316;
-  }
-
-  /* --- COLORES DE LOS LINKS --- */
   #main-header.is-at-top .nav-link { color: #f97316; }
   #main-header.is-at-top .nav-link:hover { color: #fbbf24; }
   #main-header.is-at-top .nav-line { background-color: #fbbf24 !important; }
@@ -106,106 +101,131 @@ const rightItems = [
   #main-header.is-scrolled .nav-link:hover { color: #f97316; }
   #main-header.is-scrolled .nav-line { background-color: #f97316 !important; }
 
-  .nav-link.active {
-    color: #fbbf24 !important;
-  }
-  .nav-link.active .nav-line {
-    width: 100% !important;
-    background-color: #fbbf24 !important;
-  }
+  .nav-link.active, .nav-link.active-parent { color: #fbbf24 !important; }
+  .nav-link.active .nav-line, .nav-link.active-parent .nav-line { width: 100% !important; background-color: #fbbf24 !important; }
+  
+  .submenu-link.active-sub { color: #f97316 !important; background-color: rgba(255,255,255,0.05); }
+
+  #nov-drop.is-open { opacity: 1; visibility: visible; scale: 1; pointer-events: auto; }
 </style>
 
-<script is:inline>
+<script is:inline define:vars={{ isMapPage }}>
   document.addEventListener('DOMContentLoaded', () => {
       const header = document.getElementById('main-header');
       const logoLink = document.getElementById('logo-link');
       const centerSpacer = document.getElementById('center-spacer');
       const navLinks = document.querySelectorAll('.nav-link');
-      const sections = document.querySelectorAll('section[id]');
+      const sections = document.querySelectorAll('section[id], div[id]');
       const heroSection = document.getElementById('inicio');
       const themeToggleBtn = document.getElementById('theme-toggle');
-      const iconMoon = document.getElementById('icon-moon');
-      const iconSun = document.getElementById('icon-sun');
       const htmlEl = document.documentElement;
 
+      const novedadIds = ['survival', 'creativo', 'tecnico', 'modpack'];
+
+      // --- CLICK NOVEDADES ---
+      const novBtn = document.getElementById('nov-btn');
+      const novDrop = document.getElementById('nov-drop');
+      novBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          novDrop.classList.toggle('is-open');
+      });
+      document.addEventListener('click', () => novDrop.classList.remove('is-open'));
+
+      // --- TEMA ---
       const updateThemeIcons = () => {
+          const iconMoon = document.getElementById('icon-moon');
+          const iconSun = document.getElementById('icon-sun');
           if (htmlEl.classList.contains('light')) {
-              iconMoon.classList.add('hidden');
-              iconMoon.classList.remove('block');
-              iconSun.classList.remove('hidden');
-              iconSun.classList.add('block');
+              iconMoon.classList.add('hidden'); iconSun.classList.remove('hidden');
           } else {
-              iconMoon.classList.remove('hidden');
-              iconMoon.classList.add('block');
-              iconSun.classList.add('hidden');
-              iconSun.classList.remove('block');
+              iconMoon.classList.remove('hidden'); iconSun.classList.add('hidden');
           }
       };
-
       updateThemeIcons();
-
       themeToggleBtn.addEventListener('click', () => {
           htmlEl.classList.toggle('light');
           updateThemeIcons();
           localStorage.setItem('theme', htmlEl.classList.contains('light') ? 'light' : 'dark');
-          window.dispatchEvent(new Event('theme-changed'));
       });
-      
-      window.addEventListener('theme-changed', updateThemeIcons);
 
+      // --- ARREGLO 2: ILUMINAR EL MENÚ SI ESTAMOS EN LA PÁGINA DEL MAPA ---
+      if (isMapPage) {
+          const currentPath = window.location.pathname;
+          document.querySelectorAll('.submenu-link').forEach(link => {
+              const href = link.getAttribute('href');
+              // Comparamos si la URL actual coincide con el href del submenú
+              if (currentPath === href || currentPath === href + '/') {
+                  link.classList.add('active-sub'); // Ilumina el sub-item (ej: Mapa Survival)
+                  novBtn.classList.add('active-parent'); // Ilumina "Novedades" de color amarillo
+              }
+          });
+      }
+
+      // --- ANIMACIÓN ---
       const handleHeaderAnimation = () => {
+          if (isMapPage) return;
           const currentScroll = window.scrollY;
           const triggerHeight = heroSection ? (heroSection.offsetHeight - 150) : 600;
 
           if (currentScroll > triggerHeight) {
               header.classList.replace('is-at-top', 'is-scrolled');
               header.classList.remove('bg-transparent', 'py-6', 'border-transparent');
-              header.classList.add('bg-black/90', 'backdrop-blur-md', 'py-2', 'border-white/5', 'shadow-2xl');
+              header.classList.add('bg-black', 'py-2', 'border-white/5', 'shadow-2xl');
               logoLink.classList.remove('opacity-0', 'scale-50', 'pointer-events-none');
               logoLink.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
               centerSpacer.classList.add('w-32', 'lg:w-48');
           } else {
               header.classList.replace('is-scrolled', 'is-at-top');
               header.classList.add('bg-transparent', 'py-6', 'border-transparent');
-              header.classList.remove('bg-black/90', 'backdrop-blur-md', 'py-2', 'border-white/5', 'shadow-2xl');
+              header.classList.remove('bg-black', 'py-2', 'border-white/5', 'shadow-2xl');
               logoLink.classList.add('opacity-0', 'scale-50', 'pointer-events-none');
               logoLink.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
               centerSpacer.classList.remove('w-32', 'lg:w-48');
           }
       };
 
+      // --- SCROLL SPY ORIGINAL ---
       const handleScrollSpy = () => {
-          let maxVisibleSectionId = '';
+          if (isMapPage) return; // Solo funciona en el index
+          let activeId = '';
           let maxVisibleHeight = 0;
-          if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
-              const lastLink = navLinks[navLinks.length - 1];
-              if (lastLink) {
-                  navLinks.forEach(link => link.classList.remove('active'));
-                  lastLink.classList.add('active');
-                  return;
-              }
-          }
+
           sections.forEach(section => {
+              if (section.id === 'novedades') return; // Ignoramos el contenedor padre
+
               const rect = section.getBoundingClientRect();
               const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
               if (visibleHeight > 0 && visibleHeight > maxVisibleHeight) {
                   maxVisibleHeight = visibleHeight;
-                  maxVisibleSectionId = section.getAttribute('id');
+                  activeId = section.getAttribute('id');
               }
           });
-          if (maxVisibleSectionId) {
+
+          if (activeId) {
               navLinks.forEach(link => {
-                  link.classList.toggle('active', link.getAttribute('data-target') === maxVisibleSectionId);
+                  const target = link.getAttribute('data-target');
+                  if (link.hasAttribute('data-novedades-parent')) {
+                      link.classList.toggle('active-parent', novedadIds.includes(activeId));
+                  } else {
+                      link.classList.toggle('active', target === activeId);
+                  }
+              });
+
+              document.querySelectorAll('.submenu-link').forEach(link => {
+                  link.classList.toggle('active-sub', link.getAttribute('data-target') === activeId);
               });
           }
       };
 
-      window.addEventListener('scroll', () => {
+      // Ejecutar lógica condicional
+      if (!isMapPage) {
+          window.addEventListener('scroll', () => {
+              handleHeaderAnimation();
+              handleScrollSpy();
+          }, { passive: true });
+          
           handleHeaderAnimation();
           handleScrollSpy();
-      }, { passive: true });
-
-      handleHeaderAnimation();
-      handleScrollSpy();
+      }
   });
 </script>

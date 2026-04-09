@@ -1,19 +1,22 @@
 ---
 // src/components/NavbarMobile.astro
-const menuItems = [
-  { name: 'Inicio', href: '#inicio' },
-  { name: 'Jugar', href: '#ips' },
-  { name: 'Normas', href: '#reglas' },
-  { name: 'Novedades', href: '#novedades' },
-  { name: 'Historia', href: '#historia' },
-  { name: 'Staff', href: '#staff' },
-  { name: 'Comunidad', href: '#discord' },
-];
+import navData from '../data/navigation.json';
+
+const leftItems = navData.left;
+const rightItems = navData.right;
+const novedadItems = navData.novedades;
+
+const isMapPage = Astro.url.pathname.includes('/maps/');
 ---
 
 <header 
   id="mobile-header" 
-  class="lg:hidden fixed top-0 w-full z-50 transition-all duration-500 py-4 bg-transparent border-b border-transparent is-at-top"
+  class:list={[
+    "lg:hidden fixed top-0 w-full z-50 transition-all duration-500 border-b",
+    isMapPage 
+      ? "is-scrolled bg-black py-2 border-white/5 shadow-2xl" 
+      : "is-at-top bg-transparent py-4 border-transparent"
+  ]}
 >
   <div class="container mx-auto px-6 h-12 relative flex items-center justify-between">
 
@@ -47,63 +50,69 @@ const menuItems = [
   {/* MENÚ DESPLEGABLE MÓVIL */}
   <nav 
     id="mobile-dropdown" 
-    class="absolute top-full left-0 w-full bg-black/95 backdrop-blur-xl border-b border-white/10 transition-all duration-300 origin-top transform scale-y-0 opacity-0 pointer-events-none shadow-2xl"
+    class="absolute top-full left-0 w-full bg-black/98 backdrop-blur-xl border-b border-white/10 transition-all duration-300 origin-top transform scale-y-0 opacity-0 pointer-events-none shadow-2xl"
   >
-    <div class="flex flex-col items-center py-8 gap-6 max-h-[80vh] overflow-y-auto">
-        {menuItems.map(item => (
-            <a 
-              href={item.href} 
-              class="mobile-nav-link text-base font-bold uppercase tracking-widest transition-all relative group py-2"
-              data-target={item.href.replace('#', '')}
-            >
-                {item.name}
+    <div class="flex flex-col items-center py-8 px-6 gap-6 max-h-[80vh] overflow-y-auto">
+        
+        {/* BLOQUE 1: Inicio y Links Izquierdos */}
+        <div class="flex flex-col items-center gap-6 w-full">
+            <a href="/#inicio" class="mobile-nav-link text-base font-bold uppercase tracking-widest transition-all relative group py-2" data-target="inicio">
+                Inicio
                 <span class="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full nav-line"></span>
             </a>
-        ))}
+            {leftItems.map(item => (
+                <a href={item.href} class="mobile-nav-link text-base font-bold uppercase tracking-widest transition-all relative group py-2" data-target={item.id}>
+                    {item.name}
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full nav-line"></span>
+                </a>
+            ))}
+        </div>
+
+        {/* BLOQUE 2: Novedades y Mapas (Destacado) */}
+        <div class="w-full border-t border-white/10 pt-6 pb-2 flex flex-col items-center">
+            <p class="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-4">Novedades y Mapas</p>
+            <div class="flex flex-col gap-2 w-full max-w-[250px]">
+                {novedadItems.map(item => (
+                    <a href={item.href} class="mobile-submenu-link text-xs font-bold text-zinc-400 uppercase tracking-widest py-3 px-6 rounded-lg hover:bg-white/5 hover:text-btc-orange transition-all text-center w-full" data-target={item.id}>
+                        {item.name}
+                    </a>
+                ))}
+            </div>
+        </div>
+
+        {/* BLOQUE 3: Links Derechos */}
+        <div class="flex flex-col items-center gap-6 w-full border-t border-white/10 pt-6">
+            {rightItems.map(item => (
+                <a href={item.href} class="mobile-nav-link text-base font-bold uppercase tracking-widest transition-all relative group py-2" data-target={item.id}>
+                    {item.name}
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full nav-line"></span>
+                </a>
+            ))}
+        </div>
     </div>
   </nav>
 </header>
 
 <style>
-  /* --- ESTILO DEL BOTÓN DE TEMA MÓVIL (Misma lógica que PC) --- */
-  #mobile-header.is-at-top #mobile-theme-toggle {
-    background-color: rgba(0, 0, 0, 0.4);
-    border-color: rgba(255, 255, 255, 0.1);
-    color: #a1a1aa;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-  }
-  #mobile-header.is-at-top #mobile-theme-toggle:hover {
-    background-color: rgba(0, 0, 0, 0.6);
-    color: #f97316;
-    border-color: rgba(249, 115, 22, 0.3);
-  }
-
-  #mobile-header.is-scrolled #mobile-theme-toggle {
-    background-color: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.1);
-    color: #a1a1aa;
-  }
-  #mobile-header.is-scrolled #mobile-theme-toggle:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #f97316;
-  }
+  /* --- ESTILO DEL BOTÓN DE TEMA MÓVIL --- */
+  #mobile-header.is-at-top #mobile-theme-toggle { background-color: rgba(0, 0, 0, 0.4); border-color: rgba(255, 255, 255, 0.1); color: #a1a1aa; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  #mobile-header.is-at-top #mobile-theme-toggle:hover { background-color: rgba(0, 0, 0, 0.6); color: #f97316; border-color: rgba(249, 115, 22, 0.3); }
+  #mobile-header.is-scrolled #mobile-theme-toggle { background-color: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.1); color: #a1a1aa; }
+  #mobile-header.is-scrolled #mobile-theme-toggle:hover { background-color: rgba(255, 255, 255, 0.1); color: #f97316; }
 
   /* --- COLORES DE LOS LINKS MÓVILES --- */
   .mobile-nav-link { color: rgba(255, 255, 255, 0.8); }
   .mobile-nav-link:hover { color: #f97316; }
   .mobile-nav-link .nav-line { background-color: #f97316 !important; }
 
-  .mobile-nav-link.active {
-    color: #fbbf24 !important;
-  }
-  .mobile-nav-link.active .nav-line {
-    width: 100% !important;
-    background-color: #fbbf24 !important;
-  }
+  /* Estados activos */
+  .mobile-nav-link.active { color: #fbbf24 !important; }
+  .mobile-nav-link.active .nav-line { width: 100% !important; background-color: #fbbf24 !important; }
+  
+  .mobile-submenu-link.active-sub { color: #f97316 !important; background-color: rgba(255,255,255,0.05); }
 </style>
 
-<script is:inline>
+<script is:inline define:vars={{ isMapPage }}>
   document.addEventListener('DOMContentLoaded', () => {
       const headerMobile = document.getElementById('mobile-header');
       const mobileBtn = document.getElementById('mobile-menu-btn');
@@ -111,39 +120,33 @@ const menuItems = [
       const iconMenu = document.getElementById('icon-menu');
       const iconClose = document.getElementById('icon-close');
       const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+      const mobileSubLinks = document.querySelectorAll('.mobile-submenu-link');
       const heroSection = document.getElementById('inicio');
-      const sections = document.querySelectorAll('section[id]');
+      const sections = document.querySelectorAll('section[id], div[id]');
       
       const themeToggleBtnMobile = document.getElementById('mobile-theme-toggle');
-      const iconMoonMobile = document.getElementById('mobile-icon-moon');
-      const iconSunMobile = document.getElementById('mobile-icon-sun');
       const htmlEl = document.documentElement;
 
+      // --- LOGICA TEMA ---
       const updateThemeIconsMobile = () => {
+          const iconMoonMobile = document.getElementById('mobile-icon-moon');
+          const iconSunMobile = document.getElementById('mobile-icon-sun');
           if (htmlEl.classList.contains('light')) {
-              iconMoonMobile.classList.add('hidden');
-              iconMoonMobile.classList.remove('block');
-              iconSunMobile.classList.remove('hidden');
-              iconSunMobile.classList.add('block');
+              iconMoonMobile.classList.add('hidden'); iconSunMobile.classList.remove('hidden');
           } else {
-              iconMoonMobile.classList.remove('hidden');
-              iconMoonMobile.classList.add('block');
-              iconSunMobile.classList.add('hidden');
-              iconSunMobile.classList.remove('block');
+              iconMoonMobile.classList.remove('hidden'); iconSunMobile.classList.add('hidden');
           }
       };
-
       updateThemeIconsMobile();
-
       themeToggleBtnMobile.addEventListener('click', () => {
           htmlEl.classList.toggle('light');
           updateThemeIconsMobile();
           localStorage.setItem('theme', htmlEl.classList.contains('light') ? 'light' : 'dark');
           window.dispatchEvent(new Event('theme-changed'));
       });
-
       window.addEventListener('theme-changed', updateThemeIconsMobile);
 
+      // --- LOGICA MENU DESPLEGABLE ---
       const toggleMenu = () => {
           const isClosed = mobileDropdown.classList.contains('scale-y-0');
           if (isClosed) {
@@ -153,7 +156,7 @@ const menuItems = [
               iconMenu.classList.remove('block');
               iconClose.classList.remove('hidden', 'scale-50', 'opacity-0');
               iconClose.classList.add('block');
-              headerMobile.classList.add('bg-black/90', 'backdrop-blur-md');
+              headerMobile.classList.add('bg-black/98', 'backdrop-blur-md'); // Fondo solido al abrir
           } else {
               mobileDropdown.classList.add('scale-y-0', 'opacity-0', 'pointer-events-none');
               mobileDropdown.classList.remove('scale-y-100', 'opacity-100', 'pointer-events-auto');
@@ -161,34 +164,54 @@ const menuItems = [
               iconMenu.classList.add('block');
               iconClose.classList.add('hidden', 'scale-50', 'opacity-0');
               iconClose.classList.remove('block');
-              handleMobileHeaderAnimation();
+              handleMobileHeaderAnimation(); // Restaura el color segun el scroll
           }
       };
 
       mobileBtn.addEventListener('click', toggleMenu);
 
-      mobileNavLinks.forEach(link => {
+      // Cierra el menú al hacer click en cualquier enlace
+      const allLinks = [...mobileNavLinks, ...mobileSubLinks];
+      allLinks.forEach(link => {
           link.addEventListener('click', () => {
               if (!mobileDropdown.classList.contains('scale-y-0')) toggleMenu();
           });
       });
 
+      // --- ILUMINACION EN MAPAS ---
+      if (isMapPage) {
+          const currentPath = window.location.pathname;
+          mobileSubLinks.forEach(link => {
+              const href = link.getAttribute('href');
+              if (currentPath === href || currentPath === href + '/') {
+                  link.classList.add('active-sub');
+              }
+          });
+      }
+
+      // --- ANIMACION HEADER ---
       const handleMobileHeaderAnimation = () => {
+          if (isMapPage) return; // En mapa siempre negro solido
+          // Si el menu esta abierto, no quitamos el fondo negro
+          if (!mobileDropdown.classList.contains('scale-y-0')) return; 
+
           const currentScroll = window.scrollY;
           const triggerHeight = heroSection ? (heroSection.offsetHeight - 150) : 100;
 
           if (currentScroll > triggerHeight) {
               headerMobile.classList.replace('is-at-top', 'is-scrolled');
               headerMobile.classList.remove('bg-transparent', 'py-4', 'border-transparent');
-              headerMobile.classList.add('bg-black/90', 'backdrop-blur-md', 'py-2', 'border-white/5', 'shadow-2xl');
+              headerMobile.classList.add('bg-black', 'py-2', 'border-white/5', 'shadow-2xl');
           } else {
               headerMobile.classList.replace('is-scrolled', 'is-at-top');
               headerMobile.classList.add('bg-transparent', 'py-4', 'border-transparent');
-              headerMobile.classList.remove('bg-black/90', 'backdrop-blur-md', 'py-2', 'border-white/5', 'shadow-2xl');
+              headerMobile.classList.remove('bg-black', 'py-2', 'border-white/5', 'shadow-2xl');
           }
       };
 
+      // --- SCROLL SPY CORREGIDO ---
       const handleMobileScrollSpy = () => {
+          if (isMapPage) return;
           let maxVisibleSectionId = '';
           let maxVisibleHeight = 0;
           
@@ -202,6 +225,8 @@ const menuItems = [
           }
           
           sections.forEach(section => {
+              if (section.id === 'novedades') return; // Ignora el contenedor global
+
               const rect = section.getBoundingClientRect();
               const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
               if (visibleHeight > 0 && visibleHeight > maxVisibleHeight) {
@@ -214,15 +239,19 @@ const menuItems = [
               mobileNavLinks.forEach(link => {
                   link.classList.toggle('active', link.getAttribute('data-target') === maxVisibleSectionId);
               });
+              mobileSubLinks.forEach(link => {
+                  link.classList.toggle('active-sub', link.getAttribute('data-target') === maxVisibleSectionId);
+              });
           }
       };
 
-      window.addEventListener('scroll', () => {
+      if (!isMapPage) {
+          window.addEventListener('scroll', () => {
+              handleMobileHeaderAnimation();
+              handleMobileScrollSpy();
+          }, { passive: true });
           handleMobileHeaderAnimation();
           handleMobileScrollSpy();
-      }, { passive: true });
-
-      handleMobileHeaderAnimation();
-      handleMobileScrollSpy();
+      }
   });
 </script>
