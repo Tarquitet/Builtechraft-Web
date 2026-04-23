@@ -1,5 +1,6 @@
 <div align="center">
-  ### El sitio web oficial del servidor privado de Minecraft: Builtechraft SMP
+
+### El sitio web oficial del servidor privado de Minecraft: Builtechraft SMP
 
   [![Website](https://img.shields.io/badge/Visitar_Web-builtechraft.tarquitet.com-2563EB?style=for-the-badge&logo=googlechrome&logoColor=white)](https://builtechraft.tarquitet.com/)
   [![Astro](https://img.shields.io/badge/Tecnología-Astro_v2-FF5D01?style=for-the-badge&logo=astro&logoColor=white)](https://github.com/Tarquitet/Builtechraft-Web/tree/v2-astro)
