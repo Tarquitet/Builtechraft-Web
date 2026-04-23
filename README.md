@@ -1,6 +1,4 @@
 <div align="center">
-  <img src="https://builtechraft.tarquitet.com/images/logo-text.webp" alt="Builtechraft Logo" width="450"/>
-
   ### El sitio web oficial del servidor privado de Minecraft: Builtechraft SMP
 
   [![Website](https://img.shields.io/badge/Visitar_Web-builtechraft.tarquitet.com-2563EB?style=for-the-badge&logo=googlechrome&logoColor=white)](https://builtechraft.tarquitet.com/)
