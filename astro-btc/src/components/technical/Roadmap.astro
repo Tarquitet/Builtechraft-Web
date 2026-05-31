@@ -1,0 +1,122 @@
+---
+// src/components/technical/Roadmap.astro
+---
+
+<div id="roadmap-section" class="hidden flex-col items-center mt-12 relative z-20 pb-16">
+    <div class="container mx-auto px-6 text-center mb-12 w-full">
+        <h2 class="text-3xl md:text-5xl font-display font-bold text-white uppercase tracking-tight drop-shadow-lg">
+            Roadmap <span class="text-btc-orange">Público</span>
+        </h2>
+        <p class="text-zinc-400 text-sm md:text-base max-w-2xl mx-auto mt-4">
+            Desliza para explorar nuestras futuras expansiones y actualizaciones en el servidor.
+        </p>
+    </div>
+
+    <div class="w-full relative cursor-grab active:cursor-grabbing" id="drag-container">
+        <div id="roadmap-slider" class="flex overflow-x-auto hide-scrollbar gap-6 pb-8 pt-4 px-4 sm:px-[10vw] select-none">
+            </div>
+    </div>
+</div>
+
+<script type="module" is:inline>
+import { getRoadmapData } from '/src/utils/sheetsClient.js';
+
+document.addEventListener('DOMContentLoaded', async () => {
+    
+    const getStatusStyle = (estado) => {
+        const s = estado?.toLowerCase().trim() || '';
+        if (s.includes('progreso')) return { text: 'text-btc-orange', bg: 'bg-btc-orange/10', border: 'border-btc-orange/30', icon: '⚡' };
+        if (s.includes('planeado')) return { text: 'text-blue-400', bg: 'bg-blue-400/10', border: 'border-blue-400/30', icon: '📋' };
+        if (s.includes('prueba'))   return { text: 'text-purple-400', bg: 'bg-purple-400/10', border: 'border-purple-400/30', icon: '🧪' };
+        return { text: 'text-emerald-400', bg: 'bg-emerald-400/10', border: 'border-emerald-400/30', icon: '✨' }; 
+    };
+
+    const createRoadmapCard = (item) => {
+        const style = getStatusStyle(item.Estado);
+        
+        return `
+            <div class="shrink-0 w-[85vw] sm:w-[380px] pointer-events-none transition-transform duration-300">
+                <div class="h-full p-8 rounded-3xl bg-zinc-900 border border-white/10 shadow-xl flex flex-col justify-between relative overflow-hidden">
+                    <div class="flex flex-col gap-6 relative z-10">
+                        <div class="flex flex-col items-start gap-4">
+                            <span class="text-[10px] font-bold uppercase tracking-widest ${style.text} ${style.bg} border ${style.border} px-4 py-1.5 rounded-full flex items-center gap-2">
+                                ${style.icon} ${item.Estado || 'Pendiente'}
+                            </span>
+                            <h4 class="font-display font-bold text-white text-2xl tracking-tight uppercase leading-none mt-2">
+                                ${item.Titulo}
+                            </h4>
+                        </div>
+                        <p class="text-zinc-400 text-sm leading-relaxed">${item.Descripcion}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+    };
+
+    const slider = document.getElementById('roadmap-slider');
+    const section = document.getElementById('roadmap-section');
+
+    const data = await getRoadmapData();
+    if (data.length > 0 && slider && section) {
+        slider.innerHTML = data.map(createRoadmapCard).join('');
+        section.classList.remove('hidden');
+        section.classList.add('flex');
+    }
+
+    // --- LÓGICA DE DRAG CON MOMENTUM SÚPER SUAVE ---
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    let velX = 0;
+    let momentumID;
+
+    slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        cancelAnimationFrame(momentumID);
+        slider.style.scrollBehavior = 'auto';
+        slider.parentElement.classList.add('active:cursor-grabbing');
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+    });
+
+    slider.addEventListener('mouseleave', () => { 
+        if(isDown) { isDown = false; beginMomentum(); }
+    });
+    
+    slider.addEventListener('mouseup', () => { 
+        isDown = false; 
+        slider.parentElement.classList.remove('active:cursor-grabbing');
+        beginMomentum();
+    });
+
+    slider.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 2;
+        
+        // Calculamos la velocidad real del ratón
+        const prevScrollLeft = slider.scrollLeft;
+        slider.scrollLeft = scrollLeft - walk;
+        velX = slider.scrollLeft - prevScrollLeft;
+    });
+
+    // Función que aplica la inercia (fricción) al soltar el clic
+    function beginMomentum() {
+        momentumID = requestAnimationFrame(momentumLoop);
+    }
+
+    function momentumLoop() {
+        if (Math.abs(velX) > 0.5) {
+            slider.scrollLeft += velX;
+            velX *= 0.92; // Fricción (0.92 = frena suavemente)
+            momentumID = requestAnimationFrame(momentumLoop);
+        }
+    }
+});
+</script>
+
+<style>
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+</style>

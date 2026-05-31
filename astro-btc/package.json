@@ -20,5 +20,8 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "@types/papaparse": "^5.5.2"
   }
 }

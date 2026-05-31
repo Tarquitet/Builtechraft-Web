@@ -65,7 +65,8 @@ const socialImageURL = new URL(image, Astro.url);
     </head>
     <body class="bg-btc-dark text-white font-sans antialiased selection:bg-btc-orange selection:text-white flex flex-col min-h-screen">
         
-        <Navbar />
+
+        <Navbar/>
         <NavbarMobile />
 
         <main class="grow">
@@ -75,4 +76,29 @@ const socialImageURL = new URL(image, Astro.url);
         <Footer />
         
     </body>
+
+    <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const heroSection = document.getElementById('inicio');
+    const heroNavbar = document.getElementById('hero-navbar-wrapper');
+    
+    if (!heroSection || !heroNavbar) return;
+    
+    const handleScroll = () => {
+      const triggerHeight = heroSection.offsetHeight - 200;
+      const currentScroll = window.scrollY;
+      
+      if (currentScroll > triggerHeight) {
+        heroNavbar.style.opacity = '0';
+        heroNavbar.style.pointerEvents = 'none';
+      } else {
+        heroNavbar.style.opacity = '1';
+        heroNavbar.style.pointerEvents = 'auto';
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+  });
+</script>
 </html>

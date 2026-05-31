@@ -1,80 +1,57 @@
 ---
 // src/pages/index.astro
 import Layout from '../layouts/Layout.astro';
-import ConnectButton from '../components/ConnectButton.astro';
 import IPSection from '../components/IPSection.astro';
 import About from '../components/About.astro';
 import Technical from '../components/Technical.astro';
 import SurvivalWorld from '../components/SurvivalWorld.astro';
 import CreativeProjects from '../components/CreativeProjects.astro';
-import Documentation from '../components/Documentation.astro';
 import Gallery from '../components/Gallery.astro';
-import Staff from '../components/Staff.astro';
+import Staff from '../components/staff/Staff.astro';
 import Rules from '../components/Rules.astro';
 import Modpack from '../components/Modpack.astro';
-import DiscordWidget from '../components/DiscordWidget.astro';
 
 const bgImage = "url('/images/gallery/2_4.avif')";
 ---
 
-<Layout title="... | Builtechraft SMP - Minecraft Server" description="Únete a Builtechraft, el servidor de Minecraft donde la creatividad y la ingeniería se encuentran. Compatible con Java y Bedrock." image="/images/logo-text.webp">
+<Layout title="Inicio | Builtechraft SMP - Minecraft Server" description="Únete a Builtechraft, el servidor de Minecraft donde la creatividad y la ingeniería se encuentran. Compatible con Java y Bedrock." image="/images/logo-text.webp">
     
     <section id="inicio" class="min-h-screen w-full relative flex flex-col items-center justify-center text-center pt-20 bg-theme-main overflow-hidden">
-    
-        <div 
-            class="absolute inset-0 z-0 bg-cover bg-center opacity-90 scale-[1.05] origin-center" 
-            style={{ backgroundImage: bgImage }}
-        ></div>
-        
-        <div class="absolute bottom-0 left-0 w-full h-3/4 bg-linear-to-b from-transparent via-[#272727]/60 to-[#272727] z-1 pointer-events-none"></div>
+        <div class="absolute inset-0 z-0 bg-cover bg-center opacity-90 scale-[1.05] origin-center" style={{ backgroundImage: bgImage }}></div>
+        <div class="absolute bottom-0 left-0 w-full h-3/4 bg-gradient-to-b from-transparent via-[#111]/80 to-[#111] z-1 pointer-events-none"></div>
 
-        <div class="relative z-10 px-4 max-w-5xl mx-auto flex flex-col items-center w-full">
-            
+        <!-- CONTENIDO MÁS ARRIBA (-mt-32) -->
+        <div class="relative z-10 px-4 max-w-5xl mx-auto flex flex-col items-center w-full -mt-24 md:-mt-32">
             <img src="/images/logo-text.webp" alt="Builtechraft Header" loading="eager" class="w-full max-w-2xl md:max-w-3xl mb-8 drop-shadow-2xl animate-float" />
-            
             <p class="text-white font-mono text-sm md:text-base tracking-widest uppercase mb-8 bg-black/60 px-6 py-2 rounded-full border border-white/10 shadow-lg">
-                Servidor privado de Minecraft
+                Servidor privado de Minecraft Java
             </p>
-
-            <ConnectButton />
-
         </div>
     </section>
 
-    <IPSection />
+    <IPSection/>
     <Rules />
     <Gallery />
     
     <section id="novedades" class="relative w-full flex flex-col">
+        <div id="modpack"><Modpack /></div>
         <div id="survival"><SurvivalWorld /></div>
         <div id="creativo"><CreativeProjects /></div>
         <div id="tecnico"><Technical /></div>
-        <div id="modpack"><Modpack /></div>
     </section>
+
+    <Staff />
 
     <section id="historia" class="relative w-full flex flex-col">
         <About />
     </section>
-    
-    <Staff />
-    <DiscordWidget />
-
 </Layout>
 
 <style>
-    /* PREVENCIÓN GLOBAL DE SCROLL HORIZONTAL */
-    /* Esto asegura que NADA en la página genere scroll horizontal */
-    :global(body) {
-        overflow-x: hidden;
-        width: 100%;
-        position: relative;
-    }
-
+    :global(body) { overflow-x: hidden; width: 100%; position: relative; }
     @keyframes float {
         0%, 100% { transform: translateY(0); }
         50% { transform: translateY(-10px); }
     }
-    .animate-float {
-        animation: float 6s ease-in-out infinite;
-    }
+    .animate-float { animation: float 6s ease-in-out infinite; }
 </style>

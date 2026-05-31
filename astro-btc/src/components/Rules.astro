@@ -62,8 +62,8 @@ const groups = archivosNormas.map(archivo => archivo.default || archivo);
                 {groups.map((group) => (
                     <div id={`group-${group.id}`} class="group-content hidden space-y-4">
                         
-                        {/* ITERAMOS SOBRE LAS SECCIONES DE ESTE GRUPO DIRECTAMENTE DESDE EL JSON */}
-                        {group.sections && group.sections.map((section) => (
+                        {/* AÑADIDO (section: any) PARA ARREGLAR EL ERROR DE TYPESCRIPT */}
+                        {group.sections && group.sections.map((section: any) => (
                             
                             <div class="main-accordion group bg-[#0f0f11] border border-white/10 rounded-2xl overflow-hidden transition-colors duration-300 hover:border-btc-orange/30 shadow-lg">
                                 
@@ -86,7 +86,8 @@ const groups = archivosNormas.map(archivo => archivo.default || archivo);
                                 <div class="main-content grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out">
                                     <div class="overflow-hidden">
                                         <div class="p-6 pt-0 flex flex-col gap-3 border-t border-white/5 bg-[#0a0a0a]">
-                                            {section.rules && section.rules.map((rule) => (
+                                            {/* AÑADIDO (rule: any) PARA ARREGLAR EL ERROR DE TYPESCRIPT */}
+                                            {section.rules && section.rules.map((rule: any) => (
                                                 <div class="sub-accordion bg-[#131315] rounded-xl border border-white/5">
                                                     <button class="sub-trigger w-full p-4 flex items-start md:items-center gap-4 text-left hover:bg-white/5 transition-colors">
                                                         <span class="text-btc-yellow font-mono text-xs font-bold shrink-0 mt-1 md:mt-0 bg-yellow-500/10 px-2 py-1 rounded border border-yellow-500/20">
@@ -102,7 +103,8 @@ const groups = archivosNormas.map(archivo => archivo.default || archivo);
                                                                 <p class="mb-4 text-zinc-300 pl-2 border-l-2 border-zinc-700">{rule.sub}</p>
                                                                 {rule.details && (
                                                                     <div class="flex flex-col gap-2 mt-2 bg-black/20 p-4 rounded-lg border border-white/5 font-mono text-xs">
-                                                                        {rule.details.map((detail) => (
+                                                                        {/* AÑADIDO (detail: string) PARA ARREGLAR EL ERROR DE TYPESCRIPT */}
+                                                                        {rule.details.map((detail: string) => (
                                                                             <div class="flex gap-3 text-zinc-500">
                                                                                 <span class="text-btc-yellow font-bold shrink-0 select-none">»</span>
                                                                                 <span class="text-zinc-200">{detail}</span>
@@ -123,15 +125,6 @@ const groups = archivosNormas.map(archivo => archivo.default || archivo);
                         ))}
                     </div>
                 ))}
-                
-                {/* BOTÓN PARA EDITAR EN GITHUB */}
-                <div class="mt-12 text-center border-t border-zinc-800 pt-8">
-                    <p class="text-zinc-500 text-sm">
-                        ¿Encontraste un error en el texto o quieres sugerir un cambio? <br className="md:hidden" />
-                        <a href="https://github.com/Tarquitet/Builtechraft-Web/tree/main/src/data/normas" target="_blank" class="text-btc-orange font-bold hover:underline underline-offset-4 mt-2 inline-block transition-colors">Proponer mejora en GitHub</a>
-                    </p>
-                </div>
-
             </div>
         </div>
     </div>

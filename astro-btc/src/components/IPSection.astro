@@ -1,207 +1,80 @@
 ---
-import { SERVER_INFO } from '../config-ip';
-const { javaIP, bedrockIP, bedrockPort } = SERVER_INFO;
+import JavaCard from './ip/JavaCard.astro';
+import BedrockCard from './ip/BedrockCard.astro';
+import VersionBox from './ip/VersionBox.astro';
 ---
 
-<section id="ips" class="py-24 bg-[#272727] relative overflow-hidden">
-    <div class="container mx-auto px-6 relative z-10">
-        
-        <h2 class="text-3xl md:text-4xl font-display font-bold text-center mb-16 uppercase text-white tracking-tight">
-            COMO SER PARTE <span class="text-btc-orange">DEL SERVIDOR</span>
-        </h2>
-        
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto mb-16">
-            <div id="card-java" class="group relative bg-[#18181b] border-2 border-zinc-800 rounded-3xl p-8 transition-all duration-500 flex flex-col">
-                <div class="flex items-center gap-4 mb-6">
-                    <div class="icon-box w-14 h-14 rounded-xl bg-gradient-to-br from-orange-600 to-yellow-600 flex items-center justify-center text-3xl shadow-lg border-4 border-[#18181b]">☕</div>
-                    <div>
-                        <h3 class="text-2xl font-bold text-white uppercase leading-none">JAVA</h3>
-                        <span class="text-[10px] font-bold text-btc-orange uppercase tracking-widest">PC Edition (Fabric)</span>
-                    </div>
-                </div>
-                <div class="bg-black/40 rounded-xl p-5 border border-zinc-800 mb-6 group-hover:border-btc-orange/50 transition-colors flex-1 flex flex-col justify-center relative">
-                    <span class="text-[10px] text-zinc-500 uppercase font-bold tracking-wider mb-2 block">Dirección IP</span>
-                    <button onclick={`copyText('${javaIP}', this)`} class="action-btn w-full text-left flex justify-between items-center group/ip cursor-pointer" title="Copiar IP">
-                        <span class="text-lg md:text-xl text-white font-mono font-bold truncate mr-2 ip-text">{javaIP}</span>
-                        <svg class="w-5 h-5 text-zinc-600 group-hover/ip:text-btc-orange transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
-                        </svg>
-                    </button>
-                </div>
-                <button onclick={`copyText('${javaIP}', this)`} class="main-btn w-full py-4 bg-btc-orange text-white rounded-xl font-bold text-sm transition-all duration-300 hover:bg-white hover:text-btc-orange uppercase tracking-widest shadow-lg">Copiar IP Java</button>
-            </div>
+<section id="jugar" class="py-24 bg-[#111] border-y border-white/5 relative overflow-hidden">
+    <div class="absolute inset-0 bg-[url('/images/dirt-pattern.png')] opacity-5 mix-blend-overlay pointer-events-none"></div>
 
-            <div id="card-bedrock" class="group relative bg-[#18181b] border-2 border-zinc-800 rounded-3xl p-8 transition-all duration-500 flex flex-col">
-                <div class="flex items-center gap-4 mb-6">
-                    <div class="icon-box w-14 h-14 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-3xl shadow-lg border-4 border-[#18181b]">📱</div>
-                    <div>
-                        <h3 class="text-2xl font-bold text-white uppercase leading-none">BEDROCK</h3>
-                        <span class="text-[10px] font-bold text-blue-400 uppercase tracking-widest">Móvil / Consola</span>
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6 flex-1">
-                    <div class="sm:col-span-2 bg-black/40 rounded-xl p-5 border border-zinc-800 group-hover:border-blue-500/30 transition-colors flex flex-col justify-center relative">
-                        <span class="text-[10px] text-zinc-500 uppercase font-bold tracking-wider mb-2 block">Dirección IP</span>
-                        <button onclick={`copyText('${bedrockIP}', this)`} class="action-btn w-full text-left flex justify-between items-center group/ip cursor-pointer" title="Copiar IP">
-                            <span class="text-lg md:text-xl text-white font-mono font-bold truncate mr-2 ip-text">{bedrockIP}</span>
-                            <svg class="w-4 h-4 text-zinc-600 group-hover:text-blue-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="bg-black/40 rounded-xl p-5 border border-zinc-800 text-center flex flex-col justify-center transition-colors group-hover:border-blue-500/30 cursor-pointer relative" onclick={`copyText('${bedrockPort}', this)`}>
-                        <span class="text-[10px] text-zinc-500 uppercase font-bold tracking-wider mb-1 block">Puerto</span>
-                        <code class="text-xl text-blue-400 font-mono font-bold ip-text">{bedrockPort}</code>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-3 mt-auto">
-                    <button onclick={`copyText('${bedrockIP}', this)`} class="main-btn py-4 bg-blue-600 text-white rounded-xl font-bold text-[10px] md:text-xs transition-all duration-300 hover:bg-white hover:text-blue-600 uppercase tracking-widest shadow-lg">Copiar IP</button>
-                    <a href={`minecraft://?addExternalServer=Builtechraft%7C${bedrockIP}%7C${bedrockPort}`} class="py-4 bg-zinc-800 text-blue-400 border border-blue-500/30 rounded-xl font-bold text-[10px] md:text-xs text-center transition-all duration-300 hover:bg-blue-500 hover:text-white hover:border-blue-500 uppercase tracking-widest flex items-center justify-center">Entrar Directo</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="max-w-5xl mx-auto mb-16">
-            <h3 class="text-xs font-bold text-zinc-300 uppercase tracking-[0.2em] mb-12 text-center">
-                PROCESO DE CONEXIÓN
-            </h3>
+    <div class="container mx-auto px-6 relative z-10 max-w-5xl">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 text-sm">
-                <div class="relative pl-8 md:pl-0 text-left md:text-center border-l-2 border-btc-orange md:border-l-0 md:border-t-2 md:pt-6">
-                    <span class="text-4xl font-black text-btc-orange/50 absolute -top-3 left-8 md:left-1/2 md:-translate-x-1/2 md:-top-10 z-0 select-none">1</span>
-                    <div class="relative z-10">
-                        <h4 class="text-btc-orange font-bold mb-2 uppercase">Normas y Whitelist</h4>
-                        <p class="text-zinc-300 leading-relaxed font-medium">
-                            Servidor privado. Lee las <a href="#reglas" class="text-white hover:text-btc-orange underline underline-offset-4 decoration-white/20 transition-all font-bold">Normas Oficiales</a> y solicita tu acceso vía <a href="#discord" class="text-blue-500 hover:text-btc-orange transition-colors duration-300 font-bold underline underline-offset-4 decoration-blue-500/30 hover:decoration-btc-orange">Discord</a>.
-                        </p>
-                    </div>
-                </div>
+            <div class="flex flex-col gap-4">
+                <h2 class="text-3xl md:text-4xl font-display font-black text-white uppercase tracking-tighter mb-2">
+                    Acceso al <span class="text-btc-orange">Servidor</span>
+                </h2>
+                <p class="text-zinc-400 text-sm mb-6">Copia la dirección del servidor para conectarte. El servidor tiene Whitelist.</p>
 
-                <div class="relative pl-8 md:pl-0 text-left md:text-center border-l-2 border-zinc-600 md:border-l-0 md:border-t-2 md:pt-6">
-                    <span class="text-4xl font-black text-white/50 absolute -top-3 left-8 md:left-1/2 md:-translate-x-1/2 md:-top-10 z-0 select-none">2</span>
-                    <div class="relative z-10">
-                        <h4 class="text-zinc-400 font-bold mb-2 uppercase">Configura</h4>
-                        <p class="text-zinc-300 leading-relaxed font-medium">
-                            Copia la IP. En <strong>Bedrock</strong>, recuerda cambiar el puerto al <span class="text-blue-400 font-mono font-bold bg-blue-500/10 px-1 rounded">{bedrockPort}</span>.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="relative pl-8 md:pl-0 text-left md:text-center border-l-2 border-zinc-600 md:border-l-0 md:border-t-2 md:pt-6">
-                    <span class="text-4xl font-black text-white/50 absolute -top-3 left-8 md:left-1/2 md:-translate-x-1/2 md:-top-10 z-0 select-none">3</span>
-                    <div class="relative z-10">
-                        <h4 class="text-zinc-400 font-bold mb-2 uppercase">¡Listo!</h4>
-                        <p class="text-zinc-300 leading-relaxed font-medium">
-                            Entra al servidor. Si aparece el mensaje <em class="text-zinc-400 bg-white/5 px-1 rounded not-italic">"Not Whitelisted"</em>. Regresa al paso 1.
-                        </p>
-                    </div>
-                </div>
+                <JavaCard />
+                <BedrockCard />
+                <VersionBox />
             </div>
-        </div>
 
-        <div class="max-w-4xl mx-auto bg-amber-500/5 border border-amber-500/20 rounded-2xl p-6 transition-all">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-                <div class="space-y-2 flex-1">
-                    <h4 class="text-amber-500 font-bold uppercase tracking-widest text-xs flex items-center justify-center md:justify-start gap-2 m-0">
-                        ⚠️ VERSIONES SOPORTADAS
-                    </h4>
-                    <p id="version-text" class="text-zinc-300 text-sm leading-relaxed m-0 animate-pulse">
-                        Cargando información desde el servidor...
+            <div class="flex h-full">
+                <a href="https://discord.gg/4KzRH5DPzx" target="_blank" rel="noopener noreferrer" class="w-full h-full min-h-[300px] bg-[#5865F2]/10 hover:bg-[#5865F2]/20 border border-[#5865F2]/30 hover:border-[#5865F2] rounded-3xl p-8 flex flex-col items-center justify-center text-center transition-all duration-300 group shadow-lg">
+                    <div class="w-20 h-20 bg-[#5865F2] rounded-2xl flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(88,101,242,0.4)] group-hover:scale-110 group-hover:-translate-y-2 transition-all duration-300">
+                        <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-display font-black text-white uppercase tracking-tight mb-2">Únete a Discord</h3>
+                    <p class="text-zinc-400 text-xs leading-relaxed max-w-[250px]">
+                        La única forma de entrar a la Whitelist y jugar es formando parte de nuestra comunidad.
                     </p>
-                </div>
-
-                <a href="#discord" class="whitespace-nowrap bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-[10px] font-bold py-2.5 px-5 rounded-xl border border-zinc-700 transition-all uppercase tracking-widest shadow-lg hover:text-white">
-                    Más info en Discord
                 </a>
             </div>
         </div>
-
     </div>
 </section>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js" is:inline></script>
 
-<script is:inline>
-document.addEventListener('DOMContentLoaded', async () => {
-    // ⚠️ PON AQUÍ TU ENLACE. DEBE TERMINAR EN output=csv
-    const sheetCSVUrl = "https://docs.google.com/spreadsheets/d/1Iz5vklWMbVcgOCYRVN5NOEBX91VLfOCkHtI5ilxut-c/export?format=csv";
+<script type="module" is:inline>
+    import { getModsAndDatapacks, checkServerFeatures } from '/src/utils/sheetsClient.js';
 
-    const versionText = document.getElementById('version-text');
+    document.addEventListener('DOMContentLoaded', async () => {
+        const bedrockCard = document.getElementById('bedrock-card-container');
+        const versionBox = document.getElementById('version-box-container');
 
-    try {
-        const response = await fetch(sheetCSVUrl);
-        const csvText = await response.text();
-
-        Papa.parse(csvText, {
-            header: false,
-            // ⚠️ QUITO EL skipEmptyLines PARA NO DESTRUIR EL ORDEN DE LAS COLUMNAS
-            complete: function(results) {
-                // results.data[1] es exactamente la Fila 2 de tu Excel
-                const fila2 = results.data[1]; 
-
-                if (fila2) {
-                    // EXTRACCIÓN MATEMÁTICA EXACTA:
-                    // Columna U (índice 20) -> Bedrock
-                    // Columna Y (índice 24) -> Java Min
-                    // Columna AA (índice 26) -> Java Max
-                    
-                    const bedrockVer = fila2[20] ? fila2[20].trim() : "1.21.300";
-                    const javaMin = fila2[24] ? fila2[24].trim() : "1.20.5";
-                    const javaMax = fila2[26] ? fila2[26].trim() : "1.21.11";
-
-                    // ACTUALIZAMOS LA CAJA AMARILLA
-                    versionText.classList.remove('animate-pulse');
-                    versionText.innerHTML = `
-                        <span class="block mb-2">☕ Soportamos para <strong>Java</strong> desde la versión <span class="text-white font-mono font-bold">${javaMin}</span> hasta la <span class="text-white font-mono font-bold">${javaMax}</span> (recomendada).</span>
-                        <span class="block mb-1">📱 Compatible con <strong>Bedrock</strong> en la versión <span class="text-white font-mono font-bold">${bedrockVer}</span>.</span>
-                    `;
-
-                    // AVISAMOS AL RESTO DE LA WEB (Navbar, etc.)
-                    window.dispatchEvent(
-                        new CustomEvent('btc:server-versions', {
-                            detail: {
-                                online: true,
-                                javaMin: javaMin,
-                                javaMax: javaMax,
-                                bedrockVersion: bedrockVer,
-                                recommended: javaMax,
-                            },
-                        })
-                    );
-                } else {
-                    throw new Error("La fila 2 está vacía o no existe en el CSV.");
-                }
-            }
-        });
-    } catch (error) {
-        console.error("Error leyendo el Sheets:", error);
-        versionText.classList.remove('animate-pulse');
-        versionText.innerHTML = `❌ No se pudo conectar con el Excel. Conéctate con la versión más reciente.`;
-    }
-
-    // Lógica de copiado de IP
-    window.copyText = async function(text, btnElement) {
         try {
-            await navigator.clipboard.writeText(text);
-            const textEl = btnElement.querySelector('.ip-text') || btnElement;
-            const original = textEl.innerText;
-            if (original === "¡COPIADO!") return;
-            textEl.innerText = "¡COPIADO!";
-            if (btnElement.classList.contains('main-btn')) {
-                btnElement.classList.add('!bg-green-600', '!text-white');
-            } else {
-                textEl.classList.add('text-green-500');
-            }
-            setTimeout(() => {
-                textEl.innerText = original;
-                textEl.classList.remove('text-green-500');
-                btnElement.classList.remove('!bg-green-600', '!text-white');
-            }, 2000);
-        } catch (err) { console.error('Error al copiar: ', err); }
-    };
-});
-</script>
+            const { mods } = await getModsAndDatapacks();
+            const features = checkServerFeatures(mods);
 
-<style>
-    .hidden { display: none !important; }
-</style>
+            if (features.isBedrock && bedrockCard) {
+                bedrockCard.classList.remove('hidden');
+                bedrockCard.classList.add('flex');
+            }
+            if (features.isMultiVersion && versionBox) {
+                versionBox.classList.remove('hidden');
+            }
+        } catch (error) {
+            console.error("Error comprobando features IP:", error);
+        }
+
+        // Lógica Global de copiado (usada por JavaCard y BedrockCard)
+        window.copyText = async function(text, btnElement) {
+            try {
+                await navigator.clipboard.writeText(text);
+                const originalText = btnElement.innerText;
+                btnElement.innerText = "¡COPIADO!";
+                btnElement.classList.add('!bg-green-600', '!text-white', '!border-green-500');
+                
+                setTimeout(() => {
+                    btnElement.innerText = originalText;
+                    btnElement.classList.remove('!bg-green-600', '!text-white', '!border-green-500');
+                }, 2000);
+            } catch (err) { console.error('Error:', err); }
+        };
+    });
+</script>

@@ -1,0 +1,41 @@
+---
+import { SERVER_INFO } from '../../config-ip';
+const { bedrockPort } = SERVER_INFO;
+---
+<div class="max-w-5xl mx-auto mb-16">
+    <h3 class="text-xs font-bold text-zinc-300 uppercase tracking-[0.2em] mb-12 text-center">
+        PROCESO DE CONEXIÓN
+    </h3>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 text-sm">
+        <div class="relative pl-8 md:pl-0 text-left md:text-center border-l-2 border-btc-orange md:border-l-0 md:border-t-2 md:pt-6">
+            <span class="text-4xl font-black text-btc-orange/50 absolute -top-3 left-8 md:left-1/2 md:-translate-x-1/2 md:-top-10 z-0 select-none">1</span>
+            <div class="relative z-10">
+                <h4 class="text-btc-orange font-bold mb-2 uppercase">Normas y Whitelist</h4>
+                <p class="text-zinc-300 leading-relaxed font-medium">
+                    Servidor privado. Lee las <a href="#reglas" class="text-white hover:text-btc-orange underline underline-offset-4 decoration-white/20 transition-all font-bold">Normas Oficiales</a> y solicita tu acceso vía <a href="#discord" class="text-blue-500 hover:text-btc-orange transition-colors duration-300 font-bold underline underline-offset-4 decoration-blue-500/30 hover:decoration-btc-orange">Discord</a>.
+                </p>
+            </div>
+        </div>
+
+        <div class="relative pl-8 md:pl-0 text-left md:text-center border-l-2 border-zinc-600 md:border-l-0 md:border-t-2 md:pt-6">
+            <span class="text-4xl font-black text-white/50 absolute -top-3 left-8 md:left-1/2 md:-translate-x-1/2 md:-top-10 z-0 select-none">2</span>
+            <div class="relative z-10">
+                <h4 class="text-zinc-400 font-bold mb-2 uppercase">Configura</h4>
+                <p class="text-zinc-300 leading-relaxed font-medium">
+                    Copia la IP. En <strong>Bedrock</strong>, recuerda cambiar el puerto al <span class="text-blue-400 font-mono font-bold bg-blue-500/10 px-1 rounded">{bedrockPort}</span>.
+                </p>
+            </div>
+        </div>
+
+        <div class="relative pl-8 md:pl-0 text-left md:text-center border-l-2 border-zinc-600 md:border-l-0 md:border-t-2 md:pt-6">
+            <span class="text-4xl font-black text-white/50 absolute -top-3 left-8 md:left-1/2 md:-translate-x-1/2 md:-top-10 z-0 select-none">3</span>
+            <div class="relative z-10">
+                <h4 class="text-zinc-400 font-bold mb-2 uppercase">¡Listo!</h4>
+                <p class="text-zinc-300 leading-relaxed font-medium">
+                    Entra al servidor. Si aparece el mensaje <em class="text-zinc-400 bg-white/5 px-1 rounded not-italic">"Not Whitelisted"</em>. Regresa al paso 1.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

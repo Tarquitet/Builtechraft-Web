@@ -1,19 +1,19 @@
 {
   "left": [
-    { "name": "Jugar", "href": "/#ips", "id": "ips" },
+    { "name": "Jugar", "href": "/#jugar", "id": "jugar" },
     { "name": "Normas", "href": "/#reglas", "id": "reglas" }
   ],
   "right": [
-    { "name": "Historia", "href": "/#historia", "id": "historia" },
     { "name": "Staff", "href": "/#staff", "id": "staff" },
-    { "name": "Comunidad", "href": "/#discord", "id": "discord" }
+    { "name": "Historia", "href": "/#historia", "id": "historia" },
+    { "name": "Comunidad", "href": "https://discord.gg/4KzRH5DPzx" }
   ],
   "novedades": [
+    { "name": "Modpack", "href": "/#modpack", "id": "modpack" },
     { "name": "Mundo Survival", "href": "/#survival", "id": "survival" },
     { "name": "Mundo Creativo", "href": "/#creativo", "id": "creativo" },
     { "name": "Mapa Survival", "href": "/maps/survival", "id": "map-sv" },
     { "name": "Mapa Creativo", "href": "/maps/creative", "id": "map-cr" },
-    { "name": "Datapacks & Mods", "href": "/#tecnico", "id": "tecnico" },
-    { "name": "Modpack", "href": "/#modpack", "id": "modpack" }
+    { "name": "Datapacks & Mods", "href": "/#tecnico", "id": "tecnico" }
   ]
 }

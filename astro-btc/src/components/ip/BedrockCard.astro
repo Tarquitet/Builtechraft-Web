@@ -1,0 +1,17 @@
+---
+import { SERVER_INFO } from '../../config-ip';
+const { bedrockIP, bedrockPort } = SERVER_INFO;
+---
+<div id="bedrock-card-container" class="hidden flex-col sm:flex-row items-start sm:items-center justify-between bg-zinc-900/80 backdrop-blur-sm border border-white/10 rounded-xl p-4 gap-4 transition-all hover:border-blue-500/50 shadow-md w-full">
+    <div class="flex flex-col">
+        <span class="text-white font-bold uppercase tracking-widest text-sm">Bedrock</span>
+        <span class="text-[10px] text-zinc-500 uppercase">Puerto: <strong class="text-blue-400">{bedrockPort}</strong></span>
+    </div>
+    
+    <div class="flex items-center gap-3 w-full sm:w-auto">
+        <code class="text-zinc-300 font-mono text-sm select-all bg-black/40 px-3 py-1.5 rounded-lg border border-white/5">{bedrockIP}</code>
+        <button onclick={`window.copyText('${bedrockIP}', this)`} class="ml-auto bg-white/5 hover:bg-blue-500 text-zinc-300 hover:text-white px-5 py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-colors border border-white/5 hover:border-blue-500">
+            Copiar
+        </button>
+    </div>
+</div>
