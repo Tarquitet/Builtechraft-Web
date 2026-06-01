@@ -1,8 +1,5 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { SERVER_INFO } from '../../config-ip';
-
-const mapUrl = SERVER_INFO.maps.creative;
 ---
 
 <Layout title="Mapa Creativo - Builtechraft">
@@ -15,7 +12,7 @@ const mapUrl = SERVER_INFO.maps.creative;
             <p class="text-zinc-400 text-sm">Visualiza los proyectos y diseños antes de que lleguen al Survival.</p>
         </div>
 
-        <div class="flex-grow w-full h-[75vh] px-4 pb-12 max-w-7xl mx-auto">
+        <div class="grow w-full h-[75vh] px-4 pb-12 max-w-7xl mx-auto">
             <div class="w-full h-full rounded-none overflow-hidden border border-white/10 shadow-2xl bg-black relative">
                 
                 <div id="map-status" class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-zinc-900/95 backdrop-blur-sm transition-opacity duration-500">
@@ -52,12 +49,16 @@ const mapUrl = SERVER_INFO.maps.creative;
     </main>
 </Layout>
 
-<script is:inline define:vars={{ mapUrl }}>
-  document.addEventListener('DOMContentLoaded', () => {
+<script>
+  import { getClientConfigTSV } from '../../utils/sheetsClient.js';
+
+  document.addEventListener('DOMContentLoaded', async () => {
       const statusOverlay = document.getElementById('map-status');
       const stateLoading = document.getElementById('status-loading');
       const stateError = document.getElementById('status-error');
-      const iframe = document.getElementById('map-iframe');
+      const iframe = document.getElementById('map-iframe') as HTMLIFrameElement;
+
+      if (!statusOverlay || !stateLoading || !stateError || !iframe) return;
 
       const showError = () => {
           stateLoading.classList.add('hidden');
@@ -70,32 +71,36 @@ const mapUrl = SERVER_INFO.maps.creative;
           iframe.classList.remove('opacity-0');
           setTimeout(() => {
               statusOverlay.classList.add('hidden');
-          }, 500); // Espera a que termine la transición de opacidad
+          }, 500);
       };
 
-      // Establecemos un tiempo límite de 8 segundos.
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 8000);
+      try {
+          // Obtener la URL del mapa desde Sheets
+          const config = (await getClientConfigTSV()) as Record<string, string>;
+          const mapUrl = config["MapaCreativo"];
 
-      // Hacemos el ping preventivo
-      fetch(mapUrl, { mode: 'no-cors', signal: controller.signal })
-          .then(() => {
-              clearTimeout(timeoutId);
-              // El servidor vive. Inyectamos la URL.
-              iframe.src = mapUrl;
-              
-              // Cuando cargue, revelamos el mapa
-              iframe.onload = () => {
-                  showMap();
-              };
+          if (!mapUrl || mapUrl === '#') throw new Error("URL inválida");
 
-              // Respaldo por si el onload se traba
-              setTimeout(showMap, 5000);
-          })
-          .catch(() => {
-              // Error o Timeout -> Pantalla roja
-              clearTimeout(timeoutId);
-              showError();
-          });
+          // Establecemos un tiempo límite de 8 segundos para el Ping
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+          // Ping preventivo al mapa web
+          fetch(mapUrl, { mode: 'no-cors', signal: controller.signal })
+              .then(() => {
+                  clearTimeout(timeoutId);
+                  iframe.src = mapUrl;
+                  
+                  iframe.onload = () => showMap();
+                  setTimeout(showMap, 5000); // Respaldo
+              })
+              .catch(() => {
+                  clearTimeout(timeoutId);
+                  showError();
+              });
+
+      } catch (err) {
+          showError();
+      }
   });
 </script>

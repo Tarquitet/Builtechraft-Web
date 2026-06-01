@@ -1,10 +1,11 @@
 ---
-// Importamos todos los JSON de la carpeta normas.
-// Astro los devuelve ordenados gracias a los números en los nombres (01-, 02-)
-const archivosNormas = await Astro.glob('../data/normas/*.json');
+// src/components/Rules.astro
 
-// Formateamos los datos para que el HTML los entienda fácil
-const groups = archivosNormas.map(archivo => archivo.default || archivo);
+// Usamos import.meta.glob para cargar todos los JSON de la carpeta normas
+const archivosGlob = import.meta.glob('../data/normas/*.json', { eager: true });
+
+// Convertimos el objeto devuelto en un array y nos aseguramos de usar el default
+const groups = Object.values(archivosGlob).map((archivo: any) => archivo.default || archivo);
 ---
 
 <section id="reglas" class="py-24 bg-theme-panel relative min-h-screen">

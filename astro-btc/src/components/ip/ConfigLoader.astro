@@ -1,0 +1,43 @@
+---
+// src/components/ip/ConfigLoader.astro
+---
+<script>
+    import { getClientConfigTSV, getModsAndDatapacks, checkServerFeatures } from '../../utils/sheetsClient.js';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        // 1. Descargamos Configuración y disparamos evento global
+        const configData = await getClientConfigTSV();
+        window.dispatchEvent(new CustomEvent('btc:config-loaded', { detail: configData }));
+
+        // 2. Descargamos Mods con seguro anti-caídas
+        let features = { isBedrock: false, isMultiVersion: false };
+        try {
+            const { mods } = await getModsAndDatapacks();
+            features = checkServerFeatures(mods);
+        } catch(e) {
+            console.error("Error al leer mods, asumiendo Java estándar.");
+        }
+        // Avisamos a las cajas qué deben mostrar
+        window.dispatchEvent(new CustomEvent('btc:features-loaded', { detail: features }));
+
+        // 3. Función global de copiado
+        (window as any).copyText = async function(btnElement: HTMLElement, targetId: string) {
+            try {
+                const textEl = document.getElementById(targetId);
+                if (!textEl) return;
+
+                await navigator.clipboard.writeText(textEl.innerText);
+                const originalText = btnElement.innerText;
+                if (originalText === "¡COPIADO!") return;
+                
+                btnElement.innerText = "¡COPIADO!";
+                btnElement.classList.add('!bg-green-600', '!text-white', '!border-green-500');
+                
+                setTimeout(() => {
+                    btnElement.innerText = originalText;
+                    btnElement.classList.remove('!bg-green-600', '!text-white', '!border-green-500');
+                }, 2000);
+            } catch (err) { console.error('Error al copiar:', err); }
+        };
+    });
+</script>

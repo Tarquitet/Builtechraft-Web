@@ -18,12 +18,12 @@
     </div>
 </div>
 
-<script type="module" is:inline>
-import { getRoadmapData } from '/src/utils/sheetsClient.js';
+<script>
+import { getRoadmapData } from '../../utils/sheetsClient.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     
-    const getStatusStyle = (estado) => {
+    const getStatusStyle = (estado: string) => {
         const s = estado?.toLowerCase().trim() || '';
         if (s.includes('progreso')) return { text: 'text-btc-orange', bg: 'bg-btc-orange/10', border: 'border-btc-orange/30', icon: '⚡' };
         if (s.includes('planeado')) return { text: 'text-blue-400', bg: 'bg-blue-400/10', border: 'border-blue-400/30', icon: '📋' };
@@ -31,13 +31,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         return { text: 'text-emerald-400', bg: 'bg-emerald-400/10', border: 'border-emerald-400/30', icon: '✨' }; 
     };
 
-    const createRoadmapCard = (item) => {
+    const createRoadmapCard = (item: any) => {
         const style = getStatusStyle(item.Estado);
         
         return `
-            <div class="shrink-0 w-[85vw] sm:w-[380px] pointer-events-none transition-transform duration-300">
-                <div class="h-full p-8 rounded-3xl bg-zinc-900 border border-white/10 shadow-xl flex flex-col justify-between relative overflow-hidden">
-                    <div class="flex flex-col gap-6 relative z-10">
+            <div class="snap-center shrink-0 w-[85vw] sm:w-[380px] pointer-events-none">
+                <div class="h-full p-8 rounded-3xl bg-[#18181b] border border-white/5 shadow-xl flex flex-col justify-between">
+                    <div class="flex flex-col gap-6">
                         <div class="flex flex-col items-start gap-4">
                             <span class="text-[10px] font-bold uppercase tracking-widest ${style.text} ${style.bg} border ${style.border} px-4 py-1.5 rounded-full flex items-center gap-2">
                                 ${style.icon} ${item.Estado || 'Pendiente'}
@@ -63,56 +63,37 @@ document.addEventListener('DOMContentLoaded', async () => {
         section.classList.add('flex');
     }
 
-    // --- LÓGICA DE DRAG CON MOMENTUM SÚPER SUAVE ---
+    // LÓGICA DE DRAG
+    if(!slider) return;
+    
     let isDown = false;
-    let startX;
-    let scrollLeft;
-    let velX = 0;
-    let momentumID;
+    let startX: number;
+    let scrollLeft: number;
 
     slider.addEventListener('mousedown', (e) => {
         isDown = true;
-        cancelAnimationFrame(momentumID);
-        slider.style.scrollBehavior = 'auto';
-        slider.parentElement.classList.add('active:cursor-grabbing');
+        slider.style.scrollSnapType = 'none'; 
+        if(slider.parentElement) slider.parentElement.classList.add('active:cursor-grabbing');
         startX = e.pageX - slider.offsetLeft;
         scrollLeft = slider.scrollLeft;
     });
 
-    slider.addEventListener('mouseleave', () => { 
-        if(isDown) { isDown = false; beginMomentum(); }
-    });
-    
-    slider.addEventListener('mouseup', () => { 
-        isDown = false; 
-        slider.parentElement.classList.remove('active:cursor-grabbing');
-        beginMomentum();
-    });
+    const resetDrag = () => {
+        isDown = false;
+        slider.style.scrollSnapType = 'x mandatory';
+        if(slider.parentElement) slider.parentElement.classList.remove('active:cursor-grabbing');
+    };
 
+    slider.addEventListener('mouseleave', resetDrag);
+    slider.addEventListener('mouseup', resetDrag);
+    
     slider.addEventListener('mousemove', (e) => {
         if (!isDown) return;
         e.preventDefault();
         const x = e.pageX - slider.offsetLeft;
-        const walk = (x - startX) * 2;
-        
-        // Calculamos la velocidad real del ratón
-        const prevScrollLeft = slider.scrollLeft;
+        const walk = (x - startX) * 2.5; 
         slider.scrollLeft = scrollLeft - walk;
-        velX = slider.scrollLeft - prevScrollLeft;
     });
-
-    // Función que aplica la inercia (fricción) al soltar el clic
-    function beginMomentum() {
-        momentumID = requestAnimationFrame(momentumLoop);
-    }
-
-    function momentumLoop() {
-        if (Math.abs(velX) > 0.5) {
-            slider.scrollLeft += velX;
-            velX *= 0.92; // Fricción (0.92 = frena suavemente)
-            momentumID = requestAnimationFrame(momentumLoop);
-        }
-    }
 });
 </script>
 

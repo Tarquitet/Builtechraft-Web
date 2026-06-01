@@ -32,9 +32,9 @@
     </div>
 </div>
 
-<script type="module" is:inline>
-import { getModsAndDatapacks } from '/src/utils/sheetsClient.js';
-import { fetchModrinthIcons } from '/src/utils/modrinthClient.js';
+<script>
+import { getModsAndDatapacks } from '../../utils/sheetsClient.js';
+import { fetchModrinthIcons } from '../../utils/modrinthClient.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     const dpGrid = document.getElementById('datapacks-grid');
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const modsSection = document.getElementById('mods-section');
     const loadingEl = document.getElementById('loading-mods');
 
-    const getColorClass = (tipo) => {
+    const getColorClass = (tipo: string) => {
         const t = tipo?.toLowerCase() || '';
         if(t.includes('mod')) return 'text-blue-500 group-hover:border-blue-500/50';
         if(t.includes('plugin')) return 'text-orange-500 group-hover:border-orange-500/50';
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         return 'text-zinc-400 group-hover:border-zinc-400/50';
     };
 
-    const createModCardHTML = (item) => `
+    const createModCardHTML = (item: any) => `
         <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="mod-card flex items-center gap-4 p-4 bg-zinc-900 border border-white/10 rounded-2xl transition-all group hover:bg-zinc-800 hover:-translate-y-1 shadow-lg ${getColorClass(item.type)}" data-query-id="${item.queryId}">
             <div class="icon-container shrink-0 w-12 h-12 flex items-center justify-center bg-black/40 rounded-xl border border-white/5 group-hover:scale-105 transition-transform overflow-hidden">
                 <span class="text-2xl icon-emoji">${item.icon}</span>
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (modrinthIdsToFetch.length > 0) {
             const mrData = await fetchModrinthIcons(modrinthIdsToFetch);
-            mrData.forEach(project => {
+            mrData.forEach((project: any) => {
                 if (project.icon_url) {
                     const cards = document.querySelectorAll(`.mod-card[data-query-id="${project.id}"], .mod-card[data-query-id="${project.slug}"]`);
                     cards.forEach(card => {

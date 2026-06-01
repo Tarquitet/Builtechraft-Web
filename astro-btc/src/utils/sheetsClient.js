@@ -5,9 +5,11 @@ const MODS_CSV_URL =
 const ROADMAP_CSV_URL =
   'https://docs.google.com/spreadsheets/d/e/2PACX-1vSFamJKSgtbjYKglTus-BHOljT6p42eSAq8vT9sE_7BFj5EBlDp2dx1iRgeHjZoyWb0zIoSccN8nUSe/pub?gid=877286509&single=true&output=csv';
 
-// ⚠️ CAMBIA ESTE GID POR EL DE TU PESTAÑA STAFF
 const STAFF_CSV_URL =
   'https://docs.google.com/spreadsheets/d/e/2PACX-1vSFamJKSgtbjYKglTus-BHOljT6p42eSAq8vT9sE_7BFj5EBlDp2dx1iRgeHjZoyWb0zIoSccN8nUSe/pub?gid=751443234&single=true&output=csv';
+
+const CONFIG_TSV_URL =
+  'https://docs.google.com/spreadsheets/d/e/2PACX-1vSFamJKSgtbjYKglTus-BHOljT6p42eSAq8vT9sE_7BFj5EBlDp2dx1iRgeHjZoyWb0zIoSccN8nUSe/pub?gid=117141907&single=true&output=tsv';
 
 // Helper interno
 const getIcon = (tipo) => {
@@ -144,5 +146,27 @@ export async function getStaffData() {
   } catch (error) {
     console.error('Error obteniendo CSV del Staff:', error);
     return [];
+  }
+}
+
+export async function getClientConfigTSV() {
+  try {
+    const response = await fetch(CONFIG_TSV_URL);
+    if (!response.ok) return {};
+
+    const tsvText = await response.text();
+    const dataMap = {};
+
+    tsvText.split('\n').forEach((line) => {
+      const parts = line.split('\t');
+      if (parts.length >= 2) {
+        dataMap[parts[0].trim()] = parts[1].trim();
+      }
+    });
+
+    return dataMap;
+  } catch (error) {
+    console.error('Error descargando TSV:', error);
+    return {};
   }
 }

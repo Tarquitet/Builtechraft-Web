@@ -6,14 +6,15 @@ import path from 'node:path';
 const galleryFolder = 'images/gallery'; 
 const directoryPath = path.join(process.cwd(), 'public', galleryFolder);
 
-let galleryImages = [];
+// Le decimos explícitamente a TS que es un array de strings (textos)
+let galleryImages: string[] = [];
 
 try {
     const files = fs.readdirSync(directoryPath);
     galleryImages = files
         .filter(file => /\.(jpg|jpeg|png|webp|gif|avif)$/i.test(file))
         .map(file => `/${galleryFolder}/${file}`);
-} catch (error) {
+} catch (error: any) { // Declaramos que el error es any
     console.error(`⚠️ Error leyendo galería: ${error.message}`);
 }
 
@@ -24,7 +25,8 @@ if (galleryImages.length === 0) {
 const track1Images = galleryImages.filter((_, i) => i % 2 === 0);
 const track2Images = galleryImages.filter((_, i) => i % 2 !== 0);
 
-const fillTrack = (imgs) => {
+// Declaramos que imgs es un array de strings
+const fillTrack = (imgs: string[]) => {
     if (imgs.length === 0) return [];
     let result = [...imgs];
     while (result.length < 6) result = [...result, ...imgs];
@@ -34,8 +36,6 @@ const fillTrack = (imgs) => {
 const finalTrack1 = fillTrack(track1Images);
 const finalTrack2 = fillTrack(track2Images);
 
-// --- LA MISMA MATEMÁTICA QUE EN TECHNICAL ---
-// Duplicamos exactamente x2 desde el servidor (Astro) para que el salto sea perfecto
 const doubleTrack1 = [...finalTrack1, ...finalTrack1];
 const doubleTrack2 = [...finalTrack2, ...finalTrack2];
 
@@ -74,7 +74,7 @@ const tracks = [
                                 href={imgSrc} 
                                 target="_blank" 
                                 rel="noopener noreferrer"
-                                class="relative block w-[280px] md:w-[400px] aspect-video rounded-2xl overflow-hidden border border-white/10 bg-[#18181b] shrink-0 group/card"
+                                class="relative block w-70 md:w-100 aspect-video rounded-2xl overflow-hidden border border-white/10 bg-[#18181b] shrink-0 group/card"
                                 aria-label={`Ver imagen ${index + 1}`}
                             >
                                 <img 
@@ -110,17 +110,30 @@ const tracks = [
 
 <script>
     class GalleryMarquee {
-        constructor(el) {
+        // === LA CLAVE PARA QUE TS NO GRITE ===
+        // Aquí declaramos TODAS las variables que va a usar la clase
+        row: HTMLElement;
+        track: HTMLElement | null;
+        btnPrev: HTMLButtonElement | null;
+        btnNext: HTMLButtonElement | null;
+        direction: number;
+        position: number;
+        speed: number;
+        isHovered: boolean;
+        manualOffset: number;
+        targetOffset: number;
+        pauseTimeout: any;
+        lastTime: number;
+        halfWidth: number;
+        itemWidth: number;
+
+        constructor(el: HTMLElement) {
             this.row = el;
             this.track = el.querySelector('.gallery-track');
             this.btnPrev = el.querySelector('.btn-prev');
             this.btnNext = el.querySelector('.btn-next');
             
             this.direction = parseInt(this.row.dataset.direction || '1');
-            
-            // ELIMINADO: this.track.innerHTML += originalHtml;
-            // Ya no manipulamos el DOM porque Astro nos manda el HTML perfectamente duplicado.
-            // Esto elimina cualquier micro-lag al cargar la web.
 
             this.position = 0;
             this.speed = 0.6;
@@ -130,12 +143,14 @@ const tracks = [
             this.targetOffset = 0;
             this.pauseTimeout = null;
             this.lastTime = 0;
+            this.halfWidth = 0;
+            this.itemWidth = 0;
 
             this.updateDimensions();
             window.addEventListener('resize', () => this.updateDimensions());
             
-            this.btnPrev.addEventListener('click', () => this.move(-1));
-            this.btnNext.addEventListener('click', () => this.move(1));
+            if (this.btnPrev) this.btnPrev.addEventListener('click', () => this.move(-1));
+            if (this.btnNext) this.btnNext.addEventListener('click', () => this.move(1));
             
             this.row.addEventListener('mouseenter', () => this.isHovered = true);
             this.row.addEventListener('mouseleave', () => this.isHovered = false);
@@ -145,17 +160,18 @@ const tracks = [
         }
 
         updateDimensions() {
-            // Como Astro ya nos dio el 100% duplicado, la mitad es exactamente scrollWidth / 2
+            if (!this.track) return;
             this.halfWidth = this.track.scrollWidth / 2;
-            const firstItem = this.track.children[0];
+            const firstItem = this.track.children[0] as HTMLElement | undefined;
+            if (!firstItem) return;
             const gap = parseFloat(getComputedStyle(this.track).gap) || 24;
             this.itemWidth = firstItem.offsetWidth + gap;
         }
 
-        move(direction) {
+        move(direction: number) {
             this.targetOffset += direction * this.itemWidth;
             this.isHovered = true;
-            clearTimeout(this.pauseTimeout);
+            if (this.pauseTimeout) clearTimeout(this.pauseTimeout);
             
             this.pauseTimeout = setTimeout(() => {
                 if (!this.row.matches(':hover')) {
@@ -164,7 +180,7 @@ const tracks = [
             }, 3000); 
         }
 
-        tick(time) {
+        tick(time: number) {
             if (!this.lastTime) this.lastTime = time;
             const deltaTime = time - this.lastTime;
             this.lastTime = time;
@@ -182,7 +198,6 @@ const tracks = [
 
             let currentTranslate = this.position + this.manualOffset;
 
-            // Loop infinito matemático intacto
             if (currentTranslate >= this.halfWidth) {
                 this.position -= this.halfWidth;
                 currentTranslate -= this.halfWidth;
@@ -191,12 +206,14 @@ const tracks = [
                 currentTranslate += this.halfWidth;
             }
 
-            this.track.style.transform = `translate3d(${-currentTranslate}px, 0, 0)`;
+            if (this.track) {
+                this.track.style.transform = `translate3d(${-currentTranslate}px, 0, 0)`;
+            }
             requestAnimationFrame(this.tick);
         }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('.gallery-row').forEach(row => new GalleryMarquee(row));
+        document.querySelectorAll('.gallery-row').forEach(row => new GalleryMarquee(row as HTMLElement));
     });
 </script>

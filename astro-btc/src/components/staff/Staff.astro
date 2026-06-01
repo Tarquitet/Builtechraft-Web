@@ -1,5 +1,5 @@
 ---
-// src/components/Staff.astro
+// src/components/staff/Staff.astro
 ---
 
 <section id="staff" class="py-24 relative overflow-hidden border-y border-white/5 bg-[#111]">
@@ -21,16 +21,16 @@
 
 <dialog id="staff-modal" class="bg-transparent m-auto w-full h-full max-w-none max-h-none backdrop:bg-black/90 fixed inset-0 z-50 overflow-hidden opacity-0 pointer-events-none transition-opacity duration-300 open:pointer-events-auto">
     <div class="flex items-center justify-center min-h-screen px-4">
-        <div class="fixed inset-0 cursor-pointer" onclick="closeStaffModal()"></div>
+        <div class="fixed inset-0 cursor-pointer" onclick="window.closeStaffModal()"></div>
         <div class="relative bg-zinc-900 border border-white/10 rounded-3xl overflow-hidden shadow-2xl transform transition-all sm:max-w-lg w-full scale-95 opacity-0 modal-content duration-300">
-            <button onclick="closeStaffModal()" class="absolute top-5 right-5 text-zinc-400 hover:text-white z-20 bg-black/60 p-2 rounded-full border border-white/5">
+            <button onclick="window.closeStaffModal()" class="absolute top-5 right-5 text-zinc-400 hover:text-white z-20 bg-black/60 p-2 rounded-full border border-white/5">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
             <div id="modal-header" class="h-32 w-full relative">
-                <div class="absolute inset-0 bg-gradient-to-b from-black/80 to-zinc-900 z-10"></div>
+                <div class="absolute inset-0 bg-linear-to-b from-black/80 to-zinc-900 z-10"></div>
             </div>
             <div class="px-6 pb-8 relative z-20 -mt-16 flex flex-col items-center">
-                <div class="w-32 h-32 rounded-full p-[3px] bg-zinc-800 shadow-xl mb-4 relative">
+                <div class="w-32 h-32 rounded-full p-0.75 bg-zinc-800 shadow-xl mb-4 relative">
                     <div id="modal-img-border" class="absolute inset-0 rounded-full opacity-50"></div>
                     <img id="modal-img" src="" class="relative w-full h-full rounded-full object-cover bg-black" />
                 </div>
@@ -48,14 +48,16 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js" is:inline></script>
 
-<script type="module" is:inline>
-    import { getStaffData } from '/src/utils/sheetsClient.js';
+<script>
+    // 1. Corrección de ruta (subimos dos niveles porque estamos en staff/)
+    import { getStaffData } from '../../utils/sheetsClient.js';
 
     document.addEventListener('DOMContentLoaded', async () => {
         const staffGrid = document.getElementById('staff-grid');
         const loadingStaff = document.getElementById('loading-staff');
 
-        const getRoleConfig = (rol) => {
+        // 2. Le decimos a TS que "rol" es un string
+        const getRoleConfig = (rol: string) => {
             const r = rol?.toLowerCase().trim() || '';
             if (r.includes('lider') || r.includes('líder')) return { displayName: 'Líder', text: 'text-btc-orange', gradient: 'bg-gradient-to-br from-btc-orange to-btc-yellow', isRetired: false, weight: 1 };
             if (r.includes('admin')) return { displayName: 'Admin', text: 'text-red-500', gradient: 'bg-gradient-to-br from-red-600 to-red-400', isRetired: false, weight: 2 };
@@ -65,88 +67,92 @@
         };
 
         const defaultAvatar = 'https://ui-avatars.com/api/?name=Staff&background=18181b&color=fff&size=150';
-        let globalTeamData = [];
+        
+        // 3. Declaramos explícitamente que es un Array para que TS no se queje
+        let globalTeamData: any[] = [];
 
         try {
             let staffMembers = await getStaffData();
             
             if (staffMembers.length > 0) {
-                staffMembers.sort((a, b) => {
+                // 4. Especificamos tipos "any" en el sort
+                staffMembers.sort((a: any, b: any) => {
                     const weightA = getRoleConfig(a.Rol).weight;
                     const weightB = getRoleConfig(b.Rol).weight;
                     if (weightA !== weightB) return weightA - weightB;
                     return a.Nombre.localeCompare(b.Nombre); 
                 });
 
-                globalTeamData = staffMembers.map(m => ({ ...m, config: getRoleConfig(m.Rol) }));
+                globalTeamData = staffMembers.map((m: any) => ({ ...m, config: getRoleConfig(m.Rol) }));
 
-                staffGrid.innerHTML = globalTeamData.map(member => {
-                    const config = member.config;
-                    const avatarUrl = member.Avatar?.trim() ? member.Avatar.trim() : defaultAvatar;
-                    
-                    const imageFilter = config.isRetired ? 'grayscale opacity-70' : '';
-                    
-                    const cardStyle = config.isRetired 
-                        ? 'opacity-80 hover:opacity-100 hover:-translate-y-1' 
-                        : 'hover:-translate-y-2';
+                if (staffGrid) {
+                    staffGrid.innerHTML = globalTeamData.map(member => {
+                        const config = member.config;
+                        const avatarUrl = member.Avatar?.trim() ? member.Avatar.trim() : defaultAvatar;
+                        const imageFilter = config.isRetired ? 'grayscale opacity-70' : '';
+                        const cardStyle = config.isRetired ? 'opacity-80 hover:opacity-100 hover:-translate-y-1' : 'hover:-translate-y-2';
 
-                    return `
-                        <button onclick="window.openStaffModal('${member.Nombre}')" class="bg-zinc-900/95 border-2 border-white/5 rounded-3xl p-6 flex flex-col items-center text-center transition-all duration-300 shadow-xl group w-full cursor-pointer focus:outline-none ${cardStyle}">
-                            
-                            <div class="w-32 h-32 rounded-2xl overflow-hidden mb-5 p-1 ${config.gradient} shadow-lg relative ${!config.isRetired ? 'group-hover:scale-105' : ''} transition-transform duration-300">
-                                <div class="w-full h-full bg-zinc-900 rounded-xl overflow-hidden relative">
-                                    <img 
-                                        src="${avatarUrl}" 
-                                        alt="Avatar de ${member.Nombre}" 
-                                        class="w-full h-full object-cover transition-all duration-500 ${!config.isRetired ? 'group-hover:scale-110' : ''} ${imageFilter}" 
-                                        referrerpolicy="no-referrer"
-                                        onerror="this.onerror=null; this.src='${defaultAvatar}';" 
-                                    />
-                                    ${config.isRetired ? '<div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-300"></div>' : ''}
+                        return `
+                            <button onclick="window.openStaffModal('${member.Nombre}')" class="bg-zinc-900/95 border-2 border-white/5 rounded-3xl p-6 flex flex-col items-center text-center transition-all duration-300 shadow-xl group w-full cursor-pointer focus:outline-none ${cardStyle}">
+                                <div class="w-32 h-32 rounded-2xl overflow-hidden mb-5 p-1 ${config.gradient} shadow-lg relative ${!config.isRetired ? 'group-hover:scale-105' : ''} transition-transform duration-300">
+                                    <div class="w-full h-full bg-zinc-900 rounded-xl overflow-hidden relative">
+                                        <img src="${avatarUrl}" alt="Avatar de ${member.Nombre}" class="w-full h-full object-cover transition-all duration-500 ${!config.isRetired ? 'group-hover:scale-110' : ''} ${imageFilter}" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='${defaultAvatar}';" />
+                                        ${config.isRetired ? '<div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-300"></div>' : ''}
+                                    </div>
                                 </div>
-                            </div>
-                            
-                            <h3 class="text-xl font-bold uppercase text-white mb-2 truncate w-full ${!config.isRetired ? `group-hover:${config.text}` : ''} transition-colors">${member.Nombre}</h3>
-                            
-                            <span class="text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-lg bg-black/40 border border-white/5 ${config.text}">
-                                ${config.displayName}
-                            </span>
-                        </button>
-                    `;
-                }).join('');
+                                <h3 class="text-xl font-bold uppercase text-white mb-2 truncate w-full ${!config.isRetired ? `group-hover:${config.text}` : ''} transition-colors">${member.Nombre}</h3>
+                                <span class="text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-lg bg-black/40 border border-white/5 ${config.text}">${config.displayName}</span>
+                            </button>
+                        `;
+                    }).join('');
+                }
                 
-                loadingStaff.style.display = 'none';
-                staffGrid.classList.remove('hidden');
+                if (loadingStaff) loadingStaff.style.display = 'none';
+                if (staffGrid) staffGrid.classList.remove('hidden');
 
-                // LÓGICA DEL MODAL
-                const staffModal = document.getElementById('staff-modal');
-                const modalContent = staffModal.querySelector('.modal-content');
+                // LÓGICA DEL MODAL (con validaciones estrictas de TS)
+                // Usamos "as HTMLDialogElement" para que TS sepa que tiene la función close()
+                const staffModal = document.getElementById('staff-modal') as HTMLDialogElement | null;
+                const modalContent = staffModal ? staffModal.querySelector('.modal-content') : null;
 
-                window.openStaffModal = (name) => {
+                // Anclamos la función a 'window as any' para evitar el error de TS en el window
+                (window as any).openStaffModal = (name: string) => {
                     const m = globalTeamData.find(member => member.Nombre === name);
-                    if (!m) return;
+                    if (!m || !staffModal || !modalContent) return;
 
                     const config = m.config;
                     const avatarUrl = m.Avatar?.trim() ? m.Avatar.trim() : defaultAvatar;
 
-                    document.getElementById('modal-name').textContent = m.Nombre;
-                    document.getElementById('modal-role').textContent = config.displayName;
-                    document.getElementById('modal-role').className = `text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-1.5 bg-black/30 rounded-full border border-white/5 mb-6 ${config.text}`;
+                    const nameEl = document.getElementById('modal-name');
+                    if (nameEl) nameEl.textContent = m.Nombre;
+
+                    const roleEl = document.getElementById('modal-role');
+                    if (roleEl) {
+                        roleEl.textContent = config.displayName;
+                        roleEl.className = `text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-1.5 bg-black/30 rounded-full border border-white/5 mb-6 ${config.text}`;
+                    }
                     
                     const bioKey = Object.keys(m).find(k => k.toLowerCase().includes('bio'));
                     const bioText = (bioKey && m[bioKey]) ? m[bioKey].trim() : "Miembro del equipo de Builtechraft.";
-                    document.getElementById('modal-bio').textContent = bioText;
+                    const bioEl = document.getElementById('modal-bio');
+                    if (bioEl) bioEl.textContent = bioText;
                     
-                    const img = document.getElementById('modal-img');
-                    img.src = avatarUrl;
-                    img.className = `relative w-full h-full rounded-full object-cover bg-black ${config.isRetired ? 'grayscale' : ''}`;
+                    // Casteamos como HTMLImageElement para que tenga la propiedad .src
+                    const img = document.getElementById('modal-img') as HTMLImageElement | null;
+                    if (img) {
+                        img.src = avatarUrl;
+                        img.className = `relative w-full h-full rounded-full object-cover bg-black ${config.isRetired ? 'grayscale' : ''}`;
+                    }
                     
-                    document.getElementById('modal-header').className = `h-32 w-full relative ${config.gradient}`;
-                    document.getElementById('modal-img-border').className = `absolute inset-0 rounded-full opacity-50 ${config.gradient}`;
+                    const headerEl = document.getElementById('modal-header');
+                    if (headerEl) headerEl.className = `h-32 w-full relative ${config.gradient}`;
+
+                    const borderEl = document.getElementById('modal-img-border');
+                    if (borderEl) borderEl.className = `absolute inset-0 rounded-full opacity-50 ${config.gradient}`;
 
                     const container = document.getElementById('modal-socials-container');
                     const socialsDiv = document.getElementById('modal-socials');
-                    socialsDiv.innerHTML = '';
+                    if (socialsDiv) socialsDiv.innerHTML = '';
 
                     const columnasIgnoradas = ['nombre', 'rol', 'avatar', 'config'];
                     if (bioKey) columnasIgnoradas.push(bioKey.toLowerCase());
@@ -156,9 +162,9 @@
                         return !columnasIgnoradas.includes(keyLimpiada) && m[key] && m[key].toString().trim() !== '';
                     });
 
-                    if (redesSociales.length === 0) {
+                    if (redesSociales.length === 0 && container) {
                         container.classList.add('hidden');
-                    } else {
+                    } else if (container && socialsDiv) {
                         container.classList.remove('hidden');
                         redesSociales.forEach(red => {
                             const link = m[red].toString().trim();
@@ -191,7 +197,8 @@
                     }, 10);
                 };
 
-                window.closeStaffModal = () => {
+                (window as any).closeStaffModal = () => {
+                    if (!modalContent || !staffModal) return;
                     modalContent.classList.remove('scale-100', 'opacity-100');
                     modalContent.classList.add('scale-95', 'opacity-0');
                     staffModal.classList.add('opacity-0', 'pointer-events-none');
@@ -199,11 +206,11 @@
                 };
 
             } else {
-                loadingStaff.innerHTML = "<span class='text-red-400 font-bold'>El Excel de Staff está vacío.</span>";
+                if (loadingStaff) loadingStaff.innerHTML = "<span class='text-red-400 font-bold'>El Excel de Staff está vacío.</span>";
             }
         } catch (error) {
             console.error("Error cargando staff:", error);
-            loadingStaff.innerHTML = "<span class='text-red-400 font-bold'>Error sincronizando datos con Google Sheets.</span>";
+            if (loadingStaff) loadingStaff.innerHTML = "<span class='text-red-400 font-bold'>Error sincronizando datos con Google Sheets.</span>";
         }
     });
 </script>

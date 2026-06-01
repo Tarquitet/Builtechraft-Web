@@ -1,17 +1,31 @@
 ---
-import { SERVER_INFO } from '../../config-ip';
-const { bedrockIP, bedrockPort } = SERVER_INFO;
+// src/components/ip/BedrockCard.astro
 ---
 <div id="bedrock-card-container" class="hidden flex-col sm:flex-row items-start sm:items-center justify-between bg-zinc-900/80 backdrop-blur-sm border border-white/10 rounded-xl p-4 gap-4 transition-all hover:border-blue-500/50 shadow-md w-full">
     <div class="flex flex-col">
         <span class="text-white font-bold uppercase tracking-widest text-sm">Bedrock</span>
-        <span class="text-[10px] text-zinc-500 uppercase">Puerto: <strong class="text-blue-400">{bedrockPort}</strong></span>
+        <span class="text-[10px] text-zinc-500 uppercase">Puerto: <strong id="bedrock-port-text" class="text-blue-400">...</strong></span>
     </div>
-    
     <div class="flex items-center gap-3 w-full sm:w-auto">
-        <code class="text-zinc-300 font-mono text-sm select-all bg-black/40 px-3 py-1.5 rounded-lg border border-white/5">{bedrockIP}</code>
-        <button onclick={`window.copyText('${bedrockIP}', this)`} class="ml-auto bg-white/5 hover:bg-blue-500 text-zinc-300 hover:text-white px-5 py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-colors border border-white/5 hover:border-blue-500">
-            Copiar
-        </button>
+        <code id="bedrock-ip-code" class="text-zinc-300 font-mono text-sm select-all bg-black/40 px-3 py-1.5 rounded-lg border border-white/5 truncate max-w-37.5sm:max-w-none">Cargando...</code>
+        <button onclick="window.copyText(this, 'bedrock-ip-code')" class="ml-auto bg-white/5 hover:bg-blue-500 text-zinc-300 hover:text-white px-5 py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-colors border border-white/5 hover:border-blue-500 shrink-0">Copiar</button>
     </div>
 </div>
+
+<script>
+    // 1. Escucha IPs y Puerto
+    window.addEventListener('btc:config-loaded', (e: any) => {
+        const ipEl = document.getElementById('bedrock-ip-code');
+        const portEl = document.getElementById('bedrock-port-text');
+        if(ipEl) ipEl.innerText = e.detail["BedrockIP"] || 'play.builtechraft.com';
+        if(portEl) portEl.innerText = e.detail["BedrockPort"] || '19132';
+    });
+
+    // 2. Escucha a los Mods (Geyser) para hacerse visible
+    window.addEventListener('btc:features-loaded', (e: any) => {
+        if(e.detail.isBedrock) {
+            const container = document.getElementById('bedrock-card-container');
+            if(container) { container.classList.remove('hidden'); container.classList.add('flex'); }
+        }
+    });
+</script>
