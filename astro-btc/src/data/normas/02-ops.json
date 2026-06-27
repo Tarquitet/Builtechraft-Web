@@ -14,17 +14,18 @@
           "text": "Sobre las nuevas versiones",
           "sub": "Preferimos que el servidor sea estable antes que tener lo último con errores.",
           "details": [
-            "4.1.a: Tiempo de espera: Cuando sale una nueva versión de Minecraft, solemos esperar de 2 a 3 semanas antes de actualizar el servidor.",
-            "4.1.b: Seguridad del mapa: Este tiempo es necesario para que los complementos del servidor se actualicen y para evitar errores que puedan dañar tus construcciones o el mundo."
+            "4.1.a: Cuando sale una nueva versión de Minecraft, solemos esperar entre 1 a 2 semanas antes de actualizar el servidor. Esto se hace para verificar si los mods o datapcks que estaban en las versiones anteriores son compatibles y necesarias con esta nueva versión.",
+            "4.1.b: Si vemos que algún mod o datapack no tienen relevancia o utilidad en el servidor (sin necesidad de actualizar a otra versión) se considerará su retiro.",
+            "4.1.c: Aquellos jugadores que propongan mods o datapacks que tengan utilidad o novedad al servidor puede ser informado al Staff y evaluar si tiene utilidad para ser agregado para la comunidad."
           ]
         },
         {
           "num": "4.2",
           "text": "Somos humanos",
-          "sub": "Detrás del servidor hay una persona real (Tarquitet), no una máquina.",
+          "sub": "Detrás del servidor hay personas reales, no máquinas.",
           "details": [
-            "4.2.a: Errores comunes: A veces el servidor puede no encenderse a la hora exacta por olvido o falta de tiempo del dueño; por favor, evita presionar al Staff.",
-            "4.2.b: Comunidad pequeña: No somos una empresa grande, somos una comunidad gestionada con pasión. Agradecemos mucho tu comprensión y paciencia."
+            "4.2.a: A veces el servidor puede no encenderse a la hora exacta por olvido o falta de tiempo del dueño; por favor, evita presionar al Staff.",
+            "4.2.b: No somos una super comunidad enorme; somos voluntarios quienes hacen las cosas con pasión."
           ]
         }
       ]
@@ -60,8 +61,8 @@
           "sub": "Cuidamos que el servidor sea un lugar sano para todos.",
           "details": [
             "5.3.a: Revisión de contenido: El Staff revisa lo que se construye para asegurar que el ambiente siga siendo respetuoso y acorde a nuestros valores.",
-            "5.3.b: Comportamiento: Si el contenido que creas es demasiado perturbador o extraño, evaluaremos si tu perfil es adecuado para permanecer en esta comunidad.",
-            "5.3.c: Prueba de madurez: Te pedimos manejar tu libertad con respeto hacia los demás jugadores."
+            "5.3.b: Comportamiento: Si el contenido que creas es demasiado perturbador o extraño, el jugador será nombrado a juicio para evaluar si el perfil es adecuado para permanecer en esta comunidad.",
+            "5.3.c: Prueba de madurez: Te pedimos manejar tu libertad acorde hacia los valores según las normas establecidas y con respeto hacia los demás jugadores."
           ]
         }
       ]
