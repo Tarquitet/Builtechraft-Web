@@ -1,41 +1,158 @@
 ---
-import { SERVER_INFO } from '../../config-ip';
-const { bedrockPort } = SERVER_INFO;
+// src/components/ip/Steps.astro
 ---
-<div class="max-w-5xl mx-auto mb-16">
-    <h3 class="text-xs font-bold text-zinc-300 uppercase tracking-[0.2em] mb-12 text-center">
-        PROCESO DE CONEXIÓN
-    </h3>
-    
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 text-sm">
-        <div class="relative pl-8 md:pl-0 text-left md:text-center border-l-2 border-btc-orange md:border-l-0 md:border-t-2 md:pt-6">
-            <span class="text-4xl font-black text-btc-orange/50 absolute -top-3 left-8 md:left-1/2 md:-translate-x-1/2 md:-top-10 z-0 select-none">1</span>
-            <div class="relative z-10">
-                <h4 class="text-btc-orange font-bold mb-2 uppercase">Normas y Whitelist</h4>
-                <p class="text-zinc-300 leading-relaxed font-medium">
-                    Servidor privado. Lee las <a href="#reglas" class="text-white hover:text-btc-orange underline underline-offset-4 decoration-white/20 transition-all font-bold">Normas Oficiales</a> y solicita tu acceso vía <a href="#discord" class="text-blue-500 hover:text-btc-orange transition-colors duration-300 font-bold underline underline-offset-4 decoration-blue-500/30 hover:decoration-btc-orange">Discord</a>.
-                </p>
+
+<section class="py-24 relative z-10 w-full bg-[#0a0a0c]">
+    <div class="container mx-auto px-6 max-w-4xl">
+        
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-5xl font-display font-bold text-white uppercase tracking-tight mb-4">
+                Conexión <span class="text-btc-orange">Paso a Paso</span>
+            </h2>
+        </div>
+
+        <!-- Pestañas de Plataforma (Bedrock está oculta por defecto) -->
+        <div class="flex justify-center gap-4 mb-8" id="platform-tabs">
+            <button class="step-tab-btn px-6 py-3 bg-btc-orange text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all shadow-[0_0_15px_rgba(249,115,22,0.3)]" data-target="java">
+                Java Edition
+            </button>
+            <button id="bedrock-tab-btn" class="step-tab-btn hidden px-6 py-3 bg-black/40 text-zinc-400 hover:text-white border border-white/10 hover:border-white/30 text-xs font-bold uppercase tracking-widest rounded-xl transition-all" data-target="bedrock">
+                Bedrock (Móvil / PC)
+            </button>
+        </div>
+
+        <!-- Caja de IP -->
+        <div class="bg-black/60 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-8 w-full shadow-2xl mb-12">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                
+                <div class="flex flex-col w-full text-center md:text-left">
+                    <span class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1">Dirección IP</span>
+                    <code id="step-ip-address" class="text-2xl md:text-3xl text-white font-mono font-bold select-all">Cargando...</code>
+                </div>
+                
+                <div id="step-port-container" class="flex flex-col w-full text-center md:text-left hidden md:border-l border-white/10 md:pl-8">
+                    <span class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1">Puerto</span>
+                    <code id="step-port" class="text-2xl md:text-3xl text-blue-400 font-mono font-bold select-all">...</code>
+                </div>
+
+                <button onclick="window.copyStepIP()" id="btn-copy-step" class="shrink-0 bg-white/10 hover:bg-btc-orange text-white px-8 py-4 rounded-xl font-bold uppercase text-xs tracking-widest transition-all w-full md:w-auto border border-white/5">
+                    Copiar IP
+                </button>
             </div>
         </div>
 
-        <div class="relative pl-8 md:pl-0 text-left md:text-center border-l-2 border-zinc-600 md:border-l-0 md:border-t-2 md:pt-6">
-            <span class="text-4xl font-black text-white/50 absolute -top-3 left-8 md:left-1/2 md:-translate-x-1/2 md:-top-10 z-0 select-none">2</span>
-            <div class="relative z-10">
-                <h4 class="text-zinc-400 font-bold mb-2 uppercase">Configura</h4>
-                <p class="text-zinc-300 leading-relaxed font-medium">
-                    Copia la IP. En <strong>Bedrock</strong>, recuerda cambiar el puerto al <span class="text-blue-400 font-mono font-bold bg-blue-500/10 px-1 rounded">{bedrockPort}</span>.
-                </p>
+        <!-- Lista de Instrucciones -->
+        <div class="bg-[#18181b] border border-white/5 rounded-3xl p-6 md:p-8 shadow-xl">
+            <div id="steps-content" class="flex flex-col gap-4">
+                <!-- Se inyecta vía JS según la plataforma -->
             </div>
         </div>
 
-        <div class="relative pl-8 md:pl-0 text-left md:text-center border-l-2 border-zinc-600 md:border-l-0 md:border-t-2 md:pt-6">
-            <span class="text-4xl font-black text-white/50 absolute -top-3 left-8 md:left-1/2 md:-translate-x-1/2 md:-top-10 z-0 select-none">3</span>
-            <div class="relative z-10">
-                <h4 class="text-zinc-400 font-bold mb-2 uppercase">¡Listo!</h4>
-                <p class="text-zinc-300 leading-relaxed font-medium">
-                    Entra al servidor. Si aparece el mensaje <em class="text-zinc-400 bg-white/5 px-1 rounded not-italic">"Not Whitelisted"</em>. Regresa al paso 1.
-                </p>
-            </div>
-        </div>
     </div>
-</div>
+</section>
+
+<script is:inline>
+    let serverConfig = { javaIp: '', bedrockIp: '', port: '' };
+    let currentPlatform = 'java';
+
+    // Textos de pasos dinámicos
+    const stepsData = {
+        'java': [
+            "Abre tu launcher de Minecraft (recomendamos Prism Launcher o ElyPrism).",
+            "Asegúrate de tener seleccionada la versión correcta del juego e inicia sesión con tu cuenta (Premium o Ely.by).",
+            "Ve a la pestaña de 'Multijugador' y haz clic en 'Agregar servidor'.",
+            "Pega la IP que copiaste arriba en el campo de 'Dirección del servidor'.",
+            "Haz clic en 'Hecho', selecciona Builtechraft y únete a la partida."
+        ],
+        'bedrock': [
+            "Abre Minecraft Bedrock Edition en tu PC o dispositivo móvil.",
+            "Toca 'Jugar' y dirígete a la pestaña superior de 'Servidores'.",
+            "Baja hasta el final de la lista y presiona el botón 'Añadir servidor'.",
+            "Ingresa el nombre que quieras, pega la IP y escribe el Puerto que aparece en esta página.",
+            "Guarda el servidor en tu lista y presiona unirse."
+        ]
+    };
+
+    // Renderiza la lista de pasos
+    function renderStepsList(platform) {
+        const container = document.getElementById('steps-content');
+        if (!container) return;
+        const steps = stepsData[platform];
+        
+        container.innerHTML = steps.map((text, index) => `
+            <div class="flex items-start gap-4 p-4 rounded-xl transition-all bg-black/20 hover:bg-black/40 border border-transparent hover:border-white/5">
+                <div class="w-8 h-8 shrink-0 rounded-full border border-btc-orange/30 text-btc-orange flex items-center justify-center font-bold text-sm bg-btc-orange/10 mt-0.5">
+                    ${index + 1}
+                </div>
+                <p class="text-zinc-300 text-sm md:text-base font-medium leading-relaxed pt-1">${text}</p>
+            </div>
+        `).join('');
+    }
+
+    // Actualiza la IP y el Puerto en pantalla
+    function updateStepView() {
+        const ipDisplay = document.getElementById('step-ip-address');
+        const portContainer = document.getElementById('step-port-container');
+        const portDisplay = document.getElementById('step-port');
+
+        if (currentPlatform === 'java') {
+            if(ipDisplay) ipDisplay.innerText = serverConfig.javaIp;
+            if(portContainer) portContainer.classList.add('hidden');
+        } else {
+            if(ipDisplay) ipDisplay.innerText = serverConfig.bedrockIp;
+            if(portContainer) portContainer.classList.remove('hidden');
+            if(portDisplay) portDisplay.innerText = serverConfig.port;
+        }
+
+        renderStepsList(currentPlatform);
+    }
+
+    // 1. Cargar Configuración de IPs
+    window.addEventListener('btc:config-loaded', (e) => {
+        serverConfig.javaIp = e.detail["JavaIP"] || 'play.builtechraft.com';
+        serverConfig.bedrockIp = e.detail["BedrockIP"] || 'play.builtechraft.com';
+        serverConfig.port = e.detail["BedrockPort"] || '19132';
+        updateStepView();
+    });
+
+    // 2. Comprobar si hay Bedrock (Habilita el botón si es cierto)
+    window.addEventListener('btc:features-loaded', (e) => {
+        const bedrockBtn = document.getElementById('bedrock-tab-btn');
+        if (e.detail.isBedrock && bedrockBtn) {
+            bedrockBtn.classList.remove('hidden');
+        }
+    });
+
+    // 3. Lógica de Pestañas
+    const tabs = document.querySelectorAll('.step-tab-btn');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', (e) => {
+            tabs.forEach(t => {
+                t.classList.remove('bg-btc-orange', 'text-white', 'shadow-[0_0_15px_rgba(249,115,22,0.3)]');
+                t.classList.add('bg-black/40', 'text-zinc-400', 'border-white/10');
+            });
+            const target = e.currentTarget;
+            target.classList.remove('bg-black/40', 'text-zinc-400', 'border-white/10');
+            target.classList.add('bg-btc-orange', 'text-white', 'shadow-[0_0_15px_rgba(249,115,22,0.3)]');
+            
+            currentPlatform = target.getAttribute('data-target');
+            updateStepView();
+        });
+    });
+
+    // 4. Copiar IP
+    window.copyStepIP = async function() {
+        const textToCopy = currentPlatform === 'java' ? serverConfig.javaIp : serverConfig.bedrockIp;
+        await navigator.clipboard.writeText(textToCopy);
+        
+        const btn = document.getElementById('btn-copy-step');
+        const originalText = btn.innerText;
+        btn.innerText = '¡COPIADO!';
+        btn.classList.add('!bg-green-500', '!text-white', '!border-green-500');
+        
+        setTimeout(() => {
+            btn.innerText = originalText;
+            btn.classList.remove('!bg-green-500', '!text-white', '!border-green-500');
+        }, 2000);
+    }
+</script>

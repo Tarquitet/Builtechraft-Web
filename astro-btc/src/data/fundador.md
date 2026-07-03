@@ -1,4 +1,7 @@
 ---
+title: 'Tarquitet'
+category: 'Equipo y Staff'
+order: 4
 nombre: 'Tarquitet'
 rol: 'Fundador - Ingeniero'
 titulo_blanco: 'El'

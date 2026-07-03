@@ -1,19 +1,15 @@
 {
   "left": [
-    { "name": "Jugar", "href": "/#jugar", "id": "jugar" },
-    { "name": "Normas", "href": "/#reglas", "id": "reglas" }
+    { "name": "Inicio", "href": "/", "id": "inicio" },
+    { "name": "Ingreso", "href": "/instrucciones", "id": "ingreso" }
   ],
   "right": [
-    { "name": "Staff", "href": "/#staff", "id": "staff" },
-    { "name": "Historia", "href": "/#historia", "id": "historia" },
-    { "name": "Comunidad", "href": "https://discord.gg/4KzRH5DPzx" }
+    { "name": "Info", "href": "/wiki", "id": "wiki" },
+    { "name": "Normas", "href": "/normas", "id": "reglas" },
+    { "name": "Soporte", "href": "https://discord.gg/4KzRH5DPzx", "id": "none" }
   ],
-  "novedades": [
-    { "name": "Modpack", "href": "/#modpack", "id": "modpack" },
-    { "name": "Mundo Survival", "href": "/#survival", "id": "survival" },
-    { "name": "Mundo Creativo", "href": "/#creativo", "id": "creativo" },
+  "mapa": [
     { "name": "Mapa Survival", "href": "/maps/survival", "id": "map-sv" },
-    { "name": "Mapa Creativo", "href": "/maps/creative", "id": "map-cr" },
-    { "name": "Datapacks & Mods", "href": "/#tecnico", "id": "tecnico" }
+    { "name": "Mapa Creativo", "href": "/maps/creative", "id": "map-cr" }
   ]
 }

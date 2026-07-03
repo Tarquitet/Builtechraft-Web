@@ -1,0 +1,149 @@
+---
+// src/components/wiki/ModsAndDatapacks.astro
+export const title = "Lista de Mods y Datapacks";
+export const category = "Información Técnica";
+export const order = 1;
+---
+
+<div id="loading-mods" class="flex flex-col justify-center items-center py-10 mb-10 text-zinc-500 gap-3">
+    <span class="text-3xl animate-bounce">📦</span>
+    <span class="animate-pulse font-bold tracking-widest uppercase text-sm">Sincronizando base de datos...</span>
+</div>
+
+<!-- CONTENEDOR DE ESTADÍSTICAS / CONTADORES -->
+<div id="mods-stats" class="hidden flex-wrap gap-3 mb-10 pb-8 border-b border-white/5">
+    <!-- Se inyectan vía JS -->
+</div>
+
+{/* SECCIÓN: DATAPACKS */}
+<div id="datapacks-section" class="hidden mb-16">
+    <div class="mb-6 flex items-center gap-3 border-b border-white/5 pb-4">
+        <span class="text-2xl">🗂️</span>
+        <h3 class="text-xl font-display font-bold text-btc-yellow uppercase tracking-widest m-0">
+            Datapacks Instalados
+        </h3>
+    </div>
+    <div id="datapacks-list" class="flex flex-col gap-3"></div>
+</div>
+
+{/* SECCIÓN: MODS Y PLUGINS */}
+<div id="mods-section" class="hidden mb-20">
+    <div class="mb-6 flex items-center gap-3 border-b border-white/5 pb-4">
+        <span class="text-2xl">⚙️</span>
+        <h3 class="text-xl font-display font-bold text-blue-500 uppercase tracking-widest m-0">
+            Mods del Servidor
+        </h3>
+    </div>
+    <div id="mods-list" class="flex flex-col gap-3"></div>
+</div>
+
+<script>
+import { getModsAndDatapacks } from '../../utils/sheetsClient.js';
+import { fetchModrinthIcons } from '../../utils/modrinthClient.js';
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const dpList = document.getElementById('datapacks-list');
+    const modsList = document.getElementById('mods-list');
+    const dpSection = document.getElementById('datapacks-section');
+    const modsSection = document.getElementById('mods-section');
+    const loadingEl = document.getElementById('loading-mods');
+    const statsContainer = document.getElementById('mods-stats');
+
+    const getColorClass = (tipo: string) => {
+        const t = tipo?.toLowerCase() || '';
+        if(t.includes('mod')) return { text: 'text-blue-500', border: 'border-blue-500/50', badge: 'bg-blue-500/10 text-blue-400 border-blue-500/20' };
+        if(t.includes('plugin')) return { text: 'text-orange-500', border: 'border-orange-500/50', badge: 'bg-orange-500/10 text-orange-400 border-orange-500/20' };
+        if(t.includes('proxy')) return { text: 'text-emerald-500', border: 'border-emerald-500/50', badge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' };
+        if(t.includes('datapack')) return { text: 'text-btc-yellow', border: 'border-btc-yellow/50', badge: 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20' };
+        return { text: 'text-zinc-400', border: 'border-zinc-400/50', badge: 'bg-zinc-800 text-zinc-300 border-zinc-700' };
+    };
+
+    const createModCardHTML = (item: any) => {
+        const colors = getColorClass(item.type);
+        
+        let finalUrl = item.url;
+        if (!item.queryId && (!item.url || item.url.includes('modrinth.com/mods?q='))) {
+            finalUrl = "https://vanillatweaks.net/";
+        }
+
+        return `
+            <a href="${finalUrl}" target="_blank" rel="noopener noreferrer" class="mod-item flex flex-col sm:flex-row items-start sm:items-center gap-4 p-5 bg-[#111] border border-white/5 rounded-2xl transition-all group hover:bg-black/60 hover:${colors.border} shadow-sm" data-query-id="${item.queryId}">
+                <div class="icon-container shrink-0 w-14 h-14 flex items-center justify-center bg-black/40 rounded-xl border border-white/10 group-hover:scale-105 transition-transform overflow-hidden">
+                    <span class="text-3xl icon-emoji">${item.icon}</span>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-3 mb-1">
+                        <h4 class="font-bold text-white text-base md:text-lg group-hover:${colors.text} transition-colors m-0">${item.name}</h4>
+                        <span class="text-[9px] uppercase tracking-widest font-bold px-2 py-0.5 rounded ${colors.badge} border">${item.type}</span>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed m-0">${item.desc}</p>
+                </div>
+                <div class="shrink-0 text-zinc-600 group-hover:${colors.text} transition-colors pt-2 sm:pt-0 self-end sm:self-center">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </div>
+            </a>
+        `;
+    };
+
+    try {
+        const { mods, datapacks, modrinthIdsToFetch } = await getModsAndDatapacks();
+        
+        // --- LÓGICA DE CONTADORES ---
+        const allItems = [...mods, ...datapacks];
+        if (statsContainer && allItems.length > 0) {
+            const counts: Record<string, number> = { 'Total': allItems.length };
+            
+            allItems.forEach(item => {
+                const tipo = item.type || 'Desconocido';
+                counts[tipo] = (counts[tipo] || 0) + 1;
+            });
+
+            statsContainer.innerHTML = Object.entries(counts).map(([key, value]) => `
+                <div class="bg-black/40 border border-white/10 px-4 py-2.5 rounded-xl flex items-center gap-3 shadow-inner">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-zinc-500">${key}</span>
+                    <span class="text-white font-mono font-bold text-lg leading-none">${value}</span>
+                </div>
+            `).join('');
+            
+            statsContainer.classList.remove('hidden');
+            statsContainer.classList.add('flex');
+        }
+
+        // --- RENDERIZADO DE LISTAS ---
+        if (datapacks.length > 0 && dpList && dpSection) {
+            dpList.innerHTML = datapacks.map(createModCardHTML).join('');
+            dpSection.classList.remove('hidden');
+        }
+
+        if (mods.length > 0 && modsList && modsSection) {
+            modsList.innerHTML = mods.map(createModCardHTML).join('');
+            modsSection.classList.remove('hidden');
+        }
+        
+        if(loadingEl) loadingEl.style.display = 'none';
+
+        if (modrinthIdsToFetch.length > 0) {
+            const mrData = await fetchModrinthIcons(modrinthIdsToFetch);
+            mrData.forEach((project: any) => {
+                if (project.icon_url) {
+                    const cards = document.querySelectorAll(`.mod-item[data-query-id="${project.id}"], .mod-item[data-query-id="${project.slug}"]`);
+                    cards.forEach(card => {
+                        const container = card.querySelector('.icon-container');
+                        if (container) {
+                            container.innerHTML = `<img src="${project.icon_url}" alt="${project.title}" class="w-full h-full object-cover p-1.5 animate-fade-in rounded-lg" />`;
+                        }
+                    });
+                }
+            });
+        }
+    } catch (err) {
+        console.error("Error cargando componentes técnicos:", err);
+        if(loadingEl) loadingEl.innerHTML = "Error sincronizando base de datos. Recarga la página.";
+    }
+});
+</script>
+
+<style>
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+    .animate-fade-in { animation: fade-in 0.5s ease-out forwards; }
+</style>

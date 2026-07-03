@@ -1,0 +1,138 @@
+---
+// src/components/wiki/Roadmap.astro
+export const title = "Roadmap del Servidor";
+export const category = "Información Técnica";
+export const order = 2;
+---
+
+<div id="roadmap-section" class="hidden flex-col mt-4 relative z-20 pb-16">
+    <p class="text-zinc-400 text-sm md:text-base mb-6">
+        Consulta nuestras futuras expansiones, mantenimientos planeados y actualizaciones del servidor.
+    </p>
+
+    <!-- BARRA DE FILTROS -->
+    <div id="roadmap-filters" class="flex flex-wrap gap-2 mb-8 border-b border-white/5 pb-6">
+        <!-- Los botones de filtro se inyectan vía JS -->
+    </div>
+
+    <!-- TABLA RESPONSIVA DEL ROADMAP -->
+    <div class="w-full overflow-x-auto rounded-2xl border border-white/5 bg-[#111] shadow-2xl">
+        <table class="w-full text-left text-sm whitespace-nowrap md:whitespace-normal">
+            <thead class="uppercase tracking-wider border-b border-white/5 bg-black/40 text-zinc-500 text-[10px]">
+                <tr>
+                    <th class="px-6 py-4 font-bold w-40">Estado</th>
+                    <th class="px-6 py-4 font-bold w-64">Título</th>
+                    <th class="px-6 py-4 font-bold">Descripción</th>
+                </tr>
+            </thead>
+            <tbody id="roadmap-tbody" class="divide-y divide-white/5 text-zinc-300">
+                <!-- Se inyectan las filas vía JS -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+import { getRoadmapData } from '../../utils/sheetsClient.js';
+
+document.addEventListener('DOMContentLoaded', async () => {
+    
+    const getStatusStyle = (estado: string) => {
+        const s = estado?.toLowerCase().trim() || '';
+        if (s.includes('progreso')) return { text: 'text-btc-orange', bg: 'bg-btc-orange/10', border: 'border-btc-orange/30', icon: '⏳' };
+        if (s.includes('planeado')) return { text: 'text-blue-400', bg: 'bg-blue-400/10', border: 'border-blue-400/30', icon: '📅' };
+        if (s.includes('prueba'))   return { text: 'text-purple-400', bg: 'bg-purple-400/10', border: 'border-purple-400/30', icon: '🧪' };
+        return { text: 'text-emerald-400', bg: 'bg-emerald-400/10', border: 'border-emerald-400/30', icon: '✅' };
+    };
+
+    const createRoadmapRow = (item: any) => {
+        const style = getStatusStyle(item.Estado);
+        const estadoLimpio = item.Estado || 'Pendiente';
+        
+        // Añadimos data-status para que el filtro pueda identificar la fila
+        return `
+            <tr class="roadmap-row hover:bg-white/5 transition-colors group" data-status="${estadoLimpio}">
+                <td class="px-6 py-5 align-top">
+                    <span class="text-[10px] font-bold uppercase tracking-widest ${style.text} ${style.bg} border ${style.border} px-3 py-1.5 rounded-full inline-flex items-center gap-1.5 whitespace-nowrap">
+                        ${style.icon} ${estadoLimpio}
+                    </span>
+                </td>
+                <td class="px-6 py-5 align-top font-bold text-white text-base">
+                    ${item.Titulo}
+                </td>
+                <td class="px-6 py-5 align-top text-zinc-400 leading-relaxed min-w-[250px]">
+                    ${item.Descripcion}
+                </td>
+            </tr>
+        `;
+    };
+
+    const tbody = document.getElementById('roadmap-tbody');
+    const section = document.getElementById('roadmap-section');
+    const filtersContainer = document.getElementById('roadmap-filters');
+
+    try {
+        const data = await getRoadmapData();
+        
+        if (data.length > 0 && tbody && section && filtersContainer) {
+            // 1. Inyectar Filas
+            tbody.innerHTML = data.map(createRoadmapRow).join('');
+            
+            // 2. Extraer Estados Únicos
+            const uniqueStatuses = [...new Set(data.map((item: any) => item.Estado || 'Pendiente'))];
+            
+            // 3. Crear Botones de Filtro
+            let filtersHTML = `
+                <button class="rm-filter-btn px-5 py-2.5 bg-white/10 text-white rounded-xl text-xs font-bold uppercase tracking-widest border border-white/20 transition-all shadow-md" data-filter="all">
+                    Todos
+                </button>
+            `;
+            
+            uniqueStatuses.forEach(status => {
+                filtersHTML += `
+                    <button class="rm-filter-btn px-5 py-2.5 bg-black/40 text-zinc-400 hover:text-white rounded-xl text-xs font-bold uppercase tracking-widest border border-white/5 hover:border-white/20 transition-all" data-filter="${status}">
+                        ${status}
+                    </button>
+                `;
+            });
+            
+            filtersContainer.innerHTML = filtersHTML;
+
+            // 4. Lógica de Filtrado (Event Listeners)
+            const filterBtns = document.querySelectorAll('.rm-filter-btn');
+            const rows = document.querySelectorAll('.roadmap-row');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    // Actualizar estilos de los botones
+                    filterBtns.forEach(b => {
+                        b.classList.remove('bg-white/10', 'text-white', 'border-white/20', 'shadow-md');
+                        b.classList.add('bg-black/40', 'text-zinc-400', 'border-white/5');
+                    });
+                    
+                    const target = e.currentTarget as HTMLElement;
+                    target.classList.remove('bg-black/40', 'text-zinc-400', 'border-white/5');
+                    target.classList.add('bg-white/10', 'text-white', 'border-white/20', 'shadow-md');
+
+                    // Ocultar/Mostrar filas
+                    const filterValue = target.getAttribute('data-filter');
+                    
+                    rows.forEach((row: any) => {
+                        if (filterValue === 'all' || row.getAttribute('data-status') === filterValue) {
+                            row.style.display = ''; // Muestra la fila
+                        } else {
+                            row.style.display = 'none'; // Oculta la fila
+                        }
+                    });
+                });
+            });
+
+            // Mostrar Sección
+            section.classList.remove('hidden');
+            section.classList.add('flex');
+        }
+    } catch (e) {
+        console.error("Error cargando el Roadmap:", e);
+    }
+});
+</script>

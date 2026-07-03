@@ -1,57 +1,129 @@
 ---
 // src/pages/index.astro
 import Layout from '../layouts/Layout.astro';
-import IPSection from '../components/IPSection.astro';
-import About from '../components/About.astro';
-import Technical from '../components/Technical.astro';
-import SurvivalWorld from '../components/SurvivalWorld.astro';
-import CreativeProjects from '../components/CreativeProjects.astro';
-import Gallery from '../components/Gallery.astro';
-import Staff from '../components/staff/Staff.astro';
-import Rules from '../components/Rules.astro';
-import Modpack from '../components/Modpack.astro';
+import ConfigLoader from '../components/ip/ConfigLoader.astro';
 
-const bgImage = "url('/images/gallery/2_4.avif')";
+const bgImage = "url('/images/gallery/2_1.avif')";
 ---
 
-<Layout title="Inicio | Builtechraft SMP - Minecraft Server" description="Únete a Builtechraft, el servidor de Minecraft donde la creatividad y la ingeniería se encuentran. Compatible con Java." image="/images/logo-text.webp">
+<Layout title="Home | Builtechraft SMP" description="Servidor Semi-Vanilla enfocado en la creatividad y la ingeniería." image="/images/logo-text.webp">
     
-    <section id="inicio" class="min-h-screen w-full relative flex flex-col items-center justify-center text-center pt-20 bg-theme-main overflow-hidden">
-        <div class="absolute inset-0 z-0 bg-cover bg-center opacity-90 scale-[1.05] origin-center" style={{ backgroundImage: bgImage }}></div>
-        <div class="absolute bottom-0 left-0 w-full h-3/4 bg-linear-to-b from-transparent via-[#111]/80 to-[#111] z-1 pointer-events-none"></div>
+    <ConfigLoader />
 
-        <!-- CONTENIDO MÁS ARRIBA (-mt-32) -->
-        <div class="relative z-10 px-4 max-w-5xl mx-auto flex flex-col items-center w-full -mt-24 md:-mt-32">
-            <img src="/images/logo-text.webp" alt="Builtechraft Header" loading="eager" class="w-full max-w-2xl md:max-w-3xl mb-8 drop-shadow-2xl animate-float" />
-            <p class="text-white font-mono text-sm md:text-base tracking-widest uppercase mb-8 bg-black/60 px-6 py-2 rounded-full border border-white/10 shadow-lg">
-                Servidor privado de Minecraft Java
+    <!-- HERO SECTION -->
+    <section id="inicio" class="w-full min-h-screen flex flex-col justify-center items-center relative bg-[#111] pt-24 pb-16">
+        
+        <div class="absolute inset-0 z-0 bg-cover bg-center opacity-80" style={{ backgroundImage: bgImage }}></div>
+        <div class="absolute inset-0 z-1 bg-linear-to-b from-black/90"></div>
+
+        <div class="relative z-10 flex flex-col items-center px-6 max-w-4xl text-center mt-8">
+            <img src="/images/logo-text.webp" alt="Builtechraft" class="w-full max-w-lg mb-8 drop-shadow-2xl" />
+            
+            <p class="text-zinc-300 text-sm md:text-base leading-relaxed mb-12 max-w-2xl font-medium">
+                Survival privado para construcciones grandes o pequeñas, artísticas con ingeniería llevando al límite el Minecraft Vanilla mediante el uso de datapacks y mods.
             </p>
+            
+            <!-- PANEL DE CONEXIÓN -->
+            <div class="bg-black/60 backdrop-blur-md border border-white/10 rounded-2xl p-6 w-full max-w-xl flex flex-col gap-4 shadow-2xl relative">
+                
+                <!-- Pestañas -->
+                <div id="ip-tabs" class="flex gap-2 border-b border-white/10 pb-4 hidden">
+                    <button id="tab-java" class="px-6 py-2 bg-white/10 text-white rounded-lg text-xs font-bold transition-all border border-white/10 uppercase tracking-widest">Java</button>
+                    <button id="tab-bedrock" class="px-6 py-2 text-zinc-400 hover:text-white rounded-lg text-xs font-bold transition-all border border-transparent hover:bg-white/5 uppercase tracking-widest">Bedrock</button>
+                </div>
+
+                <!-- Display IP -->
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 py-2">
+                    <div class="flex flex-col text-center sm:text-left w-full">
+                        <span class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1">Dirección IP</span>
+                        <code id="ip-address" class="text-xl md:text-2xl text-white font-mono font-bold select-all truncate">Cargando...</code>
+                    </div>
+                    
+                    <div id="port-container" class="flex flex-col text-center sm:text-left w-full sm:w-auto hidden">
+                        <span class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1">Puerto</span>
+                        <code id="ip-port" class="text-xl md:text-2xl text-white font-mono font-bold select-all">...</code>
+                    </div>
+                    
+                    <button id="copy-btn" onclick="window.copyServerIP()" class="shrink-0 bg-btc-orange hover:bg-white hover:text-btc-orange text-white px-6 py-3 rounded-xl font-bold uppercase text-xs tracking-widest transition-all w-full sm:w-auto mt-2 sm:mt-0">
+                        Copiar
+                    </button>
+                </div>
+
+                <!-- Footer del Panel -->
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-2 mt-2 pt-4 border-t border-white/5">
+                    <span id="version-display" class="text-[10px] text-zinc-500 uppercase tracking-widest font-bold">Consultando versión...</span>
+                    <a href="/instrucciones" class="text-[10px] text-btc-orange hover:text-white uppercase tracking-widest font-bold transition-colors underline underline-offset-4 decoration-btc-orange/30">
+                        ¿Cómo ingresar?
+                    </a>
+                </div>
+            </div>
         </div>
-    </section>
-
-    <IPSection/>
-    <Rules />
-    <Gallery />
-    
-    <section id="novedades" class="relative w-full flex flex-col">
-        <div id="modpack"><Modpack /></div>
-        <div id="survival"><SurvivalWorld /></div>
-        <div id="creativo"><CreativeProjects /></div>
-        <div id="tecnico"><Technical /></div>
-    </section>
-
-    <Staff />
-
-    <section id="historia" class="relative w-full flex flex-col">
-        <About />
     </section>
 </Layout>
 
-<style>
-    :global(body) { overflow-x: hidden; width: 100%; position: relative; }
-    @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
+<!-- Lógica del Panel IP -->
+<script is:inline>
+    let srvData = { javaIp: '', bedrockIp: '', port: '', version: '' };
+    let currentTab = 'java';
+
+    window.addEventListener('btc:config-loaded', (e) => {
+        srvData.javaIp = e.detail["JavaIP"] || 'play.builtechraft.com';
+        srvData.bedrockIp = e.detail["BedrockIP"] || 'play.builtechraft.com';
+        srvData.port = e.detail["BedrockPort"] || '19132';
+        srvData.version = e.detail["JavaMax"] || '1.21.x';
+
+        updateIPView();
+    });
+
+    window.addEventListener('btc:features-loaded', (e) => {
+        if (e.detail.isBedrock) {
+            document.getElementById('ip-tabs').classList.remove('hidden');
+            document.getElementById('version-display').innerText = `Java & Bedrock - ${srvData.version}`;
+        } else {
+            document.getElementById('version-display').innerText = `Java - ${srvData.version}`;
+        }
+    });
+
+    function setTab(tab) {
+        currentTab = tab;
+        updateIPView();
     }
-    .animate-float { animation: float 6s ease-in-out infinite; }
-</style>
+
+    function updateIPView() {
+        const btnJava = document.getElementById('tab-java');
+        const btnBedrock = document.getElementById('tab-bedrock');
+        const ipDisplay = document.getElementById('ip-address');
+        const portContainer = document.getElementById('port-container');
+
+        if (currentTab === 'java') {
+            btnJava.className = "px-6 py-2 bg-white/10 text-white rounded-lg text-xs font-bold transition-all border border-white/10 uppercase tracking-widest";
+            btnBedrock.className = "px-6 py-2 text-zinc-400 hover:text-white rounded-lg text-xs font-bold transition-all border border-transparent hover:bg-white/5 uppercase tracking-widest";
+            ipDisplay.innerText = srvData.javaIp;
+            portContainer.classList.add('hidden');
+        } else {
+            btnBedrock.className = "px-6 py-2 bg-white/10 text-white rounded-lg text-xs font-bold transition-all border border-white/10 uppercase tracking-widest";
+            btnJava.className = "px-6 py-2 text-zinc-400 hover:text-white rounded-lg text-xs font-bold transition-all border border-transparent hover:bg-white/5 uppercase tracking-widest";
+            ipDisplay.innerText = srvData.bedrockIp;
+            portContainer.classList.remove('hidden');
+            document.getElementById('ip-port').innerText = srvData.port;
+        }
+    }
+
+    window.copyServerIP = async function() {
+        const textToCopy = currentTab === 'java' ? srvData.javaIp : srvData.bedrockIp;
+        await navigator.clipboard.writeText(textToCopy);
+        
+        const btn = document.getElementById('copy-btn');
+        const originalText = btn.innerText;
+        btn.innerText = '¡COPIADO!';
+        btn.classList.add('!bg-green-500', '!text-white');
+        
+        setTimeout(() => {
+            btn.innerText = originalText;
+            btn.classList.remove('!bg-green-500', '!text-white');
+        }, 2000);
+    }
+
+    document.getElementById('tab-java')?.addEventListener('click', () => setTab('java'));
+    document.getElementById('tab-bedrock')?.addEventListener('click', () => setTab('bedrock'));
+</script>
