@@ -15,7 +15,6 @@ interface WikiPage {
 // 1. CARGAMOS LOS MARKDOWN (Historia, Fundador, Guías)
 const mdFiles = import.meta.glob([
     '../data/historia/*.md',
-    '../data/fundador.md',
     '../data/wiki/**/*.md'
 ], { eager: true });
 
