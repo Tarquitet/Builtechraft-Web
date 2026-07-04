@@ -4,7 +4,7 @@
     { "name": "Ingreso", "href": "/how-to", "id": "ingreso" }
   ],
   "right": [
-    { "name": "Info", "href": "/wiki", "id": "wiki" },
+    { "name": "wiki", "href": "/wiki", "id": "wiki" },
     { "name": "Reglas", "href": "/rules", "id": "reglas" },
     { "name": "Soporte", "href": "https://discord.gg/4KzRH5DPzx", "id": "none" }
   ],

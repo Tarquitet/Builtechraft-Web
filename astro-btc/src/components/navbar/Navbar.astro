@@ -78,18 +78,18 @@ const isMapPage = Astro.url.pathname.includes('/maps/');
     #nov-drop.is-open { opacity: 1; visibility: visible; scale: 1; pointer-events: auto; }
 </style>
 
-<script is:inline define:vars={{ isMapPage }}>
+<script is:inline>
     document.addEventListener('DOMContentLoaded', () => {
+        const currentPath = window.location.pathname;
         const navLinks = document.querySelectorAll('.nav-link');
-        const sections = document.querySelectorAll('section[id], div[id]');
-        const htmlEl = document.documentElement;
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const novedadIds = ['survival', 'creativo', 'tecnico', 'modpack'];
-
+        const subLinks = document.querySelectorAll('.submenu-link');
         const novBtn = document.getElementById('nov-btn');
         const novDrop = document.getElementById('nov-drop');
-        
-        if(novBtn && novDrop) {
+        const htmlEl = document.documentElement;
+        const themeToggleBtn = document.getElementById('theme-toggle');
+
+        // 1. Menú desplegable de Mapas
+        if (novBtn && novDrop) {
             novBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 novDrop.classList.toggle('is-open');
@@ -97,69 +97,49 @@ const isMapPage = Astro.url.pathname.includes('/maps/');
             document.addEventListener('click', () => novDrop.classList.remove('is-open'));
         }
 
+        // 2. Lógica de Tema
         const updateThemeIcons = () => {
             const iconMoon = document.getElementById('icon-moon');
             const iconSun = document.getElementById('icon-sun');
             if (htmlEl.classList.contains('light')) {
-                iconMoon.classList.add('hidden'); iconSun.classList.remove('hidden');
+                iconMoon?.classList.add('hidden');
+                iconSun?.classList.remove('hidden');
             } else {
-                iconMoon.classList.remove('hidden'); iconSun.classList.add('hidden');
+                iconMoon?.classList.remove('hidden');
+                iconSun?.classList.add('hidden');
             }
         };
-        
         updateThemeIcons();
-        
-        if(themeToggleBtn) {
-            themeToggleBtn.addEventListener('click', () => {
-                htmlEl.classList.toggle('light');
-                updateThemeIcons();
-                localStorage.setItem('theme', htmlEl.classList.contains('light') ? 'light' : 'dark');
-            });
-        }
 
-        if (isMapPage) {
-            const currentPath = window.location.pathname;
-            document.querySelectorAll('.submenu-link').forEach(link => {
-                if (currentPath === link.getAttribute('href') || currentPath === link.getAttribute('href') + '/') {
-                    link.classList.add('active-sub');
-                    if(novBtn) novBtn.classList.add('active-parent');
-                }
-            });
-        }
+        themeToggleBtn?.addEventListener('click', () => {
+            htmlEl.classList.toggle('light');
+            updateThemeIcons();
+            localStorage.setItem('theme', htmlEl.classList.contains('light') ? 'light' : 'dark');
+        });
 
-        const handleScrollSpy = () => {
-            if (isMapPage) return;
-            let activeId = '';
-            let maxVisibleHeight = 0;
-            
-            sections.forEach(section => {
-                if (section.id === 'novedades') return;
-                const rect = section.getBoundingClientRect();
-                const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
-                if (visibleHeight > 0 && visibleHeight > maxVisibleHeight) {
-                    maxVisibleHeight = visibleHeight;
-                    activeId = section.getAttribute('id');
-                }
-            });
+        // 3. Iluminación enlaces principales (Info, Reglas, etc.)
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href) return;
+            const cleanHref = href.split('#')[0];
 
-            if (activeId) {
-                navLinks.forEach(link => {
-                    const target = link.getAttribute('data-target');
-                    if (link.hasAttribute('data-novedades-parent')) {
-                        link.classList.toggle('active-parent', novedadIds.includes(activeId));
-                    } else {
-                        link.classList.toggle('active', target === activeId);
-                    }
-                });
-                document.querySelectorAll('.submenu-link').forEach(link => {
-                    link.classList.toggle('active-sub', link.getAttribute('data-target') === activeId);
-                });
+            if (currentPath === cleanHref || (cleanHref !== '/' && currentPath.startsWith(cleanHref))) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
             }
-        };
+        });
 
-        if (!isMapPage) {
-            window.addEventListener('scroll', handleScrollSpy, { passive: true });
-            handleScrollSpy();
-        }
+        // 4. Iluminación específica submenú Mapas
+        subLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (currentPath === href || (href !== '/' && currentPath.startsWith(href))) {
+                link.classList.add('active-sub');
+                // Iluminamos el botón padre si estamos en un mapa
+                if (novBtn) novBtn.classList.add('active-parent');
+            } else {
+                link.classList.remove('active-sub');
+            }
+        });
     });
 </script>
