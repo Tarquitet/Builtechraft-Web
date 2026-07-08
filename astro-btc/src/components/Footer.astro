@@ -2,27 +2,52 @@
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="bg-black border-t border-white/5 py-12 relative overflow-hidden">
-
+<footer class="bg-black border-t border-white/5 pt-10 pb-4 relative overflow-hidden">
     <div class="container mx-auto px-6 relative z-10">
-        <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+        
+        <div class="hidden md:grid grid-cols-12 gap-8 border-b border-white/10 pb-8 mb-6">
             
-            <div class="text-zinc-300 text-sm font-mono">
-                <p>&copy; {currentYear} <span class="text-btc-orange font-bold">Builtechraft</span> - Todos los derechos reservados.</p>
-                <p class="text-xs mt-1 opacity-90">No afiliado con Mojang AB.</p>
+            <div class="col-span-12 md:col-span-5 lg:col-span-4">
+                <img src="/images/logo-text.webp" alt="Builtechraft" class="h-8 w-auto mb-4" loading="lazy" />
+                <p class="text-zinc-400 text-sm leading-relaxed max-w-sm">
+                    Servidor privado de Minecraft. Documentación oficial, normas y recursos de la comunidad.
+                </p>
             </div>
 
-            <div class="flex flex-col md:flex-row items-center gap-2 text-sm font-mono text-zinc-300">
+            <div class="col-span-12 md:col-span-7 lg:col-span-8 flex gap-12 lg:gap-24 md:justify-end">
                 
-                <span class="opacity-90">Develop by</span>
-                
+                <div class="flex flex-col gap-3">
+                    <h4 class="text-white font-bold tracking-widest text-xs uppercase mb-1">Guías y Soporte</h4>
+                    <a href="/wiki#faq" class="text-zinc-400 hover:text-btc-orange transition-colors text-sm font-medium">Preguntas Frecuentes</a>
+                    <a href="/wiki#launchers" class="text-zinc-400 hover:text-btc-orange transition-colors text-sm font-medium">Guía de Launchers</a>
+                    <a href="/how-to" class="text-zinc-400 hover:text-btc-orange transition-colors text-sm font-medium">¿Cómo ingresar?</a>
+                </div>
+
+                <div class="flex flex-col gap-3">
+                    <h4 class="text-white font-bold tracking-widest text-xs uppercase mb-1">Comunidad</h4>
+                    <a href="/rules" class="text-zinc-400 hover:text-btc-orange transition-colors text-sm font-medium">Normativas</a>
+                    <a href="https://discord.gg/4KzRH5DPzx" target="_blank" rel="noopener noreferrer" class="text-zinc-400 hover:text-btc-orange transition-colors text-sm font-medium">Soporte en Discord</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="flex flex-col md:flex-row items-center justify-between text-center md:text-left gap-4">
+            
+            <div class="text-zinc-400 text-xs font-mono">
+                <p>&copy; {currentYear} <span class="text-btc-orange font-bold">Builtechraft</span> - Todos los derechos reservados.</p>
+                <p class="text-[10px] mt-1 opacity-70">No afiliado con Mojang AB.</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center gap-2 text-xs font-mono text-zinc-400">
+                <span class="opacity-70">Developed by</span>
                 <a 
                     href="https://web.tarquitet.com" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     class="group flex items-center gap-2 bg-white/5 px-3 py-1 rounded-full border border-white/10 hover:border-btc-orange/50 hover:bg-white/10 transition-all duration-300"
                 >
-                    <span class="text-white font-bold group-hover:text-btc-yellow transition-colors">
+                    <span class="text-white font-bold group-hover:text-btc-yellow transition-colors text-xs">
                         Tarquitet
                     </span>
                     <svg class="w-3 h-3 text-zinc-500 group-hover:text-btc-yellow transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">

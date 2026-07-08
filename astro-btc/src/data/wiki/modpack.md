@@ -1,7 +1,7 @@
 ---
 title: 'Modpack Modrinth'
-category: 'Guías y Conexión'
-order: 1
+category: 'Soporte'
+order: 12
 imagen: '/images/gallery/2_1.avif'
 ---
 

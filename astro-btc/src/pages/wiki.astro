@@ -88,7 +88,7 @@ const groupedPages = allPages.reduce((acc: Record<string, WikiPage[]>, page) => 
                 </h2>
                 <div class="space-y-2">
                     {Object.entries(groupedPages).map(([category, items]) => (
-                        <details class="group">
+                        <details class="group" open>
                             <summary class="flex justify-between items-center cursor-pointer list-none text-[10px] font-bold text-zinc-400 hover:text-white uppercase tracking-[0.2em] py-2 select-none transition-colors">
                                 {category}
                                 <svg class="w-4 h-4 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>

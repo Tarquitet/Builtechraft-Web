@@ -1,21 +1,51 @@
 ---
 // src/components/navbar/LanguagePicker.astro
 ---
+
 <div class="relative group">
-    <!-- Botón Principal -->
-    <button class="flex items-center gap-2 bg-black/40 border border-white/10 rounded-full px-4 py-2 hover:border-btc-orange/50 transition-all text-xs font-bold uppercase tracking-widest text-zinc-300 hover:text-white shadow-inner cursor-pointer">
+    <button type="button" class="flex items-center gap-2 bg-black/40 border border-white/10 rounded-full px-4 py-2 hover:border-btc-orange/50 transition-all text-xs font-bold uppercase tracking-widest text-zinc-300 hover:text-white shadow-inner cursor-pointer">
         <svg class="w-4 h-4 text-btc-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
         <span class="current-lang-text">ES</span>
         <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
     </button>
     
-    <!-- Menú Desplegable -->
     <div class="absolute right-0 top-full mt-2 w-32 bg-[#111] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 transform origin-top-right scale-95 group-hover:scale-100 flex flex-col overflow-hidden">
-        <button onclick="window.setLanguage('es')" class="px-4 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-white hover:bg-btc-orange/20 transition-colors w-full cursor-pointer">
+        <button type="button" onclick="window.setLanguage('es', 'ES')" class="px-4 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-white hover:bg-btc-orange/20 transition-colors w-full cursor-pointer">
             Español
         </button>
-        <button onclick="window.setLanguage('en')" class="px-4 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-white hover:bg-btc-orange/20 transition-colors border-t border-white/5 w-full cursor-pointer">
+        <button type="button" onclick="window.setLanguage('en', 'EN')" class="px-4 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-white hover:bg-btc-orange/20 transition-colors border-t border-white/5 w-full cursor-pointer">
             English
         </button>
     </div>
 </div>
+
+<script is:inline>
+    // Validamos que la función no exista ya, por si el componente se renderiza dos veces (Móvil y Desktop)
+    if (typeof window.setLanguage === 'undefined') {
+        window.setLanguage = function(langCode, langLabel) {
+            const domain = window.location.hostname;
+            
+            if (langCode === 'es') {
+                document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=${domain}; path=/;`;
+                document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=.${domain}; path=/;`;
+            } else {
+                document.cookie = `googtrans=/es/${langCode}; path=/;`;
+                document.cookie = `googtrans=/es/${langCode}; domain=${domain}; path=/;`;
+                document.cookie = `googtrans=/es/${langCode}; domain=.${domain}; path=/;`;
+            }
+            
+            window.location.reload();
+        };
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Actualiza el texto de TODOS los botones de idioma en pantalla
+        const langTexts = document.querySelectorAll('.current-lang-text');
+        if (document.cookie.includes('/es/en')) {
+            langTexts.forEach(el => el.innerText = 'ENG');
+        } else {
+            langTexts.forEach(el => el.innerText = 'ESP');
+        }
+    });
+</script>
