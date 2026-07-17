@@ -1,5 +1,5 @@
 ---
-// src/pages/instrucciones.astro
+// src/pages/how-to.astro
 import Layout from '../layouts/Layout.astro';
 import ConfigLoader from '../components/ip/ConfigLoader.astro';
 import Steps from '../components/ip/Steps.astro';
@@ -8,14 +8,10 @@ const bgImage = "url('/images/gallery/2_4.avif')";
 ---
 
 <Layout title="Play | Builtechraft" description="Guía paso a paso para conectarte al servidor.">
-    
     <ConfigLoader />
 
     <main id="ingreso" class="pt-20 pb-0 min-h-screen bg-[#0a0a0c]">
-        
-        <!-- HERO CENTRALIZADO -->
         <section class="relative w-full py-24 md:py-32 overflow-hidden flex flex-col items-center justify-center text-center">
-            <!-- Fondo -->
             <div class="absolute inset-0 z-0 bg-cover bg-center opacity-40" style={{ backgroundImage: bgImage }}></div>
             <div class="absolute inset-0 z-1 bg-black/25"></div>
 
@@ -30,45 +26,121 @@ const bgImage = "url('/images/gallery/2_4.avif')";
             </div>
         </section>
 
-        <!-- REQUISITOS DE CUENTA Y VERSIÓN -->
         <section class="bg-[#111] py-16 border-y border-white/5 relative z-10">
             <div class="container mx-auto px-6 max-w-5xl">
                 <h2 class="text-3xl font-display font-bold text-white text-center mb-12 uppercase tracking-tight">Requisitos Mínimos</h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-center md:text-left divide-y md:divide-y-0 md:divide-x divide-white/10">
-                    <!-- Req 1: Versión -->
+                    
+                    <!-- Req 1: Versión Java -->
                     <div class="flex flex-col md:flex-row items-center md:items-start gap-6 md:pr-12 pt-6 md:pt-0">
                         <div class="w-14 h-14 shrink-0 bg-green-500/10 text-green-500 rounded-full flex items-center justify-center border border-green-500/20">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
                         </div>
                         <div>
-                            <h3 class="text-xl font-bold text-white mb-2 uppercase">Versión del Juego</h3>
-                            <p class="text-zinc-400 text-sm leading-relaxed">Asegúrate de entrar con <strong id="req-version-text" class="text-white">Minecraft 1.21.x</strong>. El servidor está siempre actualizado a las últimas versiones estables.</p>
+                            <h3 class="text-xl font-bold text-white mb-2 uppercase">Versión Java</h3>
+                            <p class="text-zinc-400 text-sm leading-relaxed">
+                                Asegúrate de entrar con la <strong id="req-version-text" class="text-white">Minecraft 1.21.x</strong>. Recomendamos la última versión disponible.
+                                <span id="req-version-subtext" class="block mt-1 text-zinc-500 text-xs"></span>
+                            </p>
                         </div>
                     </div>
                     
-                    <!-- Req 2: Cuentas Ely.by / Premium -->
+                    <!-- Req 2: Cuentas -->
                     <div class="flex flex-col md:flex-row items-center md:items-start gap-6 md:pl-12 pt-12 md:pt-0">
                         <div class="w-14 h-14 shrink-0 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center border border-blue-500/20">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                         </div>
                         <div>
                             <h3 class="text-xl font-bold text-white mb-2 uppercase">Cuenta de Minecraft</h3>
-                            <p class="text-zinc-400 text-sm leading-relaxed">Necesitas una cuenta <strong>Premium</strong> oficial, o bien utilizar una cuenta gratuita vinculada a <strong class="text-white">Ely.by</strong> si no cuentas con una.</p>
+                            <p class="text-zinc-400 text-sm leading-relaxed">
+                                Necesitas una cuenta <strong>Premium</strong> oficial, o bien utilizar una cuenta gratuita vinculada a <strong class="text-white">Ely.by</strong>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Req 3: Bedrock (Oculto por defecto con style, sin clase 'hidden' para evitar conflicto con Tailwind) -->
+                    <div id="bedrock-req-container" class="flex-col md:flex-row items-center md:items-start gap-6 md:pr-12 pt-12 md:pt-0 md:col-span-2 border-t border-white/10 mt-8 md:mt-0 md:border-t-0" style="display: none;">
+                        <div class="w-14 h-14 shrink-0 bg-purple-500/10 text-purple-500 rounded-full flex items-center justify-center border border-purple-500/20">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2 uppercase">Versión Bedrock</h3>
+                            <p class="text-zinc-400 text-sm leading-relaxed">
+                                Compatible con la versión <strong id="req-bedrock-version" class="text-white">1.21.x</strong>. 
+                                <span class="block mt-1">Puedes usar una cuenta premium o no premium.</span>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <Steps />
+
+        <!-- NUEVA SECCIÓN: SOPORTE Y DISCORD -->
+        <section class="py-16 bg-[#111] border-t border-white/5 relative z-10">
+            <div class="container mx-auto px-6 max-w-4xl text-center">
+                <div class="bg-[#5865F2]/5 border border-[#5865F2]/20 rounded-3xl p-8 md:p-12 relative overflow-hidden group hover:border-[#5865F2]/40 transition-all duration-300">
+                    <!-- Efecto de brillo decorativo -->
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-[#5865F2]/10 blur-3xl rounded-full pointer-events-none group-hover:bg-[#5865F2]/20 transition-all duration-500"></div>
+                    
+                    <div class="relative z-10 flex flex-col items-center gap-6">
+                        <div class="w-16 h-16 bg-[#5865F2] rounded-2xl flex items-center justify-center shadow-lg shadow-[#5865F2]/20 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/>
+                            </svg>
+                        </div>
+                        
+                        <div class="max-w-2xl">
+                            <h3 class="text-2xl md:text-3xl font-display font-bold text-white uppercase tracking-tight mb-3">
+                                ¿Necesitas ayuda?
+                            </h3>
+                            <p class="text-zinc-400 text-sm md:text-base leading-relaxed mb-6">
+                                Únete a nuestro servidor de Discord para solicitar tu acceso, resolver dudas técnicas o reportar problemas. 
+                                <br>
+                            </p>
+                            
+                            <a id="discord-support-link" href="#" target="_blank" class="inline-flex items-center gap-2 bg-[#5865F2] hover:bg-[#4752C4] text-white px-8 py-3.5 rounded-xl font-bold uppercase text-xs tracking-widest transition-all shadow-lg shadow-[#5865F2]/20 hover:shadow-[#5865F2]/40 hover:-translate-y-0.5">
+                                <span>Unirse al Discord</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- SECCIÓN DE IP E INSTRUCCIONES DINÁMICAS -->
-        <Steps />
     </main>
 </Layout>
 
 <script is:inline>
-    // Actualizamos el texto de la versión en los requisitos según el ConfigLoader
     window.addEventListener('btc:config-loaded', (e) => {
-        document.getElementById('req-version-text').innerText = `Minecraft ${e.detail["JavaMax"] || 'Actual'}`;
+        const data = e.detail;
+        
+        const versionText = document.getElementById('req-version-text');
+        const versionSubtext = document.getElementById('req-version-subtext');
+        
+        if (data.isMultiVersion) {
+            versionText.innerText = `Minecraft ${data.JavaMin} ➔ ${data.JavaMax}`;
+            versionSubtext.innerText = `(Recomendado: ${data.JavaMax})`;
+        } else {
+            versionText.innerText = `Minecraft ${data.JavaMax || 'Actual'}`;
+            versionSubtext.innerText = '';
+        }
+
+        if (data.isBedrock) {
+            const bedrockContainer = document.getElementById('bedrock-req-container');
+            const bedrockVersion = document.getElementById('req-bedrock-version');
+            
+            if (bedrockContainer) bedrockContainer.style.display = 'flex';
+            if (bedrockVersion) bedrockVersion.innerText = data.BedrockVer || 'Última versión';
+        }
+
+        // NUEVO: Asignar el enlace de Discord desde la config
+        const discordLink = document.getElementById('discord-support-link');
+        if (discordLink && data.DiscordURL) {
+            discordLink.href = data.DiscordURL;
+        }
     });
 </script>

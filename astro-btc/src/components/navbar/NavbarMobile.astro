@@ -30,7 +30,7 @@ const novedadItems = navData.mapa;
             
             <div class="flex flex-col items-center gap-6 w-full">
                 {leftItems.map((item: any) => (
-                    <a href={item.href} class="mobile-nav-link text-base font-bold uppercase tracking-widest transition-all relative group py-2" data-target={item.id}>
+                    <a href={item.href}  class="mobile-nav-link text-base font-bold uppercase tracking-widest transition-all relative group py-2" data-target={item.id}>
                         {item.name}
                         <span class="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full nav-line"></span>
                     </a>
@@ -41,7 +41,7 @@ const novedadItems = navData.mapa;
                 <p class="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-4">Mapas</p>
                 <div class="flex flex-col gap-2 w-full max-w-xs">
                     {novedadItems.map((item: any) => (
-                        <a href={item.href} class="mobile-submenu-link text-xs font-bold text-zinc-400 uppercase tracking-widest py-3 px-6 rounded-lg hover:bg-white/5 hover:text-btc-orange transition-all text-center w-full" data-target={item.id}>
+                        <a href={item.href}  class="mobile-submenu-link text-xs font-bold text-zinc-400 uppercase tracking-widest py-3 px-6 rounded-lg hover:bg-white/5 hover:text-btc-orange transition-all text-center w-full" data-target={item.id}>
                             {item.name}
                         </a>
                     ))}

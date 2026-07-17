@@ -3,10 +3,11 @@
 export const title = "Miembros del Equipo";
 export const category = "Equipo y Staff";
 export const order = 2;
+
+import { getStaffData } from '../../utils/sheetsClient.js';
 ---
 
 <section id="staff" class="py-24 relative overflow-hidden border-y border-white/5 bg-[#111]">
-
     <div class="container mx-auto px-6 relative z-10 max-w-6xl">
         <h2 class="text-4xl md:text-5xl font-display font-bold text-center mb-16 uppercase text-white tracking-tight drop-shadow-lg">
             Nuestro <span class="text-btc-orange">Equipo</span>
@@ -16,7 +17,7 @@ export const order = 2;
             <span class="text-4xl animate-bounce">👥</span>
             <span class="animate-pulse font-bold tracking-widest uppercase text-sm">Cargando equipo...</span>
         </div>
-
+        
         <div id="staff-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 hidden"></div>
     </div>
 </section>
@@ -48,17 +49,13 @@ export const order = 2;
     </div>
 </dialog>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js" is:inline></script>
-
 <script>
-    // 1. Corrección de ruta (subimos dos niveles porque estamos en staff/)
     import { getStaffData } from '../../utils/sheetsClient.js';
 
     document.addEventListener('DOMContentLoaded', async () => {
         const staffGrid = document.getElementById('staff-grid');
         const loadingStaff = document.getElementById('loading-staff');
 
-        // 2. Le decimos a TS que "rol" es un string
         const getRoleConfig = (rol: string) => {
             const r = rol?.toLowerCase().trim() || '';
             if (r.includes('lider') || r.includes('líder')) return { displayName: 'Líder', text: 'text-btc-orange', gradient: 'bg-gradient-to-br from-btc-orange to-btc-yellow', isRetired: false, weight: 1 };
@@ -69,15 +66,12 @@ export const order = 2;
         };
 
         const defaultAvatar = 'https://ui-avatars.com/api/?name=Staff&background=18181b&color=fff&size=150';
-        
-        // 3. Declaramos explícitamente que es un Array para que TS no se queje
         let globalTeamData: any[] = [];
 
         try {
             let staffMembers = await getStaffData();
             
-            if (staffMembers.length > 0) {
-                // 4. Especificamos tipos "any" en el sort
+            if (staffMembers && staffMembers.length > 0) {
                 staffMembers.sort((a: any, b: any) => {
                     const weightA = getRoleConfig(a.Rol).weight;
                     const weightB = getRoleConfig(b.Rol).weight;
@@ -92,17 +86,19 @@ export const order = 2;
                         const config = member.config;
                         const avatarUrl = member.Avatar?.trim() ? member.Avatar.trim() : defaultAvatar;
                         const imageFilter = config.isRetired ? 'grayscale opacity-70' : '';
-                        const cardStyle = config.isRetired ? 'opacity-80 hover:opacity-100 hover:-translate-y-1' : 'hover:-translate-y-2';
+                        // Optimizamos: will-change y transición selectiva
+                        const cardStyle = config.isRetired ? 'opacity-80' : 'hover:-translate-y-2';
 
                         return `
-                            <button onclick="window.openStaffModal('${member.Nombre}')" class="bg-zinc-900/95 border-2 border-white/5 rounded-3xl p-6 flex flex-col items-center text-center transition-all duration-300 shadow-xl group w-full cursor-pointer focus:outline-none ${cardStyle}">
-                                <div class="w-32 h-32 rounded-2xl overflow-hidden mb-5 p-1 ${config.gradient} shadow-lg relative ${!config.isRetired ? 'group-hover:scale-105' : ''} transition-transform duration-300">
+                            <button onclick="window.openStaffModal('${member.Nombre}')" 
+                                    class="bg-zinc-900/95 border-2 border-white/5 rounded-3xl p-6 flex flex-col items-center text-center shadow-xl w-full cursor-pointer focus:outline-none ${cardStyle}"
+                                    style="will-change: transform; transition: transform 0.3s ease;">
+                                <div class="w-32 h-32 rounded-2xl overflow-hidden mb-5 p-1 ${config.gradient} shadow-lg relative transition-transform duration-300">
                                     <div class="w-full h-full bg-zinc-900 rounded-xl overflow-hidden relative">
-                                        <img src="${avatarUrl}" alt="Avatar de ${member.Nombre}" class="w-full h-full object-cover transition-all duration-500 ${!config.isRetired ? 'group-hover:scale-110' : ''} ${imageFilter}" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='${defaultAvatar}';" />
-                                        ${config.isRetired ? '<div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-300"></div>' : ''}
+                                        <img src="${avatarUrl}" alt="${member.Nombre}" class="w-full h-full object-cover ${imageFilter}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='${defaultAvatar}';" />
                                     </div>
                                 </div>
-                                <h3 class="text-xl font-bold uppercase text-white mb-2 truncate w-full ${!config.isRetired ? `group-hover:${config.text}` : ''} transition-colors">${member.Nombre}</h3>
+                                <h3 class="text-xl font-bold uppercase text-white mb-2 truncate w-full transition-colors">${member.Nombre}</h3>
                                 <span class="text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-lg bg-black/40 border border-white/5 ${config.text}">${config.displayName}</span>
                             </button>
                         `;
@@ -112,84 +108,40 @@ export const order = 2;
                 if (loadingStaff) loadingStaff.style.display = 'none';
                 if (staffGrid) staffGrid.classList.remove('hidden');
 
-                // LÓGICA DEL MODAL (con validaciones estrictas de TS)
-                // Usamos "as HTMLDialogElement" para que TS sepa que tiene la función close()
                 const staffModal = document.getElementById('staff-modal') as HTMLDialogElement | null;
                 const modalContent = staffModal ? staffModal.querySelector('.modal-content') : null;
 
-                // Anclamos la función a 'window as any' para evitar el error de TS en el window
                 (window as any).openStaffModal = (name: string) => {
                     const m = globalTeamData.find(member => member.Nombre === name);
                     if (!m || !staffModal || !modalContent) return;
 
                     const config = m.config;
-                    const avatarUrl = m.Avatar?.trim() ? m.Avatar.trim() : defaultAvatar;
-
-                    const nameEl = document.getElementById('modal-name');
-                    if (nameEl) nameEl.textContent = m.Nombre;
-
-                    const roleEl = document.getElementById('modal-role');
-                    if (roleEl) {
-                        roleEl.textContent = config.displayName;
-                        roleEl.className = `text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-1.5 bg-black/30 rounded-full border border-white/5 mb-6 ${config.text}`;
-                    }
+                    document.getElementById('modal-name')!.textContent = m.Nombre;
+                    const roleEl = document.getElementById('modal-role')!;
+                    roleEl.textContent = config.displayName;
+                    roleEl.className = `text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-1.5 bg-black/30 rounded-full border border-white/5 mb-6 ${config.text}`;
                     
-                    const bioKey = Object.keys(m).find(k => k.toLowerCase().includes('bio'));
-                    const bioText = (bioKey && m[bioKey]) ? m[bioKey].trim() : "Miembro del equipo de Builtechraft.";
-                    const bioEl = document.getElementById('modal-bio');
-                    if (bioEl) bioEl.textContent = bioText;
+                    document.getElementById('modal-bio')!.textContent = m.Bio || "Miembro del equipo de Builtechraft.";
                     
-                    // Casteamos como HTMLImageElement para que tenga la propiedad .src
-                    const img = document.getElementById('modal-img') as HTMLImageElement | null;
-                    if (img) {
-                        img.src = avatarUrl;
-                        img.className = `relative w-full h-full rounded-full object-cover bg-black ${config.isRetired ? 'grayscale' : ''}`;
-                    }
+                    const img = document.getElementById('modal-img') as HTMLImageElement;
+                    img.src = m.Avatar || defaultAvatar;
+                    document.getElementById('modal-header')!.className = `h-32 w-full relative ${config.gradient}`;
+                    document.getElementById('modal-img-border')!.className = `absolute inset-0 rounded-full opacity-50 ${config.gradient}`;
+
+                    const socialsDiv = document.getElementById('modal-socials')!;
+                    socialsDiv.innerHTML = '';
                     
-                    const headerEl = document.getElementById('modal-header');
-                    if (headerEl) headerEl.className = `h-32 w-full relative ${config.gradient}`;
-
-                    const borderEl = document.getElementById('modal-img-border');
-                    if (borderEl) borderEl.className = `absolute inset-0 rounded-full opacity-50 ${config.gradient}`;
-
-                    const container = document.getElementById('modal-socials-container');
-                    const socialsDiv = document.getElementById('modal-socials');
-                    if (socialsDiv) socialsDiv.innerHTML = '';
-
-                    const columnasIgnoradas = ['nombre', 'rol', 'avatar', 'config'];
-                    if (bioKey) columnasIgnoradas.push(bioKey.toLowerCase());
-
-                    const redesSociales = Object.keys(m).filter(key => {
-                        const keyLimpiada = key.toLowerCase().trim();
-                        return !columnasIgnoradas.includes(keyLimpiada) && m[key] && m[key].toString().trim() !== '';
-                    });
-
-                    if (redesSociales.length === 0 && container) {
-                        container.classList.add('hidden');
-                    } else if (container && socialsDiv) {
-                        container.classList.remove('hidden');
-                        redesSociales.forEach(red => {
-                            const link = m[red].toString().trim();
+                    const redes = ['Twitch', 'Youtube', 'Github'];
+                    redes.forEach(red => {
+                        if (m[red] && m[red].trim() !== '') {
                             const a = document.createElement('a');
-                            const isDiscord = red.toLowerCase() === 'discord';
-                            
-                            a.href = isDiscord ? '#' : link;
-                            if (!isDiscord) a.target = '_blank';
-                            a.className = 'px-5 py-2.5 bg-white/5 hover:bg-btc-orange border border-white/10 hover:border-btc-orange rounded-xl text-[10px] font-bold uppercase tracking-widest text-zinc-300 hover:text-white transition-all duration-300';
-                            
-                            if (isDiscord) {
-                                a.onclick = (e) => {
-                                    e.preventDefault();
-                                    navigator.clipboard.writeText(link);
-                                    const oldText = a.textContent;
-                                    a.textContent = '¡Copiado!';
-                                    setTimeout(() => a.textContent = oldText, 2000);
-                                };
-                            }
+                            a.href = m[red];
+                            a.target = '_blank';
+                            a.className = 'px-5 py-2.5 bg-white/5 hover:bg-btc-orange border border-white/10 hover:border-btc-orange rounded-xl text-[10px] font-bold uppercase tracking-widest text-zinc-300 hover:text-white transition-all';
                             a.textContent = red;
                             socialsDiv.appendChild(a);
-                        });
-                    }
+                        }
+                    });
 
                     staffModal.showModal();
                     staffModal.classList.remove('opacity-0', 'pointer-events-none');
@@ -206,13 +158,10 @@ export const order = 2;
                     staffModal.classList.add('opacity-0', 'pointer-events-none');
                     setTimeout(() => staffModal.close(), 300);
                 };
-
-            } else {
-                if (loadingStaff) loadingStaff.innerHTML = "<span class='text-red-400 font-bold'>El Excel de Staff está vacío.</span>";
             }
         } catch (error) {
             console.error("Error cargando staff:", error);
-            if (loadingStaff) loadingStaff.innerHTML = "<span class='text-red-400 font-bold'>Error sincronizando datos con Google Sheets.</span>";
+            if (loadingStaff) loadingStaff.innerHTML = "<span class='text-red-400 font-bold'>Error al conectar con la API.</span>";
         }
     });
 </script>

@@ -1,43 +1,55 @@
----
-// src/components/ip/ConfigLoader.astro
----
 <script>
-    import { getClientConfigTSV, getModsAndDatapacks, checkServerFeatures } from '../../utils/sheetsClient.js';
+    import { getClientConfigTSV, getModsAndDatapacks } from '../../utils/sheetsClient.js';
 
-    document.addEventListener('DOMContentLoaded', async () => {
-        // 1. Descargamos Configuración y disparamos evento global
-        const configData = await getClientConfigTSV();
-        window.dispatchEvent(new CustomEvent('btc:config-loaded', { detail: configData }));
-
-        // 2. Descargamos Mods con seguro anti-caídas
-        let features = { isBedrock: false, isMultiVersion: false };
-        try {
-            const { mods } = await getModsAndDatapacks();
-            features = checkServerFeatures(mods);
-        } catch(e) {
-            console.error("Error al leer mods, asumiendo Java estándar.");
+    async function loadConfig() {
+        const CACHE_DURATION = 5 * 60 * 1000; // 5 minutos en milisegundos
+        const cached = sessionStorage.getItem('btc_config');
+        const cachedTime = sessionStorage.getItem('btc_config_time');
+        
+        // Si hay caché y no ha expirado, úsalo (instantáneo)
+        if (cached && cachedTime && (Date.now() - parseInt(cachedTime) < CACHE_DURATION)) {
+            const data = JSON.parse(cached);
+            window.dispatchEvent(new CustomEvent('btc:config-loaded', { detail: data }));
+            return;
         }
-        // Avisamos a las cajas qué deben mostrar
-        window.dispatchEvent(new CustomEvent('btc:features-loaded', { detail: features }));
 
-        // 3. Función global de copiado
-        (window as any).copyText = async function(btnElement: HTMLElement, targetId: string) {
+        // Si no hay caché o expiró, pide a la API
+        try {
+            const configData = await getClientConfigTSV();
+            
+            let isBedrock = false;
+            let isMultiVersion = false;
+            
             try {
-                const textEl = document.getElementById(targetId);
-                if (!textEl) return;
+                const { mods } = await getModsAndDatapacks();
+                
+                // TIPOS EXPLÍCITOS APLICADOS AQUÍ PARA SATISFACER A TYPESCRIPT
+                const modsNames = mods.map((m: any) => m.name.toLowerCase());
+                isBedrock = modsNames.some((name: string) => name.includes('geyser'));
+                isMultiVersion = modsNames.some((name: string) => 
+                    name.includes('viaversion') || name.includes('viabackwards') || name.includes('viarewind')
+                );
+            } catch (e) {
+                console.warn("No se pudieron leer los mods.");
+            }
 
-                await navigator.clipboard.writeText(textEl.innerText);
-                const originalText = btnElement.innerText;
-                if (originalText === "¡COPIADO!") return;
-                
-                btnElement.innerText = "¡COPIADO!";
-                btnElement.classList.add('!bg-green-600', '!text-white', '!border-green-500');
-                
-                setTimeout(() => {
-                    btnElement.innerText = originalText;
-                    btnElement.classList.remove('!bg-green-600', '!text-white', '!border-green-500');
-                }, 2000);
-            } catch (err) { console.error('Error al copiar:', err); }
-        };
-    });
+            const finalData = {
+                ...configData,
+                isBedrock,
+                isMultiVersion
+            };
+
+            // Guardar en caché con marca de tiempo
+            sessionStorage.setItem('btc_config', JSON.stringify(finalData));
+            sessionStorage.setItem('btc_config_time', Date.now().toString());
+
+            window.dispatchEvent(new CustomEvent('btc:config-loaded', { detail: finalData }));
+
+        } catch (error) {
+            console.error("Error cargando configuración:", error);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadConfig);
+    document.addEventListener('astro:page-load', loadConfig);
 </script>

@@ -126,20 +126,31 @@ const socialImageURL = new URL(image, Astro.url);
     
     if (!heroSection || !heroNavbar) return;
     
+    // Optimización: Usamos requestAnimationFrame para evitar "layout thrashing"
+    let ticking = false;
+    
     const handleScroll = () => {
-      const triggerHeight = heroSection.offsetHeight - 200;
-      const currentScroll = window.scrollY;
-      
-      if (currentScroll > triggerHeight) {
-        heroNavbar.style.opacity = '0';
-        heroNavbar.style.pointerEvents = 'none';
-      } else {
-        heroNavbar.style.opacity = '1';
-        heroNavbar.style.pointerEvents = 'auto';
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const triggerHeight = heroSection.offsetHeight - 200;
+          const currentScroll = window.scrollY;
+          
+          if (currentScroll > triggerHeight) {
+            heroNavbar.style.opacity = '0';
+            heroNavbar.style.pointerEvents = 'none';
+          } else {
+            heroNavbar.style.opacity = '1';
+            heroNavbar.style.pointerEvents = 'auto';
+          }
+          ticking = false; // Liberamos el bloqueo para el siguiente frame
+        });
+        ticking = true; // Bloqueamos hasta que se complete el frame
       }
     };
     
     window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Ejecutamos una vez al inicio para establecer el estado correcto
     handleScroll();
   });
 </script>
