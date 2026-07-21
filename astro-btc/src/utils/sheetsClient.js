@@ -3,53 +3,58 @@
 // URL de tu API en Google Apps Script
 const API_URL =
   'https://script.google.com/macros/s/AKfycbw8lIVo7W1O_M-GHpNWPD79K966m59ytDDlEuDoE3Ee6bAVyjb--ODrjjXcOeeLr6EB/exec';
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutos
+
+// Función genérica con caché integrada para sessionStorage
+async function fetchWithCache(actionKey, endpointUrl) {
+  const cacheKey = `btc_cache_${actionKey}`;
+  const timeKey = `btc_time_${actionKey}`;
+
+  try {
+    const cached = sessionStorage.getItem(cacheKey);
+    const cachedTime = sessionStorage.getItem(timeKey);
+
+    if (cached && cachedTime && Date.now() - parseInt(cachedTime) < CACHE_DURATION) {
+      return JSON.parse(cached);
+    }
+
+    const response = await fetch(endpointUrl);
+    const data = await response.json();
+
+    sessionStorage.setItem(cacheKey, JSON.stringify(data));
+    sessionStorage.setItem(timeKey, Date.now().toString());
+
+    return data;
+  } catch (error) {
+    console.error(`Error cargando ${actionKey}:`, error);
+    // Si falla la red, intenta devolver lo que tenga en caché aunque haya expirado
+    const fallback = sessionStorage.getItem(cacheKey);
+    if (fallback) return JSON.parse(fallback);
+    return actionKey === 'config' ? {} : [];
+  }
+}
 
 // 1. Configuración Web (IPs, links, etc.)
 export async function getClientConfigTSV() {
-  try {
-    const response = await fetch(`${API_URL}?action=config`);
-    return await response.json(); // Retorna el objeto directamente
-  } catch (error) {
-    console.error('Error cargando configuración:', error);
-    return {};
-  }
+  return await fetchWithCache('config', `${API_URL}?action=config`);
 }
 
 // 2. Roadmap
 export async function getRoadmapData() {
-  try {
-    const response = await fetch(`${API_URL}?action=roadmap`);
-    return await response.json(); // Retorna el array de filas directamente
-  } catch (error) {
-    console.error('Error cargando Roadmap:', error);
-    return [];
-  }
+  return await fetchWithCache('roadmap', `${API_URL}?action=roadmap`);
 }
 
 // 3. Staff
 export async function getStaffData() {
-  try {
-    const response = await fetch(`${API_URL}?action=staff`);
-    return await response.json(); // Retorna el array de miembros
-  } catch (error) {
-    console.error('Error cargando Staff:', error);
-    return [];
-  }
+  return await fetchWithCache('staff', `${API_URL}?action=staff`);
 }
 
 // 4. Mods y Datapacks
 export async function getModsAndDatapacks() {
-  try {
-    const response = await fetch(`${API_URL}?action=mods`);
-    const json = await response.json();
+  const json = await fetchWithCache('mods', `${API_URL}?action=mods`);
 
-    // El backend ya los separó, los devolvemos tal cual
-    return {
-      mods: json.filter((item) => !item.Type.toLowerCase().includes('datapack')),
-      datapacks: json.filter((item) => item.Type.toLowerCase().includes('datapack')),
-    };
-  } catch (error) {
-    console.error('Error cargando Mods:', error);
-    return { mods: [], datapacks: [] };
-  }
+  return {
+    mods: json.filter((item) => !item.Type.toLowerCase().includes('datapack')),
+    datapacks: json.filter((item) => item.Type.toLowerCase().includes('datapack')),
+  };
 }

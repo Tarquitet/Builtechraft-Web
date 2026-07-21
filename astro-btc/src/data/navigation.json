@@ -1,15 +1,16 @@
 {
   "left": [
     { "name": "Inicio", "href": "/", "id": "inicio" },
-    { "name": "Ingreso", "href": "/how-to", "id": "ingreso" }
+    { "name": "Nosotros", "href": "/about", "id": "nosotros" }
   ],
   "right": [
-    { "name": "wiki", "href": "/wiki", "id": "wiki" },
     { "name": "Reglas", "href": "/rules", "id": "reglas" },
-    { "name": "Soporte", "href": "https://discord.gg/4KzRH5DPzx", "id": "none" }
+    { "name": "Wiki", "href": "https://tarquitet.gitbook.io/builtechaft-wiki", "id": "wiki" }
   ],
-  "mapa": [
-    { "name": "Mapa Survival", "href": "/maps/survival", "id": "map-sv" },
-    { "name": "Mapa Creativo", "href": "/maps/creative", "id": "map-cr" }
+  "about_drop": [
+    { "name": "Visión & Mundos", "href": "/about#mundos", "id": "drop-mundos" },
+    { "name": "Features & Mods", "href": "/about#mods", "id": "drop-mods" },
+    { "name": "Mapa Survival", "href": "/maps/survival", "id": "drop-map-sv" },
+    { "name": "Mapa Creativo", "href": "/maps/creative", "id": "drop-map-cr" }
   ]
 }

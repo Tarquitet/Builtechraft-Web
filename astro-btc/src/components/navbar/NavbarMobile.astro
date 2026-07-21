@@ -1,12 +1,9 @@
 ---
 import navData from '../../data/navigation.json';
-import LanguagePicker from './LanguagePicker.astro';
-
 const leftItems = navData.left;
 const rightItems = navData.right;
-const novedadItems = navData.mapa;
+const novedadItems = navData.about_drop;
 ---
-
 <header 
     id="mobile-header" 
     class="lg:hidden fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-black/95 backdrop-blur-md py-2 border-b border-white/5 shadow-2xl"
@@ -20,9 +17,7 @@ const novedadItems = navData.mapa;
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
         </button>
-
-        <div class="z-50 flex items-center gap-4">
-        </div>
+        <div class="z-50 flex items-center gap-4"></div>
     </div>
 
     <nav id="mobile-dropdown" class="absolute top-full left-0 w-full bg-black/98 backdrop-blur-xl border-b border-white/10 transition-all duration-300 origin-top transform scale-y-0 opacity-0 pointer-events-none shadow-2xl">
@@ -30,7 +25,7 @@ const novedadItems = navData.mapa;
             
             <div class="flex flex-col items-center gap-6 w-full">
                 {leftItems.map((item: any) => (
-                    <a href={item.href}  class="mobile-nav-link text-base font-bold uppercase tracking-widest transition-all relative group py-2" data-target={item.id}>
+                    <a href={item.href} class="mobile-nav-link text-base font-bold uppercase tracking-widest transition-all relative group py-2" data-target={item.id}>
                         {item.name}
                         <span class="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full nav-line"></span>
                     </a>
@@ -41,7 +36,7 @@ const novedadItems = navData.mapa;
                 <p class="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-4">Mapas</p>
                 <div class="flex flex-col gap-2 w-full max-w-xs">
                     {novedadItems.map((item: any) => (
-                        <a href={item.href}  class="mobile-submenu-link text-xs font-bold text-zinc-400 uppercase tracking-widest py-3 px-6 rounded-lg hover:bg-white/5 hover:text-btc-orange transition-all text-center w-full" data-target={item.id}>
+                        <a href={item.href} class="mobile-submenu-link text-xs font-bold text-zinc-400 uppercase tracking-widest py-3 px-6 rounded-lg hover:bg-white/5 hover:text-btc-orange transition-all text-center w-full" data-target={item.id}>
                             {item.name}
                         </a>
                     ))}
@@ -55,10 +50,6 @@ const novedadItems = navData.mapa;
                         <span class="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full nav-line"></span>
                     </a>
                 ))}
-            </div>
-
-            <div class="w-full border-t border-white/10 pt-8 mt-2 flex justify-center pb-8">
-                <LanguagePicker />
             </div>
 
         </div>
@@ -83,7 +74,6 @@ const novedadItems = navData.mapa;
         const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
         const mobileSubLinks = document.querySelectorAll('.mobile-submenu-link');
 
-        // 1. Lógica de abrir/cerrar el menú
         const toggleMenu = () => {
             const isClosed = mobileDropdown.classList.contains('scale-y-0');
             if (isClosed) {
@@ -105,7 +95,6 @@ const novedadItems = navData.mapa;
 
         if(mobileBtn) mobileBtn.addEventListener('click', toggleMenu);
 
-        // Cerrar menú al hacer clic en cualquier enlace
         const allLinks = [...mobileNavLinks, ...mobileSubLinks];
         allLinks.forEach(link => {
             link.addEventListener('click', () => {
@@ -113,9 +102,7 @@ const novedadItems = navData.mapa;
             });
         });
 
-        // 2. Iluminación Unificada de Enlaces por URL (Igual que en Desktop)
         const currentPath = window.location.pathname.replace(/\/$/, "");
-
         const highlightMobileLinks = () => {
             mobileNavLinks.forEach(link => {
                 const href = link.getAttribute('href')?.replace(/\/$/, "");
@@ -129,7 +116,6 @@ const novedadItems = navData.mapa;
                     link.classList.remove('active');
                 }
             });
-
             mobileSubLinks.forEach(link => {
                 const href = link.getAttribute('href')?.replace(/\/$/, "");
                 if (currentPath === href) {
@@ -139,7 +125,6 @@ const novedadItems = navData.mapa;
                 }
             });
         };
-
         highlightMobileLinks();
     });
 </script>

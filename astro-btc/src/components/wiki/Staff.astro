@@ -3,165 +3,183 @@
 export const title = "Miembros del Equipo";
 export const category = "Equipo y Staff";
 export const order = 2;
-
-import { getStaffData } from '../../utils/sheetsClient.js';
 ---
 
-<section id="staff" class="py-24 relative overflow-hidden border-y border-white/5 bg-[#111]">
-    <div class="container mx-auto px-6 relative z-10 max-w-6xl">
-        <h2 class="text-4xl md:text-5xl font-display font-bold text-center mb-16 uppercase text-white tracking-tight drop-shadow-lg">
+<section id="staff" class="py-24 relative overflow-hidden border-y border-white/5 bg-[#0a0a0c] min-h-[750px]">
+    <div class="container mx-auto px-6 max-w-4xl">
+        <h2 class="text-4xl md:text-5xl font-display font-bold text-center mb-16 uppercase text-white tracking-tight">
             Nuestro <span class="text-btc-orange">Equipo</span>
         </h2>
-        
+
         <div id="loading-staff" class="flex flex-col justify-center items-center py-10 text-zinc-500 gap-3">
-            <span class="text-4xl animate-bounce">👥</span>
+            <span class="text-4xl animate-bounce">👑</span>
             <span class="animate-pulse font-bold tracking-widest uppercase text-sm">Cargando equipo...</span>
         </div>
-        
-        <div id="staff-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 hidden"></div>
+
+        <!-- CONTENEDOR PRINCIPAL CON ALTURA MÍNIMA PARA EVITAR SALTOS -->
+        <div id="staff-container" class="hidden flex-col gap-12 min-h-[450px]">
+            
+            <!-- FILAS JERÁRQUICAS SIMPLES -->
+            <div id="staff-rows" class="flex flex-col gap-10">
+                
+                <!-- Nivel 1: Líder -->
+                <div class="flex flex-col items-center gap-4">
+                    <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-btc-orange bg-btc-orange/10 px-3 py-1 rounded-full border border-btc-orange/20">Líder / Fundador</span>
+                    <div id="row-lider" class="flex flex-wrap justify-center gap-4"></div>
+                </div>
+
+                <!-- Nivel 2: Administradores -->
+                <div class="flex flex-col items-center gap-4">
+                    <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-red-400 bg-red-500/10 px-3 py-1 rounded-full border border-red-500/20">Administradores</span>
+                    <div id="row-admin" class="flex flex-wrap justify-center gap-4"></div>
+                </div>
+
+                <!-- Nivel 3: Vigilantes -->
+                <div class="flex flex-col items-center gap-4">
+                    <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">Vigilantes</span>
+                    <div id="row-vigilante" class="flex flex-wrap justify-center gap-4"></div>
+                </div>
+
+                <!-- Nivel 4: Retirados -->
+                <div class="flex flex-col items-center gap-4 pt-6 border-t border-white/5">
+                    <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 bg-zinc-800/40 px-3 py-1 rounded-full border border-zinc-700/40">Retirados</span>
+                    <div id="row-retirado" class="flex flex-wrap justify-center gap-4 opacity-75"></div>
+                </div>
+
+            </div>
+
+            <!-- TARJETA DE DETALLE -->
+            <div id="staff-detail-card" class="hidden bg-zinc-900 border border-white/10 rounded-3xl p-8 shadow-2xl flex-col sm:flex-row items-center gap-6 relative">
+                <button id="close-detail-btn" class="absolute top-4 right-4 text-zinc-400 hover:text-white p-2 text-xs font-bold uppercase tracking-widest cursor-pointer">
+                    ✕ Cerrar
+                </button>
+                <div id="detail-avatar-container" class="w-24 h-24 rounded-2xl overflow-hidden shrink-0 bg-black border border-white/10">
+                    <img id="detail-avatar" src="" alt="" class="w-full h-full object-cover" />
+                </div>
+                <div class="flex flex-col text-center sm:text-left">
+                    <h3 id="detail-name" class="text-2xl font-bold text-white uppercase mb-1">Nombre</h3>
+                    <span id="detail-role" class="text-xs font-bold uppercase tracking-widest text-btc-orange mb-3">Rol</span>
+                    <p id="detail-bio" class="text-zinc-300 text-xs leading-relaxed mb-4">Biografía...</p>
+                    <div id="detail-socials" class="flex flex-wrap justify-center sm:justify-start gap-2"></div>
+                </div>
+            </div>
+
+        </div>
     </div>
 </section>
 
-<dialog id="staff-modal" class="bg-transparent m-auto w-full h-full max-w-none max-h-none backdrop:bg-black/90 fixed inset-0 z-50 overflow-hidden opacity-0 pointer-events-none transition-opacity duration-300 open:pointer-events-auto">
-    <div class="flex items-center justify-center min-h-screen px-4">
-        <div class="fixed inset-0 cursor-pointer" onclick="window.closeStaffModal()"></div>
-        <div class="relative bg-zinc-900 border border-white/10 rounded-3xl overflow-hidden shadow-2xl transform transition-all sm:max-w-lg w-full scale-95 opacity-0 modal-content duration-300">
-            <button onclick="window.closeStaffModal()" class="absolute top-5 right-5 text-zinc-400 hover:text-white z-20 bg-black/60 p-2 rounded-full border border-white/5">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-            <div id="modal-header" class="h-32 w-full relative">
-                <div class="absolute inset-0 bg-linear-to-b from-black/80 to-zinc-900 z-10"></div>
-            </div>
-            <div class="px-6 pb-8 relative z-20 -mt-16 flex flex-col items-center">
-                <div class="w-32 h-32 rounded-full p-0.75 bg-zinc-800 shadow-xl mb-4 relative">
-                    <div id="modal-img-border" class="absolute inset-0 rounded-full opacity-50"></div>
-                    <img id="modal-img" src="" class="relative w-full h-full rounded-full object-cover bg-black" />
-                </div>
-                <h3 id="modal-name" class="text-3xl font-display font-bold text-white uppercase mb-1 tracking-tight">Nombre</h3>
-                <span id="modal-role" class="text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-1.5 bg-black/30 rounded-full border border-white/5 mb-6">Rol</span>
-                <p id="modal-bio" class="text-zinc-300 text-sm text-center leading-relaxed mb-8 max-w-sm"></p>
-                <div id="modal-socials-container" class="w-full">
-                    <div class="w-full h-px bg-white/5 mb-6"></div>
-                    <div id="modal-socials" class="flex flex-wrap justify-center gap-3"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</dialog>
-
 <script>
-    import { getStaffData } from '../../utils/sheetsClient.js';
+import { getStaffData } from '../../utils/sheetsClient.js';
 
-    document.addEventListener('DOMContentLoaded', async () => {
-        const staffGrid = document.getElementById('staff-grid');
-        const loadingStaff = document.getElementById('loading-staff');
+document.addEventListener('DOMContentLoaded', async () => {
+    const loadingEl = document.getElementById('loading-staff');
+    const container = document.getElementById('staff-container');
+    const rowsWrapper = document.getElementById('staff-rows');
+    const detailCard = document.getElementById('staff-detail-card');
+    const closeBtn = document.getElementById('close-detail-btn');
 
-        const getRoleConfig = (rol: string) => {
-            const r = rol?.toLowerCase().trim() || '';
-            if (r.includes('lider') || r.includes('líder')) return { displayName: 'Líder', text: 'text-btc-orange', gradient: 'bg-gradient-to-br from-btc-orange to-btc-yellow', isRetired: false, weight: 1 };
-            if (r.includes('admin')) return { displayName: 'Admin', text: 'text-red-500', gradient: 'bg-gradient-to-br from-red-600 to-red-400', isRetired: false, weight: 2 };
-            if (r.includes('vigilante')) return { displayName: 'Vigilante', text: 'text-blue-500', gradient: 'bg-gradient-to-br from-blue-600 to-cyan-400', isRetired: false, weight: 3 };
-            if (r.includes('retirado')) return { displayName: 'Staff Retirado', text: 'text-zinc-600', gradient: 'bg-zinc-800', isRetired: true, weight: 99 };
-            return { displayName: rol || 'Staff', text: 'text-zinc-300', gradient: 'bg-zinc-700', isRetired: false, weight: 10 };
-        };
+    const rowLider = document.getElementById('row-lider');
+    const rowAdmin = document.getElementById('row-admin');
+    const rowVigilante = document.getElementById('row-vigilante');
+    const rowRetirado = document.getElementById('row-retirado');
 
-        const defaultAvatar = 'https://ui-avatars.com/api/?name=Staff&background=18181b&color=fff&size=150';
-        let globalTeamData: any[] = [];
+    const defaultAvatar = 'https://ui-avatars.com/api/?name=Staff&background=18181b&color=fff&size=150';
 
-        try {
-            let staffMembers = await getStaffData();
-            
-            if (staffMembers && staffMembers.length > 0) {
-                staffMembers.sort((a: any, b: any) => {
-                    const weightA = getRoleConfig(a.Rol).weight;
-                    const weightB = getRoleConfig(b.Rol).weight;
-                    if (weightA !== weightB) return weightA - weightB;
-                    return a.Nombre.localeCompare(b.Nombre); 
-                });
+    const getRoleCategory = (rol: string) => {
+        const r = rol?.toLowerCase().trim() || '';
+        if (r.includes('lider') || r.includes('líder') || r.includes('fundador')) return 'lider';
+        if (r.includes('admin')) return 'admin';
+        if (r.includes('vigilante') || r.includes('moderador')) return 'vigilante';
+        return 'retirado';
+    };
 
-                globalTeamData = staffMembers.map((m: any) => ({ ...m, config: getRoleConfig(m.Rol) }));
+    const getBorderColor = (cat: string) => {
+        if (cat === 'lider') return 'border-btc-orange hover:border-white';
+        if (cat === 'admin') return 'border-red-500 hover:border-white';
+        if (cat === 'vigilante') return 'border-blue-500 hover:border-white';
+        return 'border-zinc-700 hover:border-zinc-400';
+    };
 
-                if (staffGrid) {
-                    staffGrid.innerHTML = globalTeamData.map(member => {
-                        const config = member.config;
-                        const avatarUrl = member.Avatar?.trim() ? member.Avatar.trim() : defaultAvatar;
-                        const imageFilter = config.isRetired ? 'grayscale opacity-70' : '';
-                        // Optimizamos: will-change y transición selectiva
-                        const cardStyle = config.isRetired ? 'opacity-80' : 'hover:-translate-y-2';
+    try {
+        const staffMembers = await getStaffData();
 
-                        return `
-                            <button onclick="window.openStaffModal('${member.Nombre}')" 
-                                    class="bg-zinc-900/95 border-2 border-white/5 rounded-3xl p-6 flex flex-col items-center text-center shadow-xl w-full cursor-pointer focus:outline-none ${cardStyle}"
-                                    style="will-change: transform; transition: transform 0.3s ease;">
-                                <div class="w-32 h-32 rounded-2xl overflow-hidden mb-5 p-1 ${config.gradient} shadow-lg relative transition-transform duration-300">
-                                    <div class="w-full h-full bg-zinc-900 rounded-xl overflow-hidden relative">
-                                        <img src="${avatarUrl}" alt="${member.Nombre}" class="w-full h-full object-cover ${imageFilter}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='${defaultAvatar}';" />
-                                    </div>
-                                </div>
-                                <h3 class="text-xl font-bold uppercase text-white mb-2 truncate w-full transition-colors">${member.Nombre}</h3>
-                                <span class="text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-lg bg-black/40 border border-white/5 ${config.text}">${config.displayName}</span>
-                            </button>
-                        `;
-                    }).join('');
-                }
-                
-                if (loadingStaff) loadingStaff.style.display = 'none';
-                if (staffGrid) staffGrid.classList.remove('hidden');
+        if (staffMembers && staffMembers.length > 0) {
+            staffMembers.forEach((member: any) => {
+                const cat = getRoleCategory(member.Rol);
+                const borderColor = getBorderColor(cat);
+                const avatarUrl = member.Avatar?.trim() ? member.Avatar.trim() : defaultAvatar;
 
-                const staffModal = document.getElementById('staff-modal') as HTMLDialogElement | null;
-                const modalContent = staffModal ? staffModal.querySelector('.modal-content') : null;
+                const btnHtml = `
+                    <button class="staff-btn bg-zinc-900 border ${borderColor} rounded-2xl px-5 py-3 flex items-center gap-3 cursor-pointer transition-all duration-300 hover:bg-zinc-800 shadow-md group" data-member='${JSON.stringify(member)}'>
+                        <img src="${avatarUrl}" alt="${member.Nombre}" class="w-10 h-10 rounded-full object-cover bg-black" onerror="this.onerror=null; this.src='${defaultAvatar}';" />
+                        <div class="text-left">
+                            <h4 class="text-white font-bold text-xs uppercase tracking-wider group-hover:text-btc-orange transition-colors">${member.Nombre}</h4>
+                            <span class="text-[9px] text-zinc-400 uppercase tracking-widest block">${member.Rol || 'Staff'}</span>
+                        </div>
+                    </button>
+                `;
 
-                (window as any).openStaffModal = (name: string) => {
-                    const m = globalTeamData.find(member => member.Nombre === name);
-                    if (!m || !staffModal || !modalContent) return;
+                if (cat === 'lider' && rowLider) rowLider.innerHTML += btnHtml;
+                else if (cat === 'admin' && rowAdmin) rowAdmin.innerHTML += btnHtml;
+                else if (cat === 'vigilante' && rowVigilante) rowVigilante.innerHTML += btnHtml;
+                else if (rowRetirado) rowRetirado.innerHTML += btnHtml;
+            });
 
-                    const config = m.config;
-                    document.getElementById('modal-name')!.textContent = m.Nombre;
-                    const roleEl = document.getElementById('modal-role')!;
-                    roleEl.textContent = config.displayName;
-                    roleEl.className = `text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-1.5 bg-black/30 rounded-full border border-white/5 mb-6 ${config.text}`;
-                    
-                    document.getElementById('modal-bio')!.textContent = m.Bio || "Miembro del equipo de Builtechraft.";
-                    
-                    const img = document.getElementById('modal-img') as HTMLImageElement;
-                    img.src = m.Avatar || defaultAvatar;
-                    document.getElementById('modal-header')!.className = `h-32 w-full relative ${config.gradient}`;
-                    document.getElementById('modal-img-border')!.className = `absolute inset-0 rounded-full opacity-50 ${config.gradient}`;
-
-                    const socialsDiv = document.getElementById('modal-socials')!;
-                    socialsDiv.innerHTML = '';
-                    
-                    const redes = ['Twitch', 'Youtube', 'Github'];
-                    redes.forEach(red => {
-                        if (m[red] && m[red].trim() !== '') {
-                            const a = document.createElement('a');
-                            a.href = m[red];
-                            a.target = '_blank';
-                            a.className = 'px-5 py-2.5 bg-white/5 hover:bg-btc-orange border border-white/10 hover:border-btc-orange rounded-xl text-[10px] font-bold uppercase tracking-widest text-zinc-300 hover:text-white transition-all';
-                            a.textContent = red;
-                            socialsDiv.appendChild(a);
-                        }
-                    });
-
-                    staffModal.showModal();
-                    staffModal.classList.remove('opacity-0', 'pointer-events-none');
-                    setTimeout(() => {
-                        modalContent.classList.remove('scale-95', 'opacity-0');
-                        modalContent.classList.add('scale-100', 'opacity-100');
-                    }, 10);
-                };
-
-                (window as any).closeStaffModal = () => {
-                    if (!modalContent || !staffModal) return;
-                    modalContent.classList.remove('scale-100', 'opacity-100');
-                    modalContent.classList.add('scale-95', 'opacity-0');
-                    staffModal.classList.add('opacity-0', 'pointer-events-none');
-                    setTimeout(() => staffModal.close(), 300);
-                };
+            if (loadingEl) loadingEl.style.display = 'none';
+            if (container) {
+                container.classList.remove('hidden');
+                container.classList.add('flex');
             }
-        } catch (error) {
-            console.error("Error cargando staff:", error);
-            if (loadingStaff) loadingStaff.innerHTML = "<span class='text-red-400 font-bold'>Error al conectar con la API.</span>";
+
+            const buttons = document.querySelectorAll('.staff-btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const data = JSON.parse(btn.getAttribute('data-member') || '{}');
+                    
+                    if (rowsWrapper) rowsWrapper.style.display = 'none';
+                    
+                    const imgEl = document.getElementById('detail-avatar') as HTMLImageElement;
+                    if (imgEl) imgEl.src = data.Avatar?.trim() ? data.Avatar.trim() : defaultAvatar;
+                    
+                    const nameEl = document.getElementById('detail-name');
+                    if (nameEl) nameEl.textContent = data.Nombre;
+
+                    const roleEl = document.getElementById('detail-role');
+                    if (roleEl) roleEl.textContent = data.Rol || 'Staff';
+
+                    const bioEl = document.getElementById('detail-bio');
+                    if (bioEl) bioEl.textContent = data.Bio || 'Sin biografía disponible.';
+
+                    const socialsEl = document.getElementById('detail-socials');
+                    if (socialsEl) {
+                        socialsEl.innerHTML = '';
+                        ['Twitch', 'Youtube', 'Github'].forEach(red => {
+                            if (data[red] && data[red].trim() !== '') {
+                                socialsEl.innerHTML += `<a href="${data[red]}" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-white/5 hover:bg-btc-orange border border-white/10 rounded-xl text-[10px] font-bold uppercase tracking-widest text-zinc-200 hover:text-white transition-all">${red}</a>`;
+                            }
+                        });
+                    }
+
+                    if (detailCard) {
+                        detailCard.classList.remove('hidden');
+                        detailCard.classList.add('flex');
+                    }
+                });
+            });
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => {
+                    if (detailCard) {
+                        detailCard.classList.remove('flex');
+                        detailCard.classList.add('hidden');
+                    }
+                    if (rowsWrapper) rowsWrapper.style.display = 'flex';
+                });
+            }
         }
-    });
+    } catch (error) {
+        console.error("Error cargando staff:", error);
+        if (loadingEl) loadingEl.innerHTML = "<span class='text-red-400 font-bold'>Error al conectar con la API de Staff.</span>";
+    }
+});
 </script>
