@@ -2,20 +2,83 @@
 // src/components/home/WelcomeSection.astro
 ---
 <section class="py-24 bg-[#0a0a0c] border-t border-white/5 relative z-10">
-    <div class="container mx-auto px-6 max-w-4xl text-center">
-        <span class="px-4 py-1.5 rounded-full border border-btc-orange/30 bg-btc-orange/10 text-btc-orange text-[10px] font-bold uppercase tracking-[0.2em] mb-6 inline-block">
-            Comunidad & Convivencia
-        </span>
-        <h2 class="text-3xl md:text-5xl font-display font-bold text-white uppercase tracking-tight mb-6">
-            Un espacio para construir <span class="text-btc-orange">sin prisas</span>
-        </h2>
-        <p class="text-zinc-300 text-lg md:text-xl leading-relaxed mb-8">
-            Aquí no competimos por quién farmea más rápido ni necesitas ser un experto en redstone avanzada. Ven a relajarte, explora los mundos, diseña a tu ritmo y comparte una experiencia de supervivencia tranquila y colaborativa.
-        </p>
-        <div class="flex flex-wrap justify-center gap-4 text-xs font-bold text-zinc-400 uppercase tracking-widest">
-            <span class="bg-white/5 px-4 py-2 rounded-xl border border-white/5">☕ 100% Chill</span>
-            <span class="bg-white/5 px-4 py-2 rounded-xl border border-white/5">🛡️ Cero Toxicidad</span>
-            <span class="bg-white/5 px-4 py-2 rounded-xl border border-white/5">🎨 Creatividad Libre</span>
+    <div class="container mx-auto px-6 max-w-6xl">
+
+        <!-- Introducción -->
+        <div class="max-w-3xl mb-16">
+            <span class="px-4 py-1.5 rounded-full border border-btc-orange/30 bg-btc-orange/10 text-btc-orange text-[10px] font-bold uppercase tracking-[0.2em] inline-block mb-6">
+                ¿Qué es Builtechraft?
+            </span>
+
+            <h2 class="text-3xl md:text-5xl font-display font-bold text-white uppercase tracking-tight mb-6">
+                Survival para construir,
+                <span class="text-btc-orange">sin perder la esencia de Vanilla</span>
+            </h2>
+
+            <p class="text-zinc-300 text-lg leading-relaxed max-w-2xl">
+                Builtechraft es un servidor Survival privado pensado para quienes disfrutan construyendo, desde una pequeña casa hasta grandes proyectos. Está basado en Fabric y mantiene una experiencia cercana a Minecraft Vanilla con mejoras cuidadosamente seleccionadas.
+            </p>
         </div>
+
+        <!-- Tarjetas -->
+        <div class="grid gap-6 md:grid-cols-2">
+
+            <!-- Vanilla -->
+            <article class="rounded-2xl border border-white/10 bg-white/5 p-8 transition-all duration-300 hover:border-btc-orange/40 hover:bg-white/[0.07]">
+                <h3 class="text-xl font-bold text-white mb-4">
+                    🌿 Vanilla+
+                </h3>
+
+                <p class="text-zinc-400 leading-relaxed">
+                    La esencia de Minecraft es nuestra prioridad. Los mods y datapacks añaden pequeñas mejoras sin cambiar la forma de jugar.
+                </p>
+            </article>
+
+            <!-- Whitelist -->
+            <article class="rounded-2xl border border-white/10 bg-white/5 p-8 transition-all duration-300 hover:border-btc-orange/40 hover:bg-white/[0.07]">
+                <h3 class="text-xl font-bold text-white mb-4">
+                    🔒 Whitelist
+                </h3>
+
+                <p class="text-zinc-400 leading-relaxed">
+                    El acceso es mediante whitelist para mantener una comunidad pequeña, activa y un mundo cuidado a largo plazo.
+                </p>
+            </article>
+
+            <!-- Creativo -->
+            <article class="rounded-2xl border border-white/10 bg-white/5 p-8 transition-all duration-300 hover:border-btc-orange/40 hover:bg-white/[0.07]">
+                <h3 class="text-xl font-bold text-white mb-4">
+                    🏗️ Mundo Creativo
+                </h3>
+
+                <p class="text-zinc-400 leading-relaxed">
+                    Diseña, prueba y planifica tus construcciones antes de llevarlas al mundo Survival.
+                </p>
+            </article>
+
+            <!-- Servidor -->
+            <article class="rounded-2xl border border-white/10 bg-white/5 p-8 transition-all duration-300 hover:border-btc-orange/40 hover:bg-white/[0.07]">
+                <h3 class="text-xl font-bold text-white mb-4">
+                    🖥️ Servidor casero
+                </h3>
+
+                <p class="text-zinc-400 leading-relaxed">
+                    El servidor funciona desde casa. Priorizamos la estabilidad y el mantenimiento antes que la disponibilidad permanente.
+                </p>
+            </article>
+
+        </div>
+
+        <!-- Cierre -->
+        <div class="mt-16 max-w-3xl mx-auto text-center">
+            <blockquote class="text-xl md:text-2xl font-display text-white leading-relaxed italic">
+                "Un buen servidor no se mide por las horas que está encendido, sino por el tiempo que disfrutas jugando en él."
+            </blockquote>
+
+            <p class="mt-5 text-zinc-500 text-sm leading-relaxed">
+                Preferimos dedicar tiempo al mantenimiento, probar nuevas ideas y cuidar cada detalle antes que prometer un servidor abierto las 24 horas sin ofrecer una buena experiencia.
+            </p>
+        </div>
+
     </div>
 </section>

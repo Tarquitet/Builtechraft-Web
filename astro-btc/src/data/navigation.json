@@ -8,9 +8,40 @@
     { "name": "Wiki", "href": "https://tarquitet.gitbook.io/builtechaft-wiki", "id": "wiki" }
   ],
   "about_drop": [
-    { "name": "Visión & Mundos", "href": "/about#mundos", "id": "drop-mundos" },
-    { "name": "Features & Mods", "href": "/about#mods", "id": "drop-mods" },
-    { "name": "Mapa Survival", "href": "/maps/survival", "id": "drop-map-sv" },
-    { "name": "Mapa Creativo", "href": "/maps/creative", "id": "drop-map-cr" }
+    {
+      "name": "Sobre Builtechraft",
+      "href": "/about#vision",
+      "id": "vision"
+    },
+    {
+      "name": "Nuestros Mundos",
+      "href": "/about#mundos",
+      "id": "drop-worlds"
+    },
+    {
+      "name": "Mods & Datapacks",
+      "href": "/about#mods",
+      "id": "drop-mods"
+    },
+    {
+      "name": "Staff",
+      "href": "/about#staff",
+      "id": "drop-staff"
+    },
+    {
+      "name": "Roadmap",
+      "href": "/about#roadmap-section",
+      "id": "drop-roadmap"
+    },
+    {
+      "name": "Mapa Survival",
+      "href": "/maps/survival",
+      "id": "drop-map-sv"
+    },
+    {
+      "name": "Mapa Creativo",
+      "href": "/maps/creative",
+      "id": "drop-map-cr"
+    }
   ]
 }

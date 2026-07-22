@@ -2,52 +2,79 @@
 // src/components/about/WorldsGrid.astro
 ---
 <section id="mundos" class="w-full bg-[#0a0a0c]">
-    
+
     <div class="text-center py-16 container mx-auto px-6 max-w-4xl">
         <h2 class="text-3xl md:text-4xl font-display font-bold text-white uppercase tracking-tight">
-            Nuestros <span class="text-btc-orange">Ecosistemas</span>
+            Nuestros <span class="text-btc-orange">Mundos</span>
         </h2>
-        <p class="text-zinc-400 mt-2 text-sm">Dos mundos diseñados para equilibrar la imaginación y la supervivencia.</p>
+
+        <p class="text-zinc-400 mt-3 text-base leading-relaxed max-w-2xl mx-auto">
+            Builtechraft cuenta con dos mundos principales: uno dedicado al Survival y otro pensado para diseñar, experimentar y preparar construcciones antes de llevarlas al juego.
+        </p>
     </div>
 
-    <!-- Contenedor unido sin bordes ocupando todo el ancho -->
     <div class="grid grid-cols-1 lg:grid-cols-2 w-full">
-        
-        <!-- Mundo Creativo -->
+
+        <!-- Creativo -->
         <div class="relative group overflow-hidden h-[500px] lg:h-[600px] flex flex-col justify-end p-8 md:p-16">
+
             <div class="absolute inset-0 bg-[url('/images/gallery/0_4.avif')] bg-cover bg-center opacity-80"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none"></div>
-            
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+
             <div class="relative z-10 max-w-xl">
-                <span class="text-[10px] font-bold uppercase tracking-widest text-blue-400 bg-blue-500/30 px-3 py-1 rounded-md border border-blue-500/40 mb-3 inline-block">Taller de Ideas</span>
-                <h3 class="text-4xl font-display font-bold text-white uppercase mb-4">Mundo Creativo</h3>
-                <p class="text-zinc-200 text-base leading-relaxed mb-8">
-                    Un espacio libre donde puedes volar, experimentar con bloques y diseñar estructuras complejas a tu propio ritmo antes de llevarlas al survival.
+
+                <span class="text-[10px] font-bold uppercase tracking-widest text-blue-400 bg-blue-500/20 border border-blue-500/40 px-3 py-1 rounded-md inline-block mb-3">
+                    Creativo
+                </span>
+
+                <h3 class="text-4xl font-display font-bold text-white uppercase mb-4">
+                    Mundo Creativo
+                </h3>
+
+                <p class="text-zinc-200 leading-relaxed mb-8">
+                    Un espacio para probar ideas, planificar proyectos y experimentar con bloques antes de construirlos en el Survival. Todo lo que imagines puedes desarrollarlo aquí primero.
                 </p>
-                <a href="/maps/creative" class="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-widest py-4 px-8 rounded-xl transition-all shadow-lg shadow-blue-500/30">
-                    Ver Mapa Creativo 
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+
+                <a href="/maps/creative"
+                    class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-widest py-4 px-8 rounded-xl transition-all">
+
+                    Ver mapa
                 </a>
+
             </div>
+
         </div>
 
-        <!-- Mundo Survival -->
+        <!-- Survival -->
         <div class="relative group overflow-hidden h-[500px] lg:h-[600px] flex flex-col justify-end p-8 md:p-16 border-t lg:border-t-0 lg:border-l border-white/10">
+
             <div class="absolute inset-0 bg-[url('/images/gallery/00.avif')] bg-cover bg-center opacity-80"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none"></div>
-            
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+
             <div class="relative z-10 max-w-xl">
-                <span class="text-[10px] font-bold uppercase tracking-widest text-btc-orange bg-btc-orange/30 px-3 py-1 rounded-md border border-btc-orange/40 mb-3 inline-block">Supervivencia</span>
-                <h3 class="text-4xl font-display font-bold text-white uppercase mb-4">Mundo Survival</h3>
-                <p class="text-zinc-200 text-base leading-relaxed mb-8">
-                    El corazón del servidor. Un entorno colaborativo con mejoras de calidad de vida donde cada rincón refleja el esfuerzo y la dedicación de la comunidad.
+
+                <span class="text-[10px] font-bold uppercase tracking-widest text-btc-orange bg-btc-orange/20 border border-btc-orange/40 px-3 py-1 rounded-md inline-block mb-3">
+                    Survival
+                </span>
+
+                <h3 class="text-4xl font-display font-bold text-white uppercase mb-4">
+                    Mundo Survival
+                </h3>
+
+                <p class="text-zinc-200 leading-relaxed mb-8">
+                    El mundo principal del servidor. Aquí es donde se desarrollan los proyectos, las exploraciones y las construcciones que forman parte de la historia de Builtechraft.
                 </p>
-                <a href="/maps/survival" class="inline-flex items-center justify-center gap-2 bg-btc-orange hover:bg-white hover:text-btc-orange text-white font-bold text-xs uppercase tracking-widest py-4 px-8 rounded-xl transition-all shadow-lg shadow-btc-orange/30">
-                    Ver Mapa Survival 
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+
+                <a href="/maps/survival"
+                    class="inline-flex items-center gap-2 bg-btc-orange hover:bg-white hover:text-btc-orange text-white font-bold text-xs uppercase tracking-widest py-4 px-8 rounded-xl transition-all">
+
+                    Ver mapa
                 </a>
+
             </div>
+
         </div>
 
     </div>
+
 </section>

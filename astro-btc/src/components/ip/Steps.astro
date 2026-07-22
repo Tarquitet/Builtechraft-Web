@@ -1,6 +1,7 @@
 ---
 // src/components/ip/Steps.astro
 ---
+
 <section class="py-24 relative z-10 w-full bg-[#0a0a0c]">
     <div class="container mx-auto px-6 max-w-4xl">
         <div class="text-center mb-12">
@@ -22,7 +23,7 @@
         <!-- CAJA DE DATOS DE CONEXIÓN -->
         <div class="bg-black/60 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-8 w-full shadow-2xl mb-12">
             
-            <!-- Contenedor JAVA (Simple) -->
+            <!-- Contenedor JAVA -->
             <div id="java-display-container" class="flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="flex flex-col w-full text-center md:text-left">
                     <span class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1">Dirección IP (Java)</span>
@@ -33,7 +34,7 @@
                 </button>
             </div>
 
-            <!-- Contenedor BEDROCK (Más alto, dos filas) -->
+            <!-- Contenedor BEDROCK -->
             <div id="bedrock-display-container" class="hidden flex-col gap-5" style="display: none;">
                 <!-- Fila 1: IP -->
                 <div class="flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-black/40 rounded-xl border border-white/5">
@@ -56,7 +57,6 @@
                     </button>
                 </div>
             </div>
-
         </div>
 
         <!-- Lista de Instrucciones -->
@@ -65,6 +65,7 @@
                 <!-- Se inyecta vía JS -->
             </div>
         </div>
+
     </div>
 </section>
 
@@ -72,16 +73,17 @@
     let serverConfig = { javaIp: 'Cargando...', bedrockIp: 'Cargando...', port: '19132' };
     let currentPlatform = 'java';
 
+    // AQUI ESTA LA MAGIA: Enlaces inyectados directamente en los arrays
     const stepsData = {
         'java': [
-            "Abre tu launcher de Minecraft (recomendamos Prism Launcher o ElyPrism).",
-            "Asegúrate de tener seleccionada la versión correcta del juego e inicia sesión con tu cuenta (Premium o Ely.by).",
+            `Abre tu launcher de Minecraft. <a href="https://tarquitet.gitbook.io/builtechaft-wiki/soporte/1.-sobre-launchers" target="_blank" class="text-btc-orange hover:text-white font-bold text-xs uppercase tracking-widest ml-1 transition-colors underline underline-offset-2">Ver Launchers recomendados</a>`,
+            'Asegúrate de tener seleccionada la versión correcta del juego e inicia sesión con tu cuenta (Premium o <a href="https://tarquitet.gitbook.io/builtechaft-wiki/soporte/1.-sobre-launchers/1.4.-cuenta-ely.by" target="_blank" class="text-btc-orange font-bold hover:text-white underline underline-offset-2 transition-colors">Ely.by</a>).',
             "Ve a la pestaña de 'Multijugador' y haz clic en 'Agregar servidor'.",
             "Pega la IP que copiaste arriba en el campo de 'Dirección del servidor'.",
             "Haz clic en 'Hecho', selecciona Builtechraft y únete a la partida."
         ],
         'bedrock': [
-            "Abre Minecraft Bedrock Edition en tu PC o dispositivo móvil.",
+            `Abre Minecraft Bedrock Edition en tu PC o dispositivo móvil. <a href="https://tarquitet.gitbook.io/builtechaft-wiki/guias/3.-como-unirse-al-servidor/3.2.-bedrock" target="_blank" class="text-blue-400 hover:text-white font-bold text-xs uppercase tracking-widest ml-1 transition-colors underline underline-offset-2">Ver Guía Completa</a>`,
             "Toca 'Jugar' y dirígete a la pestaña superior de 'Servidores'.",
             "Baja hasta el final de la lista y presiona el botón 'Añadir servidor'.",
             "Ingresa el nombre que quieras, pega la IP y escribe el Puerto que aparece en esta página.",
@@ -92,6 +94,7 @@
     function renderStepsList(platform) {
         const container = document.getElementById('steps-content');
         if (!container) return;
+
         container.innerHTML = stepsData[platform].map((text, index) => `
             <div class="flex items-start gap-4 p-4 rounded-xl transition-all bg-black/20 hover:bg-black/40 border border-transparent hover:border-white/5">
                 <div class="w-8 h-8 shrink-0 rounded-full border border-btc-orange/30 text-btc-orange flex items-center justify-center font-bold text-sm bg-btc-orange/10 mt-0.5">${index + 1}</div>
@@ -114,6 +117,7 @@
             document.getElementById('step-bedrock-ip').innerText = serverConfig.bedrockIp;
             document.getElementById('step-bedrock-port').innerText = serverConfig.port;
         }
+
         renderStepsList(currentPlatform);
     }
 
@@ -125,6 +129,7 @@
         serverConfig.javaIp = data.JavaIP || serverConfig.javaIp;
         serverConfig.bedrockIp = data.BedrockIP || serverConfig.bedrockIp;
         serverConfig.port = data.BedrockPort || serverConfig.port;
+
         updateStepView();
 
         if (data.isBedrock) {
@@ -147,7 +152,7 @@
         });
     });
 
-    // Función de copiado genérica y reutilizable
+    // Función de copiado
     window.copyGeneric = async function(elementId, btnElement) {
         const textEl = document.getElementById(elementId);
         if (!textEl || !btnElement) return;
@@ -155,7 +160,6 @@
         await navigator.clipboard.writeText(textEl.innerText);
         const originalText = btnElement.innerText;
         
-        // Estilo de éxito
         btnElement.innerText = '¡COPIADO!';
         btnElement.classList.add('bg-green-500', 'text-white', 'border-green-500');
         btnElement.classList.remove('bg-white/10', 'hover:bg-btc-orange', 'hover:bg-blue-500');
@@ -164,7 +168,6 @@
             btnElement.innerText = originalText;
             btnElement.classList.remove('bg-green-500', 'text-white', 'border-green-500');
             btnElement.classList.add('bg-white/10');
-            // Restaurar hover específico según el botón
             if (elementId.includes('bedrock')) {
                 btnElement.classList.add('hover:bg-blue-500');
             } else {

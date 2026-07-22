@@ -2,22 +2,35 @@
 // src/components/about/VisionBanner.astro
 const bgImage = "url('/images/gallery/2_3.avif')";
 ---
-<section class="relative w-full py-32 md:py-40 overflow-hidden flex flex-col items-center justify-center text-center">
-    <!-- Imagen optimizada con aceleración por hardware -->
-    <div class="absolute inset-0 z-0 bg-cover bg-center opacity-85 transform-gpu" style={{ backgroundImage: bgImage }}></div>
-    
-    <!-- Capa sutil para separar el texto -->
-    <div class="absolute inset-0 z-1 bg-black/30 pointer-events-none"></div>
-    
-    <div class="container mx-auto px-6 max-w-4xl relative z-10">
-        <span class="px-4 py-1.5 rounded-full border border-btc-orange/40 bg-btc-orange/20 text-btc-orange text-[10px] font-bold uppercase tracking-[0.2em] mb-6 inline-block shadow-md">
-            Nuestra Esencia
+
+<section
+    id="vision"
+    class="relative w-full py-32 md:py-40 overflow-hidden flex flex-col items-center justify-center text-center"
+>
+    <!-- Fondo -->
+    <div
+        class="absolute inset-0 z-0 bg-cover bg-center opacity-85 transform-gpu"
+        style={{ backgroundImage: bgImage }}
+    ></div>
+
+    <!-- Overlay -->
+    <div class="absolute inset-0 z-10 bg-black/45 pointer-events-none"></div>
+
+    <div class="container mx-auto px-6 max-w-4xl relative z-20">
+
+        <span
+            class="px-4 py-1.5 rounded-full border border-btc-orange/40 bg-btc-orange/20 text-btc-orange text-[10px] font-bold uppercase tracking-[0.2em] inline-block mb-6"
+        >
+            Sobre Builtechraft
         </span>
-        <h1 class="text-5xl md:text-7xl font-display font-bold text-white uppercase tracking-tight mb-6 drop-shadow-[0_4px_10px_rgba(0,0,0,0.9)]">
-            Crear, explorar y <span class="text-btc-orange">estar de chill</span>
+
+        <h1 class="text-5xl md:text-7xl font-display font-bold text-white uppercase tracking-tight mb-8">
+            Un proyecto creado para disfrutar <span class="text-btc-orange">Minecraft</span>
         </h1>
-        <p class="text-zinc-100 text-lg md:text-xl leading-relaxed font-medium max-w-2xl mx-auto drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
-            Builtechraft no busca ser el típico servidor técnico agobiante para expertos. Es un hogar digital para relajarse, conectar con amigos y construir grandes historias sin presiones.
+
+        <p class="text-zinc-100 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">
+            Builtechraft nació con una idea sencilla: mantener la esencia de Minecraft mientras construimos un mundo épico con mejoras que hagan la experiencia más cómoda y agradable. Donde cada mod, datapack se eligen para un balance justo para todo tipo de jugadores.
         </p>
+
     </div>
 </section>
