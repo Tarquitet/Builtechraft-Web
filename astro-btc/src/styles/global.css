@@ -235,3 +235,13 @@ html.light ::-moz-selection {
   background-color: var(--color-btc-orange) !important;
   color: #ffffff !important;
 }
+
+@layer utilities {
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}

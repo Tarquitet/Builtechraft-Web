@@ -1,9 +1,11 @@
 ---
 import LanguagePicker from './navbar/LanguagePicker.astro';
+import DonationMini from './donation/DonationMini.astro';
 const currentYear = new Date().getFullYear();
 ---
-
+<DonationMini />
 <footer class="bg-black border-t border-white/5 pt-16 pb-6 relative overflow-hidden">
+
     <div class="container mx-auto px-6 relative z-10">
         
         <!-- Grid a 2 columnas (Agradecimiento a la izquierda, Soporte a la derecha) -->
@@ -40,20 +42,6 @@ const currentYear = new Date().getFullYear();
             <!-- Selector de Idioma -->
             <div class="flex items-center gap-4">
                 <LanguagePicker />
-            </div>
-
-            <div class="flex flex-col md:flex-row items-center gap-2 text-xs font-mono text-zinc-500">
-                <span class="opacity-70">Saber más sobre</span>
-                <a 
-                    href="https://web.tarquitet.com" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    class="group flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-full border border-white/10 hover:border-btc-orange/50 hover:bg-white/10 transition-all duration-300"
-                >
-                    <span class="text-zinc-300 font-bold group-hover:text-btc-yellow transition-colors text-xs">
-                        Tarquitet
-                    </span>
-                </a>
             </div>
 
         </div>

@@ -1,0 +1,64 @@
+[
+  {
+    "title": "Sobre Nosotros",
+    "desc": "Conoce nuestra visión.",
+    "href": "/about",
+    "isExternal": false,
+    "hoverBorder": "hover:border-btc-orange",
+    "iconBg": "bg-btc-orange/10 text-btc-orange border-btc-orange/20",
+    "titleHover": "group-hover:text-btc-orange",
+    "iconSvg": "<svg class=\"w-6 h-6\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z\"></path></svg>"
+  },
+  {
+    "title": "Mapas Web",
+    "desc": "Visualiza el mundo en tiempo real.",
+    "href": "/about#mundos",
+    "isExternal": false,
+    "hoverBorder": "hover:border-emerald-500",
+    "iconBg": "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+    "titleHover": "group-hover:text-emerald-400",
+    "iconSvg": "<svg class=\"w-6 h-6\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7\"></path></svg>"
+  },
+  {
+    "title": "Normativas",
+    "desc": "Conoce nuestras reglas.",
+    "href": "/rules",
+    "isExternal": false,
+    "hoverBorder": "hover:border-yellow-500",
+    "iconBg": "bg-yellow-500/10 text-yellow-500 border-yellow-500/20",
+    "titleHover": "group-hover:text-yellow-500",
+    "iconSvg": "<svg class=\"w-6 h-6\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z\"></path></svg>"
+  },
+  {
+    "title": "Wiki Oficial",
+    "desc": "Conoce nuestra guía detallada.",
+    "href": "/wiki",
+    "isExternal": true,
+    "dataTarget": "wiki",
+    "hoverBorder": "hover:border-blue-400",
+    "iconBg": "bg-blue-500/10 text-blue-400 border-blue-500/20",
+    "titleHover": "group-hover:text-blue-400",
+    "iconSvg": "<svg class=\"w-6 h-6\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253\"></path></svg>"
+  },
+  {
+    "title": "Discord",
+    "desc": "Ayuda, sugerencias y comunidad.",
+    "href": "#",
+    "isExternal": true,
+    "dataTarget": "discord",
+    "hoverBorder": "hover:border-[#5865F2]",
+    "iconBg": "bg-[#5865F2]/10 text-[#5865F2] border-[#5865F2]/20",
+    "titleHover": "group-hover:text-[#5865F2]",
+    "iconSvg": "<svg class=\"w-6 h-6\" fill=\"currentColor\" viewBox=\"0 0 24 24\"><path d=\"M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.445.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03z\"/></svg>"
+  },
+  {
+    "title": "Staff",
+    "desc": "Conoce nuestro staff.",
+    "href": "/about#staff",
+    "isExternal": false,
+    "hoverBorder": "hover:border-btc-yellow",
+    "iconBg": "bg-btc-yellow/10 text-btc-yellow border-btc-yellow/20",
+    "titleHover": "group-hover:text-btc-yellow",
+    "iconSvg": "<svg class=\"w-6 h-6\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z\"></path></svg>"
+  }
+]

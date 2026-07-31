@@ -5,7 +5,7 @@
   ],
   "right": [
     { "name": "Reglas", "href": "/rules", "id": "reglas" },
-    { "name": "Wiki", "href": "https://tarquitet.gitbook.io/builtechaft-wiki", "id": "wiki" }
+    { "name": "Wiki", "href": "/wiki", "id": "wiki" }
   ],
   "about_drop": [
     {
@@ -32,16 +32,6 @@
       "name": "Roadmap",
       "href": "/about#roadmap-section",
       "id": "drop-roadmap"
-    },
-    {
-      "name": "Mapa Survival",
-      "href": "/maps/survival",
-      "id": "drop-map-sv"
-    },
-    {
-      "name": "Mapa Creativo",
-      "href": "/maps/creative",
-      "id": "drop-map-cr"
     }
   ]
 }

@@ -89,9 +89,8 @@ const socialImageURL = new URL(image, Astro.url);
 
         <Footer />
         
-    </body>
 
-    <style is:global>
+        <style is:global>
     /* 1. Ocultar la barra superior de Google Translate */
     iframe.goog-te-banner-frame,
     .skiptranslate > iframe.goog-te-banner-frame {
@@ -154,4 +153,55 @@ const socialImageURL = new URL(image, Astro.url);
     handleScroll();
   });
 </script>
+
+<!-- SCRIPT GLOBAL PARA ACTUALIZAR ENLACES DINÁMICOS -->
+        <script is:inline>
+            document.addEventListener('DOMContentLoaded', () => {
+                const updateDynamicLinks = (data) => {
+                    if (!data) return;
+                    
+                    // Función auxiliar para actualizar grupos de enlaces por data-target
+                    const setLinksByTarget = (targetName, url) => {
+                        if (url && url !== '#') {
+                            document.querySelectorAll(`a[data-target="${targetName}"]`).forEach(link => {
+                                link.href = url;
+                                link.target = "_blank";
+                            });
+                        }
+                    };
+
+                    // 1. Wiki, Mapas y Discord
+                    setLinksByTarget('wiki', data.WikiURL);
+                    setLinksByTarget('drop-map-sv', data.MapaSurvival);
+                    setLinksByTarget('drop-map-cr', data.MapaCreativo);
+                    setLinksByTarget('discord', data.DiscordURL);
+
+                    // 2. Control Dinámico de Donaciones (Modo Fantasma)
+                    const donacionSec = document.getElementById('donacion-section');
+                    if (data.DonacionURL && data.DonacionURL !== '#' && data.DonacionURL.trim() !== '') {
+                        setLinksByTarget('donacion', data.DonacionURL);
+                        if (donacionSec) {
+                            donacionSec.classList.remove('hidden');
+                            donacionSec.classList.add('block');
+                        }
+                    } else {
+                        if (donacionSec) donacionSec.classList.add('hidden');
+                    }
+                };
+
+                // Leer de caché primero para velocidad instantánea
+                const cachedConfig = sessionStorage.getItem('btc_config');
+                if (cachedConfig) {
+                    try {
+                        updateDynamicLinks(JSON.parse(cachedConfig));
+                    } catch (e) {}
+                }
+
+                // Escuchar el evento oficial del ConfigLoader
+                window.addEventListener('btc:config-loaded', (e) => {
+                    updateDynamicLinks(e.detail);
+                });
+            });
+        </script>
+    </body>
 </html>

@@ -1,6 +1,16 @@
 ---
 // src/components/wiki/Roadmap.astro
 ---
+<style>
+    /* OCULTAR SCROLLBAR NATIVAMENTE */
+    .hide-scrollbar {
+        -ms-overflow-style: none;  /* IE y Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none; /* Chrome, Safari y Opera */
+    }
+</style>
 
 <div id="roadmap-section" class="hidden flex-col mt-4 relative z-20 pb-16">
     <p class="text-zinc-400 text-sm md:text-base mb-6">
@@ -12,20 +22,21 @@
         <!-- Los botones de filtro se inyectan vía JS -->
     </div>
 
-    <!-- TABLA RESPONSIVA DEL ROADMAP -->
-    <div class="w-full overflow-x-auto rounded-2xl border border-white/5 bg-[#111] shadow-2xl">
-        <table class="w-full text-left text-sm whitespace-nowrap md:whitespace-normal">
-            <thead class="uppercase tracking-wider border-b border-white/5 bg-black/40 text-zinc-500 text-[10px]">
-                <tr>
-                    <th class="px-6 py-4 font-bold w-40">Estado</th>
-                    <th class="px-6 py-4 font-bold w-64">Título</th>
-                    <th class="px-6 py-4 font-bold">Descripción</th>
-                </tr>
-            </thead>
-            <tbody id="roadmap-tbody" class="divide-y divide-white/5 text-zinc-300">
-                <!-- Se inyectan las filas vía JS -->
-            </tbody>
-        </table>
+    <!-- SLIDER RESPONSIVO DEL ROADMAP CON FLECHAS -->
+    <div class="relative w-full group">
+        <!-- Flecha Izquierda -->
+        <button id="rm-prev" class="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 md:-ml-6 z-10 bg-zinc-900 text-white p-3 rounded-full border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-0 hidden md:flex items-center justify-center hover:bg-btc-orange hover:border-btc-orange shadow-lg cursor-pointer">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+
+        <div id="roadmap-container" class="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6 hide-scrollbar scroll-smooth">
+            <!-- Se inyectan las tarjetas vía JS -->
+        </div>
+
+        <!-- Flecha Derecha -->
+        <button id="rm-next" class="absolute right-0 top-1/2 -translate-y-1/2 -mr-4 md:-ml-6 z-10 bg-zinc-900 text-white p-3 rounded-full border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-0 hidden md:flex items-center justify-center hover:bg-btc-orange hover:border-btc-orange shadow-lg cursor-pointer">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        </button>
     </div>
 </div>
 
@@ -33,94 +44,111 @@
 import { getRoadmapData } from '../../utils/sheetsClient.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
-    
+    // 1. Salidas tempranas (Early Exits) para evitar procesamientos en páginas equivocadas
+    const container = document.getElementById('roadmap-container');
+    const section = document.getElementById('roadmap-section');
+    const filtersContainer = document.getElementById('roadmap-filters');
+    if (!container || !section || !filtersContainer) return;
+
+    const btnPrev = document.getElementById('rm-prev') as HTMLButtonElement | null;
+    const btnNext = document.getElementById('rm-next') as HTMLButtonElement | null;
+
     const getStatusStyle = (estado: string) => {
         const s = estado?.toLowerCase().trim() || '';
-        if (s.includes('progreso')) return { text: 'text-btc-orange', bg: 'bg-btc-orange/10', border: 'border-btc-orange/30', icon: '⏳' };
-        if (s.includes('planeado')) return { text: 'text-blue-400', bg: 'bg-blue-400/10', border: 'border-blue-400/30', icon: '📅' };
-        if (s.includes('prueba'))   return { text: 'text-purple-400', bg: 'bg-purple-400/10', border: 'border-purple-400/30', icon: '🧪' };
+        if (s.includes('progreso')) return { text: 'text-btc-orange', bg: 'bg-btc-orange/10', border: 'border-btc-orange/30', icon: '⚡' };
+        if (s.includes('planeado')) return { text: 'text-blue-400', bg: 'bg-blue-400/10', border: 'border-blue-400/30', icon: '📌' };
+        if (s.includes('prueba'))   return { text: 'text-purple-400', bg: 'bg-purple-400/10', border: 'border-purple-400/30', icon: '🔬' };
         return { text: 'text-emerald-400', bg: 'bg-emerald-400/10', border: 'border-emerald-400/30', icon: '✅' };
     };
 
-    const createRoadmapRow = (item: any) => {
-        const style = getStatusStyle(item.Estado);
-        const estadoLimpio = item.Estado || 'Pendiente';
-        
-        return `
-            <tr class="roadmap-row hover:bg-white/5 transition-colors group" data-status="${estadoLimpio}">
-                <td class="px-6 py-5 align-top">
-                    <span class="text-[10px] font-bold uppercase tracking-widest ${style.text} ${style.bg} border ${style.border} px-3 py-1.5 rounded-full inline-flex items-center gap-1.5 whitespace-nowrap">
-                        ${style.icon} ${estadoLimpio}
-                    </span>
-                </td>
-                <td class="px-6 py-5 align-top font-bold text-white text-base">
-                    ${item.Titulo}
-                </td>
-                <td class="px-6 py-5 align-top text-zinc-400 leading-relaxed min-w-[250px]">
-                    ${item.Descripcion}
-                </td>
-            </tr>
-        `;
-    };
-
-    const tbody = document.getElementById('roadmap-tbody');
-    const section = document.getElementById('roadmap-section');
-    const filtersContainer = document.getElementById('roadmap-filters');
-
     try {
-        // La llamada a la API es ahora directa gracias al nuevo sheetsClient.js
         const data = await getRoadmapData();
-        
-        if (data.length > 0 && tbody && section && filtersContainer) {
-            tbody.innerHTML = data.map(createRoadmapRow).join('');
+        if (!data || data.length === 0) return;
+
+        // 2. Mapeo optimizado directamente al innerHTML
+        container.innerHTML = data.map((item: any) => {
+            const estadoLimpio = item.Estado || 'Pendiente';
+            const style = getStatusStyle(estadoLimpio);
             
-            const uniqueStatuses = [...new Set(data.map((item: any) => item.Estado || 'Pendiente'))];
-            
-            let filtersHTML = `
-                <button class="rm-filter-btn px-5 py-2.5 bg-white/10 text-white rounded-xl text-xs font-bold uppercase tracking-widest border border-white/20 transition-all shadow-md" data-filter="all">
-                    Todos
-                </button>
+            return `
+                <div class="roadmap-card snap-center shrink-0 w-[85vw] md:w-[calc(33.333%-1rem)] bg-[#111] border border-white/5 rounded-2xl p-6 transition-transform hover:scale-[1.02] flex flex-col group" data-status="${estadoLimpio}">
+                    <div class="mb-5">
+                        <span class="text-[10px] font-bold uppercase tracking-widest ${style.text} ${style.bg} border ${style.border} px-3 py-1.5 rounded-full inline-flex items-center gap-1.5 whitespace-nowrap">
+                            ${style.icon} ${estadoLimpio}
+                        </span>
+                    </div>
+                    <h3 class="px-1 font-bold text-white text-xl mb-3 leading-tight group-hover:text-white transition-colors">
+                        ${item.Titulo}
+                    </h3>
+                    <p class="px-1 text-zinc-400 text-sm leading-relaxed flex-grow">
+                        ${item.Descripcion}
+                    </p>
+                </div>
             `;
+        }).join('');
+        
+        const cards = container.querySelectorAll('.roadmap-card');
+        const uniqueStatuses = [...new Set(data.map((item: any) => item.Estado || 'Pendiente'))];
+        
+        filtersContainer.innerHTML = uniqueStatuses.map(status => `
+            <button class="rm-filter-btn px-5 py-2.5 bg-black/40 text-zinc-400 hover:text-white rounded-xl text-xs font-bold uppercase tracking-widest border border-white/5 hover:border-white/20 transition-all" data-filter="${status}">
+                ${status}
+            </button>
+        `).join('');
+
+        // 3. Función de filtrado con lecturas DOM reducidas
+        const applyFilter = (filterValue: string, activeBtn: HTMLElement) => {
+            const currentActive = filtersContainer.querySelector('.bg-white\\/10');
+            if (currentActive) {
+                currentActive.classList.remove('bg-white/10', 'text-white', 'border-white/20', 'shadow-md');
+                currentActive.classList.add('bg-black/40', 'text-zinc-400', 'border-white/5');
+            }
             
-            uniqueStatuses.forEach(status => {
-                filtersHTML += `
-                    <button class="rm-filter-btn px-5 py-2.5 bg-black/40 text-zinc-400 hover:text-white rounded-xl text-xs font-bold uppercase tracking-widest border border-white/5 hover:border-white/20 transition-all" data-filter="${status}">
-                        ${status}
-                    </button>
-                `;
+            activeBtn.classList.remove('bg-black/40', 'text-zinc-400', 'border-white/5');
+            activeBtn.classList.add('bg-white/10', 'text-white', 'border-white/20', 'shadow-md');
+
+            cards.forEach((card) => {
+                const el = card as HTMLElement;
+                el.style.display = el.getAttribute('data-status') === filterValue ? '' : 'none';
             });
             
-            filtersContainer.innerHTML = filtersHTML;
+            container.scrollLeft = 0;
+        };
 
-            const filterBtns = document.querySelectorAll('.rm-filter-btn');
-            const rows = document.querySelectorAll('.roadmap-row');
+        // 4. Event Delegation: Un solo EventListener para todos los botones de filtro
+        filtersContainer.addEventListener('click', (e) => {
+            const btn = (e.target as HTMLElement).closest('.rm-filter-btn') as HTMLElement;
+            if (btn) applyFilter(btn.getAttribute('data-filter') as string, btn);
+        });
 
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    filterBtns.forEach(b => {
-                        b.classList.remove('bg-white/10', 'text-white', 'border-white/20', 'shadow-md');
-                        b.classList.add('bg-black/40', 'text-zinc-400', 'border-white/5');
-                    });
-                    
-                    const target = e.currentTarget as HTMLElement;
-                    target.classList.remove('bg-black/40', 'text-zinc-400', 'border-white/5');
-                    target.classList.add('bg-white/10', 'text-white', 'border-white/20', 'shadow-md');
-
-                    const filterValue = target.getAttribute('data-filter');
-                    
-                    rows.forEach((row: any) => {
-                        if (filterValue === 'all' || row.getAttribute('data-status') === filterValue) {
-                            row.style.display = ''; 
-                        } else {
-                            row.style.display = 'none'; 
-                        }
-                    });
-                });
-            });
-
-            section.classList.remove('hidden');
-            section.classList.add('flex');
+        if (uniqueStatuses.length > 0) {
+            applyFilter(uniqueStatuses[0] as string, filtersContainer.firstElementChild as HTMLElement);
         }
+
+        // 5. Refactorización DRY (Don't Repeat Yourself) para las flechas
+        if (btnPrev && btnNext) {
+            const updateArrows = () => {
+                const maxScroll = container.scrollWidth - container.clientWidth;
+                btnPrev.disabled = container.scrollLeft <= 5;
+                btnNext.disabled = container.scrollLeft >= maxScroll - 5;
+            };
+
+            // Listener pasivo para no bloquear el hilo principal
+            container.addEventListener('scroll', updateArrows, { passive: true });
+
+            const scrollSlider = (directionMultiplier: number) => {
+                const firstVisible = Array.from(cards).find(c => (c as HTMLElement).style.display !== 'none') as HTMLElement;
+                const cardWidth = firstVisible ? firstVisible.offsetWidth + 24 : 300;
+                container.scrollBy({ left: cardWidth * directionMultiplier, behavior: 'smooth' });
+            };
+
+            btnPrev.addEventListener('click', () => scrollSlider(-1));
+            btnNext.addEventListener('click', () => scrollSlider(1));
+        }
+
+        section.classList.remove('hidden');
+        section.classList.add('flex');
+
     } catch (e) {
         console.error("Error cargando el Roadmap:", e);
     }

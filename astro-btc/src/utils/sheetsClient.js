@@ -2,7 +2,7 @@
 
 // URL de tu API en Google Apps Script
 const API_URL =
-  'https://script.google.com/macros/s/AKfycbw8lIVo7W1O_M-GHpNWPD79K966m59ytDDlEuDoE3Ee6bAVyjb--ODrjjXcOeeLr6EB/exec';
+  'https://script.google.com/macros/s/AKfycbx4SxlkvL0R3vxNlzh8eT4ZWCJ_9sgZTJkQfzgIXQ9FDwSMaQTOYwW-GRNhsdjwV6Qi/exec';
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minutos
 
 // Función genérica con caché integrada para sessionStorage
