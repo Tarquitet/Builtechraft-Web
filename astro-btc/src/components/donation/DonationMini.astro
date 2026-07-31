@@ -1,0 +1,34 @@
+---
+// src/components/DonationMini.astro
+---
+
+<section id="donacion-section" class="hidden py-16 bg-[#0a0a0c] border-t border-white/5 relative z-10 overflow-hidden">
+    <!-- Resplandor sutil de fondo -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg h-32 bg-pink-500/5 blur-[100px] rounded-full pointer-events-none"></div>
+    
+    <div class="container mx-auto px-6 max-w-3xl text-center relative z-10">
+        
+        <div class="inline-flex items-center justify-center p-3 bg-pink-500/10 text-pink-500 rounded-2xl mb-6 border border-pink-500/20">
+            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+        </div>
+        
+        <h2 class="text-3xl md:text-4xl font-display font-bold text-white uppercase tracking-tight mb-4">
+            Apoya el <span class="text-pink-500">Proyecto</span>
+        </h2>
+        
+        <p class="text-zinc-400 text-sm md:text-base leading-relaxed mb-8">
+            Realizar mantenimientos al servidor y gestionar actualizaciones requiere tiempo y recursos. Si disfrutas jugar con nosotros y quieres dar una mano, puedes invitarnos un café.
+        </p>
+        
+        <!-- Cambia el href por tu enlace real de donación (Ko-fi, PayPal, etc.) -->
+        <a href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 bg-zinc-900 hover:bg-pink-600 text-white px-8 py-4 rounded-xl font-bold uppercase text-xs tracking-widest transition-all border border-white/10 hover:border-pink-500 shadow-lg group">
+            <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+            </svg>
+            Invitar un café
+        </a>
+        
+    </div>
+</section>

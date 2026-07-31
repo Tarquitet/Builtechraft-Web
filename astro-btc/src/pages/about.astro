@@ -1,0 +1,84 @@
+---
+// src/pages/nosotros.astro
+import Layout from '../layouts/Layout.astro';
+import VisionBanner from '../components/about/VisionBanner.astro';
+import WorldsGrid from '../components/about/WorldsGrid.astro';
+import ModsAndDatapacks from '../components/wiki/ModsAndDatapacks.astro';
+import Staff from '../components/wiki/Staff.astro';
+import Roadmap from '../components/wiki/Roadmap.astro';
+---
+
+<Layout
+    title="Nosotros | Builtechraft SMP"
+    description="Conoce Builtechraft, nuestros mundos, los mods que utilizamos y lo que estamos preparando para el servidor."
+>
+    <main class="min-h-screen bg-[#0a0a0c] text-white">
+
+        <!-- Banner -->
+        <VisionBanner />
+
+        <!-- Mundos -->
+        <WorldsGrid />
+
+        <!-- Mods -->
+        <section
+            id="mods"
+            class="container mx-auto px-6 max-w-7xl py-16 border-t border-white/5"
+        >
+            <div class="text-center mb-12">
+
+                <span
+                    class="px-4 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-3 inline-block"
+                >
+                    Mods & Datapacks
+                </span>
+
+                <h2 class="text-4xl font-display font-bold uppercase tracking-tight text-white">
+                    Las mejoras del <span class="text-blue-400">servidor</span>
+                </h2>
+
+                <p class="text-zinc-400 mt-3 max-w-2xl mx-auto leading-relaxed">
+                    Utilizamos una selección de mods y datapacks centrados en el rendimiento,
+                    la calidad de vida y las herramientas de construcción. La lista evoluciona
+                    con el servidor y puede cambiar con el tiempo conforme probamos nuevas ideas.
+                </p>
+
+            </div>
+
+            <ModsAndDatapacks />
+        </section>
+
+        <!-- Staff -->
+        <div id="staff">
+            <Staff />
+        </div>
+
+        <!-- Roadmap -->
+        <section class="container mx-auto px-6 max-w-6xl py-24">
+
+            <div class="text-center mb-12">
+
+                <span
+                    class="px-4 py-1.5 rounded-full border border-btc-orange/30 bg-btc-orange/10 text-btc-orange text-[10px] font-bold uppercase tracking-[0.2em] mb-3 inline-block"
+                >
+                    Roadmap
+                </span>
+
+                <h2 class="text-4xl font-display font-bold uppercase tracking-tight text-white">
+                    Lo que <span class="text-btc-orange">estamos preparando</span>
+                </h2>
+
+                <p class="text-zinc-400 mt-3 max-w-2xl mx-auto leading-relaxed">
+                    Estas son algunas de las ideas y mejoras que queremos incorporar al servidor.
+                    No siguen un calendario fijo; preferimos dedicar el tiempo necesario para mantener
+                    una experiencia estable y equilibrada.
+                </p>
+
+            </div>
+
+            <Roadmap />
+
+        </section>
+
+    </main>
+</Layout>

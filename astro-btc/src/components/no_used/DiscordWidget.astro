@@ -1,0 +1,78 @@
+---
+// src/components/DiscordWidget.astro
+import fs from 'node:fs';
+import path from 'node:path';
+
+const INVITE_LINK = "https://discord.gg/4KzRH5DPzx";
+
+// Lógica de imágenes aleatorias (se ejecuta en build-time)
+const galleryDir = path.join(process.cwd(), 'public', 'images', 'gallery');
+let bgImage = '/images/gallery/0_1.avif'; // Fallback por defecto
+
+try {
+    const files = fs.readdirSync(galleryDir);
+    const images = files.filter(file => /\.(jpg|jpeg|png|webp|avif)$/i.test(file));
+    if (images.length > 0) {
+        const randomFile = images[Math.floor(Math.random() * images.length)];
+        bgImage = `/images/gallery/${randomFile}`;
+    }
+} catch (e) {
+    console.error("Error leyendo galería:", e);
+}
+---
+
+<section id="discord" class="py-24 relative overflow-hidden bg-custom-gradient transition-all duration-500">
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="flex flex-col lg:flex-row items-center justify-between gap-12 max-w-6xl mx-auto">
+            
+            <div class="w-full lg:w-3/5 text-center lg:text-left">
+                <h2 class="text-4xl font-display font-bold mb-6 uppercase tracking-tight text-gradient-contrast">
+                    ¿Qué esperas para <span class="text-btc-orange">unirte?</span>
+                </h2>
+                <p class="text-xl leading-relaxed mb-8 text-gradient-contrast">
+                    Si eres un jugador que busca consejos, guías con una experiencia <strong>tranquila y controlada</strong>, para que puedas explorar y construir... <br><br>
+                    <span class="font-bold text-btc-orange">¡Bienvenido a nuestra familia!</span>
+                </p>
+                
+                <a href={INVITE_LINK} target="_blank" 
+                   class="inline-flex items-center gap-3 bg-[#5865F2] text-white font-bold px-10 py-4 rounded-full shadow-xl transition-all duration-300 hover:scale-105 hover:bg-white hover:text-[#5865F2] border border-transparent">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/>
+                    </svg>
+                    Unirse al Discord
+                </a>
+            </div>
+
+            <div class="w-full lg:w-auto flex justify-center">
+                 <div class="bg-black/20 p-2 rounded-3xl border border-white/5 shadow-2xl">
+                    <div class="relative group w-[320px] h-[420px] overflow-hidden rounded-2xl border-2 border-orange-500/50 hover:border-orange-400 transition-colors duration-300 bg-[#050505]">
+                        
+                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 opacity-50"
+                             style={`background-image: url('${bgImage}');`}>
+                        </div>
+
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/20"></div>
+
+                        <div class="relative h-full flex flex-col justify-between p-8">
+                            <div class="mt-4 flex justify-center">
+                                <div class="relative">
+                                    <div class="absolute inset-0 bg-orange-500/20 blur-3xl rounded-full"></div>
+                                    <img src="/images/favicon.png" alt="Logo" loading="lazy" decoding="async" class="relative w-24 h-24 object-contain drop-shadow-2xl transition-transform duration-300 group-hover:scale-110" />
+                                </div>
+                            </div>
+
+                            <div class="text-center space-y-2 mb-4">
+                                <p class="text-orange-400 text-[10px] font-bold tracking-[0.3em] uppercase opacity-80">Comunidad Oficial</p>
+                                <h2 class="text-2xl font-display font-bold text-white tracking-tight uppercase drop-shadow-lg">
+                                    Builtechraft SMP
+                                </h2>
+                                <div class="w-12 h-1 bg-orange-500 mx-auto rounded-full mt-4 group-hover:w-20 transition-all duration-500"></div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+
+        </div>
+    </div>
+</section>

@@ -1,0 +1,53 @@
+---
+// src/components/about/WorldsGrid.astro
+import worldsCards from '../../data/worldsCards.json';
+---
+
+<section id="mundos" class="w-full bg-[#0a0a0c]">
+    <div class="text-center py-16 container mx-auto px-6 max-w-4xl">
+        <h2 class="text-3xl md:text-4xl font-display font-bold text-white uppercase tracking-tight">
+            Nuestros <span class="text-btc-orange">Mundos</span>
+        </h2>
+        <p class="text-zinc-400 mt-3 text-base leading-relaxed max-w-2xl mx-auto">
+            Builtechraft cuenta con dos mundos principales: uno dedicado al Survival y otro pensado para diseñar, experimentar y preparar construcciones antes de llevarlas al juego.
+        </p>
+    </div>
+
+    <!-- Contenedor Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 w-full">
+        
+        {worldsCards.map((card) => (
+            <div class={`relative group overflow-hidden h-[500px] lg:h-[600px] flex flex-col justify-end p-8 md:p-16 ${card.wrapperClass}`}>
+                
+                <!-- Fondo e imágenes con transform-gpu para evitar lag en Firefox -->
+                <div 
+                    class="absolute inset-0 bg-cover bg-center transform-gpu" 
+                    style={`background-image: url('${card.bgImage}')`}
+                ></div>
+                <div class="absolute inset-0 bg-black/20 transform-gpu"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent transform-gpu"></div>
+                
+                <!-- Contenido dinámico -->
+                <div class="relative z-10 max-w-xl transform-gpu">
+                    <span class={`text-[10px] font-bold uppercase tracking-widest border px-3 py-1 rounded-md inline-block mb-3 ${card.tagClass}`}>
+                        {card.tagText}
+                    </span>
+                    <h3 class="text-4xl font-display font-bold text-white uppercase mb-4">
+                        {card.title}
+                    </h3>
+                    <p class="text-zinc-200 leading-relaxed mb-8">
+                        {card.desc}
+                    </p>
+                    <a href={card.link}
+                        data-target={card.dataTarget || undefined}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class={`inline-flex items-center gap-2 font-bold text-xs uppercase tracking-widest py-4 px-8 rounded-xl transition-all ${card.btnClass}`}>
+                        Ver mapa
+                    </a>
+                </div>
+            </div>
+        ))}
+
+    </div>
+</section>

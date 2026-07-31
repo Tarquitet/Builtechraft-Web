@@ -1,0 +1,85 @@
+---
+import navData from '../../data/navigation.json';
+const leftItems = navData.left;
+const rightItems = navData.right;
+const aboutItems = navData.about_drop;
+---
+<header id="main-header" class="hidden lg:block w-full z-50 fixed top-0 left-0 bg-black/95 backdrop-blur-md py-2 border-b border-white/5 shadow-2xl transition-all duration-300">
+    <div class="container mx-auto px-6 h-12 relative flex items-center justify-center">
+                 
+        <a href="/#inicio" id="logo-link" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex items-center gap-2 transition-transform hover:scale-105">
+            <img src="/images/logo-text.webp" alt="Builtechraft" loading="eager" class="h-10 w-auto object-contain drop-shadow-md" />
+        </a>
+
+        <nav class="flex items-center justify-center gap-16 relative w-full max-w-5xl" id="desktop-menu">
+                         
+            <div class="flex items-center gap-8 lg:gap-12 flex-1 justify-end">
+                <a href={leftItems[0].href} class="nav-link text-sm font-bold uppercase tracking-widest transition-all duration-300 relative group py-2" data-target={leftItems[0].id}>
+                    {leftItems[0].name}
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full nav-line bg-btc-orange"></span>
+                </a>
+                                
+                <div class="relative py-2">
+                    <button id="about-btn" class="nav-link text-sm font-bold uppercase tracking-widest transition-all duration-300 relative group flex items-center gap-1 cursor-pointer outline-none" data-novedades-parent>
+                        {leftItems[1].name}
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full nav-line bg-btc-orange"></span>
+                    </button>
+                                        
+                    <div id="about-drop" class="absolute right-0 top-full mt-4 w-64 bg-black/95 backdrop-blur-md border border-white/10 rounded-xl p-4 shadow-2xl opacity-0 invisible scale-95 transition-all duration-300 z-50 pointer-events-none transform origin-top-right">
+                        <div class="flex flex-col gap-1">
+                            {aboutItems.map((item: any) => (
+                                <a href={item.href} class="submenu-link text-[11px] font-bold text-zinc-400 uppercase tracking-widest px-6 py-3 rounded-md hover:bg-white/10 hover:text-btc-orange transition-colors" data-target={item.id}>
+                                    {item.name}
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-32 lg:w-48 shrink-0"></div>
+
+            <div class="flex items-center gap-8 lg:gap-12 flex-1 justify-start">
+                {rightItems.map((item: any) => (
+                    <a 
+                        href={item.href} 
+                        target={item.href.startsWith('http') ? "_blank" : "_self"}
+                        rel={item.href.startsWith('http') ? "noopener noreferrer" : ""}
+                        class="nav-link text-sm font-bold uppercase tracking-widest transition-all duration-300 relative group py-2" 
+                        data-target={item.id}
+                    >
+                        {item.name}
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full nav-line bg-btc-orange"></span>
+                    </a>
+                ))}
+            </div>
+
+        </nav>
+
+        <div id="google_element" style="position: absolute; opacity: 0; pointer-events: none; z-index: -1; width: 1px; height: 1px; overflow: hidden;"></div>
+
+    </div>
+</header>
+
+<style>
+    .nav-link { color: rgba(255, 255, 255, 0.9); }
+    .nav-link:hover { color: #f97316; }
+    .nav-link.active, .nav-link.active-parent { color: #f97316 !important; }
+    .nav-link.active .nav-line, .nav-link.active-parent .nav-line { width: 100% !important; background-color: #f97316 !important; }
+    .submenu-link.active-sub { color: #f97316 !important; background-color: rgba(255,255,255,0.05); }
+    #about-drop.is-open { opacity: 1; visibility: visible; scale: 1; pointer-events: auto; }
+</style>
+
+<script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+        const aboutBtn = document.getElementById('about-btn');
+        const aboutDrop = document.getElementById('about-drop');
+        if (aboutBtn && aboutDrop) {
+            aboutBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                aboutDrop.classList.toggle('is-open');
+            });
+            document.addEventListener('click', () => aboutDrop.classList.remove('is-open'));
+        }
+    });
+</script>

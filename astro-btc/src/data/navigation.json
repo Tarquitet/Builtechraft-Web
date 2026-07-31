@@ -1,0 +1,37 @@
+{
+  "left": [
+    { "name": "Inicio", "href": "/", "id": "inicio" },
+    { "name": "Nosotros", "href": "/about", "id": "nosotros" }
+  ],
+  "right": [
+    { "name": "Reglas", "href": "/rules", "id": "reglas" },
+    { "name": "Wiki", "href": "/wiki", "id": "wiki" }
+  ],
+  "about_drop": [
+    {
+      "name": "Sobre Builtechraft",
+      "href": "/about#vision",
+      "id": "vision"
+    },
+    {
+      "name": "Nuestros Mundos",
+      "href": "/about#mundos",
+      "id": "drop-worlds"
+    },
+    {
+      "name": "Mods & Datapacks",
+      "href": "/about#mods",
+      "id": "drop-mods"
+    },
+    {
+      "name": "Staff",
+      "href": "/about#staff",
+      "id": "drop-staff"
+    },
+    {
+      "name": "Roadmap",
+      "href": "/about#roadmap-section",
+      "id": "drop-roadmap"
+    }
+  ]
+}

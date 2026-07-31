@@ -1,0 +1,247 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-btc-orange: #f97316;
+  --color-btc-yellow: #fbbf24;
+  --color-btc-coffee: #7c2d12;
+
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Rajdhani', sans-serif;
+}
+
+/* --- TEMA OSCURO --- */
+:root {
+  --bg-app: #272727;
+  --bg-section: #272727;
+  --bg-alternate: #272727;
+  --bg-card: #18181b;
+  --bg-card-hover: #212124;
+
+  --text-main: #ffffff;
+  --text-muted: #a1a1aa; /* mejor que #5b5b60 (muy apagado) */
+  --text-accent: #f97316;
+  --text-highlight: #fbbf24;
+
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-accent: rgba(249, 115, 22, 0.25);
+
+  /* extras para UI */
+  --shadow-soft: 0 20px 60px rgba(0, 0, 0, 0.45);
+  --img-overlay: rgba(249, 115, 22, 0.1);
+
+  /* GRADIENTE DISCORD */
+  --grad-1: #353644;
+  --grad-2: #2c51cb;
+  --grad-3: #6571f9;
+
+  /* GRADIENTE MODPACK */
+  --grad-mod-1: #68d979; /* Verde Modrinth Brillante */
+  --grad-mod-2: #454545; /* Gris Industrial Oscuro */
+  --grad-mod-3: #b0ffc0; /* Verde Bosque Técnico */
+  --grad-mod-text: #ffffff; /* Texto Blanco para contraste */
+  --text-modrinth: #16a34a;
+
+  /* GRADIENTE SURVIVAL (Naranja/Amarillo Oscuro) */
+  --grad-surv-1: #431407; /* Café muy oscuro */
+  --grad-surv-2: #9a3412; /* Naranja quemado */
+  --grad-surv-3: #f97316; /* Naranja BTC */
+
+  --grad-text: #ffffff;
+
+  color-scheme: dark;
+}
+
+/* --- TEMA CLARO (REAL, basado en tu logo) --- */
+:root.light {
+  /* Fondos */
+  --bg-app: #fff7f2; /* crema cálida */
+  --bg-section: #ffffff; /* blanco limpio */
+  --bg-alternate: #f6efe9; /* crema suave */
+  --bg-card: #ffffff;
+  --bg-card-hover: #fff1e6;
+
+  /* Texto */
+  --text-main: #1a1412; /* negro cálido */
+  --text-muted: #6b564d; /* café grisáceo */
+  --text-accent: #f97316; /* marca */
+  --text-highlight: #fbbf24;
+
+  /* Bordes */
+  --border-subtle: rgba(26, 20, 18, 0.1);
+  --border-accent: rgba(249, 115, 22, 0.3);
+
+  /* extras */
+  --shadow-soft: 0 20px 60px rgba(26, 20, 18, 0.14);
+  --img-overlay: rgba(249, 115, 22, 0.06);
+
+  /* GRADIENTE DISCORD */
+  --grad-1: #eef2ff;
+  --grad-2: #bfceff;
+  --grad-3: #6571f9;
+
+  /* GRADIENTE MODPACK */
+  --grad-mod-1: #e5ffee;
+  --grad-mod-2: #dcfce7;
+  --grad-mod-3: #bbf7d0;
+  --grad-mod-text: #1a1412;
+  --text-modrinth: #16a34a;
+
+  /* GRADIENTE SURVIVAL (Naranja/Amarillo Claro) */
+  --grad-surv-1: #fff7ed; /* Naranja ultra claro */
+  --grad-surv-2: #fed7aa; /* Naranja melocotón */
+  --grad-surv-3: #f97316; /* Naranja BTC */
+
+  --grad-text: #1a1412;
+
+  color-scheme: light;
+}
+
+/* --- ESTILOS BASE --- */
+body {
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  transition:
+    background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.5s ease;
+}
+
+/* --- CLASES DE UTILIDAD --- */
+.bg-theme-app {
+  background-color: var(--bg-app);
+}
+.bg-theme-section {
+  background-color: var(--bg-section);
+}
+.bg-theme-alternate {
+  background-color: var(--bg-alternate);
+}
+.bg-theme-card {
+  background-color: var(--bg-card);
+}
+
+.text-theme-main {
+  color: var(--text-main);
+}
+.text-theme-muted {
+  color: var(--text-muted);
+}
+.text-theme-accent {
+  color: var(--text-accent);
+}
+.text-theme-highlight {
+  color: var(--text-highlight);
+}
+
+.border-theme {
+  border-color: var(--border-subtle);
+}
+.border-theme-accent {
+  border-color: var(--border-accent);
+}
+
+/* Sombra */
+.shadow-theme {
+  box-shadow: var(--shadow-soft);
+}
+
+/* Gradientes */
+.bg-custom-gradient {
+  background: linear-gradient(92deg, var(--grad-1) 0%, var(--grad-2) 50%, var(--grad-3) 100%);
+}
+
+.text-gradient-contrast {
+  color: var(--grad-text);
+}
+
+.bg-modpack-gradient {
+  background: linear-gradient(92deg, var(--grad-mod-1) 0%, var(--grad-mod-2) 100%, var(--grad-mod-3) 50%) !important;
+}
+
+.bg-docs-gradient {
+  background: linear-gradient(272deg, var(--grad-mod-1) 0%, var(--grad-mod-2) 100%, var(--grad-mod-3) 50%) !important;
+}
+
+.bg-creative-gradient {
+  background: linear-gradient(272deg, var(--grad-1) 0%, var(--grad-2) 50%, var(--grad-3) 100%);
+}
+
+.bg-survival-gradient {
+  background: linear-gradient(92deg, var(--grad-surv-1) 0%, var(--grad-surv-2) 50%, var(--grad-surv-3) 100%);
+}
+
+/* blur optimizado */
+.glass-gpu {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000;
+  will-change: backdrop-filter, transform;
+}
+
+/* optimización */
+.section-optimize {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500px;
+}
+
+/* scrollbar (mejorado para ambos temas) */
+:root {
+  --scroll-track: #121214;
+  --scroll-thumb: #898989;
+}
+:root.light {
+  --scroll-track: #efe6df;
+  --scroll-thumb: #c7b4a9;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: var(--scroll-track);
+}
+*::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-thumb);
+  border-radius: 20px;
+}
+
+/* selección de texto */
+::selection {
+  background-color: var(--color-btc-orange);
+  color: #ffffff;
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background-color: var(--color-btc-orange);
+  color: #ffffff;
+}
+
+:root.light ::selection,
+html.light ::selection {
+  background-color: var(--color-btc-orange) !important;
+  color: #ffffff !important;
+}
+
+:root.light ::-moz-selection,
+html.light ::-moz-selection {
+  background-color: var(--color-btc-orange) !important;
+  color: #ffffff !important;
+}
+
+@layer utilities {
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}

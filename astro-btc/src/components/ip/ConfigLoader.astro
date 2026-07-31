@@ -1,0 +1,55 @@
+<script>
+    import { getClientConfigTSV, getModsAndDatapacks } from '../../utils/sheetsClient.js';
+
+    async function loadConfig() {
+        const CACHE_DURATION = 5 * 60 * 1000; // 5 minutos en milisegundos
+        const cached = sessionStorage.getItem('btc_config');
+        const cachedTime = sessionStorage.getItem('btc_config_time');
+        
+        // Si hay caché y no ha expirado, úsalo (instantáneo)
+        if (cached && cachedTime && (Date.now() - parseInt(cachedTime) < CACHE_DURATION)) {
+            const data = JSON.parse(cached);
+            window.dispatchEvent(new CustomEvent('btc:config-loaded', { detail: data }));
+            return;
+        }
+
+        // Si no hay caché o expiró, pide a la API
+        try {
+            const configData = await getClientConfigTSV();
+            
+            let isBedrock = false;
+            let isMultiVersion = false;
+            
+            try {
+                const { mods } = await getModsAndDatapacks();
+                
+                // TIPOS EXPLÍCITOS APLICADOS AQUÍ PARA SATISFACER A TYPESCRIPT
+                const modsNames = mods.map((m: any) => m.name.toLowerCase());
+                isBedrock = modsNames.some((name: string) => name.includes('geyser'));
+                isMultiVersion = modsNames.some((name: string) => 
+                    name.includes('viaversion') || name.includes('viabackwards') || name.includes('viarewind')
+                );
+            } catch (e) {
+                console.warn("No se pudieron leer los mods.");
+            }
+
+            const finalData = {
+                ...configData,
+                isBedrock,
+                isMultiVersion
+            };
+
+            // Guardar en caché con marca de tiempo
+            sessionStorage.setItem('btc_config', JSON.stringify(finalData));
+            sessionStorage.setItem('btc_config_time', Date.now().toString());
+
+            window.dispatchEvent(new CustomEvent('btc:config-loaded', { detail: finalData }));
+
+        } catch (error) {
+            console.error("Error cargando configuración:", error);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadConfig);
+    document.addEventListener('astro:page-load', loadConfig);
+</script>

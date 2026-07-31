@@ -1,0 +1,37 @@
+---
+// src/components/home/CategoryCards.astro
+import cardsData from '../../data/homeCards.json';
+---
+
+<section class="py-24 bg-[#0a0a0c] border-t border-white/5 relative z-10">
+    <div class="container mx-auto px-6 max-w-6xl">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-display font-bold text-white uppercase tracking-tight">
+                Explora <span class="text-btc-orange">Nuestra Página Web</span>
+            </h2>
+            <p class="text-zinc-400 mt-4 text-lg">Aquí tienes los enlaces a las secciones principales de nuestra página web.</p>
+        </div>
+
+        <!-- Tarjetas construidas dinámicamente mediante el JSON -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {cardsData.map((card) => (
+                <a 
+                    href={card.href} 
+                    target={card.isExternal ? "_blank" : "_self"} 
+                    rel={card.isExternal ? "noopener noreferrer" : undefined}
+                    data-target={card.dataTarget || undefined}
+                    class={`bg-zinc-900 border border-white/10 rounded-2xl p-6 flex items-center gap-4 transition-colors group ${card.hoverBorder}`}
+                >
+                    <div class={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border ${card.iconBg}`} set:html={card.iconSvg}>
+                    </div>
+                    <div>
+                        <h3 class={`text-lg font-bold text-white uppercase transition-colors ${card.titleHover}`}>
+                            {card.title}
+                        </h3>
+                        <p class="text-zinc-400 text-xs mt-1">{card.desc}</p>
+                    </div>
+                </a>
+            ))}
+        </div>
+    </div>
+</section>

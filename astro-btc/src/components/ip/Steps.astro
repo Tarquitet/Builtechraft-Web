@@ -1,0 +1,178 @@
+---
+// src/components/ip/Steps.astro
+---
+
+<section class="py-24 relative z-10 w-full bg-[#0a0a0c]">
+    <div class="container mx-auto px-6 max-w-4xl">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-5xl font-display font-bold text-white uppercase tracking-tight mb-4">
+                Conexión <span class="text-btc-orange">Paso a Paso</span>
+            </h2>
+        </div>
+
+        <!-- Pestañas de Plataforma -->
+        <div class="flex justify-center gap-4 mb-8" id="platform-tabs">
+            <button class="step-tab-btn px-6 py-3 bg-btc-orange text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all shadow-[0_0_15px_rgba(249,115,22,0.3)]" data-target="java">
+                Java Edition
+            </button>
+            <button id="bedrock-tab-btn" class="step-tab-btn hidden px-6 py-3 bg-black/40 text-zinc-400 hover:text-white border border-white/10 hover:border-white/30 text-xs font-bold uppercase tracking-widest rounded-xl transition-all" data-target="bedrock">
+                Bedrock (Móvil / PC)
+            </button>
+        </div>
+
+        <!-- CAJA DE DATOS DE CONEXIÓN -->
+        <div class="bg-black/60 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-8 w-full shadow-2xl mb-12">
+            
+            <!-- Contenedor JAVA -->
+            <div id="java-display-container" class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex flex-col w-full text-center md:text-left">
+                    <span class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1">Dirección IP (Java)</span>
+                    <code id="step-java-ip" class="text-2xl md:text-3xl text-white font-mono font-bold select-all">Cargando...</code>
+                </div>
+                <button onclick="window.copyGeneric('step-java-ip', this)" class="shrink-0 bg-white/10 hover:bg-btc-orange text-white px-8 py-4 rounded-xl font-bold uppercase text-xs tracking-widest transition-all w-full md:w-auto border border-white/5">
+                    Copiar IP
+                </button>
+            </div>
+
+            <!-- Contenedor BEDROCK -->
+            <div id="bedrock-display-container" class="hidden flex-col gap-5" style="display: none;">
+                <!-- Fila 1: IP -->
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-black/40 rounded-xl border border-white/5">
+                    <div class="flex flex-col w-full text-center md:text-left">
+                        <span class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1">Dirección IP (Bedrock)</span>
+                        <code id="step-bedrock-ip" class="text-xl md:text-2xl text-white font-mono font-bold select-all">Cargando...</code>
+                    </div>
+                    <button onclick="window.copyGeneric('step-bedrock-ip', this)" class="shrink-0 bg-white/10 hover:bg-blue-500 text-white px-6 py-3 rounded-xl font-bold uppercase text-xs tracking-widest transition-all w-full md:w-auto border border-white/5">
+                        Copiar IP
+                    </button>
+                </div>
+                <!-- Fila 2: Puerto -->
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-black/40 rounded-xl border border-white/5">
+                    <div class="flex flex-col w-full text-center md:text-left">
+                        <span class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1">Puerto (Bedrock)</span>
+                        <code id="step-bedrock-port" class="text-xl md:text-2xl text-blue-400 font-mono font-bold select-all">19132</code>
+                    </div>
+                    <button onclick="window.copyGeneric('step-bedrock-port', this)" class="shrink-0 bg-white/10 hover:bg-blue-500 text-white px-6 py-3 rounded-xl font-bold uppercase text-xs tracking-widest transition-all w-full md:w-auto border border-white/5">
+                        Copiar Puerto
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lista de Instrucciones -->
+        <div class="bg-[#18181b] border border-white/5 rounded-3xl p-6 md:p-8 shadow-xl">
+            <div id="steps-content" class="flex flex-col gap-4">
+                <!-- Se inyecta vía JS -->
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<script is:inline>
+    let serverConfig = { javaIp: 'Cargando...', bedrockIp: 'Cargando...', port: '19132' };
+    let currentPlatform = 'java';
+
+    // AQUI ESTA LA MAGIA: Enlaces inyectados directamente en los arrays
+    const stepsData = {
+        'java': [
+            `Abre tu launcher de Minecraft. <a href="https://tarquitet.gitbook.io/builtechaft-wiki/soporte/1.-sobre-launchers" target="_blank" class="text-btc-orange hover:text-white font-bold text-xs uppercase tracking-widest ml-1 transition-colors underline underline-offset-2">Ver Launchers recomendados</a>`,
+            'Asegúrate de tener seleccionada la versión correcta del juego e inicia sesión con tu cuenta (Premium o <a href="https://tarquitet.gitbook.io/builtechaft-wiki/soporte/1.-sobre-launchers/1.4.-cuenta-ely.by" target="_blank" class="text-btc-orange font-bold hover:text-white underline underline-offset-2 transition-colors">Ely.by</a>).',
+            "Ve a la pestaña de 'Multijugador' y haz clic en 'Agregar servidor'.",
+            "Pega la IP que copiaste arriba en el campo de 'Dirección del servidor'.",
+            "Haz clic en 'Hecho', selecciona Builtechraft y únete a la partida."
+        ],
+        'bedrock': [
+            `Abre Minecraft Bedrock Edition en tu PC o dispositivo móvil. <a href="https://tarquitet.gitbook.io/builtechaft-wiki/guias/3.-como-unirse-al-servidor/3.2.-bedrock" target="_blank" class="text-blue-400 hover:text-white font-bold text-xs uppercase tracking-widest ml-1 transition-colors underline underline-offset-2">Ver Guía Completa</a>`,
+            "Toca 'Jugar' y dirígete a la pestaña superior de 'Servidores'.",
+            "Baja hasta el final de la lista y presiona el botón 'Añadir servidor'.",
+            "Ingresa el nombre que quieras, pega la IP y escribe el Puerto que aparece en esta página.",
+            "Guarda el servidor en tu lista y presiona unirse."
+        ]
+    };
+
+    function renderStepsList(platform) {
+        const container = document.getElementById('steps-content');
+        if (!container) return;
+
+        container.innerHTML = stepsData[platform].map((text, index) => `
+            <div class="flex items-start gap-4 p-4 rounded-xl transition-all bg-black/20 hover:bg-black/40 border border-transparent hover:border-white/5">
+                <div class="w-8 h-8 shrink-0 rounded-full border border-btc-orange/30 text-btc-orange flex items-center justify-center font-bold text-sm bg-btc-orange/10 mt-0.5">${index + 1}</div>
+                <p class="text-zinc-300 text-sm md:text-base font-medium leading-relaxed pt-1">${text}</p>
+            </div>
+        `).join('');
+    }
+
+    function updateStepView() {
+        const javaContainer = document.getElementById('java-display-container');
+        const bedrockContainer = document.getElementById('bedrock-display-container');
+
+        if (currentPlatform === 'java') {
+            javaContainer.style.display = 'flex';
+            bedrockContainer.style.display = 'none';
+            document.getElementById('step-java-ip').innerText = serverConfig.javaIp;
+        } else {
+            javaContainer.style.display = 'none';
+            bedrockContainer.style.display = 'flex';
+            document.getElementById('step-bedrock-ip').innerText = serverConfig.bedrockIp;
+            document.getElementById('step-bedrock-port').innerText = serverConfig.port;
+        }
+
+        renderStepsList(currentPlatform);
+    }
+
+    // Inicializar
+    renderStepsList('java');
+
+    window.addEventListener('btc:config-loaded', (e) => {
+        const data = e.detail;
+        serverConfig.javaIp = data.JavaIP || serverConfig.javaIp;
+        serverConfig.bedrockIp = data.BedrockIP || serverConfig.bedrockIp;
+        serverConfig.port = data.BedrockPort || serverConfig.port;
+
+        updateStepView();
+
+        if (data.isBedrock) {
+            document.getElementById('bedrock-tab-btn')?.classList.remove('hidden');
+        }
+    });
+
+    // Lógica de Pestañas
+    document.querySelectorAll('.step-tab-btn').forEach(tab => {
+        tab.addEventListener('click', (e) => {
+            document.querySelectorAll('.step-tab-btn').forEach(t => {
+                t.classList.remove('bg-btc-orange', 'text-white', 'shadow-[0_0_15px_rgba(249,115,22,0.3)]');
+                t.classList.add('bg-black/40', 'text-zinc-400', 'border-white/10');
+            });
+            const target = e.currentTarget;
+            target.classList.remove('bg-black/40', 'text-zinc-400', 'border-white/10');
+            target.classList.add('bg-btc-orange', 'text-white', 'shadow-[0_0_15px_rgba(249,115,22,0.3)]');
+            currentPlatform = target.getAttribute('data-target') || 'java';
+            updateStepView();
+        });
+    });
+
+    // Función de copiado
+    window.copyGeneric = async function(elementId, btnElement) {
+        const textEl = document.getElementById(elementId);
+        if (!textEl || !btnElement) return;
+
+        await navigator.clipboard.writeText(textEl.innerText);
+        const originalText = btnElement.innerText;
+        
+        btnElement.innerText = '¡COPIADO!';
+        btnElement.classList.add('bg-green-500', 'text-white', 'border-green-500');
+        btnElement.classList.remove('bg-white/10', 'hover:bg-btc-orange', 'hover:bg-blue-500');
+        
+        setTimeout(() => {
+            btnElement.innerText = originalText;
+            btnElement.classList.remove('bg-green-500', 'text-white', 'border-green-500');
+            btnElement.classList.add('bg-white/10');
+            if (elementId.includes('bedrock')) {
+                btnElement.classList.add('hover:bg-blue-500');
+            } else {
+                btnElement.classList.add('hover:bg-btc-orange');
+            }
+        }, 2000);
+    }
+</script>

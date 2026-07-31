@@ -1,0 +1,71 @@
+{
+  "id": "ops",
+  "title": "Día a Día",
+  "desc": "Actualizaciones y normas de arte (Secciones IV - V)",
+  "icon": "⚙️",
+  "sections": [
+    {
+      "id": "IV",
+      "title": "Actualizaciones y Equipo",
+      "icon": "🛠️",
+      "rules": [
+        {
+          "num": "4.1",
+          "text": "Sobre las nuevas versiones",
+          "sub": "Preferimos que el servidor sea estable antes que tener lo último con errores.",
+          "details": [
+            "4.1.a: Cuando sale una nueva versión de Minecraft, solemos esperar entre 1 a 2 semanas antes de actualizar el servidor. Esto se hace para verificar si los mods o datapcks que estaban en las versiones anteriores son compatibles y necesarias con esta nueva versión.",
+            "4.1.b: Si vemos que algún mod o datapack no tienen relevancia o utilidad en el servidor (sin necesidad de actualizar a otra versión) se considerará su retiro.",
+            "4.1.c: Aquellos jugadores que propongan mods o datapacks que tengan utilidad o novedad al servidor puede ser informado al Staff y evaluar si tiene utilidad para ser agregado para la comunidad."
+          ]
+        },
+        {
+          "num": "4.2",
+          "text": "Somos humanos",
+          "sub": "Detrás del servidor hay personas reales, no máquinas.",
+          "details": [
+            "4.2.a: A veces el servidor puede no encenderse a la hora exacta por olvido o falta de tiempo del dueño; por favor, evita presionar al Staff.",
+            "4.2.b: No somos una super comunidad enorme; somos voluntarios quienes hacen las cosas con pasión."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "V",
+      "title": "Reglas de Arte",
+      "icon": "🎨",
+      "rules": [
+        {
+          "num": "5.1",
+          "text": "Arte Sugerente",
+          "sub": "Permitimos libertad creativa, pero con límites para mantener un ambiente cómodo.",
+          "details": [
+            "5.1.a: Límite de obras: Cada usuario puede tener un máximo de dos (2) obras de arte de carácter sugerente. No queremos que el servidor se convierta en una galería de este tipo.",
+            "5.1.b: Solo en zonas privadas: Estas obras deben estar en lugares cerrados o privados (como sótanos o habitaciones). Mostrarlas en zonas públicas o el Spawn se considera una falta de respeto.",
+            "5.1.c: Tu responsabilidad: Si alguien ve tu contenido porque no protegiste bien tu zona, la responsabilidad es totalmente tuya."
+          ]
+        },
+        {
+          "num": "5.2",
+          "text": "Nivel de Contenido",
+          "sub": "El Staff supervisa que el tono del servidor no se vuelva inapropiado.",
+          "details": [
+            "5.2.a: Respetar los límites: Ninguna obra nueva puede ser más explícita que las que ya han sido permitidas anteriormente.",
+            "5.2.b: Ajustes necesarios: Si el ambiente se vuelve muy pesado, el Staff podrá pedir que se retiren o censuren algunas obras para mantener el orden.",
+            "5.2.c: Decisión final: El Staff tiene la última palabra sobre qué es arte y qué es contenido prohibido. No se aceptarán discusiones sobre esto."
+          ]
+        },
+        {
+          "num": "5.3",
+          "text": "Ambiente de la Comunidad",
+          "sub": "Cuidamos que el servidor sea un lugar sano para todos.",
+          "details": [
+            "5.3.a: Revisión de contenido: El Staff revisa lo que se construye para asegurar que el ambiente siga siendo respetuoso y acorde a nuestros valores.",
+            "5.3.b: Comportamiento: Si el contenido que creas es demasiado perturbador o extraño, el jugador será nombrado a juicio para evaluar si el perfil es adecuado para permanecer en esta comunidad.",
+            "5.3.c: Prueba de madurez: Te pedimos manejar tu libertad acorde hacia los valores según las normas establecidas y con respeto hacia los demás jugadores."
+          ]
+        }
+      ]
+    }
+  ]
+}

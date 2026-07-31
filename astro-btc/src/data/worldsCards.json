@@ -1,0 +1,24 @@
+[
+  {
+    "bgImage": "/images/gallery/0_4.avif",
+    "wrapperClass": "",
+    "tagText": "Creativo",
+    "tagClass": "text-blue-400 bg-blue-500/20 border-blue-500/40",
+    "title": "Mundo Creativo",
+    "desc": "Un espacio para probar ideas, planificar proyectos y experimentar con bloques antes de construirlos en el Survival. Todo lo que imagines puedes desarrollarlo aquí primero.",
+    "link": "#",
+    "dataTarget": "drop-map-cr",
+    "btnClass": "bg-blue-600 hover:bg-blue-500 text-white"
+  },
+  {
+    "bgImage": "/images/gallery/00.avif",
+    "wrapperClass": "border-t lg:border-t-0 lg:border-l border-white/10",
+    "tagText": "Survival",
+    "tagClass": "text-btc-orange bg-btc-orange/20 border-btc-orange/40",
+    "title": "Mundo Survival",
+    "desc": "El mundo principal del servidor. Aquí es donde se desarrollan los proyectos, las exploraciones y las construcciones que forman parte de la historia de Builtechraft.",
+    "link": "#",
+    "dataTarget": "drop-map-sv",
+    "btnClass": "bg-btc-orange hover:bg-white hover:text-btc-orange text-white"
+  }
+]

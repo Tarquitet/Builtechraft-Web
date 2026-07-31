@@ -1,0 +1,207 @@
+---
+import '../styles/global.css';
+import Navbar from '../components/navbar/Navbar.astro';
+import NavbarMobile from '../components/navbar/NavbarMobile.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+    title: string;
+    description?: string;
+    image?: string;
+    canonicalURL?: URL | string;
+}
+
+const { 
+    title, 
+    description = "Builtechraft SMP - Servidor de Minecraft Técnico y Creativo. Únete a nuestra comunidad, descubre proyectos y lleva tu ingeniería al siguiente nivel.",
+    image = "/images/logo-text.webp",
+} = Astro.props;
+
+// Construimos la URL canónica automáticamente basada en la página actual
+const canonicalURL = Astro.props.canonicalURL || new URL(Astro.url.pathname, Astro.site);
+// Resolvemos la URL de la imagen para que siempre sea absoluta (necesario para Discord/Twitter)
+const socialImageURL = new URL(image, Astro.url);
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{title}</title>
+        
+        <meta name="description" content={description} />
+        <meta name="keywords" content="Minecraft, Servidor Minecraft, Técnico, Creativo, Builtechraft, Fabric, SMP, Colombia, Español, Modrinth, Modpack" />
+        <meta name="author" content="Tarquitet" />
+        <link rel="canonical" href={canonicalURL} />
+        
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={canonicalURL} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={socialImageURL} />
+        <meta name="theme-color" content="#f97316" /> <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={canonicalURL} />
+        <meta property="twitter:title" content={title} />
+        <meta property="twitter:description" content={description} />
+        <meta property="twitter:image" content={socialImageURL} />
+
+        <link rel="icon" type="image/png" href="/images/favicon.png" />
+        <link rel="apple-touch-icon" href="/images/favicon.png" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+        <meta name="generator" content={Astro.generator} />
+
+        <script type="application/ld+json" set:html={JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "VideoGame",
+            "name": "Builtechraft SMP",
+            "description": description,
+            "playMode": "MultiPlayer",
+            "applicationCategory": "GameServer",
+            "url": Astro.site
+        })} />
+    
+        <!-- Google Translate Scripts -->
+        <script type="text/javascript" is:inline>
+            function googleTranslateElementInit() {
+                new google.translate.TranslateElement({
+                    pageLanguage: 'es',
+                    includedLanguages: 'es,en', // Idiomas que quieres soportar
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                    autoDisplay: false
+                }, 'google_element');
+            }
+        </script>
+        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    </head>
+
+    <body class="bg-btc-dark text-white font-sans antialiased selection:bg-btc-orange selection:text-white flex flex-col min-h-screen">
+        
+
+        <Navbar/>
+        <NavbarMobile />
+
+        <main class="grow">
+            <slot />
+        </main>
+
+        <Footer />
+        
+
+        <style is:global>
+    /* 1. Ocultar la barra superior de Google Translate */
+    iframe.goog-te-banner-frame,
+    .skiptranslate > iframe.goog-te-banner-frame {
+        display: none !important;
+    }
+
+    /* 2. MATAR LA FRANJA BLANCA: Forzar a que la web no se desplace hacia abajo */
+    html, body {
+        top: 0 !important;
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+        position: relative !important;
+    }
+
+    /* 3. Ocultar el popup/tooltip molesto que aparece al hacer hover sobre texto traducido */
+    #goog-gt-tt, 
+    .goog-te-balloon-frame {
+        display: none !important;
+    }
+
+    /* 4. Quitar el fondo amarillo/blanco que Google le pone a veces al texto al pasar el ratón */
+    font {
+        background-color: transparent !important;
+        box-shadow: none !important;
+    }
+</style>
+
+    <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const heroSection = document.getElementById('inicio');
+    const heroNavbar = document.getElementById('hero-navbar-wrapper');
+    
+    if (!heroSection || !heroNavbar) return;
+    
+    // Optimización: Usamos requestAnimationFrame para evitar "layout thrashing"
+    let ticking = false;
+    
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const triggerHeight = heroSection.offsetHeight - 200;
+          const currentScroll = window.scrollY;
+          
+          if (currentScroll > triggerHeight) {
+            heroNavbar.style.opacity = '0';
+            heroNavbar.style.pointerEvents = 'none';
+          } else {
+            heroNavbar.style.opacity = '1';
+            heroNavbar.style.pointerEvents = 'auto';
+          }
+          ticking = false; // Liberamos el bloqueo para el siguiente frame
+        });
+        ticking = true; // Bloqueamos hasta que se complete el frame
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Ejecutamos una vez al inicio para establecer el estado correcto
+    handleScroll();
+  });
+</script>
+
+<!-- SCRIPT GLOBAL PARA ACTUALIZAR ENLACES DINÁMICOS -->
+        <script is:inline>
+            document.addEventListener('DOMContentLoaded', () => {
+                const updateDynamicLinks = (data) => {
+                    if (!data) return;
+                    
+                    // Función auxiliar para actualizar grupos de enlaces por data-target
+                    const setLinksByTarget = (targetName, url) => {
+                        if (url && url !== '#') {
+                            document.querySelectorAll(`a[data-target="${targetName}"]`).forEach(link => {
+                                link.href = url;
+                                link.target = "_blank";
+                            });
+                        }
+                    };
+
+                    // 1. Wiki, Mapas y Discord
+                    setLinksByTarget('wiki', data.WikiURL);
+                    setLinksByTarget('drop-map-sv', data.MapaSurvival);
+                    setLinksByTarget('drop-map-cr', data.MapaCreativo);
+                    setLinksByTarget('discord', data.DiscordURL);
+
+                    // 2. Control Dinámico de Donaciones (Modo Fantasma)
+                    const donacionSec = document.getElementById('donacion-section');
+                    if (data.DonacionURL && data.DonacionURL !== '#' && data.DonacionURL.trim() !== '') {
+                        setLinksByTarget('donacion', data.DonacionURL);
+                        if (donacionSec) {
+                            donacionSec.classList.remove('hidden');
+                            donacionSec.classList.add('block');
+                        }
+                    } else {
+                        if (donacionSec) donacionSec.classList.add('hidden');
+                    }
+                };
+
+                // Leer de caché primero para velocidad instantánea
+                const cachedConfig = sessionStorage.getItem('btc_config');
+                if (cachedConfig) {
+                    try {
+                        updateDynamicLinks(JSON.parse(cachedConfig));
+                    } catch (e) {}
+                }
+
+                // Escuchar el evento oficial del ConfigLoader
+                window.addEventListener('btc:config-loaded', (e) => {
+                    updateDynamicLinks(e.detail);
+                });
+            });
+        </script>
+    </body>
+</html>
