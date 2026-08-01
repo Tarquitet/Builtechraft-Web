@@ -175,11 +175,11 @@ const socialImageURL = new URL(image, Astro.url);
                     setLinksByTarget('drop-map-sv', data.MapaSurvival);
                     setLinksByTarget('drop-map-cr', data.MapaCreativo);
                     setLinksByTarget('discord', data.DiscordURL);
+                    setLinksByTarget('donacion', data.DonacionURL);
 
                     // 2. Control Dinámico de Donaciones (Modo Fantasma)
                     const donacionSec = document.getElementById('donacion-section');
                     if (data.DonacionURL && data.DonacionURL !== '#' && data.DonacionURL.trim() !== '') {
-                        setLinksByTarget('donacion', data.DonacionURL);
                         if (donacionSec) {
                             donacionSec.classList.remove('hidden');
                             donacionSec.classList.add('block');
