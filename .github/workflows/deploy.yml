@@ -2,35 +2,53 @@ name: Deploy Astro with Bun to gh-pages
 
 on:
   push:
-    branches: [v2-Astro] # Tu rama de código fuente actual
+    branches: [v2-Astro]
 
 permissions:
   contents: write
 
+concurrency:
+  group: deploy-gh-pages
+  cancel-in-progress: true
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      # Esto no es estrictamente necesario en ubuntu-latest,
+      # pero ayuda si alguna action necesita Node explícitamente.
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          ref: v2-Astro # Descarga el código de tu rama v2-Astro
+          node-version: latest
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+        uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
 
+      - name: Cache Bun dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lock', 'bun.lockb') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
+
       - name: Install dependencies
-        run: bun install
+        run: bun install --frozen-lockfile
 
       - name: Build Astro project
         run: bun run build
 
-      - name: Deploy to gh-pages branch
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-          publish_branch: gh-pages # Aquí está apuntando correctamente a la rama gh-pages
+          publish_branch: gh-pages
           commit_message: 'chore: auto-deploy Astro build with Bun from v2-Astro [skip ci]'
