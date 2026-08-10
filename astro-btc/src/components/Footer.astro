@@ -1,48 +1,46 @@
 ---
 import LanguagePicker from './navbar/LanguagePicker.astro';
 import DonationMini from './donation/DonationMini.astro';
+import links from '../data/links.json';
 const currentYear = new Date().getFullYear();
 ---
 <DonationMini />
-<footer class="bg-black border-t border-white/5 pt-16 pb-6 relative overflow-hidden">
+<footer class="footer-wrapper">
 
-    <div class="container mx-auto px-6 relative z-10">
+    <div class="footer-container">
         
-        <!-- Grid a 2 columnas (Agradecimiento a la izquierda, Soporte a la derecha) -->
-        <div class="hidden md:grid grid-cols-1 md:grid-cols-2 gap-12 border-b border-white/10 pb-12 mb-8">
+        <div class="footer-grid">
             
-            <!-- Columna Izquierda: Agradecimiento -->
             <div>
                 <img src="/images/logo-text.webp" alt="Builtechraft" class="h-8 w-auto mb-6" loading="lazy" />
-                <h4 class="text-white font-bold tracking-widest text-xs uppercase mb-3">Gracias por vernos</h4>
-                <p class="text-zinc-400 text-sm leading-relaxed max-w-sm">
+                <h4 class="footer-heading">Gracias por vernos</h4>
+                <p class="footer-text">
                     Builtechraft es un proyecto hecho con cariño y dedicación. Esta página web fue desarrollada por <a href="https://web.tarquitet.com" target="_blank" rel="noopener noreferrer" class="text-btc-orange hover:underline transition-colors">Tarquitet.</a> ¡Puedes ir al discord y decir lo cool que es la página!
                 </p>
             </div>
 
-            <!-- Columna Derecha: Soporte -->
             <div class="flex flex-col md:items-end">
-                <h4 class="text-white font-bold tracking-widest text-xs uppercase mb-4">Guías y Soporte</h4>
+                <h4 class="footer-heading">Guías y Soporte</h4>
                 <div class="flex flex-col gap-3 md:items-end">
-                    <a href="/rules" class="text-zinc-400 hover:text-btc-orange transition-colors text-sm font-medium">Normativas Oficiales</a>
-                    <a href="https://tarquitet.gitbook.io/builtechaft-wiki" target="_blank" class="text-zinc-400 hover:text-btc-orange transition-colors text-sm font-medium">Wiki y Tutoriales</a>
-                    <a href="https://discord.gg/4KzRH5DPzx" target="_blank" rel="noopener noreferrer" class="text-zinc-400 hover:text-btc-orange transition-colors text-sm font-medium">Soporte en Discord</a>
+                    <a href="/rules" class="footer-link">Normativas</a>
+                    <a href={links.wiki} target="_blank" class="footer-link">Wiki</a>
+                    <a href={links.discord} target="_blank" rel="noopener noreferrer" class="footer-link">Discord</a>
+                    <a href={links.donate} target="_blank" rel="noopener noreferrer" class="footer-link">Donar</a>
                 </div>
             </div>
 
         </div>
 
-        <div class="flex flex-col md:flex-row items-center justify-between text-center md:text-left gap-6 pt-2">
+        <div class="footer-bottom">
             
             <div class="text-zinc-500 text-xs font-mono">
                 <p>&copy; {currentYear} <span class="text-btc-orange font-bold">Builtechraft</span> - Todos los derechos reservados.</p>
                 <p class="text-[10px] mt-1 opacity-70">No afiliado con Mojang AB ni Microsoft.</p>
             </div>
 
-            <!-- Selector de Idioma -->
             <div class="flex items-center gap-4">
                 <LanguagePicker />
-            </div>
+             </div>
 
         </div>
     </div>

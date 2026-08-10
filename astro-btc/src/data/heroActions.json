@@ -1,0 +1,26 @@
+[
+  {
+    "id": "whitelist",
+    "label": "Pedir Whitelist",
+    "keyLink": "discord",
+    "isExternal": true,
+    "btnClass": "bg-[#5865F2] hover:bg-[#4752C4] text-white shadow-lg shadow-[#5865F2]/20 hover:shadow-[#5865F2]/40",
+    "icon": "discord"
+  },
+  {
+    "id": "como-entrar",
+    "label": "Cómo Ingresar",
+    "keyLink": "wikiComoEntrar",
+    "isExternal": true,
+    "btnClass": "bg-btc-orange hover:bg-orange-600 text-white shadow-lg shadow-btc-orange/20",
+    "icon": "play"
+  },
+  {
+    "id": "wiki",
+    "label": "Wiki Oficial",
+    "keyLink": "wikiHome",
+    "isExternal": true,
+    "btnClass": "bg-white/5 border border-theme hover:bg-white/10 text-theme-main",
+    "icon": "book"
+  }
+]

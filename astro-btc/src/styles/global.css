@@ -1,97 +1,86 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-btc-orange: #f97316;
-  --color-btc-yellow: #fbbf24;
-  --color-btc-coffee: #7c2d12;
+  --color-btc-orange: #ea580c;
+  --color-btc-yellow: #f59e0b;
+  --color-btc-coffee: #5c1d0c;
 
   --font-sans: 'Inter', sans-serif;
   --font-display: 'Rajdhani', sans-serif;
 }
 
-/* --- TEMA OSCURO --- */
+/* --- TEMA OSCURO (Sin negro puro, adiós fatiga visual) --- */
 :root {
-  --bg-app: #272727;
-  --bg-section: #272727;
-  --bg-alternate: #272727;
-  --bg-card: #18181b;
-  --bg-card-hover: #212124;
+  --bg-app: #171615;
+  --bg-section: #1c1b1a;
+  --bg-alternate: #22201e;
+  --bg-card: #242220;
+  --bg-card-hover: #2c2926;
 
-  --text-main: #ffffff;
-  --text-muted: #a1a1aa; /* mejor que #5b5b60 (muy apagado) */
-  --text-accent: #f97316;
-  --text-highlight: #fbbf24;
+  --text-main: #f4f4f5;
+  --text-muted: #a1a1aa;
+  --text-accent: #ea580c;
+  --text-highlight: #f59e0b;
 
-  --border-subtle: rgba(255, 255, 255, 0.06);
-  --border-accent: rgba(249, 115, 22, 0.25);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-accent: rgba(234, 88, 12, 0.3);
 
-  /* extras para UI */
-  --shadow-soft: 0 20px 60px rgba(0, 0, 0, 0.45);
-  --img-overlay: rgba(249, 115, 22, 0.1);
+  --shadow-soft: 0 20px 50px rgba(0, 0, 0, 0.6);
+  --img-overlay: rgba(234, 88, 12, 0.12);
 
-  /* GRADIENTE DISCORD */
-  --grad-1: #353644;
-  --grad-2: #2c51cb;
-  --grad-3: #6571f9;
+  --grad-1: #2d2e3d;
+  --grad-2: #2546a9;
+  --grad-3: #5865f2;
 
-  /* GRADIENTE MODPACK */
-  --grad-mod-1: #68d979; /* Verde Modrinth Brillante */
-  --grad-mod-2: #454545; /* Gris Industrial Oscuro */
-  --grad-mod-3: #b0ffc0; /* Verde Bosque Técnico */
-  --grad-mod-text: #ffffff; /* Texto Blanco para contraste */
-  --text-modrinth: #16a34a;
+  --grad-mod-1: #22c55e;
+  --grad-mod-2: #262626;
+  --grad-mod-3: #4ade80;
+  --grad-mod-text: #ffffff;
+  --text-modrinth: #22c55e;
 
-  /* GRADIENTE SURVIVAL (Naranja/Amarillo Oscuro) */
-  --grad-surv-1: #431407; /* Café muy oscuro */
-  --grad-surv-2: #9a3412; /* Naranja quemado */
-  --grad-surv-3: #f97316; /* Naranja BTC */
+  --grad-surv-1: #381005;
+  --grad-surv-2: #c2410c;
+  --grad-surv-3: #ea580c;
 
   --grad-text: #ffffff;
 
   color-scheme: dark;
 }
 
-/* --- TEMA CLARO (REAL, basado en tu logo) --- */
+/* --- TEMA CLARO (Estilo Pergamino Limpio) --- */
 :root.light {
-  /* Fondos */
-  --bg-app: #fff7f2; /* crema cálida */
-  --bg-section: #ffffff; /* blanco limpio */
-  --bg-alternate: #f6efe9; /* crema suave */
+  --bg-app: #faf6f0;
+  --bg-section: #ffffff;
+  --bg-alternate: #f2ece4;
   --bg-card: #ffffff;
-  --bg-card-hover: #fff1e6;
+  --bg-card-hover: #faeee3;
 
-  /* Texto */
-  --text-main: #1a1412; /* negro cálido */
-  --text-muted: #6b564d; /* café grisáceo */
-  --text-accent: #f97316; /* marca */
-  --text-highlight: #fbbf24;
+  --text-main: #231f1e;
+  --text-muted: #6e6259;
+  --text-accent: #ea580c;
+  --text-highlight: #d97706;
 
-  /* Bordes */
-  --border-subtle: rgba(26, 20, 18, 0.1);
-  --border-accent: rgba(249, 115, 22, 0.3);
+  --border-subtle: rgba(35, 31, 30, 0.08);
+  --border-accent: rgba(234, 88, 12, 0.25);
 
-  /* extras */
-  --shadow-soft: 0 20px 60px rgba(26, 20, 18, 0.14);
-  --img-overlay: rgba(249, 115, 22, 0.06);
+  --shadow-soft: 0 15px 40px rgba(35, 31, 30, 0.08);
+  --img-overlay: rgba(234, 88, 12, 0.04);
 
-  /* GRADIENTE DISCORD */
-  --grad-1: #eef2ff;
-  --grad-2: #bfceff;
-  --grad-3: #6571f9;
+  --grad-1: #e0e7ff;
+  --grad-2: #c7d2fe;
+  --grad-3: #4f46e5;
 
-  /* GRADIENTE MODPACK */
-  --grad-mod-1: #e5ffee;
-  --grad-mod-2: #dcfce7;
-  --grad-mod-3: #bbf7d0;
-  --grad-mod-text: #1a1412;
+  --grad-mod-1: #dcfce7;
+  --grad-mod-2: #bbf7d0;
+  --grad-mod-3: #86efac;
+  --grad-mod-text: #14532d;
   --text-modrinth: #16a34a;
 
-  /* GRADIENTE SURVIVAL (Naranja/Amarillo Claro) */
-  --grad-surv-1: #fff7ed; /* Naranja ultra claro */
-  --grad-surv-2: #fed7aa; /* Naranja melocotón */
-  --grad-surv-3: #f97316; /* Naranja BTC */
+  --grad-surv-1: #ffedd5;
+  --grad-surv-2: #fed7aa;
+  --grad-surv-3: #ea580c;
 
-  --grad-text: #1a1412;
+  --grad-text: #231f1e;
 
   color-scheme: light;
 }
@@ -106,7 +95,7 @@ body {
     color 0.5s ease;
 }
 
-/* --- CLASES DE UTILIDAD --- */
+/* --- CLASES DE UTILIDAD GLOBALES --- */
 .bg-theme-app {
   background-color: var(--bg-app);
 }
@@ -119,7 +108,6 @@ body {
 .bg-theme-card {
   background-color: var(--bg-card);
 }
-
 .text-theme-main {
   color: var(--text-main);
 }
@@ -132,45 +120,35 @@ body {
 .text-theme-highlight {
   color: var(--text-highlight);
 }
-
 .border-theme {
   border-color: var(--border-subtle);
 }
 .border-theme-accent {
   border-color: var(--border-accent);
 }
-
-/* Sombra */
 .shadow-theme {
   box-shadow: var(--shadow-soft);
 }
 
-/* Gradientes */
 .bg-custom-gradient {
   background: linear-gradient(92deg, var(--grad-1) 0%, var(--grad-2) 50%, var(--grad-3) 100%);
 }
-
 .text-gradient-contrast {
   color: var(--grad-text);
 }
-
 .bg-modpack-gradient {
   background: linear-gradient(92deg, var(--grad-mod-1) 0%, var(--grad-mod-2) 100%, var(--grad-mod-3) 50%) !important;
 }
-
 .bg-docs-gradient {
   background: linear-gradient(272deg, var(--grad-mod-1) 0%, var(--grad-mod-2) 100%, var(--grad-mod-3) 50%) !important;
 }
-
 .bg-creative-gradient {
   background: linear-gradient(272deg, var(--grad-1) 0%, var(--grad-2) 50%, var(--grad-3) 100%);
 }
-
 .bg-survival-gradient {
   background: linear-gradient(92deg, var(--grad-surv-1) 0%, var(--grad-surv-2) 50%, var(--grad-surv-3) 100%);
 }
 
-/* blur optimizado */
 .glass-gpu {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -180,27 +158,24 @@ body {
   will-change: backdrop-filter, transform;
 }
 
-/* optimización */
 .section-optimize {
   content-visibility: auto;
   contain-intrinsic-size: 1px 500px;
 }
 
-/* scrollbar (mejorado para ambos temas) */
+/* SCROLLBAR */
 :root {
   --scroll-track: #121214;
-  --scroll-thumb: #898989;
+  --scroll-thumb: #52525b;
 }
 :root.light {
-  --scroll-track: #efe6df;
-  --scroll-thumb: #c7b4a9;
+  --scroll-track: #e6dfd5;
+  --scroll-thumb: #b8aea2;
 }
-
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--scroll-thumb) var(--scroll-track);
 }
-
 *::-webkit-scrollbar {
   width: 8px;
 }
@@ -211,29 +186,14 @@ body {
   background-color: var(--scroll-thumb);
   border-radius: 20px;
 }
-
-/* selección de texto */
 ::selection {
   background-color: var(--color-btc-orange);
   color: #ffffff;
   text-shadow: none;
 }
-
 ::-moz-selection {
   background-color: var(--color-btc-orange);
   color: #ffffff;
-}
-
-:root.light ::selection,
-html.light ::selection {
-  background-color: var(--color-btc-orange) !important;
-  color: #ffffff !important;
-}
-
-:root.light ::-moz-selection,
-html.light ::-moz-selection {
-  background-color: var(--color-btc-orange) !important;
-  color: #ffffff !important;
 }
 
 @layer utilities {
@@ -244,4 +204,371 @@ html.light ::-moz-selection {
   .hide-scrollbar::-webkit-scrollbar {
     display: none;
   }
+}
+
+/* =========================================
+   COMPONENTS (Libre de errores de compilación)
+   Aquí Tailwind se encarga del Layout, y CSS nativo de los colores.
+   ========================================= */
+@layer components {
+  /* 1. WELCOME SECTION */
+  .welcome-section {
+    @apply py-24 border-t relative z-10;
+    background-color: var(--bg-section);
+    border-color: var(--border-subtle);
+  }
+  .welcome-badge {
+    @apply px-4 py-1.5 rounded-full border border-btc-orange/30 bg-btc-orange/15 text-btc-orange text-[10px] font-bold uppercase tracking-[0.2em] inline-block mb-6;
+  }
+  .welcome-title {
+    @apply text-3xl md:text-5xl font-display font-bold uppercase tracking-tight mb-6;
+    color: var(--text-main);
+  }
+  .welcome-desc {
+    @apply text-lg leading-relaxed max-w-2xl;
+    color: var(--text-muted);
+  }
+  .welcome-card {
+    @apply rounded-2xl border p-8 transition-all duration-300 hover:border-btc-orange/40 shadow-sm;
+    background-color: var(--bg-card);
+    border-color: var(--border-subtle);
+  }
+  .welcome-card-title {
+    @apply text-xl font-bold mb-4;
+    color: var(--text-main);
+  }
+  .welcome-card-desc {
+    @apply leading-relaxed;
+    color: var(--text-muted);
+  }
+
+  /* 2. CATEGORY CARDS */
+  .category-section {
+    @apply py-24 border-t relative z-10;
+    background-color: var(--bg-section);
+    border-color: var(--border-subtle);
+  }
+  .category-title {
+    @apply text-4xl md:text-5xl font-display font-bold uppercase tracking-tight;
+    color: var(--text-main);
+  }
+  .category-subtitle {
+    @apply mt-4 text-lg;
+    color: var(--text-muted);
+  }
+  .category-card {
+    @apply border rounded-2xl p-6 flex items-center gap-4 transition-colors hover:border-btc-orange/30;
+    background-color: var(--bg-card);
+    border-color: var(--border-subtle);
+  }
+  .category-card-icon {
+    @apply w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border;
+    border-color: var(--border-subtle);
+  }
+  .category-card-title {
+    @apply text-lg font-bold uppercase transition-colors;
+    color: var(--text-main);
+  }
+  .category-card-desc {
+    @apply text-xs mt-1;
+    color: var(--text-muted);
+  }
+
+  /* 3. HOW TO SECTION */
+  .howto-hero {
+    @apply relative w-full py-24 md:py-32 overflow-hidden flex flex-col items-center justify-center text-center;
+  }
+  .howto-hero-title {
+    @apply text-5xl md:text-7xl font-display font-bold uppercase tracking-tight mb-6 drop-shadow-lg;
+    color: var(--text-main);
+  }
+  .howto-hero-desc {
+    @apply text-lg md:text-xl leading-relaxed mb-8 font-medium;
+    color: var(--text-muted);
+  }
+  .howto-req-section {
+    @apply py-16 border-y relative z-10;
+    background-color: var(--bg-alternate);
+    border-color: var(--border-subtle);
+  }
+  .howto-req-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-12 text-center md:text-left divide-y md:divide-y-0 md:divide-x;
+    border-color: var(--border-subtle);
+  }
+  .req-icon-box {
+    @apply w-14 h-14 shrink-0 rounded-full flex items-center justify-center border;
+    border-color: var(--border-subtle);
+  }
+  .req-icon-green {
+    @apply bg-emerald-500/10 text-emerald-500 border-emerald-500/20;
+  }
+  .req-icon-blue {
+    @apply bg-blue-500/10 text-blue-500 border-blue-500/20;
+  }
+  .req-icon-purple {
+    @apply bg-purple-500/10 text-purple-500 border-purple-500/20;
+  }
+  .req-title {
+    @apply text-xl font-bold mb-2 uppercase;
+    color: var(--text-main);
+  }
+  .discord-support-box {
+    @apply bg-[#5865F2]/5 border border-[#5865F2]/20 rounded-3xl p-8 md:p-12 relative overflow-hidden transition-all duration-300 hover:border-[#5865F2]/40;
+  }
+  .discord-support-btn {
+    @apply inline-flex items-center gap-2 bg-[#5865F2] hover:bg-[#4752C4] text-white px-8 py-3.5 rounded-xl font-bold uppercase text-xs tracking-widest transition-all shadow-lg shadow-[#5865F2]/20 hover:shadow-[#5865F2]/40 hover:-translate-y-0.5;
+  }
+
+  /* 4. STEPS SECTION */
+  .steps-section {
+    @apply py-24 relative z-10 w-full;
+    background-color: var(--bg-section);
+  }
+  .steps-title {
+    @apply text-3xl md:text-5xl font-display font-bold uppercase tracking-tight mb-4;
+    color: var(--text-main);
+  }
+  .steps-tab-active {
+    @apply px-6 py-3 bg-btc-orange text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all shadow-[0_0_15px_rgba(234,88,12,0.3)];
+  }
+  .steps-tab-inactive {
+    @apply border text-xs font-bold uppercase tracking-widest rounded-xl transition-all;
+    background-color: var(--bg-card);
+    color: var(--text-muted);
+    border-color: var(--border-subtle);
+  }
+  .steps-tab-inactive:hover {
+    color: var(--text-main);
+  }
+  .steps-ip-box {
+    @apply backdrop-blur-md border rounded-3xl p-6 md:p-8 w-full shadow-xl mb-12;
+    background-color: var(--bg-card);
+    border-color: var(--border-subtle);
+  }
+  .steps-ip-label {
+    @apply text-[10px] uppercase tracking-widest font-bold mb-1;
+    color: var(--text-muted);
+  }
+  .btn-copy-ip {
+    @apply shrink-0 bg-white/10 hover:bg-btc-orange hover:text-white px-8 py-4 rounded-xl font-bold uppercase text-xs tracking-widest transition-all w-full md:w-auto border;
+    color: var(--text-main);
+    border-color: var(--border-subtle);
+  }
+  .btn-copy-ip-bedrock {
+    @apply shrink-0 bg-white/10 hover:bg-blue-600 hover:text-white px-6 py-3 rounded-xl font-bold uppercase text-xs tracking-widest transition-all w-full md:w-auto border;
+    color: var(--text-main);
+    border-color: var(--border-subtle);
+  }
+  .steps-list-container {
+    @apply border rounded-3xl p-6 md:p-8 shadow-xl;
+    background-color: var(--bg-card);
+    border-color: var(--border-subtle);
+  }
+  .step-list-item {
+    @apply flex items-start gap-4 p-4 rounded-xl transition-all bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 border border-transparent;
+  }
+  .step-number {
+    @apply w-8 h-8 shrink-0 rounded-full border border-btc-orange/30 text-btc-orange flex items-center justify-center font-bold text-sm bg-btc-orange/15 mt-0.5;
+  }
+
+  /* 5. NAVIGATION */
+  .navbar-header {
+    @apply hidden lg:block w-full z-50 fixed top-0 left-0 backdrop-blur-md py-2 border-b shadow-lg transition-all duration-300;
+    /* Opacidad calculada dinámicamente con color-mix */
+    background-color: color-mix(in srgb, var(--bg-app) 90%, transparent);
+    border-color: var(--border-subtle);
+  }
+  .navbar-container {
+    @apply container mx-auto px-6 h-16 relative flex items-center justify-between;
+  }
+  .navbar-logo-link {
+    @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex items-center gap-2 transition-transform hover:scale-105;
+  }
+  .navbar-logo-img {
+    @apply h-10 w-auto object-contain drop-shadow-md;
+  }
+  .navbar-nav {
+    @apply flex items-center justify-center gap-16 relative w-full max-w-5xl;
+  }
+  .nav-link {
+    @apply text-sm font-bold uppercase tracking-widest transition-all duration-300 relative py-2 hover:text-btc-orange;
+    color: var(--text-muted);
+  }
+  .nav-link.active,
+  .nav-link.active-parent {
+    @apply text-btc-orange;
+  }
+  .nav-line {
+    @apply absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 bg-btc-orange;
+  }
+  .nav-link:hover .nav-line,
+  .nav-link.active .nav-line,
+  .nav-link.active-parent .nav-line {
+    @apply w-full;
+  }
+  .navbar-dropdown {
+    @apply absolute right-0 top-full mt-4 w-64 backdrop-blur-md border rounded-xl p-4 shadow-2xl opacity-0 invisible scale-95 transition-all duration-300 z-50 pointer-events-none transform origin-top-right;
+    background-color: var(--bg-card);
+    border-color: var(--border-subtle);
+  }
+  .navbar-dropdown.is-open {
+    @apply opacity-100 visible scale-100 pointer-events-auto;
+  }
+  .submenu-link {
+    @apply text-[11px] font-bold uppercase tracking-widest px-6 py-3 rounded-md hover:bg-btc-orange/10 hover:text-btc-orange transition-colors;
+    color: var(--text-muted);
+  }
+  .submenu-link.active-sub {
+    @apply text-btc-orange bg-btc-orange/10;
+  }
+
+  /* Navbar Mobile */
+  .mobile-header {
+    @apply lg:hidden fixed top-0 left-0 w-full z-50 transition-all duration-300 backdrop-blur-md py-2 border-b shadow-lg;
+    background-color: color-mix(in srgb, var(--bg-app) 95%, transparent);
+    border-color: var(--border-subtle);
+  }
+  .mobile-container {
+    @apply container mx-auto px-6 h-16 relative flex items-center justify-between;
+  }
+  .mobile-menu-btn {
+    @apply p-2 rounded-lg transition-colors focus:outline-none z-50;
+    color: var(--text-muted);
+  }
+  .mobile-menu-btn:hover {
+    color: var(--text-main);
+  }
+  .mobile-dropdown-menu {
+    @apply absolute top-full left-0 w-full backdrop-blur-xl border-b transition-all duration-300 origin-top transform scale-y-0 opacity-0 pointer-events-none shadow-2xl;
+    background-color: var(--bg-card);
+    border-color: var(--border-subtle);
+  }
+  .mobile-nav-link {
+    @apply text-base font-bold uppercase tracking-widest transition-all relative py-2 hover:text-btc-orange;
+    color: var(--text-muted);
+  }
+  .mobile-nav-link.active {
+    @apply text-btc-yellow;
+  }
+  .mobile-nav-link:hover .nav-line,
+  .mobile-nav-link.active .nav-line {
+    @apply w-full bg-btc-yellow;
+  }
+  .mobile-submenu-link {
+    @apply text-xs font-bold uppercase tracking-widest py-3 px-6 rounded-lg hover:bg-btc-orange/10 hover:text-btc-orange transition-all text-center w-full;
+    color: var(--text-muted);
+  }
+  .mobile-submenu-link.active-sub {
+    @apply text-btc-orange bg-btc-orange/10;
+  }
+
+  /* 6. FOOTER */
+  .footer-wrapper {
+    @apply border-t pt-16 pb-6 relative overflow-hidden;
+    background-color: var(--bg-section);
+    border-color: var(--border-subtle);
+  }
+  .footer-container {
+    @apply container mx-auto px-6 relative z-10;
+  }
+  .footer-grid {
+    @apply hidden md:grid grid-cols-1 md:grid-cols-2 gap-12 border-b pb-12 mb-8;
+    border-color: var(--border-subtle);
+  }
+  .footer-heading {
+    @apply font-bold tracking-widest text-xs uppercase mb-3 md:mb-4;
+    color: var(--text-main);
+  }
+  .footer-text {
+    @apply text-sm leading-relaxed max-w-sm;
+    color: var(--text-muted);
+  }
+  .footer-link {
+    @apply hover:text-btc-orange transition-colors text-sm font-medium;
+    color: var(--text-muted);
+  }
+  .footer-bottom {
+    @apply flex flex-col md:flex-row items-center justify-between text-center md:text-left gap-6 pt-2;
+  }
+
+  /* 7. HERO SECTION */
+  .hero-section {
+    @apply w-full min-h-[85vh] flex flex-col justify-center items-center relative pt-32 pb-16 overflow-hidden;
+    background-color: var(--bg-app);
+  }
+  .hero-bg-image {
+    @apply absolute inset-0 z-0 bg-cover bg-center opacity-25;
+  }
+  .hero-overlay {
+    @apply absolute inset-0 z-1;
+    background: linear-gradient(to bottom, transparent, var(--bg-app));
+  }
+  .hero-content {
+    @apply relative z-10 flex flex-col items-center px-6 max-w-4xl text-center mt-6;
+  }
+  .hero-logo {
+    @apply w-full max-w-lg mb-6 drop-shadow-2xl hover:scale-105 transition-transform duration-500;
+  }
+  .hero-description {
+    @apply text-lg md:text-xl leading-relaxed mb-10 max-w-2xl font-medium;
+    color: var(--text-muted);
+  }
+}
+
+/* 8. COMPARATIVE TABLE */
+.comparative-section {
+  @apply py-24 border-t relative z-10;
+  background-color: transparent;
+  border-color: color-mix(in srgb, var(--text-main) 18%, transparent);
+}
+
+.comparative-badge {
+  @apply px-4 py-1.5 rounded-full border border-btc-orange/30 bg-btc-orange/15 text-btc-orange text-[10px] font-bold uppercase tracking-[0.2em] inline-block mb-6;
+}
+
+.comparative-title {
+  @apply text-3xl md:text-5xl font-display font-bold uppercase tracking-tight mb-6;
+  color: var(--text-main);
+}
+
+.comparative-desc {
+  @apply text-lg leading-relaxed max-w-2xl;
+  color: var(--text-muted);
+}
+
+.comparative-wrap {
+  @apply overflow-x-auto rounded-2xl border;
+  background-color: transparent;
+  border-color: color-mix(in srgb, var(--text-main) 30%, transparent);
+}
+
+.comparative-table {
+  @apply w-full border-collapse min-w-[700px];
+  background-color: transparent;
+}
+
+.comparative-table thead th {
+  @apply p-5 text-[11px] font-bold uppercase tracking-widest;
+  border-bottom: 1px solid color-mix(in srgb, var(--text-main) 35%, transparent);
+}
+
+.comparative-table tbody td {
+  @apply p-5;
+  border-bottom: 1px solid color-mix(in srgb, var(--text-main) 18%, transparent);
+}
+
+.comparative-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.comparative-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.comparative-table tbody tr:hover {
+  background-color: color-mix(in srgb, var(--text-accent) 8%, transparent);
+}
+
+.comparative-table tbody tr:hover td {
+  border-bottom-color: color-mix(in srgb, var(--text-accent) 45%, transparent);
 }

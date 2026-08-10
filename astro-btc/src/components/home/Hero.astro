@@ -1,0 +1,36 @@
+---
+// src/components/home/Hero.astro
+import heroActions from '../../data/heroActions.json';
+import links from '../../data/links.json';
+
+const bgImage = "url('/images/gallery/2_1.avif')";
+---
+
+<section id="inicio" class="hero-section">
+    <div class="hero-bg-image" style={{ backgroundImage: bgImage }}></div>
+    <div class="hero-overlay"></div>
+    
+    <div class="hero-content">
+        <img src="/images/logo-text.webp" alt="Builtechraft" class="hero-logo" />
+        
+        <p class="hero-description">
+            ¡Bienvenido! Nuestro mundo es semi-vanilla que busca demostrar el poder de los datapacks sin depender de plugins o mods complejos que rompan el juego mientras se desarrollan proyectos a largo plazo. <strong class="text-theme-accent">Acceso exclusivo mediante Whitelist.</strong>
+        </p>
+
+        <div class="flex flex-col sm:flex-row flex-wrap gap-4 justify-center items-center w-full">
+            {heroActions.map((action: any) => {
+                const url = links[action.keyLink as keyof typeof links] || action.href;
+                return (
+                    <a 
+                        href={url} 
+                        target={action.isExternal ? "_blank" : "_self"}
+                        rel={action.isExternal ? "noopener noreferrer" : undefined}
+                        class={`inline-flex justify-center items-center gap-3 px-8 py-4 rounded-xl font-bold uppercase tracking-widest transition-all w-full sm:w-auto ${action.btnClass}`}
+                    >
+                        {action.label}
+                    </a>
+                );
+            })}
+        </div>
+    </div>
+</section>

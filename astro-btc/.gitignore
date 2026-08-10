@@ -22,3 +22,41 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# =========================================
+# DEPENDENCIAS (BUN / NODE)
+# =========================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =========================================
+# ASTRO & BUILD OUTPUT
+# =========================================
+dist/
+.astro/
+.vercel/
+.netlify/
+
+# =========================================
+# VARIABLES DE ENTORNO
+# =========================================
+.env
+.env.*
+!.env.example
+!.env.template
+
+# =========================================
+# ARCHIVOS DEL SISTEMA (OS)
+# =========================================
+.DS_Store
+Thumbs.db
+*.log
+
+# =========================================
+# NOTA SOBRE BUN:
+# NO agregues bun.lockb ni bun.lock aquí.
+# Esos archivos DEBEN subirse a tu repositorio.
+# =========================================

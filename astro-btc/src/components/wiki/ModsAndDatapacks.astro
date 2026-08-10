@@ -2,70 +2,50 @@
 // src/components/wiki/ModsAndDatapacks.astro
 ---
 <style>
-    /* ZIGZAG: Alineación Arriba y Abajo */
-    .mod-item:nth-child(odd) { 
-        align-self: flex-start; 
-        margin-top: 0.5rem;
-    }
-    .mod-item:nth-child(even) { 
-        align-self: flex-end; 
-        margin-bottom: 0.5rem;
-    }
-
-    /* OCULTAR SCROLLBAR NATIVAMENTE */
-    .hide-scrollbar {
-        -ms-overflow-style: none;  /* IE y Edge */
-        scrollbar-width: none;  /* Firefox */
-    }
-    .hide-scrollbar::-webkit-scrollbar {
-        display: none; /* Chrome, Safari y Opera */
-    }
+    .mod-item:nth-child(odd) { align-self: flex-start; margin-top: 0.5rem; }
+    .mod-item:nth-child(even) { align-self: flex-end; margin-bottom: 0.5rem; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
 </style>
 
-<div id="loading-mods" class="flex flex-col justify-center items-center py-10 mb-10 text-zinc-500 gap-3">
+<div id="loading-mods" class="flex flex-col justify-center items-center py-10 mb-10 text-theme-muted gap-3">
     <span class="text-3xl animate-bounce">📦</span>
     <span class="animate-pulse font-bold tracking-widest uppercase text-sm">Sincronizando base de datos...</span>
 </div>
 
-<!-- SECCIÓN DATAPACKS -->
 <div id="datapacks-section" class="hidden flex-col mb-16 relative z-20">
-    <div class="mb-6 flex items-center gap-3 border-b border-white/5 pb-4">
+    <div class="mb-6 flex items-center gap-3 border-b border-theme pb-4">
         <span class="text-2xl">🗂️</span>
         <h3 class="text-xl font-display font-bold text-btc-yellow uppercase tracking-widest m-0">Datapacks Instalados</h3>
     </div>
     
     <div class="relative w-full group/slider">
-        <button id="dp-prev" class="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 md:-ml-6 z-10 bg-zinc-900 text-white p-3 rounded-full border border-white/10 opacity-0 group-hover/slider:opacity-100 transition-opacity disabled:opacity-0 hidden md:flex items-center justify-center hover:bg-btc-orange hover:border-btc-orange shadow-lg cursor-pointer">
+        <button id="dp-prev" class="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 md:-ml-6 z-10 bg-theme-card text-theme-main p-3 rounded-full border border-theme opacity-0 group-hover/slider:opacity-100 transition-opacity disabled:opacity-0 hidden md:flex items-center justify-center hover:bg-btc-orange hover:border-btc-orange hover:text-white shadow-lg cursor-pointer">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
         </button>
 
-        <div id="datapacks-list" class="flex overflow-x-auto snap-x snap-mandatory gap-5 pb-4 hide-scrollbar h-[420px] px-2 py-4">
-            <!-- Se inyectan las tarjetas vía JS -->
-        </div>
+        <div id="datapacks-list" class="flex overflow-x-auto snap-x snap-mandatory gap-5 pb-4 hide-scrollbar h-[420px] px-2 py-4"></div>
 
-        <button id="dp-next" class="absolute right-0 top-1/2 -translate-y-1/2 -mr-4 md:-ml-6 z-10 bg-zinc-900 text-white p-3 rounded-full border border-white/10 opacity-0 group-hover/slider:opacity-100 transition-opacity disabled:opacity-0 hidden md:flex items-center justify-center hover:bg-btc-orange hover:border-btc-orange shadow-lg cursor-pointer">
+        <button id="dp-next" class="absolute right-0 top-1/2 -translate-y-1/2 -mr-4 md:-ml-6 z-10 bg-theme-card text-theme-main p-3 rounded-full border border-theme opacity-0 group-hover/slider:opacity-100 transition-opacity disabled:opacity-0 hidden md:flex items-center justify-center hover:bg-btc-orange hover:border-btc-orange hover:text-white shadow-lg cursor-pointer">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
         </button>
     </div>
 </div>
 
-<!-- SECCIÓN MODS -->
 <div id="mods-section" class="hidden flex-col mb-20 relative z-20">
-    <div class="mb-6 flex items-center gap-3 border-b border-white/5 pb-4">
+    <div class="mb-6 flex items-center gap-3 border-b border-theme pb-4">
         <span class="text-2xl">⚙️</span>
         <h3 class="text-xl font-display font-bold text-blue-500 uppercase tracking-widest m-0">Mods del Servidor</h3>
     </div>
     
     <div class="relative w-full group/slider">
-        <button id="mod-prev" class="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 md:-ml-6 z-10 bg-zinc-900 text-white p-3 rounded-full border border-white/10 opacity-0 group-hover/slider:opacity-100 transition-opacity disabled:opacity-0 hidden md:flex items-center justify-center hover:bg-btc-orange hover:border-btc-orange shadow-lg cursor-pointer">
+        <button id="mod-prev" class="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 md:-ml-6 z-10 bg-theme-card text-theme-main p-3 rounded-full border border-theme opacity-0 group-hover/slider:opacity-100 transition-opacity disabled:opacity-0 hidden md:flex items-center justify-center hover:bg-btc-orange hover:border-btc-orange hover:text-white shadow-lg cursor-pointer">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
         </button>
 
-        <div id="mods-list" class="flex overflow-x-auto snap-x snap-mandatory gap-5 pb-4 hide-scrollbar h-[420px] px-2 py-4">
-            <!-- Se inyectan las tarjetas vía JS -->
-        </div>
+        <div id="mods-list" class="flex overflow-x-auto snap-x snap-mandatory gap-5 pb-4 hide-scrollbar h-[420px] px-2 py-4"></div>
 
-        <button id="mod-next" class="absolute right-0 top-1/2 -translate-y-1/2 -mr-4 md:-ml-6 z-10 bg-zinc-900 text-white p-3 rounded-full border border-white/10 opacity-0 group-hover/slider:opacity-100 transition-opacity disabled:opacity-0 hidden md:flex items-center justify-center hover:bg-btc-orange hover:border-btc-orange shadow-lg cursor-pointer">
+        <button id="mod-next" class="absolute right-0 top-1/2 -translate-y-1/2 -mr-4 md:-ml-6 z-10 bg-theme-card text-theme-main p-3 rounded-full border border-theme opacity-0 group-hover/slider:opacity-100 transition-opacity disabled:opacity-0 hidden md:flex items-center justify-center hover:bg-btc-orange hover:border-btc-orange hover:text-white shadow-lg cursor-pointer">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
         </button>
     </div>
@@ -73,7 +53,6 @@
 
 <script>
 import { getModsAndDatapacks } from '../../utils/sheetsClient.js';
-
 document.addEventListener('DOMContentLoaded', async () => {
     const dpList = document.getElementById('datapacks-list') as HTMLElement;
     const modsList = document.getElementById('mods-list') as HTMLElement;
@@ -83,45 +62,37 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const getColorClass = (tipo: string) => {
         const t = tipo ? tipo.toLowerCase() : '';
-        if(t.includes('mod')) return { text: 'text-blue-500', border: 'border-blue-500/50', badge: 'bg-blue-500/10 text-blue-400 border-blue-500/20' };
-        if(t.includes('plugin')) return { text: 'text-orange-500', border: 'border-orange-500/50', badge: 'bg-orange-500/10 text-orange-400 border-orange-500/20' };
-        if(t.includes('proxy')) return { text: 'text-emerald-500', border: 'border-emerald-500/50', badge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' };
-        if(t.includes('datapack')) return { text: 'text-btc-yellow', border: 'border-btc-yellow/50', badge: 'bg-yellow-500/10 text-yellow-400 border-btc-yellow/20' };
-        return { text: 'text-zinc-400', border: 'border-zinc-400/50', badge: 'bg-zinc-800 text-zinc-300 border-zinc-700' };
+        if(t.includes('mod')) return { text: 'text-blue-500', border: 'border-blue-500/50', badge: 'bg-blue-500/10 text-blue-500 border-blue-500/20' };
+        if(t.includes('plugin')) return { text: 'text-orange-500', border: 'border-orange-500/50', badge: 'bg-orange-500/10 text-orange-500 border-orange-500/20' };
+        if(t.includes('proxy')) return { text: 'text-emerald-500', border: 'border-emerald-500/50', badge: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' };
+        if(t.includes('datapack')) return { text: 'text-btc-yellow', border: 'border-btc-yellow/50', badge: 'bg-yellow-500/10 text-btc-yellow border-btc-yellow/20' };
+        return { text: 'text-theme-muted', border: 'border-theme-muted/50', badge: 'bg-theme-alternate text-theme-muted border-theme' };
     };
 
     const createModCardHTML = (item: any) => {
         const colors = getColorClass(item.Type);
-        
         const iconSrc = item.Icon 
             ? `<img src="${item.Icon}" alt="${item.Name}" class="w-full h-full object-contain drop-shadow-lg transition-transform duration-500 group-hover/card:scale-105" />` 
-            : `<div class="w-full h-full flex items-center justify-center text-zinc-500 text-4xl font-bold opacity-30">?</div>`;
-
+            : `<div class="w-full h-full flex items-center justify-center text-theme-muted text-4xl font-bold opacity-30">?</div>`;
         const maxChars = 85; 
         const fullDesc = item.Desc || '';
         const isTruncated = fullDesc.length > maxChars;
         const displayDesc = isTruncated ? fullDesc.substring(0, maxChars).trim() + '...' : fullDesc;
-
+        
         return `
-            <div class="mod-item snap-center shrink-0 w-60 flex flex-col bg-[#111] border border-white/5 rounded-2xl overflow-hidden hover:${colors.border} transition-colors duration-300 shadow-lg group/card">
+            <div class="mod-item snap-center shrink-0 w-60 flex flex-col bg-theme-card border border-theme rounded-2xl overflow-hidden hover:${colors.border} transition-colors duration-300 shadow-lg group/card">
                 
-                <!-- Contenedor Superior: Imagen -->
-                <div class="w-full h-32 bg-black/40 relative flex items-center justify-center border-b border-white/5 p-4">
+                <div class="w-full h-32 bg-black/10 dark:bg-black/40 relative flex items-center justify-center border-b border-theme p-4">
                     ${iconSrc}
                 </div>
                 
-                <!-- Contenedor Inferior: Textos y Link -->
                 <div class="p-5 flex flex-col flex-grow">
-                    
-                    <h4 class="font-bold text-white text-sm m-0 mb-3 truncate">${item.Name}</h4>
-                    
+                    <h4 class="font-bold text-theme-main text-sm m-0 mb-3 truncate">${item.Name}</h4>
                     <span class="text-[9px] uppercase tracking-widest font-bold px-2 py-0.5 rounded ${colors.badge} border inline-block mb-3 self-start">${item.Type}</span>
-                    
-                    <p class="text-xs text-zinc-400 leading-relaxed m-0 flex-grow">
+                    <p class="text-xs text-theme-muted leading-relaxed m-0 flex-grow">
                         ${displayDesc}
                     </p>
-                    
-                    <a href="${item.Url}" target="_blank" rel="noopener noreferrer" class="mt-5 w-full text-center py-2.5 px-4 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-colors border border-white/10 bg-white/5 hover:bg-white/10 hover:text-white text-zinc-300">
+                    <a href="${item.Url}" target="_blank" rel="noopener noreferrer" class="mt-5 w-full text-center py-2.5 px-4 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-colors border border-theme bg-theme-alternate hover:bg-btc-orange/10 hover:text-btc-orange text-theme-main">
                         ${isTruncated ? 'Leer más' : 'Ver enlace'}
                     </a>
                 </div>
@@ -132,7 +103,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const setupSliderControls = (container: HTMLElement | null, prevBtnId: string, nextBtnId: string) => {
         const btnPrev = document.getElementById(prevBtnId) as HTMLButtonElement;
         const btnNext = document.getElementById(nextBtnId) as HTMLButtonElement;
-        
         if (!container || !btnPrev || !btnNext) return;
 
         const updateArrows = () => {
@@ -142,14 +112,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         };
 
         container.addEventListener('scroll', updateArrows, { passive: true });
-        updateArrows(); // Comprobación inicial
+        updateArrows();
 
         btnPrev.addEventListener('click', () => {
             const item = container.querySelector('.mod-item') as HTMLElement;
-            const cardWidth = item ? item.offsetWidth + 20 : 260; // 20px de gap-5
+            const cardWidth = item ? item.offsetWidth + 20 : 260; 
             container.scrollBy({ left: -(cardWidth * 2), behavior: 'smooth' });
         });
-
         btnNext.addEventListener('click', () => {
             const item = container.querySelector('.mod-item') as HTMLElement;
             const cardWidth = item ? item.offsetWidth + 20 : 260;
@@ -159,29 +128,24 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         const { mods, datapacks } = await getModsAndDatapacks();
-        
         if (datapacks.length > 0 && dpList && dpSection) {
             dpList.innerHTML = datapacks.map((item: any) => createModCardHTML(item)).join('');
-            
             dpSection.classList.remove('hidden');
             dpSection.classList.add('flex');
-            
             setupSliderControls(dpList, 'dp-prev', 'dp-next');
         }
 
         if (mods.length > 0 && modsList && modsSection) {
             modsList.innerHTML = mods.map((item: any) => createModCardHTML(item)).join('');
-            
             modsSection.classList.remove('hidden');
             modsSection.classList.add('flex');
-            
             setupSliderControls(modsList, 'mod-prev', 'mod-next');
         }
         
         if(loadingEl) loadingEl.style.display = 'none';
     } catch (err) {
         console.error("Error cargando mods:", err);
-        if(loadingEl) loadingEl.innerHTML = "<span class='text-red-400 font-bold'>Error al conectar con la base de datos.</span>";
+        if(loadingEl) loadingEl.innerHTML = "<span class='text-red-500 font-bold'>Error al conectar con la base de datos.</span>";
     }
 });
 </script>

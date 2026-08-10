@@ -1,10 +1,10 @@
 ---
-// src/components/DonationMini.astro
+// src/components/donation/DonationMini.astro
+import links from '../../data/links.json';
 ---
 
-<section id="donacion-section" class="hidden py-16 bg-[#0a0a0c] border-t border-white/5 relative z-10 overflow-hidden">
-    <!-- Resplandor sutil de fondo -->
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg h-32 bg-pink-500/5 blur-[100px] rounded-full pointer-events-none"></div>
+<section id="donacion-section" class="py-16 bg-theme-alternate border-t border-theme relative z-10 overflow-hidden">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg h-32 bg-pink-500/10 blur-[100px] rounded-full pointer-events-none"></div>
     
     <div class="container mx-auto px-6 max-w-3xl text-center relative z-10">
         
@@ -14,16 +14,16 @@
             </svg>
         </div>
         
-        <h2 class="text-3xl md:text-4xl font-display font-bold text-white uppercase tracking-tight mb-4">
+        <h2 class="text-3xl md:text-4xl font-display font-bold text-theme-main uppercase tracking-tight mb-4">
             Apoya el <span class="text-pink-500">Proyecto</span>
         </h2>
         
-        <p class="text-zinc-400 text-sm md:text-base leading-relaxed mb-8">
-            Builtechraft lleva existiendo desde 2020 gracias a la constancia y el amor hacia este proyecto. Si quieres apoyar el proyecto y ayudar a que siga creciendo, puedes invitarnos un café.
+        <p class="text-theme-muted text-sm md:text-base leading-relaxed mb-8">
+            Builtechraft lleva existiendo desde 2020 gracias a la constancia y el amor hacia este proyecto.
+            Si quieres apoyar el proyecto y ayudar a que siga creciendo, puedes invitarnos un café.
         </p>
         
-        <!-- Cambia el href por tu enlace real de donación (Ko-fi, PayPal, etc.) -->
-        <a href="#" data-target="donacion" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 bg-zinc-900 hover:bg-pink-600 text-white px-8 py-4 rounded-xl font-bold uppercase text-xs tracking-widest transition-all border border-white/10 hover:border-pink-500 shadow-lg group">
+        <a href={links.donate} data-target="donacion" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 bg-theme-card hover:bg-pink-600 text-theme-main hover:text-white px-8 py-4 rounded-xl font-bold uppercase text-xs tracking-widest transition-all border border-theme hover:border-pink-500 shadow-lg group">
             <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
             </svg>

@@ -3,31 +3,30 @@
 import welcomeCards from '../../data/welcomeCards.json';
 ---
 
-<section class="py-24 bg-[#0a0a0c] border-t border-white/5 relative z-10">
+<section class="welcome-section">
     <div class="container mx-auto px-6 max-w-6xl">
         
-        <!-- Introducción -->
         <div class="max-w-3xl mb-16">
-            <span class="px-4 py-1.5 rounded-full border border-btc-orange/30 bg-btc-orange/10 text-btc-orange text-[10px] font-bold uppercase tracking-[0.2em] inline-block mb-6">
+            <span class="welcome-badge">
                 ¿Qué es Builtechraft?
             </span>
-            <h2 class="text-3xl md:text-5xl font-display font-bold text-white uppercase tracking-tight mb-6">
+            <h2 class="welcome-title">
                 Survival para construir,
                 <span class="text-btc-orange">sin perder la esencia de Vanilla</span>
             </h2>
-            <p class="text-zinc-300 text-lg leading-relaxed max-w-2xl">
-                Builtechraft es un servidor Survival privado pensado para quienes disfrutan construyendo, desde una pequeña casa hasta grandes proyectos. Está basado en Fabric y mantiene una experiencia cercana a Minecraft Vanilla con mejoras cuidadosamente seleccionadas.
+            <p class="welcome-desc">
+                Builtechraft es un servidor Survival privado pensado para quienes disfrutan construyendo, desde una pequeña casa hasta grandes proyectos.
+                Está basado en Fabric y mantiene una experiencia cercana a Minecraft Vanilla con mejoras cuidadosamente seleccionadas.
             </p>
         </div>
 
-        <!-- Tarjetas construidas dinámicamente -->
         <div class="grid gap-6 md:grid-cols-2">
             {welcomeCards.map((card) => (
-                <article class="rounded-2xl border border-white/10 bg-white/5 p-8 transition-all duration-300 hover:border-btc-orange/40 hover:bg-white/[0.07]">
-                    <h3 class="text-xl font-bold text-white mb-4">
+                <article class="welcome-card">
+                    <h3 class="welcome-card-title">
                         {card.title}
                     </h3>
-                    <p class="text-zinc-400 leading-relaxed">
+                    <p class="welcome-card-desc">
                         {card.desc}
                     </p>
                 </article>
