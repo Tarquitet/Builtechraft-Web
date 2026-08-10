@@ -1,8 +1,8 @@
-name: Deploy Astro to dist-build
+name: Deploy Astro with Bun to gh-pages
 
 on:
   push:
-    branches: [v2-Astro] # <--- Tu rama de código fuente actual
+    branches: [v2-Astro]
 
 permissions:
   contents: write
@@ -14,23 +14,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: v2-Astro # <--- Le indica a GitHub que baje el código de esta rama
+          ref: v2-Astro
 
-      - name: Install Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          node-version: 24
-          cache: 'npm'
+          bun-version: latest
 
       - name: Install dependencies
-        run: npm ci
+        run: bun install
 
       - name: Build Astro project
-        run: npm run build
+        run: bun run build
 
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-          publish_branch: gh-pages # <--- La rama de producción donde se subirá la build estática
+          publish_branch: gh-pages
