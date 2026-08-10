@@ -1,33 +1,36 @@
-name: Deploy a GitHub Pages
+name: Deploy Astro to dist-build
 
 on:
   push:
-    branches: [master] # Cambia 'main' si tu rama principal se llama 'master'
+    branches: [v2-Astro] # <--- Tu rama de código fuente actual
 
 permissions:
-  contents: write # Necesario para que el action pueda escribir en la rama gh-pages
+  contents: write
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout del código
+      - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: v2-Astro # <--- Le indica a GitHub que baje el código de esta rama
 
-      - name: Configurar Node.js
+      - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: 'npm'
 
-      - name: Instalar dependencias
-        run: npm install
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Compilar el proyecto (Build)
+      - name: Build Astro project
         run: npm run build
 
-      - name: Desplegar a la rama gh-pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Deploy to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist # Astro genera la web en esta carpeta
-          publish_branch: gh-pages # El nombre de la rama donde se guardará la web
+          publish_dir: ./dist
+          publish_branch: gh-pages # <--- La rama de producción donde se subirá la build estática
