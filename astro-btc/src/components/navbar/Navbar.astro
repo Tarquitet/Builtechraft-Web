@@ -1,85 +1,137 @@
 ---
+// src/components/navbar/Navbar.astro
 import navData from '../../data/navigation.json';
-const leftItems = navData.left;
-const rightItems = navData.right;
-const aboutItems = navData.about_drop;
+import links from '../../data/links.json';
+
+const mainItems = navData.main;
+const dropdowns = navData.dropdowns || {};
 ---
-<header id="main-header" class="hidden lg:block w-full z-50 fixed top-0 left-0 bg-black/95 backdrop-blur-md py-2 border-b border-white/5 shadow-2xl transition-all duration-300">
-    <div class="container mx-auto px-6 h-12 relative flex items-center justify-center">
-                 
-        <a href="/#inicio" id="logo-link" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex items-center gap-2 transition-transform hover:scale-105">
+
+<header id="main-header" class="navbar-header">
+    <div class="navbar-container">
+        
+        <a href="/#inicio" class="flex items-center gap-2 transition-transform hover:scale-105 z-20">
             <img src="/images/logo-text.webp" alt="Builtechraft" loading="eager" class="h-10 w-auto object-contain drop-shadow-md" />
         </a>
 
-        <nav class="flex items-center justify-center gap-16 relative w-full max-w-5xl" id="desktop-menu">
-                         
-            <div class="flex items-center gap-8 lg:gap-12 flex-1 justify-end">
-                <a href={leftItems[0].href} class="nav-link text-sm font-bold uppercase tracking-widest transition-all duration-300 relative group py-2" data-target={leftItems[0].id}>
-                    {leftItems[0].name}
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full nav-line bg-btc-orange"></span>
-                </a>
-                                
-                <div class="relative py-2">
-                    <button id="about-btn" class="nav-link text-sm font-bold uppercase tracking-widest transition-all duration-300 relative group flex items-center gap-1 cursor-pointer outline-none" data-novedades-parent>
-                        {leftItems[1].name}
-                        <span class="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full nav-line bg-btc-orange"></span>
-                    </button>
-                                        
-                    <div id="about-drop" class="absolute right-0 top-full mt-4 w-64 bg-black/95 backdrop-blur-md border border-white/10 rounded-xl p-4 shadow-2xl opacity-0 invisible scale-95 transition-all duration-300 z-50 pointer-events-none transform origin-top-right">
-                        <div class="flex flex-col gap-1">
-                            {aboutItems.map((item: any) => (
-                                <a href={item.href} class="submenu-link text-[11px] font-bold text-zinc-400 uppercase tracking-widest px-6 py-3 rounded-md hover:bg-white/10 hover:text-btc-orange transition-colors" data-target={item.id}>
-                                    {item.name}
-                                </a>
-                            ))}
+        <nav class="hidden lg:flex items-center justify-end gap-10 flex-1">
+            {mainItems.map((item: any) => {
+                // Resolución segura del enlace (garantiza que siempre haya una URL válida)
+                const targetUrl = (item.keyLink && (links as any)[item.keyLink]) 
+                    ? (links as any)[item.keyLink] 
+                    : (item.href || '#');
+                const customStyle = item.hexColor ? `--text-muted: ${item.hexColor}; --color-btc-orange: ${item.hexColor};` : undefined;
+                const subItems = item.dropdownKey ? (dropdowns as any)[item.dropdownKey] : [];
+
+                return item.hasDropdown ? (
+                    <div class="relative py-2">
+                        <button 
+                            type="button"
+                            class="nav-link flex items-center gap-1.5 cursor-pointer outline-none nav-dropdown-btn"
+                            data-dropdown-target={`nav-drop-${item.id}`}
+                            style={customStyle}
+                        >
+                            {item.name}
+                            <svg class="w-4 h-4 text-theme-muted transition-transform duration-300 arrow-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                            <span class="nav-line"></span>
+                        </button>
+                        
+                        <div id={`nav-drop-${item.id}`} class="navbar-dropdown nav-dropdown-menu">
+                             <div class="flex flex-col gap-1">
+                                {subItems.map((subItem: any) => {
+                                    const subUrl = (subItem.keyLink && (links as any)[subItem.keyLink]) 
+                                        ? (links as any)[subItem.keyLink] 
+                                        : (subItem.href || '#');
+                                    return (
+                                        <a 
+                                            href={subUrl} 
+                                            target={subItem.isExternal ? "_blank" : "_self"}
+                                            rel={subItem.isExternal ? "noopener noreferrer" : undefined}
+                                            class="submenu-link"
+                                        >
+                                             {subItem.name}
+                                        </a>
+                                    );
+                                })}
+                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="w-32 lg:w-48 shrink-0"></div>
-
-            <div class="flex items-center gap-8 lg:gap-12 flex-1 justify-start">
-                {rightItems.map((item: any) => (
+                ) : (
                     <a 
-                        href={item.href} 
-                        target={item.href.startsWith('http') ? "_blank" : "_self"}
-                        rel={item.href.startsWith('http') ? "noopener noreferrer" : ""}
-                        class="nav-link text-sm font-bold uppercase tracking-widest transition-all duration-300 relative group py-2" 
-                        data-target={item.id}
+                        href={targetUrl} 
+                        target={item.isExternal ? "_blank" : "_self"}
+                        rel={item.isExternal ? "noopener noreferrer" : undefined}
+                        class="nav-link" 
+                        style={customStyle}
                     >
-                        {item.name}
-                        <span class="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full nav-line bg-btc-orange"></span>
+                         {item.name}
+                        <span class="nav-line"></span>
                     </a>
-                ))}
-            </div>
-
+                );
+            })}
         </nav>
-
-        <div id="google_element" style="position: absolute; opacity: 0; pointer-events: none; z-index: -1; width: 1px; height: 1px; overflow: hidden;"></div>
-
     </div>
 </header>
 
-<style>
-    .nav-link { color: rgba(255, 255, 255, 0.9); }
-    .nav-link:hover { color: #f97316; }
-    .nav-link.active, .nav-link.active-parent { color: #f97316 !important; }
-    .nav-link.active .nav-line, .nav-link.active-parent .nav-line { width: 100% !important; background-color: #f97316 !important; }
-    .submenu-link.active-sub { color: #f97316 !important; background-color: rgba(255,255,255,0.05); }
-    #about-drop.is-open { opacity: 1; visibility: visible; scale: 1; pointer-events: auto; }
-</style>
+<button id="back-to-top" aria-label="Volver arriba" class="fixed bottom-8 right-8 z-50 bg-btc-orange text-white p-3.5 rounded-2xl shadow-lg shadow-btc-orange/30 opacity-0 invisible translate-y-4 transition-all duration-300 hover:-translate-y-1 hover:bg-orange-500 hover:shadow-btc-orange/50">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"></path></svg>
+</button>
 
 <script is:inline>
     document.addEventListener('DOMContentLoaded', () => {
-        const aboutBtn = document.getElementById('about-btn');
-        const aboutDrop = document.getElementById('about-drop');
-        if (aboutBtn && aboutDrop) {
-            aboutBtn.addEventListener('click', (e) => {
+        // Lógica de CLIC EXCLUSIVO para desplegar submenús
+        const dropdownBtns = document.querySelectorAll('.nav-dropdown-btn');
+        const dropdownMenus = document.querySelectorAll('.nav-dropdown-menu');
+
+        dropdownBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                aboutDrop.classList.toggle('is-open');
+                const targetId = btn.getAttribute('data-dropdown-target');
+                const targetMenu = document.getElementById(targetId);
+                const arrow = btn.querySelector('.arrow-svg');
+
+                // Cerrar cualquier otro submenú que estuviera abierto
+                dropdownMenus.forEach(menu => {
+                    if (menu !== targetMenu) menu.classList.remove('is-open');
+                });
+                document.querySelectorAll('.arrow-svg').forEach(a => {
+                    if (a !== arrow) a.style.transform = 'rotate(0deg)';
+                });
+
+                // Abrir o cerrar el submenú actual
+                if (targetMenu) {
+                    const isOpen = targetMenu.classList.toggle('is-open');
+                    if (arrow) {
+                        arrow.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+                    }
+                }
             });
-            document.addEventListener('click', () => aboutDrop.classList.remove('is-open'));
+        });
+
+        // Cerrar submenús al hacer clic fuera
+        document.addEventListener('click', () => {
+            dropdownMenus.forEach(menu => menu.classList.remove('is-open'));
+            document.querySelectorAll('.arrow-svg').forEach(a => a.style.transform = 'rotate(0deg)');
+        });
+
+        // Botón Volver Arriba
+        const bttBtn = document.getElementById('back-to-top');
+        if (bttBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    bttBtn.classList.remove('opacity-0', 'invisible', 'translate-y-4');
+                    bttBtn.classList.add('opacity-100', 'visible', 'translate-y-0');
+                } else {
+                    bttBtn.classList.add('opacity-0', 'invisible', 'translate-y-4');
+                    bttBtn.classList.remove('opacity-100', 'visible', 'translate-y-0');
+                }
+            });
+
+            bttBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
         }
     });
 </script>

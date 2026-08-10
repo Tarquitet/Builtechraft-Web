@@ -2,39 +2,27 @@
 // src/components/wiki/Roadmap.astro
 ---
 <style>
-    /* OCULTAR SCROLLBAR NATIVAMENTE */
-    .hide-scrollbar {
-        -ms-overflow-style: none;  /* IE y Edge */
-        scrollbar-width: none;  /* Firefox */
-    }
-    .hide-scrollbar::-webkit-scrollbar {
-        display: none; /* Chrome, Safari y Opera */
-    }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
 </style>
 
 <div id="roadmap-section" class="hidden flex-col mt-4 relative z-20 pb-16">
-    <p class="text-zinc-400 text-sm md:text-base mb-6">
+    <p class="text-theme-muted text-sm md:text-base mb-6">
         Consulta nuestras futuras expansiones, mantenimientos planeados y actualizaciones del servidor.
     </p>
 
-    <!-- BARRA DE FILTROS -->
-    <div id="roadmap-filters" class="flex flex-wrap gap-2 mb-8 border-b border-white/5 pb-6">
-        <!-- Los botones de filtro se inyectan vía JS -->
-    </div>
+    <div id="roadmap-filters" class="flex flex-wrap gap-2 mb-8 border-b border-theme pb-6">
+        </div>
 
-    <!-- SLIDER RESPONSIVO DEL ROADMAP CON FLECHAS -->
     <div class="relative w-full group">
-        <!-- Flecha Izquierda -->
-        <button id="rm-prev" class="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 md:-ml-6 z-10 bg-zinc-900 text-white p-3 rounded-full border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-0 hidden md:flex items-center justify-center hover:bg-btc-orange hover:border-btc-orange shadow-lg cursor-pointer">
+        <button id="rm-prev" class="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 md:-ml-6 z-10 bg-theme-card text-theme-main p-3 rounded-full border border-theme opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-0 hidden md:flex items-center justify-center hover:bg-btc-orange hover:border-btc-orange hover:text-white shadow-lg cursor-pointer">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
         </button>
 
         <div id="roadmap-container" class="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6 hide-scrollbar scroll-smooth">
-            <!-- Se inyectan las tarjetas vía JS -->
-        </div>
+            </div>
 
-        <!-- Flecha Derecha -->
-        <button id="rm-next" class="absolute right-0 top-1/2 -translate-y-1/2 -mr-4 md:-ml-6 z-10 bg-zinc-900 text-white p-3 rounded-full border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-0 hidden md:flex items-center justify-center hover:bg-btc-orange hover:border-btc-orange shadow-lg cursor-pointer">
+        <button id="rm-next" class="absolute right-0 top-1/2 -translate-y-1/2 -mr-4 md:-ml-6 z-10 bg-theme-card text-theme-main p-3 rounded-full border border-theme opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-0 hidden md:flex items-center justify-center hover:bg-btc-orange hover:border-btc-orange hover:text-white shadow-lg cursor-pointer">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
         </button>
     </div>
@@ -42,9 +30,7 @@
 
 <script>
 import { getRoadmapData } from '../../utils/sheetsClient.js';
-
 document.addEventListener('DOMContentLoaded', async () => {
-    // 1. Salidas tempranas (Early Exits) para evitar procesamientos en páginas equivocadas
     const container = document.getElementById('roadmap-container');
     const section = document.getElementById('roadmap-section');
     const filtersContainer = document.getElementById('roadmap-filters');
@@ -56,66 +42,66 @@ document.addEventListener('DOMContentLoaded', async () => {
     const getStatusStyle = (estado: string) => {
         const s = estado?.toLowerCase().trim() || '';
         if (s.includes('progreso')) return { text: 'text-btc-orange', bg: 'bg-btc-orange/10', border: 'border-btc-orange/30', icon: '⚡' };
-        if (s.includes('planeado')) return { text: 'text-blue-400', bg: 'bg-blue-400/10', border: 'border-blue-400/30', icon: '📌' };
-        if (s.includes('prueba'))   return { text: 'text-purple-400', bg: 'bg-purple-400/10', border: 'border-purple-400/30', icon: '🔬' };
-        return { text: 'text-emerald-400', bg: 'bg-emerald-400/10', border: 'border-emerald-400/30', icon: '✅' };
+        if (s.includes('planeado')) return { text: 'text-blue-500', bg: 'bg-blue-500/10', border: 'border-blue-500/30', icon: '📌' };
+        if (s.includes('prueba'))   return { text: 'text-purple-500', bg: 'bg-purple-500/10', border: 'border-purple-500/30', icon: '🔬' };
+        return { text: 'text-emerald-500', bg: 'bg-emerald-500/10', border: 'border-emerald-500/30', icon: '✅' };
     };
 
     try {
         const data = await getRoadmapData();
         if (!data || data.length === 0) return;
 
-        // 2. Mapeo optimizado directamente al innerHTML
+        // Inyección de Tarjetas con Clases Globales
         container.innerHTML = data.map((item: any) => {
             const estadoLimpio = item.Estado || 'Pendiente';
             const style = getStatusStyle(estadoLimpio);
             
             return `
-                <div class="roadmap-card snap-center shrink-0 w-[85vw] md:w-[calc(33.333%-1rem)] bg-[#111] border border-white/5 rounded-2xl p-6 transition-transform hover:scale-[1.02] flex flex-col group" data-status="${estadoLimpio}">
+                <div class="roadmap-card snap-center shrink-0 w-[85vw] md:w-[calc(33.333%-1rem)] bg-theme-card border border-theme rounded-2xl p-6 transition-transform hover:scale-[1.02] flex flex-col group hover:border-btc-orange/30 shadow-lg" data-status="${estadoLimpio}">
                     <div class="mb-5">
                         <span class="text-[10px] font-bold uppercase tracking-widest ${style.text} ${style.bg} border ${style.border} px-3 py-1.5 rounded-full inline-flex items-center gap-1.5 whitespace-nowrap">
                             ${style.icon} ${estadoLimpio}
                         </span>
                     </div>
-                    <h3 class="px-1 font-bold text-white text-xl mb-3 leading-tight group-hover:text-white transition-colors">
+                    <h3 class="px-1 font-bold text-theme-main text-xl mb-3 leading-tight transition-colors group-hover:text-btc-orange">
                         ${item.Titulo}
                     </h3>
-                    <p class="px-1 text-zinc-400 text-sm leading-relaxed flex-grow">
+                    <p class="px-1 text-theme-muted text-sm leading-relaxed flex-grow">
                         ${item.Descripcion}
                     </p>
                 </div>
             `;
         }).join('');
-        
+
         const cards = container.querySelectorAll('.roadmap-card');
         const uniqueStatuses = [...new Set(data.map((item: any) => item.Estado || 'Pendiente'))];
-        
+
+        // Inyección de Botones de Filtro
         filtersContainer.innerHTML = uniqueStatuses.map(status => `
-            <button class="rm-filter-btn px-5 py-2.5 bg-black/40 text-zinc-400 hover:text-white rounded-xl text-xs font-bold uppercase tracking-widest border border-white/5 hover:border-white/20 transition-all" data-filter="${status}">
+            <button class="rm-filter-btn px-5 py-2.5 bg-theme-alternate text-theme-muted hover:text-theme-main rounded-xl text-xs font-bold uppercase tracking-widest border border-theme hover:border-btc-orange/50 transition-all" data-filter="${status}">
                 ${status}
             </button>
         `).join('');
 
-        // 3. Función de filtrado con lecturas DOM reducidas
         const applyFilter = (filterValue: string, activeBtn: HTMLElement) => {
-            const currentActive = filtersContainer.querySelector('.bg-white\\/10');
+            // Limpiar botón previo
+            const currentActive = filtersContainer.querySelector('.is-active-filter');
             if (currentActive) {
-                currentActive.classList.remove('bg-white/10', 'text-white', 'border-white/20', 'shadow-md');
-                currentActive.classList.add('bg-black/40', 'text-zinc-400', 'border-white/5');
+                currentActive.classList.remove('is-active-filter', 'bg-btc-orange/10', 'text-btc-orange', 'border-btc-orange/50');
+                currentActive.classList.add('bg-theme-alternate', 'text-theme-muted', 'border-theme');
             }
             
-            activeBtn.classList.remove('bg-black/40', 'text-zinc-400', 'border-white/5');
-            activeBtn.classList.add('bg-white/10', 'text-white', 'border-white/20', 'shadow-md');
+            // Activar nuevo botón
+            activeBtn.classList.remove('bg-theme-alternate', 'text-theme-muted', 'border-theme');
+            activeBtn.classList.add('is-active-filter', 'bg-btc-orange/10', 'text-btc-orange', 'border-btc-orange/50');
 
             cards.forEach((card) => {
                 const el = card as HTMLElement;
                 el.style.display = el.getAttribute('data-status') === filterValue ? '' : 'none';
             });
-            
             container.scrollLeft = 0;
         };
 
-        // 4. Event Delegation: Un solo EventListener para todos los botones de filtro
         filtersContainer.addEventListener('click', (e) => {
             const btn = (e.target as HTMLElement).closest('.rm-filter-btn') as HTMLElement;
             if (btn) applyFilter(btn.getAttribute('data-filter') as string, btn);
@@ -125,30 +111,24 @@ document.addEventListener('DOMContentLoaded', async () => {
             applyFilter(uniqueStatuses[0] as string, filtersContainer.firstElementChild as HTMLElement);
         }
 
-        // 5. Refactorización DRY (Don't Repeat Yourself) para las flechas
         if (btnPrev && btnNext) {
             const updateArrows = () => {
                 const maxScroll = container.scrollWidth - container.clientWidth;
                 btnPrev.disabled = container.scrollLeft <= 5;
                 btnNext.disabled = container.scrollLeft >= maxScroll - 5;
             };
-
-            // Listener pasivo para no bloquear el hilo principal
             container.addEventListener('scroll', updateArrows, { passive: true });
-
             const scrollSlider = (directionMultiplier: number) => {
                 const firstVisible = Array.from(cards).find(c => (c as HTMLElement).style.display !== 'none') as HTMLElement;
                 const cardWidth = firstVisible ? firstVisible.offsetWidth + 24 : 300;
                 container.scrollBy({ left: cardWidth * directionMultiplier, behavior: 'smooth' });
             };
-
             btnPrev.addEventListener('click', () => scrollSlider(-1));
             btnNext.addEventListener('click', () => scrollSlider(1));
         }
 
         section.classList.remove('hidden');
         section.classList.add('flex');
-
     } catch (e) {
         console.error("Error cargando el Roadmap:", e);
     }

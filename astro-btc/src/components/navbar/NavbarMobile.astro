@@ -1,130 +1,135 @@
 ---
+// src/components/navbar/NavbarMobile.astro
 import navData from '../../data/navigation.json';
-const leftItems = navData.left;
-const rightItems = navData.right;
-const novedadItems = navData.about_drop;
+import links from '../../data/links.json';
+
+const mainItems = navData.main;
+const dropdowns = navData.dropdowns || {};
 ---
-<header 
-    id="mobile-header" 
-    class="lg:hidden fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-black/95 backdrop-blur-md py-2 border-b border-white/5 shadow-2xl"
->
-    <div class="container mx-auto px-6 h-16 relative flex items-center justify-between">
-        <button id="mobile-menu-btn" class="text-zinc-400 hover:text-white p-2 rounded-lg transition-colors focus:outline-none z-50">
-            <svg id="icon-menu" class="h-7 w-7 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+
+<header class="mobile-header">
+    <div class="mobile-container">
+        <a href="/#inicio" class="flex items-center gap-2">
+            <img src="/images/logo-text.webp" alt="Builtechraft" class="h-8 w-auto object-contain" />
+        </a>
+
+        <button id="mobile-menu-toggle" class="mobile-menu-btn" aria-label="Abrir Menú">
+            <svg id="hamburger-icon" class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
-            <svg id="icon-close" class="h-7 w-7 hidden transition-transform duration-300 scale-50 opacity-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            <svg id="close-icon" class="w-6 h-6 hidden transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
         </button>
-        <div class="z-50 flex items-center gap-4"></div>
     </div>
 
-    <nav id="mobile-dropdown" class="absolute top-full left-0 w-full bg-black/98 backdrop-blur-xl border-b border-white/10 transition-all duration-300 origin-top transform scale-y-0 opacity-0 pointer-events-none shadow-2xl">
-        <div class="flex flex-col items-center py-8 px-6 gap-6 max-h-[85vh] overflow-y-auto">
-            
-            <div class="flex flex-col items-center gap-6 w-full">
-                {leftItems.map((item: any) => (
-                    <a href={item.href} class="mobile-nav-link text-base font-bold uppercase tracking-widest transition-all relative group py-2" data-target={item.id}>
-                        {item.name}
-                        <span class="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full nav-line"></span>
-                    </a>
-                ))}
-            </div>
+    <div id="mobile-dropdown" class="mobile-dropdown-menu">
+        <nav class="flex flex-col items-center gap-6 py-8 px-6">
+            {mainItems.map((item: any) => {
+                const targetUrl = (item.keyLink && (links as any)[item.keyLink]) 
+                    ? (links as any)[item.keyLink] 
+                    : (item.href || '#');
+                const customStyle = item.hexColor ? `--text-muted: ${item.hexColor}; --color-btc-orange: ${item.hexColor}; --color-btc-yellow: ${item.hexColor};` : undefined;
+                const subItems = item.dropdownKey ? (dropdowns as any)[item.dropdownKey] : [];
 
-            <div class="w-full border-t border-white/10 pt-6 pb-2 flex flex-col items-center">
-                <p class="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-4">Mapas</p>
-                <div class="flex flex-col gap-2 w-full max-w-xs">
-                    {novedadItems.map((item: any) => (
-                        <a href={item.href} class="mobile-submenu-link text-xs font-bold text-zinc-400 uppercase tracking-widest py-3 px-6 rounded-lg hover:bg-white/5 hover:text-btc-orange transition-all text-center w-full" data-target={item.id}>
+                return item.hasDropdown ? (
+                    <div class="w-full flex flex-col items-center">
+                        <button 
+                            type="button"
+                            class="mobile-nav-link flex items-center justify-center gap-2 cursor-pointer w-full text-center mobile-sub-toggle" 
+                            data-dropdown-id={`sub-${item.id}`}
+                            style={customStyle}
+                        >
                             {item.name}
-                        </a>
-                    ))}
-                </div>
-            </div>
-
-            <div class="flex flex-col items-center gap-6 w-full border-t border-white/10 pt-6">
-                {rightItems.map((item: any) => (
-                    <a href={item.href} class="mobile-nav-link text-base font-bold uppercase tracking-widest transition-all relative group py-2" data-target={item.id}>
+                            <svg class="w-4 h-4 transition-transform duration-300 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                            <span class="nav-line"></span>
+                        </button>
+                        
+                        <div id={`sub-${item.id}`} class="mobile-sub-menu hidden flex-col items-center gap-2 mt-4 w-full bg-theme-alternate p-4 rounded-xl border border-theme">
+                            {subItems.map((subItem: any) => {
+                                const subUrl = (subItem.keyLink && (links as any)[subItem.keyLink]) 
+                                    ? (links as any)[subItem.keyLink] 
+                                    : (subItem.href || '#');
+                                return (
+                                    <a 
+                                        href={subUrl} 
+                                        target={subItem.isExternal ? "_blank" : "_self"}
+                                        rel={subItem.isExternal ? "noopener noreferrer" : undefined}
+                                        class="mobile-submenu-link"
+                                    >
+                                        {subItem.name}
+                                    </a>
+                                );
+                            })}
+                        </div>
+                    </div>
+                ) : (
+                    <a 
+                        href={targetUrl} 
+                        class="mobile-nav-link text-center w-full"
+                        style={customStyle}
+                        target={item.isExternal ? "_blank" : "_self"}
+                        rel={item.isExternal ? "noopener noreferrer" : undefined}
+                    >
                         {item.name}
-                        <span class="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full nav-line"></span>
+                        <span class="nav-line"></span>
                     </a>
-                ))}
-            </div>
-
-        </div>
-    </nav>
+                );
+            })}
+        </nav>
+    </div>
 </header>
-
-<style>
-    .mobile-nav-link { color: rgba(255, 255, 255, 0.8); }
-    .mobile-nav-link:hover { color: #f97316; }
-    .mobile-nav-link .nav-line { background-color: #f97316 !important; }
-    .mobile-nav-link.active { color: #fbbf24 !important; }
-    .mobile-nav-link.active .nav-line { width: 100% !important; background-color: #fbbf24 !important; }
-    .mobile-submenu-link.active-sub { color: #f97316 !important; background-color: rgba(255,255,255,0.05); }
-</style>
 
 <script is:inline>
     document.addEventListener('DOMContentLoaded', () => {
-        const mobileBtn = document.getElementById('mobile-menu-btn');
-        const mobileDropdown = document.getElementById('mobile-dropdown');
-        const iconMenu = document.getElementById('icon-menu');
-        const iconClose = document.getElementById('icon-close');
-        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-        const mobileSubLinks = document.querySelectorAll('.mobile-submenu-link');
+        const toggleBtn = document.getElementById('mobile-menu-toggle');
+        const dropdown = document.getElementById('mobile-dropdown');
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const closeIcon = document.getElementById('close-icon');
 
-        const toggleMenu = () => {
-            const isClosed = mobileDropdown.classList.contains('scale-y-0');
-            if (isClosed) {
-                mobileDropdown.classList.remove('scale-y-0', 'opacity-0', 'pointer-events-none');
-                mobileDropdown.classList.add('scale-y-100', 'opacity-100', 'pointer-events-auto');
-                iconMenu.classList.add('hidden', 'scale-50', 'opacity-0');
-                iconMenu.classList.remove('block');
-                iconClose.classList.remove('hidden', 'scale-50', 'opacity-0');
-                iconClose.classList.add('block');
-            } else {
-                mobileDropdown.classList.add('scale-y-0', 'opacity-0', 'pointer-events-none');
-                mobileDropdown.classList.remove('scale-y-100', 'opacity-100', 'pointer-events-auto');
-                iconMenu.classList.remove('hidden', 'scale-50', 'opacity-0');
-                iconMenu.classList.add('block');
-                iconClose.classList.add('hidden', 'scale-50', 'opacity-0');
-                iconClose.classList.remove('block');
-            }
-        };
+        if (toggleBtn && dropdown && hamburgerIcon && closeIcon) {
+            toggleBtn.addEventListener('click', () => {
+                const isOpen = dropdown.classList.contains('scale-y-100');
+                
+                if (isOpen) {
+                    dropdown.classList.remove('scale-y-100', 'opacity-100', 'pointer-events-auto');
+                    dropdown.classList.add('scale-y-0', 'opacity-0', 'pointer-events-none');
+                    hamburgerIcon.classList.remove('hidden');
+                    closeIcon.classList.add('hidden');
+                } else {
+                    dropdown.classList.remove('scale-y-0', 'opacity-0', 'pointer-events-none');
+                    dropdown.classList.add('scale-y-100', 'opacity-100', 'pointer-events-auto');
+                    hamburgerIcon.classList.add('hidden');
+                    closeIcon.classList.remove('hidden');
+                }
+            });
+        }
 
-        if(mobileBtn) mobileBtn.addEventListener('click', toggleMenu);
-
-        const allLinks = [...mobileNavLinks, ...mobileSubLinks];
-        allLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                if (!mobileDropdown.classList.contains('scale-y-0')) toggleMenu();
+        // Clic para abrir/cerrar submenús en móviles
+        const subToggles = document.querySelectorAll('.mobile-sub-toggle');
+        subToggles.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.getAttribute('data-dropdown-id');
+                if (!targetId) return;
+                
+                const targetMenu = document.getElementById(targetId);
+                const arrow = btn.querySelector('.arrow-icon');
+                
+                if (targetMenu) {
+                    const isSubOpen = !targetMenu.classList.contains('hidden');
+                    if (isSubOpen) {
+                        targetMenu.classList.add('hidden');
+                        targetMenu.classList.remove('flex');
+                        if (arrow) arrow.style.transform = 'rotate(0deg)';
+                    } else {
+                        targetMenu.classList.remove('hidden');
+                        targetMenu.classList.add('flex');
+                        if (arrow) arrow.style.transform = 'rotate(180deg)';
+                    }
+                }
             });
         });
-
-        const currentPath = window.location.pathname.replace(/\/$/, "");
-        const highlightMobileLinks = () => {
-            mobileNavLinks.forEach(link => {
-                const href = link.getAttribute('href')?.replace(/\/$/, "");
-                if (!href) return;
-                
-                if (href === "/" && currentPath === "") {
-                    link.classList.add('active');
-                } else if (href !== "/" && currentPath.includes(href)) {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
-                }
-            });
-            mobileSubLinks.forEach(link => {
-                const href = link.getAttribute('href')?.replace(/\/$/, "");
-                if (currentPath === href) {
-                    link.classList.add('active-sub');
-                } else {
-                    link.classList.remove('active-sub');
-                }
-            });
-        };
-        highlightMobileLinks();
     });
 </script>

@@ -1,37 +1,42 @@
 {
-  "left": [
-    { "name": "Inicio", "href": "/", "id": "inicio" },
-    { "name": "Nosotros", "href": "/about", "id": "nosotros" }
+  "main": [
+    { "id": "inicio", "name": "Inicio", "href": "/#inicio", "isExternal": false },
+    {
+      "id": "nosotros",
+      "name": "Nosotros",
+      "hasDropdown": true,
+      "dropdownKey": "about_drop"
+    },
+    {
+      "id": "guias",
+      "name": "Wiki & Guías",
+      "hasDropdown": true,
+      "dropdownKey": "wiki_drop"
+    },
+    {
+      "id": "mapas",
+      "name": "Mapas",
+      "hasDropdown": true,
+      "dropdownKey": "maps_drop"
+    },
+    { "id": "donaciones", "name": "Donar", "keyLink": "donate", "isExternal": true, "hexColor": "#ec4899" },
+    { "id": "discord", "name": "Discord", "keyLink": "discord", "isExternal": true, "hexColor": "#5865F2" }
   ],
-  "right": [
-    { "name": "Reglas", "href": "/rules", "id": "reglas" },
-    { "name": "Wiki", "href": "/wiki", "id": "wiki" }
-  ],
-  "about_drop": [
-    {
-      "name": "Sobre Builtechraft",
-      "href": "/about#vision",
-      "id": "vision"
-    },
-    {
-      "name": "Nuestros Mundos",
-      "href": "/about#mundos",
-      "id": "drop-worlds"
-    },
-    {
-      "name": "Mods & Datapacks",
-      "href": "/about#mods",
-      "id": "drop-mods"
-    },
-    {
-      "name": "Staff",
-      "href": "/about#staff",
-      "id": "drop-staff"
-    },
-    {
-      "name": "Roadmap",
-      "href": "/about#roadmap-section",
-      "id": "drop-roadmap"
-    }
-  ]
+  "dropdowns": {
+    "about_drop": [
+      { "name": "El Servidor", "href": "/about" },
+      { "name": "Staff Oficial", "href": "/about#staff" },
+      { "name": "Mundos", "href": "/about#mundos" }
+    ],
+    "wiki_drop": [
+      { "name": "Inicio de la Wiki", "keyLink": "wikiHome", "isExternal": true },
+      { "name": "Cómo Entrar / IP", "keyLink": "wikiComoEntrar", "isExternal": true },
+      { "name": "Solicitar Whitelist", "keyLink": "wikiWhitelist", "isExternal": true },
+      { "name": "Normativas", "keyLink": "wikiReglas", "isExternal": true }
+    ],
+    "maps_drop": [
+      { "name": "Mapa Survival", "keyLink": "mapaSurvival", "isExternal": true },
+      { "name": "Mapa Creativo", "keyLink": "mapaCreativo", "isExternal": true }
+    ]
+  }
 }

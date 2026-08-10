@@ -1,0 +1,90 @@
+---
+// src/components/home/ComparativeTable.astro
+---
+
+<section id="comparativa" class="comparative-section">
+    <div class="container mx-auto px-6 max-w-6xl">
+        
+        <div class="max-w-3xl mb-12">
+            <span class="comparative-badge">
+                ⚖️ Comparativa técnica
+            </span>
+            <h2 class="comparative-title">
+                Mods vs Plugins vs
+                <span class="text-btc-orange">Datapacks</span>
+            </h2>
+            <p class="comparative-desc">
+                Probamos los tres caminos durante años. Esta es la razón por la que nos quedamos con el formato más puro del juego: Vanilla sin modificaciones invasivas.
+            </p>
+        </div>
+
+        <div class="comparative-wrap">
+            <table class="comparative-table">
+                <thead>
+                    <tr>
+                        <th class="text-left text-theme-muted">Criterio</th>
+                        <th class="text-center text-red-400">
+                            Mods
+                            <br>
+                            <span class="text-[10px] opacity-75 font-medium tracking-normal normal-case">
+                                (Forge / Fabric)
+                            </span>
+                        </th>
+                        <th class="text-center text-btc-yellow">
+                            Plugins
+                            <br>
+                            <span class="text-[10px] opacity-75 font-medium tracking-normal normal-case">
+                                (Paper / Leaves)
+                            </span>
+                        </th>
+                        <th class="text-center text-emerald-400">
+                            Datapacks
+                            <br>
+                            <span class="text-[10px] opacity-75 font-medium tracking-normal normal-case">
+                                (Vanilla Pura)
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody class="text-sm">
+                    <tr>
+                        <td class="font-semibold text-theme-main">Instalación en el cliente</td>
+                        <td class="text-center text-red-400 font-bold">✗ Obligatoria</td>
+                        <td class="text-center text-emerald-400 font-bold">✓ No requiere</td>
+                        <td class="text-center text-emerald-400 font-bold">✓ No requiere</td>
+                    </tr>
+
+                    <tr>
+                        <td class="font-semibold text-theme-main">Impacto en rendimiento</td>
+                        <td class="text-center text-red-400 font-bold">Alto</td>
+                        <td class="text-center text-btc-yellow font-bold">Medio</td>
+                        <td class="text-center text-emerald-400 font-bold">Casi nulo</td>
+                    </tr>
+
+                    <tr>
+                        <td class="font-semibold text-theme-main">Ventajas injustas entre jugadores</td>
+                        <td class="text-center text-red-400 font-bold">Posibles</td>
+                        <td class="text-center text-btc-yellow font-bold">Posibles</td>
+                        <td class="text-center text-emerald-400 font-bold">Ninguna</td>
+                    </tr>
+
+                    <tr>
+                        <td class="font-semibold text-theme-main">Respeto a mecánicas técnicas</td>
+                        <td class="text-center text-btc-yellow font-bold">Variable</td>
+                        <td class="text-center text-red-400 font-bold">Suele romperlas</td>
+                        <td class="text-center text-emerald-400 font-bold">Total</td>
+                    </tr>
+
+                    <tr>
+                        <td class="font-semibold text-theme-main">Actualización inmediata de versión</td>
+                        <td class="text-center text-red-400 font-bold">Esperas eternas</td>
+                        <td class="text-center text-btc-yellow font-bold">Parcial</td>
+                        <td class="text-center text-emerald-400 font-bold">Día uno</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</section>
