@@ -9,7 +9,7 @@
     },
     {
       "id": "guias",
-      "name": "Wiki & Guías",
+      "name": "Documentación",
       "hasDropdown": true,
       "dropdownKey": "wiki_drop"
     },
@@ -19,23 +19,29 @@
       "hasDropdown": true,
       "dropdownKey": "maps_drop"
     },
+    {
+      "id": "normativa",
+      "name": "Normativas",
+      "keyLink": "wikiReglas",
+      "isExternal": false,
+      "hexColor": "#fbbf24"
+    },
     { "id": "donaciones", "name": "Donar", "keyLink": "donate", "isExternal": true, "hexColor": "#ec4899" },
     { "id": "discord", "name": "Discord", "keyLink": "discord", "isExternal": true, "hexColor": "#5865F2" }
   ],
   "dropdowns": {
     "about_drop": [
-      { "name": "El Servidor", "href": "/about" },
-      { "name": "Staff Oficial", "href": "/about#staff" },
-      { "name": "Mundos", "href": "/about#mundos" }
+      { "name": "Objetivo", "href": "/about" },
+      { "name": "Nuestro Equipo", "href": "/about#staff" },
+      { "name": "Sobre Mundos", "href": "/about#mundos" }
     ],
     "wiki_drop": [
-      { "name": "Inicio de la Wiki", "keyLink": "wikiHome", "isExternal": true },
-      { "name": "Cómo Entrar / IP", "keyLink": "wikiComoEntrar", "isExternal": true },
-      { "name": "Solicitar Whitelist", "keyLink": "wikiWhitelist", "isExternal": true },
-      { "name": "Normativas", "keyLink": "wikiReglas", "isExternal": true }
+      { "name": "índice", "keyLink": "wikiHome", "isExternal": true },
+      { "name": "¿Cúal es la IP?", "keyLink": "wikiComoEntrar", "isExternal": true },
+      { "name": "¿Cómo Entrar?", "keyLink": "wikiWhitelist", "isExternal": true }
     ],
     "maps_drop": [
-      { "name": "Mapa Survival", "keyLink": "mapaSurvival", "isExternal": true },
+      { "name": "Mapa Supervivencia", "keyLink": "mapaSurvival", "isExternal": true },
       { "name": "Mapa Creativo", "keyLink": "mapaCreativo", "isExternal": true }
     ]
   }

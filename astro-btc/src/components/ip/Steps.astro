@@ -1,5 +1,7 @@
 ---
 // src/components/ip/Steps.astro
+import links from '../../data/links.json';
+import stepsData from '../../data/steps.json';
 ---
 
 <section class="steps-section">
@@ -19,8 +21,73 @@
             </button>
         </div>
 
+        <div class="steps-list-container mb-12">
+            <div id="steps-container-java" class="flex flex-col gap-6">
+                {stepsData.java.map((step, index) => {
+                    // Solución TS: as keyof typeof links
+                    const linkUrl = step.linkKey ? links[step.linkKey as keyof typeof links] : null;
+                    return (
+                        <div class="step-list-item flex flex-col md:flex-row gap-4">
+                            <div class="step-number shrink-0">{index + 1}</div>
+                            <div class="flex flex-col w-full pt-1">
+                                <p class="text-zinc-300 text-sm md:text-base font-medium leading-relaxed">
+                                    {step.text}
+                                    {linkUrl && (
+                                        <a 
+                                            href={linkUrl} 
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            class="text-btc-orange hover:text-white font-bold text-xs uppercase tracking-widest ml-1 transition-colors underline underline-offset-2"
+                                        >
+                                            {step.linkLabel || 'Saber más'}
+                                        </a>
+                                    )}
+                                </p>
+                                {step.image && (
+                                    <div class="mt-4 rounded-xl overflow-hidden border border-white/10 max-w-lg bg-black/50">
+                                        <img src={step.image} alt={`Paso Java ${index + 1}`} class="w-full h-auto object-cover" loading="lazy" />
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+
+            <div id="steps-container-bedrock" class="hidden flex-col gap-6">
+                {stepsData.bedrock.map((step, index) => {
+                    // Solución TS: as keyof typeof links
+                    const linkUrl = step.linkKey ? links[step.linkKey as keyof typeof links] : null;
+                    return (
+                        <div class="step-list-item flex flex-col md:flex-row gap-4">
+                            <div class="step-number shrink-0">{index + 1}</div>
+                            <div class="flex flex-col w-full pt-1">
+                                <p class="text-zinc-300 text-sm md:text-base font-medium leading-relaxed">
+                                    {step.text}
+                                    {linkUrl && (
+                                        <a 
+                                            href={linkUrl} 
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            class="text-blue-400 hover:text-white font-bold text-xs uppercase tracking-widest ml-1 transition-colors underline underline-offset-2"
+                                        >
+                                            {step.linkLabel || 'Saber más'}
+                                        </a>
+                                    )}
+                                </p>
+                                {step.image && (
+                                    <div class="mt-4 rounded-xl overflow-hidden border border-white/10 max-w-lg bg-black/50">
+                                        <img src={step.image} alt={`Paso Bedrock ${index + 1}`} class="w-full h-auto object-cover" loading="lazy" />
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
+
         <div class="steps-ip-box">
-            
             <div id="java-display-container" class="flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="flex flex-col w-full text-center md:text-left">
                     <span class="steps-ip-label">Dirección IP (Java)</span>
@@ -31,7 +98,7 @@
                 </button>
             </div>
 
-            <div id="bedrock-display-container" class="hidden flex-col gap-5" style="display: none;">
+            <div id="bedrock-display-container" class="hidden flex-col gap-5">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-black/40 rounded-xl border border-white/5">
                     <div class="flex flex-col w-full text-center md:text-left">
                         <span class="steps-ip-label">Dirección IP (Bedrock)</span>
@@ -53,67 +120,43 @@
             </div>
         </div>
 
-        <div class="steps-list-container">
-            <div id="steps-content" class="flex flex-col gap-4">
-                </div>
-        </div>
-
     </div>
 </section>
 
 <script is:inline>
     let serverConfig = { javaIp: 'Cargando...', bedrockIp: 'Cargando...', port: '19132' };
-    let currentPlatform = 'java';
 
-    const stepsData = {
-        'java': [
-            `Abre tu launcher de Minecraft. <a href="https://tarquitet.gitbook.io/builtechaft-wiki/soporte/1.-sobre-launchers" target="_blank" class="text-btc-orange hover:text-white font-bold text-xs uppercase tracking-widest ml-1 transition-colors underline underline-offset-2">Ver Launchers recomendados</a>`,
-            'Asegúrate de tener seleccionada la versión correcta del juego e inicia sesión con tu cuenta (Premium o <a href="https://tarquitet.gitbook.io/builtechaft-wiki/soporte/1.-sobre-launchers/1.4.-cuenta-ely.by" target="_blank" class="text-btc-orange font-bold hover:text-white underline underline-offset-2 transition-colors">Ely.by</a>).',
-            "Ve a la pestaña de 'Multijugador' y haz clic en 'Agregar servidor'.",
-            "Pega la IP que copiaste arriba en el campo de 'Dirección del servidor'.",
-            "Haz clic en 'Hecho', selecciona Builtechraft y únete a la partida."
-        ],
-        'bedrock': [
-            `Abre Minecraft Bedrock Edition en tu PC o dispositivo móvil. <a href="https://tarquitet.gitbook.io/builtechaft-wiki/guias/3.-como-unirse-al-servidor/3.2.-bedrock" target="_blank" class="text-blue-400 hover:text-white font-bold text-xs uppercase tracking-widest ml-1 transition-colors underline underline-offset-2">Ver Guía Completa</a>`,
-            "Toca 'Jugar' y dirígete a la pestaña superior de 'Servidores'.",
-            "Baja hasta el final de la lista y presiona el botón 'Añadir servidor'.",
-            "Ingresa el nombre que quieras, pega la IP y escribe el Puerto que aparece en esta página.",
-            "Guarda el servidor en tu lista y presiona unirse."
-        ]
-    };
+    function updateDisplay(platform) {
+        const javaIpBox = document.getElementById('java-display-container');
+        const bedrockIpBox = document.getElementById('bedrock-display-container');
+        const javaSteps = document.getElementById('steps-container-java');
+        const bedrockSteps = document.getElementById('steps-container-bedrock');
 
-    function renderStepsList(platform) {
-        const container = document.getElementById('steps-content');
-        if (!container) return;
-        
-        container.innerHTML = stepsData[platform].map((text, index) => `
-            <div class="step-list-item">
-                <div class="step-number">${index + 1}</div>
-                <p class="text-zinc-300 text-sm md:text-base font-medium leading-relaxed pt-1">${text}</p>
-            </div>
-        `).join('');
-    }
-
-    function updateStepView() {
-        const javaContainer = document.getElementById('java-display-container');
-        const bedrockContainer = document.getElementById('bedrock-display-container');
-
-        if (currentPlatform === 'java') {
-            javaContainer.style.display = 'flex';
-            bedrockContainer.style.display = 'none';
+        if (platform === 'java') {
+            javaIpBox.style.display = 'flex';
+            bedrockIpBox.style.display = 'none';
+            
+            // Solución Tailwind: Intercambiar 'hidden' por 'flex' dinámicamente
+            javaSteps.classList.remove('hidden');
+            javaSteps.classList.add('flex');
+            bedrockSteps.classList.remove('flex');
+            bedrockSteps.classList.add('hidden');
+            
             document.getElementById('step-java-ip').innerText = serverConfig.javaIp;
         } else {
-            javaContainer.style.display = 'none';
-            bedrockContainer.style.display = 'flex';
+            javaIpBox.style.display = 'none';
+            bedrockIpBox.style.display = 'flex';
+            
+            // Solución Tailwind: Intercambiar 'hidden' por 'flex' dinámicamente
+            javaSteps.classList.remove('flex');
+            javaSteps.classList.add('hidden');
+            bedrockSteps.classList.remove('hidden');
+            bedrockSteps.classList.add('flex');
+
             document.getElementById('step-bedrock-ip').innerText = serverConfig.bedrockIp;
             document.getElementById('step-bedrock-port').innerText = serverConfig.port;
         }
-
-        renderStepsList(currentPlatform);
     }
-
-    // Inicializar
-    renderStepsList('java');
 
     window.addEventListener('btc:config-loaded', (e) => {
         const data = e.detail;
@@ -121,17 +164,17 @@
         serverConfig.bedrockIp = data.BedrockIP || serverConfig.bedrockIp;
         serverConfig.port = data.BedrockPort || serverConfig.port;
 
-        updateStepView();
+        const activeTab = document.querySelector('.step-tab-btn.steps-tab-active');
+        const targetPlatform = activeTab ? activeTab.getAttribute('data-target') : 'java';
+        updateDisplay(targetPlatform);
 
         if (data.isBedrock) {
             document.getElementById('bedrock-tab-btn')?.classList.remove('hidden');
         }
     });
 
-    // Lógica de Pestañas
     document.querySelectorAll('.step-tab-btn').forEach(tab => {
         tab.addEventListener('click', (e) => {
-            // Reiniciar botones
             document.querySelectorAll('.step-tab-btn').forEach(t => {
                 t.classList.remove('steps-tab-active');
                 t.classList.add('steps-tab-inactive');
@@ -140,12 +183,11 @@
             target.classList.remove('steps-tab-inactive');
             target.classList.add('steps-tab-active');
             
-            currentPlatform = target.getAttribute('data-target') || 'java';
-            updateStepView();
+            const platform = target.getAttribute('data-target') || 'java';
+            updateDisplay(platform);
         });
     });
 
-    // Función de copiado
     window.copyGeneric = async function(elementId, btnElement) {
         const textEl = document.getElementById(elementId);
         if (!textEl || !btnElement) return;
