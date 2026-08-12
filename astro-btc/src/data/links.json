@@ -1,10 +1,18 @@
 {
   "discord": "https://discord.gg/4KzRH5DPzx",
   "wikiHome": "https://builtechraftwiki.tarquitet.com/",
+  "wikiWhats": "/wiki",
   "wikiComoEntrar": "/#ingreso",
   "wikiWhitelist": "https://builtechraftwiki.tarquitet.com/getting-started/acceso-whitelist/",
-  "wikiReglas": "/rules",
+  "Reglas": "/rules",
   "mapaSurvival": "http://btcsmpmap.tarquitet.com:25625",
   "mapaCreativo": "http://btccreativemap.tarquitet.com:25674",
-  "donate": "https://ko-fi.com/tarquitet"
+  "donate": "https://ko-fi.com/tarquitet",
+  "modpack": "https://modrinth.com/modpack/builtechraft-client-mods",
+  "modrinthApp": "https://modrinth.com/app",
+  "prism": "https://prismlauncher.org/",
+  "elyprism": "https://elyprismlauncher.github.io/",
+  "bobbyCache": "https://dub.sh/bobby_btc",
+  "wikiModpack": "/wiki/modpack",
+  "wikiBobby": "/wiki/modpack#bobby"
 }

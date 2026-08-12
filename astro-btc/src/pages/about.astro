@@ -7,10 +7,11 @@ import ModsAndDatapacks from '../components/wiki/ModsAndDatapacks.astro';
 import Staff from '../components/wiki/Staff.astro';
 import Roadmap from '../components/wiki/Roadmap.astro';
 import ComparativeTable from '../components/home/ComparativeTable.astro';
+import Modpack from '../components/wiki/modpack.astro';
 ---
 
 <Layout
-    title="Nosotros | Builtechraft SMP"
+    title="Server | Builtechraft SMP"
     description="Conoce Builtechraft, nuestros mundos, los mods que utilizamos y lo que estamos preparando para el servidor."
 >
     <main class="min-h-screen bg-[#0f0f10] text-white">
@@ -50,6 +51,12 @@ import ComparativeTable from '../components/home/ComparativeTable.astro';
 
             <ComparativeTable />
         </section>
+
+        <!-- Modpack -->
+         <section>
+            <Modpack />
+         </section>
+
 
         <!-- Staff -->
         <div id="staff">

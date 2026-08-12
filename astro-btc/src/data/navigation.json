@@ -3,15 +3,9 @@
     { "id": "inicio", "name": "Inicio", "href": "/#inicio", "isExternal": false },
     {
       "id": "nosotros",
-      "name": "Nosotros",
+      "name": "Servidor",
       "hasDropdown": true,
       "dropdownKey": "about_drop"
-    },
-    {
-      "id": "guias",
-      "name": "Documentación",
-      "hasDropdown": true,
-      "dropdownKey": "wiki_drop"
     },
     {
       "id": "mapas",
@@ -21,24 +15,22 @@
     },
     {
       "id": "normativa",
-      "name": "Normativas",
-      "keyLink": "wikiReglas",
-      "isExternal": false,
-      "hexColor": "#fbbf24"
+      "name": "Reglas",
+      "keyLink": "Reglas",
+      "isExternal": false
     },
-    { "id": "donaciones", "name": "Donar", "keyLink": "donate", "isExternal": true, "hexColor": "#ec4899" },
-    { "id": "discord", "name": "Discord", "keyLink": "discord", "isExternal": true, "hexColor": "#5865F2" }
+    { "id": "guias", "name": "Wiki", "keyLink": "wikiWhats", "isExternal": false },
+    { "id": "discord", "name": "Discord", "keyLink": "discord", "isExternal": true, "hexColor": "#5865F2" },
+    { "id": "donaciones", "name": "Donar", "keyLink": "donate", "isExternal": true, "hexColor": "#ec4899" }
   ],
   "dropdowns": {
     "about_drop": [
       { "name": "Objetivo", "href": "/about" },
+      { "name": "Nuestros Mundos", "href": "/about#mundos" },
+      { "name": "Mods & Datapacks", "href": "/about#mods" },
+      { "name": "Nuestro Modpack", "href": "/about#modpack" },
       { "name": "Nuestro Equipo", "href": "/about#staff" },
-      { "name": "Sobre Mundos", "href": "/about#mundos" }
-    ],
-    "wiki_drop": [
-      { "name": "índice", "keyLink": "wikiHome", "isExternal": true },
-      { "name": "¿Cúal es la IP?", "keyLink": "wikiComoEntrar", "isExternal": true },
-      { "name": "¿Cómo Entrar?", "keyLink": "wikiWhitelist", "isExternal": true }
+      { "name": "Futuros Planes", "href": "/about#roadmap-section" }
     ],
     "maps_drop": [
       { "name": "Mapa Supervivencia", "keyLink": "mapaSurvival", "isExternal": true },

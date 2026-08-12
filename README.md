@@ -8,21 +8,15 @@ Official source code for the **Builtechraft** landing page, a private Minecraft 
 
 _Developed while learning the fundamentals of HTML/CSS._
 
-![1771360430493](images/README/1771360430493.png)
-
-### v2.0 - Visual Design (Dreamweaver Era)
+![](images/README/1771360430493.png)\### v2.0 - Visual Design (Dreamweaver Era)
 
 _Created in one week using Adobe Dreamweaver for a more structured visual approach._
 
-![1771360462555](images/README/1771360462555.png)
-
-### v3.0 - Modern Engineering (Astro + AI)
+![](images/README/1771360462555.png)\### v3.0 - Modern Engineering (Astro + AI)
 
 _The current version. Developed in less than 3 days using Astro, React, and AI-assisted optimization._
 
-![1771360498692](images/README/1771360498692.png)
-
-## 🛠 Technical Specifications
+![](images/README/1771360498692.png)\## 🛠 Technical Specifications
 
 - **Framework:** Astro (Islands Architecture).
 - **Frontend Logic:** React (Hooks for asynchronous state management).
@@ -59,21 +53,15 @@ Código fuente de la landing page de **Builtechraft**. Este proyecto prioriza el
 
 _Desarrollada durante el aprendizaje de fundamentos de HTML/CSS._
 
-![1771360436877](images/README/1771360436877.png)
-
-### v2.0 - Diseño Visual (Era Dreamweaver)
+![](images/README/1771360436877.png)\### v2.0 - Diseño Visual (Era Dreamweaver)
 
 _Creada en una semana utilizando Adobe Dreamweaver para un enfoque visual estructurado._
 
-![1771360455204](images/README/1771360455204.png)
-
-### v3.0 - Ingeniería Moderna (Astro + IA)
+![](images/README/1771360455204.png)\### v3.0 - Ingeniería Moderna (Astro + IA)
 
 _La versión actual. Desarrollada en menos de 3 días usando Astro, React y optimización asistida por IA._
 
-![1771360509081](images/README/1771360509081.png)
-
-## 🛠 Especificaciones Técnicas
+![](images/README/1771360509081.png)\## 🛠 Especificaciones Técnicas
 
 - **Framework:** Astro.
 - **Lógica:** React (Hooks para estados asíncronos).

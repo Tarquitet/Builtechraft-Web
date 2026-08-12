@@ -4,25 +4,20 @@
 
 <section class="py-12 bg-black/40 border-y border-white/5 relative z-10">
     <div class="container mx-auto px-6 max-w-5xl">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-transparent md:divide-white/10">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-8 text-center divide-x divide-transparent md:divide-white/10">
             
             <div class="flex flex-col items-center">
-                <span id="stat-years" class="block text-4xl font-display font-bold text-btc-orange mb-2">X Años</span>
-                <span class="text-xs font-bold text-zinc-400 uppercase tracking-widest">En Línea</span>
+                <span id="stat-years" class="block text-4xl font-display font-bold text-btc-orange mb-2">?? Años</span>
+                <span class="text-xs font-bold text-zinc-400 uppercase tracking-widest">Desde 2020</span>
             </div>
 
             <div class="flex flex-col items-center">
-                <span id="stat-mods" class="block text-4xl font-display font-bold text-btc-yellow mb-2">...</span>
-                <span class="text-xs font-bold text-zinc-400 uppercase tracking-widest">Mods en Servidor</span>
+                <span id="stat-mods" class="block text-4xl font-display font-bold text-btc-yellow mb-2">??</span>
+                <span class="text-xs font-bold text-zinc-400 uppercase tracking-widest">Mods/Datapacks</span>
             </div>
 
             <div class="flex flex-col items-center">
-                <span id="stat-datapacks" class="block text-4xl font-display font-bold text-btc-orange mb-2">...</span>
-                <span class="text-xs font-bold text-zinc-400 uppercase tracking-widest">Datapacks</span>
-            </div>
-
-            <div class="flex flex-col items-center">
-                <span id="stat-version" class="block text-4xl font-display font-bold text-btc-yellow mb-2">1.21</span>
+                <span id="stat-version" class="block text-4xl font-display font-bold text-btc-orange mb-2">???</span>
                 <span class="text-xs font-bold text-zinc-400 uppercase tracking-widest">Versión Actual</span>
             </div>
 
@@ -54,21 +49,15 @@
             const { mods, datapacks } = await getModsAndDatapacks();
             
             const modsEl = document.getElementById('stat-mods');
-            if (modsEl && mods) {
-                modsEl.innerText = `${mods.length}`;
-            }
-
-            const dpEl = document.getElementById('stat-datapacks');
-            if (dpEl && datapacks) {
-                dpEl.innerText = `${datapacks.length}`;
+            if (modsEl && mods && datapacks) {
+                const total = mods.length + datapacks.length;
+                modsEl.innerText = `${total}`;
             }
         } catch (e) {
             console.warn("No se pudieron cargar los contadores en StatsRow:", e);
             // Fallback por si falla la red
             const modsEl = document.getElementById('stat-mods');
-            if (modsEl) modsEl.innerText = "1";
-            const dpEl = document.getElementById('stat-datapacks');
-            if (dpEl) dpEl.innerText = "1";
+            if (modsEl) modsEl.innerText = "...";
         }
     }
 

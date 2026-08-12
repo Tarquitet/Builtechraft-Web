@@ -497,11 +497,10 @@ body {
     background-color: var(--bg-app);
   }
   .hero-bg-image {
-    @apply absolute inset-0 z-0 bg-cover bg-center opacity-25;
+    @apply absolute inset-0 z-0 bg-cover bg-center opacity-30;
   }
   .hero-overlay {
     @apply absolute inset-0 z-1;
-    background: linear-gradient(to bottom, transparent, var(--bg-app));
   }
   .hero-content {
     @apply relative z-10 flex flex-col items-center px-6 max-w-4xl text-center mt-6;

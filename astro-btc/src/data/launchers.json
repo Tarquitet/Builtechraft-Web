@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Modrinth App",
+    "badge": "Premium",
+    "urlKey": "modrinthApp",
+    "icon": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.modrinth.com%2Fmodrinth-new.png&f=1&nofb=1&ipt=7988d8dc4e111041a1e7f4c1da1ae26c4ae8c4ca4dd374c6ac3e79872af8bf3c",
+    "isImage": true,
+    "isSupported": true,
+    "textClass": "",
+    "badgeColor": "var(--text-muted)"
+  },
+  {
+    "name": "Prism Launcher",
+    "badge": "Premium",
+    "urlKey": "prism",
+    "icon": "https://prismlauncher.org/_astro/logo.CWs3Bi2E_Z1HYzg2.svg",
+    "isImage": true,
+    "isSupported": true,
+    "textClass": "",
+    "badgeColor": "var(--text-muted)"
+  },
+  {
+    "name": "ElyPrism",
+    "badge": "No-Premium",
+    "urlKey": "elyprism",
+    "icon": "https://elyprismlauncher.github.io/assets/svg/icon.svg",
+    "isImage": true,
+    "isSupported": true,
+    "textClass": "text-btc-orange",
+    "badgeColor": "var(--text-accent)"
+  },
+  {
+    "name": "TLauncher",
+    "badge": "No Soportado",
+    "urlKey": null,
+    "icon": "❌",
+    "isImage": false,
+    "isSupported": false,
+    "textClass": "",
+    "badgeColor": "#f87171"
+  }
+]

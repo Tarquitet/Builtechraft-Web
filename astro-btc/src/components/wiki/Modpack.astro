@@ -1,0 +1,195 @@
+---
+// src/components/wiki/modpack.astro
+import links from '../../data/links.json';
+import launchers from '../../data/launchers.json';
+
+const modpackUrl = links.modpack;
+const bobbyUrl = links.bobbyCache;
+const wikiModpackUrl = links.wikiModpack; 
+const wikiBobbyUrl = links.wikiBobby; 
+---
+
+<section id="modpack" class="py-24 relative overflow-hidden transition-all duration-500 border-t" style="background-color: var(--bg-section); border-color: var(--border-subtle);">
+    <div class="container mx-auto px-6 flex flex-col lg:flex-row items-center gap-12 max-w-6xl relative z-10">
+        
+        {/* TEXTO E INFO DE LAUNCHERS */}
+        <div class="w-full lg:w-1/2 text-center md:text-left">
+            <div class="p-8 md:p-10 rounded-3xl border shadow-xl" style="background-color: var(--bg-card); border-color: var(--border-subtle);">
+                
+                <h2 class="text-3xl md:text-4xl font-display font-bold mb-4 uppercase tracking-tight" style="color: var(--text-main);">
+                    Potencia tu <span style="color: var(--text-modrinth);">Experiencia</span>
+                </h2>
+                <div class="h-1.5 w-24 mb-8 mx-auto md:mx-0 rounded-full" style="background-color: var(--text-modrinth);"></div>
+                
+                <p class="text-lg leading-relaxed mb-8 text-justify md:text-left" style="color: var(--text-muted);">
+                    Nuestro modpack oficial integra las herramientas técnicas esenciales y optimizaciones clave para Builtechraft. Un entorno preparado para la ingeniería y la creación sin límites.
+                </p>
+
+                <ul class="space-y-3 mb-10 text-left">
+                    <li class="flex items-center gap-4 p-4 rounded-xl border bg-black/20" style="border-color: var(--border-subtle);">
+                        <span class="text-xl shrink-0">🚀</span> 
+                        <span class="text-sm md:text-base font-medium" style="color: var(--text-main);">Optimización extrema de FPS (Sodium/Lithium)</span>
+                    </li>
+                    <li class="flex items-center gap-4 p-4 rounded-xl border bg-black/20" style="border-color: var(--border-subtle);">
+                        <span class="text-xl shrink-0">🛠️</span> 
+                        <span class="text-sm md:text-base font-medium" style="color: var(--text-main);">Herramientas Técnicas (Litematica/MiniHUD)</span>
+                    </li>
+                </ul>
+
+                {/* TARJETAS DE LAUNCHERS COMPATIBLES DESDE JSON */}
+                <div class="text-left mt-8">
+                    <p class="text-[10px] uppercase tracking-widest font-bold mb-4" style="color: var(--text-muted);">Launchers Compatibles:</p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {launchers.map((launcher) => {
+                            if (!launcher.isSupported) {
+                                return (
+                                    <div class="flex items-center gap-4 bg-black/30 border p-4 rounded-xl opacity-70 grayscale select-none" style="border-color: var(--border-subtle);">
+                                        <span class="text-2xl">{launcher.icon}</span>
+                                        <div>
+                                            <span class="block text-sm font-bold" style="color: var(--text-main);">{launcher.name}</span>
+                                            <span class="text-[10px] uppercase tracking-wider" style={`color: ${launcher.badgeColor};`}>{launcher.badge}</span>
+                                        </div>
+                                    </div>
+                                );
+                            }
+
+                            return (
+                                <a href={links[launcher.urlKey as keyof typeof links]} target="_blank" class="flex items-center gap-4 bg-black/30 border p-4 rounded-xl transition-all group hover:bg-black/50" style="border-color: var(--border-subtle);">
+                                    {launcher.isImage ? (
+                                        <img src={launcher.icon} alt={launcher.name} class="w-7 h-7 object-contain group-hover:scale-110 transition-transform duration-300"/>
+                                    ) : (
+                                        <span class="text-2xl group-hover:scale-110 transition-transform duration-300">{launcher.icon}</span>
+                                    )}
+                                    <div>
+                                        <span class={`block text-sm font-bold transition-colors ${launcher.textClass}`} style="color: var(--text-main);">{launcher.name}</span>
+                                        <span class="text-[10px] uppercase tracking-wider" style={`color: ${launcher.badgeColor};`}>{launcher.badge}</span>
+                                    </div>
+                                </a>
+                            );
+                        })}
+                    </div>
+                    
+                    {/* PEQUEÑO LINK DE GUÍA (LAUNCHERS) */}
+                    <div class="mt-6 flex justify-center w-full">
+                        <a href={wikiModpackUrl} class="text-[11px] font-bold uppercase tracking-widest transition-all hover:scale-105 flex items-center gap-2 hover:opacity-80" style="color: var(--text-accent);">
+                            Ver guía de instalación de Modpack
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        {/* TARJETA DE DESCARGA PRINCIPAL */}
+        <div class="w-full lg:w-1/2">
+            <a href={modpackUrl} target="_blank" class="group relative block p-12 rounded-3xl border overflow-hidden transition-all duration-500 hover:-translate-y-2 shadow-2xl modpack-download-card" style="background-color: var(--bg-card); border-color: var(--border-subtle);" data-modrinth-url={modpackUrl}>
+                
+                <div class="relative z-10 flex flex-col items-center justify-center text-center h-full gap-8">
+                    <div class="w-28 h-28 rounded-3xl flex items-center justify-center border transition-all overflow-hidden relative modpack-icon-container shadow-lg bg-black/20" style="border-color: var(--border-subtle);">
+                        <span class="text-6xl modpack-emoji group-hover:scale-110 transition-transform duration-500 relative z-10">📦</span>
+                    </div>
+
+                    <div>
+                        <h3 class="text-3xl font-display font-bold transition-colors tracking-tight mb-3 group-hover:text-[#22c55e]" style="color: var(--text-main);">
+                            Descargar Modpack
+                        </h3>
+                        <p class="text-lg" style="color: var(--text-muted);">Vía Modrinth App o ZIP</p>
+                    </div>
+                    
+                    <div id="modpack-version-badge" class="mt-2 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border font-bold text-xs tracking-widest uppercase transition-all bg-black/20" style="border-color: var(--text-modrinth); color: var(--text-modrinth);">
+                        <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                        Consultando API...
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    {/* SECCIÓN BOBBY */}
+    <div class="container mx-auto px-6 max-w-6xl relative z-10 mt-12">
+        <div class="w-full border transition-colors rounded-3xl p-8 md:p-10 flex flex-col md:flex-row items-center gap-8 shadow-xl relative overflow-hidden group hover:border-btc-orange/30" style="background-color: var(--bg-card); border-color: var(--border-subtle);">
+            <div class="w-20 h-20 rounded-2xl flex items-center justify-center border shrink-0 bg-black/20" style="border-color: var(--border-accent);">
+                <span class="text-4xl">🔭</span>
+            </div>
+            
+            <div class="flex-1 text-center md:text-left z-10">
+                <h4 class="text-2xl font-display font-bold text-btc-orange mb-3 tracking-tight">Visión sin límites con Bobby</h4>
+                <p class="text-base leading-relaxed max-w-3xl" style="color: var(--text-muted);">
+                    Usamos el mod <strong>Bobby</strong> para ver y cargar más rápido los chunks de los permitidos por el servidor descargando los chunks. Como el mapa es grande, el archivo es grande.
+                </p>
+
+                {/* PEQUEÑO LINK DE GUÍA (BOBBY) */}
+                <div class="mt-4 flex justify-center md:justify-start w-full">
+                    <a href={wikiBobbyUrl} class="text-[11px] font-bold uppercase tracking-widest transition-all hover:scale-105 flex items-center gap-2 hover:opacity-80" style="color: var(--text-accent);">
+                        Ver instrucciones de instalación
+                    </a>
+                </div>
+            </div>
+            
+            <div class="z-10 shrink-0 mt-4 md:mt-0 w-full md:w-auto">
+                <a href={bobbyUrl} target="_blank" class="flex items-center justify-center gap-3 bg-[#5865F2]/10 hover:bg-[#5865F2] text-[#5865F2] hover:text-white border border-[#5865F2]/30 px-8 py-4 rounded-xl transition-all duration-300 font-bold uppercase tracking-widest text-xs shadow-lg w-full md:w-auto group/btn">
+                    Descargar Caché
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const card = document.querySelector('.modpack-download-card');
+        if (!card) return;
+
+        const url = card.getAttribute('data-modrinth-url') || '';
+        const container = card.querySelector('.modpack-icon-container') as HTMLElement;
+        const emoji = card.querySelector('.modpack-emoji') as HTMLElement;
+        const badgeDisplay = document.getElementById('modpack-version-badge') as HTMLElement;
+
+        const getSlug = (u: string): string => {
+            const parts = u.split('?')[0].split('/');
+            return parts[parts.length - 1] || parts[parts.length - 2];
+        };
+
+        const slug = getSlug(url);
+
+        try {
+            const projectRes = await fetch(`https://api.modrinth.com/v2/project/${slug}`);
+            if (projectRes.ok) {
+                const data = await projectRes.json();
+                if (data.icon_url && container) {
+                    if (emoji) emoji.style.display = 'none'; 
+                    const img = document.createElement('img');
+                    img.src = data.icon_url;
+                    img.className = "w-full h-full object-cover animate-fade-in p-1 rounded-[20px]";
+                    container.appendChild(img);
+                }
+            }
+
+            const versionsRes = await fetch(`https://api.modrinth.com/v2/project/${slug}/version`);
+            if (versionsRes.ok) {
+                const versions = await versionsRes.json();
+                if (versions.length > 0) {
+                    let allGameVersions = new Set<string>();
+                    
+                    versions.forEach((v: { game_versions: string[] }) => {
+                        v.game_versions.forEach((gv: string) => allGameVersions.add(gv));
+                    });
+                    
+                    const sortedVersions = Array.from(allGameVersions).sort((a: string, b: string) => 
+                        a.localeCompare(b, undefined, { numeric: true })
+                    );
+                    
+                    const latestModVersion = versions[0].version_number;
+
+                    if (badgeDisplay) {
+                        badgeDisplay.innerHTML = `<span>V${latestModVersion}</span>`;
+                    }
+                }
+            }
+        } catch (e) {
+            if (badgeDisplay) badgeDisplay.innerHTML = "Ver en Modrinth";
+            console.error("Error consultando Modrinth API:", e);
+        }
+    });
+</script>

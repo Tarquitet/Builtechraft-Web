@@ -1,17 +1,7 @@
 [
   {
-    "title": "Equipo de Staff",
-    "desc": "Conoce a los administradores y moderadores que mantienen el servidor.",
-    "href": "/about#staff",
-    "isExternal": false,
-    "hoverBorder": "hover:border-btc-yellow",
-    "iconBg": "bg-btc-yellow/10 text-btc-yellow border-btc-yellow/20",
-    "titleHover": "group-hover:text-btc-yellow",
-    "iconSvg": "<svg class=\"w-6 h-6\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z\"></path></svg>"
-  },
-  {
     "title": "Nuestros Mundos",
-    "desc": "Explora el mapa Survival técnico y el entorno Creativo.",
+    "desc": "Explora nuestros mundos en tiempo real desde tu navegador.",
     "href": "/about#mundos",
     "isExternal": false,
     "hoverBorder": "hover:border-emerald-500",
@@ -21,7 +11,7 @@
   },
   {
     "title": "Mods & Datapacks",
-    "desc": "Descubre las mejoras técnicas y de rendimiento que utilizamos.",
+    "desc": "Somos transparentes: Mostramos los mods y datapacks que utilizamos.",
     "href": "/about#mods",
     "isExternal": false,
     "hoverBorder": "hover:border-blue-500",
@@ -30,8 +20,18 @@
     "iconSvg": "<svg class=\"w-6 h-6\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z\"></path><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M15 12a3 3 0 11-6 0 3 3 0 016 0z\"></path></svg>"
   },
   {
+    "title": "Equipo de Staff",
+    "desc": "Conoce a las personas que ayudan a mantener el servidor.",
+    "href": "/about#staff",
+    "isExternal": false,
+    "hoverBorder": "hover:border-btc-yellow",
+    "iconBg": "bg-btc-yellow/10 text-btc-yellow border-btc-yellow/20",
+    "titleHover": "group-hover:text-btc-yellow",
+    "iconSvg": "<svg class=\"w-6 h-6\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z\"></path></svg>"
+  },
+  {
     "title": "Roadmap",
-    "desc": "Consulta las futuras expansiones y mantenimientos del servidor.",
+    "desc": "Consulta los futuros planes de desarrollo.",
     "href": "/about#roadmap",
     "isExternal": false,
     "hoverBorder": "hover:border-purple-500",

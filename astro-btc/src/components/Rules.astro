@@ -3,14 +3,14 @@
 
 // Usamos import.meta.glob para cargar todos los JSON de la carpeta normas
 const archivosGlob = import.meta.glob('../data/normas/*.json', { eager: true });
-
 // Convertimos el objeto devuelto en un array y nos aseguramos de usar el default
 const groups = Object.values(archivosGlob).map((archivo: any) => archivo.default || archivo);
+// Opcional: ordenar por el 'id' o simplemente confiar en el orden alfabético de los archivos (01, 02, 03)
 ---
 
 <section id="reglas" class="py-24 bg-theme-panel relative min-h-screen">
-
-    <div class="container mx-auto px-6 relative z-10">
+    {/* Ajustamos el max-w-4xl para que los textos no sean demasiado anchos y cansen la vista */}
+    <div class="container mx-auto px-6 max-w-4xl relative z-10">
         
         <div class="text-center mb-16">
             <h2 class="text-4xl md:text-5xl font-display font-bold text-theme-text uppercase tracking-tight">
@@ -21,49 +21,24 @@ const groups = Object.values(archivosGlob).map((archivo: any) => archivo.default
             </p>
         </div>
 
-        <div class="relative min-h-125">
-            
-            {/* VISTA DE TARJETAS (GRUPOS) */}
-            <div id="rules-cards-view" class="grid grid-cols-1 md:grid-cols-3 gap-6 transition-all duration-500 ease-in-out">
-                {groups.map((group) => (
-                    <button 
-                        class="group-card group text-left p-8 bg-zinc-900/50 hover:bg-zinc-900 border border-white/5 hover:border-btc-orange/50 rounded-2xl transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-btc-orange/10 flex flex-col gap-6 relative overflow-hidden"
-                        data-group-id={group.id}
-                    >
-                        <div class="absolute inset-0 bg-linear-to-br from-btc-orange/0 to-btc-orange/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        
-                        <div class="relative z-10">
-                            <span class="text-5xl mb-4 block group-hover:scale-110 transition-transform duration-300 origin-left">
-                                {group.icon}
-                            </span>
-                            <h3 class="text-2xl font-bold text-white group-hover:text-btc-orange transition-colors mb-2 uppercase tracking-wide">
+        {/* VISTA ÚNICA (LISTA AGRUPADA POR ACORDEONES) */}
+        <div class="space-y-16">
+            {groups.map((group) => (
+                <div class="group-section">
+                    
+                    {/* Encabezado del Grupo (reemplaza las tarjetas) */}
+                    <div class="flex items-center gap-4 mb-6 pb-4 border-b border-white/10">
+                        <span class="text-4xl md:text-5xl drop-shadow-lg">{group.icon}</span>
+                        <div>
+                            <h2 class="text-2xl md:text-3xl font-bold text-white uppercase tracking-wide group-hover:text-btc-orange transition-colors">
                                 {group.title}
-                            </h3>
-                            <p class="text-zinc-200 text-sm leading-relaxed mb-6">
-                                {group.desc}
-                            </p>
-                            
-                            <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-btc-orange border border-btc-orange/30 px-3 py-1.5 rounded bg-btc-orange/10">
-                                <span>Ver Secciones</span>
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                            </div>
+                            </h2>
+                            <p class="text-zinc-400 text-sm md:text-base mt-1">{group.desc}</p>
                         </div>
-                    </button>
-                ))}
-            </div>
+                    </div>
 
-            {/* VISTA DE LISTA (ACORDEONES) */}
-            <div id="rules-list-view" class="hidden opacity-0 translate-y-8 transition-all duration-500">
-                
-                <button id="back-to-cards" class="mb-8 flex items-center gap-3 px-6 py-3 bg-zinc-900 border border-white/10 rounded-xl text-zinc-400 hover:text-white hover:border-btc-orange hover:bg-zinc-800 transition-all group shadow-lg">
-                    <svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                    <span class="font-bold uppercase tracking-wider text-sm">Regresar al Menú</span>
-                </button>
-
-                {groups.map((group) => (
-                    <div id={`group-${group.id}`} class="group-content hidden space-y-4">
-                        
-                        {/* AÑADIDO (section: any) PARA ARREGLAR EL ERROR DE TYPESCRIPT */}
+                    {/* Acordeones del Grupo */}
+                    <div class="space-y-4">
                         {group.sections && group.sections.map((section: any) => (
                             
                             <div class="main-accordion group bg-[#0f0f11] border border-white/10 rounded-2xl overflow-hidden transition-colors duration-300 hover:border-btc-orange/30 shadow-lg">
@@ -87,7 +62,7 @@ const groups = Object.values(archivosGlob).map((archivo: any) => archivo.default
                                 <div class="main-content grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out">
                                     <div class="overflow-hidden">
                                         <div class="p-6 pt-0 flex flex-col gap-3 border-t border-white/5 bg-[#0a0a0a]">
-                                            {/* AÑADIDO (rule: any) PARA ARREGLAR EL ERROR DE TYPESCRIPT */}
+                                            
                                             {section.rules && section.rules.map((rule: any) => (
                                                 <div class="sub-accordion bg-[#131315] rounded-xl border border-white/5">
                                                     <button class="sub-trigger w-full p-4 flex items-start md:items-center gap-4 text-left hover:bg-white/5 transition-colors">
@@ -104,7 +79,6 @@ const groups = Object.values(archivosGlob).map((archivo: any) => archivo.default
                                                                 <p class="mb-4 text-zinc-300 pl-2 border-l-2 border-zinc-700">{rule.sub}</p>
                                                                 {rule.details && (
                                                                     <div class="flex flex-col gap-2 mt-2 bg-black/20 p-4 rounded-lg border border-white/5 font-mono text-xs">
-                                                                        {/* AÑADIDO (detail: string) PARA ARREGLAR EL ERROR DE TYPESCRIPT */}
                                                                         {rule.details.map((detail: string) => (
                                                                             <div class="flex gap-3 text-zinc-500">
                                                                                 <span class="text-btc-yellow font-bold shrink-0 select-none">»</span>
@@ -125,59 +99,16 @@ const groups = Object.values(archivosGlob).map((archivo: any) => archivo.default
 
                         ))}
                     </div>
-                ))}
-            </div>
+                </div>
+            ))}
         </div>
     </div>
 </section>
 
 <script is:inline>
-    // 1. LÓGICA DE NAVEGACIÓN (TARJETAS <-> LISTA)
-    const cardsView = document.getElementById('rules-cards-view');
-    const listView = document.getElementById('rules-list-view');
-    const backBtn = document.getElementById('back-to-cards');
-    const groupContents = document.querySelectorAll('.group-content');
-    const groupCards = document.querySelectorAll('.group-card');
-
-    // ABRIR GRUPO
-    groupCards.forEach(card => {
-        card.addEventListener('click', () => {
-            const groupId = card.getAttribute('data-group-id');
-            cardsView.classList.add('opacity-0', '-translate-x-10');
-            setTimeout(() => {
-                cardsView.classList.add('hidden');
-                groupContents.forEach(content => content.classList.add('hidden'));
-                
-                const selectedGroup = document.getElementById(`group-${groupId}`);
-                if (selectedGroup) selectedGroup.classList.remove('hidden');
-                
-                listView.classList.remove('hidden');
-                requestAnimationFrame(() => {
-                    listView.classList.remove('opacity-0', 'translate-y-8');
-                });
-                document.getElementById('reglas').scrollIntoView({ behavior: 'smooth' });
-            }, 300);
-        });
-    });
-
-    // VOLVER AL MENÚ
-    backBtn.addEventListener('click', () => {
-        listView.classList.add('opacity-0', 'translate-y-8');
-        setTimeout(() => {
-            listView.classList.add('hidden');
-            
-            // Cerrar todos los acordeones al volver
-            document.querySelectorAll('.main-content, .sub-content').forEach(el => el.style.gridTemplateRows = '0fr');
-            document.querySelectorAll('.accordion-icon, .arrow-sub').forEach(el => el.style.transform = 'rotate(0deg)');
-            
-            cardsView.classList.remove('hidden');
-            requestAnimationFrame(() => {
-                cardsView.classList.remove('opacity-0', '-translate-x-10');
-            });
-        }, 300);
-    });
-
-    // 2. LÓGICA DE ACORDEONES
+    // LÓGICA DE ACORDEONES LIMPIA Y DIRECTA
+    
+    // 1. Acordeones Principales (Secciones)
     document.querySelectorAll('.main-trigger').forEach(trigger => {
         trigger.addEventListener('click', () => {
             const parent = trigger.parentElement;
@@ -185,19 +116,22 @@ const groups = Object.values(archivosGlob).map((archivo: any) => archivo.default
             const icon = trigger.querySelector('.accordion-icon');
             const isOpen = content.style.gridTemplateRows === '1fr';
 
+            // Auto-cerrar otros acordeones de la misma categoría para no hacer scroll infinito
             if (!isOpen) {
                 const groupParent = parent.parentElement;
                 groupParent.querySelectorAll('.main-content').forEach(c => c.style.gridTemplateRows = '0fr');
                 groupParent.querySelectorAll('.accordion-icon').forEach(i => i.style.transform = 'rotate(0deg)');
             }
+
             content.style.gridTemplateRows = isOpen ? '0fr' : '1fr';
             icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
         });
     });
 
+    // 2. Acordeones Secundarios (Reglas individuales)
     document.querySelectorAll('.sub-trigger').forEach(trigger => {
         trigger.addEventListener('click', (e) => {
-            e.stopPropagation();
+            e.stopPropagation(); // Evita que el clic afecte al acordeón principal
             const parent = trigger.parentElement;
             const content = parent.querySelector('.sub-content');
             const arrow = trigger.querySelector('.arrow-sub');

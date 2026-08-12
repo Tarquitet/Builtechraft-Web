@@ -13,7 +13,7 @@ interface Props {
 
 const { 
     title, 
-    description = "Builtechraft SMP - Servidor de Minecraft Técnico y Creativo. Únete a nuestra comunidad, descubre proyectos y lleva tu ingeniería al siguiente nivel.",
+    description = "Builtechraft SMP - Mundo survival con el objetivo de construir y explorar el potencial de los datapacks y mods de optimización.",
     image = "/images/logo-text.webp",
 } = Astro.props;
 
@@ -62,19 +62,6 @@ const socialImageURL = new URL(image, Astro.url);
             "applicationCategory": "GameServer",
             "url": Astro.site
         })} />
-    
-        <!-- Google Translate Scripts -->
-        <script type="text/javascript" is:inline>
-            function googleTranslateElementInit() {
-                new google.translate.TranslateElement({
-                    pageLanguage: 'es',
-                    includedLanguages: 'es,en', // Idiomas que quieres soportar
-                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                    autoDisplay: false
-                }, 'google_element');
-            }
-        </script>
-        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     </head>
 
     <body class="bg-btc-dark text-white font-sans antialiased selection:bg-btc-orange selection:text-white flex flex-col min-h-screen">
@@ -88,35 +75,6 @@ const socialImageURL = new URL(image, Astro.url);
         </main>
 
         <Footer />
-        
-
-        <style is:global>
-    /* 1. Ocultar la barra superior de Google Translate */
-    iframe.goog-te-banner-frame,
-    .skiptranslate > iframe.goog-te-banner-frame {
-        display: none !important;
-    }
-
-    /* 2. MATAR LA FRANJA BLANCA: Forzar a que la web no se desplace hacia abajo */
-    html, body {
-        top: 0 !important;
-        margin-top: 0 !important;
-        padding-top: 0 !important;
-        position: relative !important;
-    }
-
-    /* 3. Ocultar el popup/tooltip molesto que aparece al hacer hover sobre texto traducido */
-    #goog-gt-tt, 
-    .goog-te-balloon-frame {
-        display: none !important;
-    }
-
-    /* 4. Quitar el fondo amarillo/blanco que Google le pone a veces al texto al pasar el ratón */
-    font {
-        background-color: transparent !important;
-        box-shadow: none !important;
-    }
-</style>
 
     <script>
   document.addEventListener('DOMContentLoaded', () => {
