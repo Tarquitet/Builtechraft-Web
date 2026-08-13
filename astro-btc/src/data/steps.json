@@ -2,50 +2,64 @@
   "java": [
     {
       "text": "Abre tu launcher de Minecraft.",
-      "linkKey": "launchers",
-      "linkLabel": "Ver Launchers recomendados",
+      "linkKey": "wikiLaunchers",
+      "linkLabel": "¿Cuál launcher usar?",
       "image": ""
     },
     {
       "text": "Selecciona la versión correcta del juego e inicia sesión con tu cuenta.",
-      "linkKey": "elyBy",
-      "linkLabel": "Guía Ely.by",
+      "linkKey": "cuentaNoPuemium",
+      "linkLabel": "Como usar ElyBy",
       "image": ""
     },
     {
       "text": "Ve a la pestaña de 'Multijugador' y haz clic en 'Agregar servidor'.",
+      "linkKey": "",
+      "linkLabel": "",
       "image": ""
     },
     {
       "text": "Pega la IP que copiaste abajo en el campo de 'Dirección IP'.",
+      "linkKey": "",
+      "linkLabel": "",
       "image": ""
     },
     {
       "text": "Haz clic en 'Hecho', selecciona Builtechraft y únete a la partida.",
+      "linkKey": "",
+      "linkLabel": "",
       "image": ""
     }
   ],
   "bedrock": [
     {
       "text": "Abre Minecraft Bedrock Edition en tu PC o dispositivo móvil.",
-      "linkKey": "bedrockGuide",
-      "linkLabel": "Ver Guía Completa",
+      "linkKey": "",
+      "linkLabel": "",
       "image": ""
     },
     {
       "text": "Toca 'Jugar' y dirígete a la pestaña superior de 'Servidores'.",
+      "linkKey": "",
+      "linkLabel": "",
       "image": ""
     },
     {
       "text": "Baja hasta el final de la lista y presiona el botón 'Añadir servidor'.",
+      "linkKey": "",
+      "linkLabel": "",
       "image": ""
     },
     {
       "text": "Ingresa el nombre que quieras, pega la IP y escribe el Puerto que aparece abajo.",
+      "linkKey": "",
+      "linkLabel": "",
       "image": ""
     },
     {
       "text": "Guarda el servidor en tu lista y presiona unirse.",
+      "linkKey": "",
+      "linkLabel": "",
       "image": ""
     }
   ]

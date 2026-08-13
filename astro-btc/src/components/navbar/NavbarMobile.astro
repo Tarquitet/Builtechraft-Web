@@ -3,17 +3,82 @@
 import navData from '../../data/navigation.json';
 import links from '../../data/links.json';
 
+const getLink = (key: string | undefined | null): string => {
+    if (!key) return '#';
+    const l = links as any;
+    if (key.includes('.')) {
+        const val = key.split('.').reduce((acc, part) => (acc == null ? acc : acc[part]), l);
+        return typeof val === 'string' ? val : '#';
+    }
+    const findInObject = (obj: any, searchKey: string): string | null => {
+        for (const [k, v] of Object.entries(obj)) {
+            if (k === searchKey && typeof v === 'string') return v;
+            if (typeof v === 'object' && v !== null && !Array.isArray(v)) {
+                const found = findInObject(v, searchKey);
+                if (found) return found;
+            }
+        }
+        return null;
+    };
+    return findInObject(l, key) || '#';
+};
+
 const mainItems = navData.main;
 const dropdowns = navData.dropdowns || {};
 ---
 
+<style>
+    .bottom-sheet {
+        position: fixed;
+        inset: 0;
+        z-index: 60;
+        display: flex;
+        align-items: flex-end;
+        pointer-events: none;
+    }
+    .bottom-sheet.is-open { pointer-events: auto; }
+    
+    .bottom-sheet-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .bottom-sheet.is-open .bottom-sheet-backdrop { opacity: 1; }
+    
+    .bottom-sheet-panel {
+        position: relative;
+        width: 100%;
+        max-height: 85vh;
+        background-color: var(--bg-card);
+        border-top-left-radius: 1.5rem;
+        border-top-right-radius: 1.5rem;
+        transform: translateY(100%);
+        transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+    .bottom-sheet.is-open .bottom-sheet-panel {
+        transform: translateY(0);
+    }
+    
+    .sheet-handle {
+        width: 2.5rem;
+        height: 0.25rem;
+        background: var(--border-subtle);
+        border-radius: 9999px;
+        margin: 0.75rem auto 0;
+    }
+</style>
+
 <header class="mobile-header">
     <div class="mobile-container">
-        <a href="/#inicio" class="flex items-center gap-2">
-            <img src="/images/logo-text.webp" alt="Builtechraft" class="h-8 w-auto object-contain" />
+        <a href={getLink('inicio') || '/'} class="flex items-center gap-2">
+            <img src={links.assets.logoText} alt="Builtechraft" class="h-8 w-auto object-contain" />
         </a>
 
-        <button id="mobile-menu-toggle" class="mobile-menu-btn" aria-label="Abrir Menú">
+        <button id="mobile-menu-toggle" class="mobile-menu-btn" aria-label="Abrir Menú" aria-expanded="false">
             <svg id="hamburger-icon" class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
@@ -22,42 +87,44 @@ const dropdowns = navData.dropdowns || {};
             </svg>
         </button>
     </div>
+</header>
 
-    <div id="mobile-dropdown" class="mobile-dropdown-menu">
-        <nav class="flex flex-col items-center gap-6 py-8 px-6">
+<!-- BOTTOM SHEET -->
+<div id="mobile-sheet" class="bottom-sheet">
+    <div class="bottom-sheet-backdrop" id="sheet-backdrop"></div>
+    
+    <div class="bottom-sheet-panel">
+        <div class="sheet-handle"></div>
+        
+        <nav class="flex flex-col gap-2 py-6 px-6">
             {mainItems.map((item: any) => {
-                const targetUrl = (item.keyLink && (links as any)[item.keyLink]) 
-                    ? (links as any)[item.keyLink] 
-                    : (item.href || '#');
-                const customStyle = item.hexColor ? `--text-muted: ${item.hexColor}; --color-btc-orange: ${item.hexColor}; --color-btc-yellow: ${item.hexColor};` : undefined;
+                const targetUrl = item.keyLink ? getLink(item.keyLink) : (item.href || '#');
+                const customStyle = item.hexColor ? `--text-muted: ${item.hexColor}; --color-btc-orange: ${item.hexColor};` : undefined;
                 const subItems = item.dropdownKey ? (dropdowns as any)[item.dropdownKey] : [];
 
                 return item.hasDropdown ? (
-                    <div class="w-full flex flex-col items-center">
+                    <div class="w-full">
                         <button 
                             type="button"
-                            class="mobile-nav-link flex items-center justify-center gap-2 cursor-pointer w-full text-center mobile-sub-toggle" 
+                            class="mobile-nav-link flex items-center justify-between w-full px-4 py-3  transition-colors"
                             data-dropdown-id={`sub-${item.id}`}
                             style={customStyle}
                         >
-                            {item.name}
+                            <span>{item.name}</span>
                             <svg class="w-4 h-4 transition-transform duration-300 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
-                            <span class="nav-line"></span>
                         </button>
                         
-                        <div id={`sub-${item.id}`} class="mobile-sub-menu hidden flex-col items-center gap-2 mt-4 w-full bg-theme-alternate p-4 rounded-xl border border-theme">
+                        <div id={`sub-${item.id}`} class="hidden flex-col gap-1 mt-1 ml-4 pl-4 border-l border-theme">
                             {subItems.map((subItem: any) => {
-                                const subUrl = (subItem.keyLink && (links as any)[subItem.keyLink]) 
-                                    ? (links as any)[subItem.keyLink] 
-                                    : (subItem.href || '#');
+                                const subUrl = subItem.keyLink ? getLink(subItem.keyLink) : (subItem.href || '#');
                                 return (
                                     <a 
                                         href={subUrl} 
                                         target={subItem.isExternal ? "_blank" : "_self"}
                                         rel={subItem.isExternal ? "noopener noreferrer" : undefined}
-                                        class="mobile-submenu-link"
+                                        class="mobile-submenu-link block px-4 py-2 rounded-lg transition-colors"
                                     >
                                         {subItem.name}
                                     </a>
@@ -68,47 +135,55 @@ const dropdowns = navData.dropdowns || {};
                 ) : (
                     <a 
                         href={targetUrl} 
-                        class="mobile-nav-link text-center w-full"
+                        class="mobile-nav-link block px-4 py-3  hover:bg-white/5 transition-colors"
                         style={customStyle}
                         target={item.isExternal ? "_blank" : "_self"}
                         rel={item.isExternal ? "noopener noreferrer" : undefined}
                     >
                         {item.name}
-                        <span class="nav-line"></span>
                     </a>
                 );
             })}
         </nav>
     </div>
-</header>
+</div>
 
 <script is:inline>
     document.addEventListener('DOMContentLoaded', () => {
         const toggleBtn = document.getElementById('mobile-menu-toggle');
-        const dropdown = document.getElementById('mobile-dropdown');
+        const sheet = document.getElementById('mobile-sheet');
+        const backdrop = document.getElementById('sheet-backdrop');
         const hamburgerIcon = document.getElementById('hamburger-icon');
         const closeIcon = document.getElementById('close-icon');
 
-        if (toggleBtn && dropdown && hamburgerIcon && closeIcon) {
-            toggleBtn.addEventListener('click', () => {
-                const isOpen = dropdown.classList.contains('scale-y-100');
-                
-                if (isOpen) {
-                    dropdown.classList.remove('scale-y-100', 'opacity-100', 'pointer-events-auto');
-                    dropdown.classList.add('scale-y-0', 'opacity-0', 'pointer-events-none');
-                    hamburgerIcon.classList.remove('hidden');
-                    closeIcon.classList.add('hidden');
-                } else {
-                    dropdown.classList.remove('scale-y-0', 'opacity-0', 'pointer-events-none');
-                    dropdown.classList.add('scale-y-100', 'opacity-100', 'pointer-events-auto');
-                    hamburgerIcon.classList.add('hidden');
-                    closeIcon.classList.remove('hidden');
-                }
-            });
-        }
+        const openSheet = () => {
+            sheet?.classList.add('is-open');
+            hamburgerIcon?.classList.add('hidden');
+            closeIcon?.classList.remove('hidden');
+            toggleBtn?.setAttribute('aria-expanded', 'true');
+            document.body.style.overflow = 'hidden';
+        };
 
-        // Clic para abrir/cerrar submenús en móviles
-        const subToggles = document.querySelectorAll('.mobile-sub-toggle');
+        const closeSheet = () => {
+            sheet?.classList.remove('is-open');
+            hamburgerIcon?.classList.remove('hidden');
+            closeIcon?.classList.add('hidden');
+            toggleBtn?.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+        };
+
+        toggleBtn?.addEventListener('click', () => {
+            if (sheet?.classList.contains('is-open')) {
+                closeSheet();
+            } else {
+                openSheet();
+            }
+        });
+
+        backdrop?.addEventListener('click', closeSheet);
+
+        // Submenús
+        const subToggles = document.querySelectorAll('[data-dropdown-id]');
         subToggles.forEach(btn => {
             btn.addEventListener('click', () => {
                 const targetId = btn.getAttribute('data-dropdown-id');
@@ -129,6 +204,13 @@ const dropdowns = navData.dropdowns || {};
                         if (arrow) arrow.style.transform = 'rotate(180deg)';
                     }
                 }
+            });
+        });
+
+        // Cerrar al hacer clic en un link (UX)
+        sheet?.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                setTimeout(closeSheet, 150);
             });
         });
     });

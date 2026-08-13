@@ -2,7 +2,8 @@
 import '../styles/global.css';
 import Navbar from '../components/navbar/Navbar.astro';
 import NavbarMobile from '../components/navbar/NavbarMobile.astro';
-import Footer from '../components/Footer.astro';
+import Footer from '../components/footer/Footer.astro';
+import links from '../data/links.json';
 
 interface Props {
     title: string;
@@ -14,7 +15,7 @@ interface Props {
 const { 
     title, 
     description = "Builtechraft SMP - Mundo survival con el objetivo de construir y explorar el potencial de los datapacks y mods de optimización.",
-    image = "/images/logo-text.webp",
+    image = links.assets.logoText,
 } = Astro.props;
 
 // Construimos la URL canónica automáticamente basada en la página actual
@@ -46,8 +47,8 @@ const socialImageURL = new URL(image, Astro.url);
         <meta property="twitter:description" content={description} />
         <meta property="twitter:image" content={socialImageURL} />
 
-        <link rel="icon" type="image/png" href="/images/favicon.png" />
-        <link rel="apple-touch-icon" href="/images/favicon.png" />
+        <link rel="icon" type="image/png" href={links.assets.favicon} />
+        <link rel="apple-touch-icon" href={links.assets.favicon} />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
@@ -62,9 +63,16 @@ const socialImageURL = new URL(image, Astro.url);
             "applicationCategory": "GameServer",
             "url": Astro.site
         })} />
+
+        <script is:inline>
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || savedTheme === 'light') {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+    </script>
     </head>
 
-    <body class="bg-btc-dark text-white font-sans antialiased selection:bg-btc-orange selection:text-white flex flex-col min-h-screen">
+    <body class="bg-theme-app text-theme-main font-sans antialiased flex flex-col min-h-screen">
         
 
         <Navbar/>

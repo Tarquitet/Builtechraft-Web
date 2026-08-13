@@ -1,0 +1,61 @@
+---
+// src/components/ThemeSelector.astro
+---
+
+<div class="flex items-center gap-1 p-1 bg-theme-alternate border-theme-1  w-fit">
+    <button data-theme-btn="neutral" class="theme-btn relative p-2  transition-all" aria-label="Tema Gris Clásico">
+        <div class="w-5 h-5 rounded-full bg-[#171615] border-theme-2 border-btc-orange shadow-sm hover:scale-110 transition-transform"></div>
+    </button>
+    
+    <button data-theme-btn="dark" class="theme-btn relative p-2  transition-all" aria-label="Tema Azul Tecnológico">
+        <div class="w-5 h-5 rounded-full bg-[#0a1220] border-theme-2 border-[#6fe8f2] shadow-sm hover:scale-110 transition-transform"></div>
+    </button>
+    
+    <button data-theme-btn="light" class="theme-btn relative p-2  transition-all" aria-label="Tema Cian Claro">
+        <div class="w-5 h-5 rounded-full bg-[#edf7f9] border-theme-2 border-[#f97316] shadow-sm hover:scale-110 transition-transform"></div>
+    </button>
+</div>
+
+<script is:inline>
+    const setupThemeSelector = () => {
+        const btns = document.querySelectorAll('[data-theme-btn]');
+        const html = document.documentElement;
+
+        // Establecer el estado activo visual de los botones
+        const updateActiveState = (currentTheme) => {
+            btns.forEach(btn => {
+                const btnTheme = btn.getAttribute('data-theme-btn');
+                if(btnTheme === currentTheme) {
+                    btn.classList.add('bg-theme-card', 'shadow-sm');
+                    btn.classList.remove('opacity-50');
+                } else {
+                    btn.classList.remove('bg-theme-card', 'shadow-sm');
+                    btn.classList.add('opacity-50', 'hover:opacity-100');
+                }
+            });
+        };
+
+        // Leer el tema inicial (si no hay, es 'neutral')
+        const initialTheme = html.getAttribute('data-theme') || 'neutral';
+        updateActiveState(initialTheme);
+
+        // Lógica al hacer clic
+        btns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const theme = btn.getAttribute('data-theme-btn');
+                
+                if (theme === 'neutral') {
+                    html.removeAttribute('data-theme');
+                    localStorage.removeItem('theme');
+                } else {
+                    html.setAttribute('data-theme', theme);
+                    localStorage.setItem('theme', theme);
+                }
+                updateActiveState(theme);
+            });
+        });
+    };
+
+    setupThemeSelector();
+    document.addEventListener('astro:after-swap', setupThemeSelector);
+</script>

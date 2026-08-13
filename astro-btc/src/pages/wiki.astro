@@ -1,11 +1,16 @@
 ---
-// src/pages/normas.astro
+// src/pages/wiki.astro
 import Layout from '../layouts/Layout.astro';
+import DiscordBanner from '../components/discord/DiscordBanner.astro';
+import WikiIntro from '../components/wiki/WikiIntro.astro';
 ---
 
-<Layout title="Wiki | Builtechraft" description="Conoce las reglas y lineamientos oficiales para participar en la comunidad de Builtechraft.">
-    <main class="pt-24 min-h-screen bg-theme-panel">
-        EN CONSTRUCCION
-        REGRESA AL INICIO POR EL MOMENTO
+<Layout
+    title="Wiki | Builtechraft"
+    description="Guías, tutoriales y documentación del servidor Builtechraft."
+>
+    <main class="pt-32 pb-24 min-h-screen bg-theme-app">
+        <WikiIntro />
     </main>
+    <DiscordBanner />
 </Layout>

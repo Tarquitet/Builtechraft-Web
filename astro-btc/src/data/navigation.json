@@ -1,11 +1,17 @@
 {
   "main": [
-    { "id": "inicio", "name": "Inicio", "href": "/#inicio", "isExternal": false },
+    { "id": "inicio", "name": "Inicio", "keyLink": "inicio", "isExternal": false },
     {
       "id": "nosotros",
-      "name": "Servidor",
+      "name": "Nosotros",
       "hasDropdown": true,
       "dropdownKey": "about_drop"
+    },
+    {
+      "id": "server",
+      "name": "Servidor",
+      "hasDropdown": true,
+      "dropdownKey": "server_drop"
     },
     {
       "id": "mapas",
@@ -13,28 +19,31 @@
       "hasDropdown": true,
       "dropdownKey": "maps_drop"
     },
-    {
-      "id": "normativa",
-      "name": "Reglas",
-      "keyLink": "Reglas",
-      "isExternal": false
-    },
-    { "id": "guias", "name": "Wiki", "keyLink": "wikiWhats", "isExternal": false },
+    { "id": "normativa", "name": "Reglas", "keyLink": "rules", "isExternal": false },
+    { "id": "guias", "name": "Wiki", "keyLink": "wiki", "isExternal": false },
     { "id": "discord", "name": "Discord", "keyLink": "discord", "isExternal": true, "hexColor": "#5865F2" },
     { "id": "donaciones", "name": "Donar", "keyLink": "donate", "isExternal": true, "hexColor": "#ec4899" }
   ],
   "dropdowns": {
     "about_drop": [
-      { "name": "Objetivo", "href": "/about" },
-      { "name": "Nuestros Mundos", "href": "/about#mundos" },
-      { "name": "Mods & Datapacks", "href": "/about#mods" },
-      { "name": "Nuestro Modpack", "href": "/about#modpack" },
-      { "name": "Nuestro Equipo", "href": "/about#staff" },
-      { "name": "Futuros Planes", "href": "/about#roadmap-section" }
+      { "name": "Nuestra Visión", "keyLink": "about" },
+      { "name": "Nuestros Mundos", "keyLink": "aboutMundos" },
+      { "name": "Mods & Datapacks", "keyLink": "aboutMods" },
+      { "name": "Nuestro Modpack", "keyLink": "aboutModpack" },
+      { "name": "Nuestro Equipo", "keyLink": "aboutStaff" },
+      { "name": "Futuros Planes", "keyLink": "aboutRoadmap" }
+    ],
+    "server_drop": [
+      { "name": "Cómo Entrar", "keyLink": "ingreso", "isExternal": false },
+      { "name": "Sistema Whitelist", "keyLink": "wikiWhitelist", "isExternal": false },
+      { "name": "Mecánicas Servidor", "keyLink": "wikiModpack", "isExternal": false },
+      { "name": "Launcher Recomendado", "keyLink": "wikiLaunchers", "isExternal": false },
+      { "name": "Sobre Mods", "keyLink": "wikiMods", "isExternal": false },
+      { "name": "Historia del Servidor", "keyLink": "wikiHistory", "isExternal": false }
     ],
     "maps_drop": [
-      { "name": "Mapa Supervivencia", "keyLink": "mapaSurvival", "isExternal": true },
-      { "name": "Mapa Creativo", "keyLink": "mapaCreativo", "isExternal": true }
+      { "name": "Mapa Supervivencia", "keyLink": "survival", "isExternal": true },
+      { "name": "Mapa Creativo", "keyLink": "creative", "isExternal": true }
     ]
   }
 }

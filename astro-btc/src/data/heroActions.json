@@ -10,7 +10,7 @@
   {
     "id": "como-entrar",
     "label": "Cómo Ingresar",
-    "keyLink": "wikiComoEntrar",
+    "keyLink": "ingreso",
     "isExternal": false,
     "btnClass": "bg-btc-orange hover:bg-orange-600 text-white shadow-lg shadow-btc-orange/20",
     "icon": "play"

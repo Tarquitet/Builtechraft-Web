@@ -3,18 +3,18 @@
 import Layout from '../layouts/Layout.astro';
 import VisionBanner from '../components/about/VisionBanner.astro';
 import WorldsGrid from '../components/about/WorldsGrid.astro';
-import ModsAndDatapacks from '../components/wiki/ModsAndDatapacks.astro';
-import Staff from '../components/wiki/Staff.astro';
-import Roadmap from '../components/wiki/Roadmap.astro';
-import ComparativeTable from '../components/home/ComparativeTable.astro';
-import Modpack from '../components/wiki/Modpack.astro';
+import ModsAndDatapacks from '../components/about/ModsAndDatapacks.astro';
+import Staff from '../components/about/Staff.astro';
+import Roadmap from '../components/about/Roadmap.astro';
+import ComparativeTable from '../components/about/ComparativeTable.astro';
+import Modpack from '../components/about/Modpack.astro';
 ---
 
 <Layout
     title="Server | Builtechraft SMP"
     description="Conoce Builtechraft, nuestros mundos, los mods que utilizamos y lo que estamos preparando para el servidor."
 >
-    <main class="min-h-screen bg-[#0f0f10] text-white">
+    <main class="min-h-screen bg-theme-app text-theme-main">
 
         <!-- Banner -->
         <VisionBanner />
@@ -25,8 +25,7 @@ import Modpack from '../components/wiki/Modpack.astro';
         <!-- Mods -->
         <section
             id="mods"
-            class="container mx-auto px-6 max-w-7xl py-16 border-t border-white/5"
-        >
+            <section id="mods" class="container mx-auto px-6 max-w-7xl py-16 border-t border-theme">
             <div class="text-center mb-12">
 
                 <span
@@ -35,11 +34,11 @@ import Modpack from '../components/wiki/Modpack.astro';
                     Mods & Datapacks
                 </span>
 
-                <h2 class="text-4xl font-display font-bold uppercase tracking-tight text-white">
+                <h2 class="text-4xl font-display font-bold uppercase tracking-tight text-theme-main">
                     Las mejoras del <span class="text-blue-400">servidor</span>
                 </h2>
 
-                <p class="text-zinc-400 mt-3 max-w-2xl mx-auto leading-relaxed">
+                <p class="text-theme-muted mt-3 max-w-2xl mx-auto leading-relaxed">
                     Utilizamos una selección de mods y datapacks centrados en el rendimiento,
                     la calidad de vida y las herramientas de construcción. La lista evoluciona
                     con el servidor y puede cambiar con el tiempo conforme probamos nuevas ideas.
@@ -74,11 +73,11 @@ import Modpack from '../components/wiki/Modpack.astro';
                     Roadmap
                 </span>
 
-                <h2 class="text-4xl font-display font-bold uppercase tracking-tight text-white">
+                <h2 class="text-4xl font-display font-bold uppercase tracking-tight text-theme-main">
                     Lo que <span class="text-btc-orange">estamos preparando</span>
                 </h2>
 
-                <p class="text-zinc-400 mt-3 max-w-2xl mx-auto leading-relaxed">
+                <p class="text-theme-muted mt-3 max-w-2xl mx-auto leading-relaxed">
                     Estas son algunas de las ideas y mejoras que queremos incorporar al servidor.
                     No siguen un calendario fijo; preferimos dedicar el tiempo necesario para mantener
                     una experiencia estable y equilibrada.

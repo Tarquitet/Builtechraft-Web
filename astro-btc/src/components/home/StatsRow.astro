@@ -2,23 +2,23 @@
 // src/components/home/StatsRow.astro
 ---
 
-<section class="py-12 bg-black/40 border-y border-white/5 relative z-10">
+<section class="py-12 bg-theme-app border-y border-theme relative z-10">
     <div class="container mx-auto px-6 max-w-5xl">
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-8 text-center divide-x divide-transparent md:divide-white/10">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-8 text-center divide-x divide-transparent md:divide-[var(--border-subtle)]">
             
             <div class="flex flex-col items-center">
                 <span id="stat-years" class="block text-4xl font-display font-bold text-btc-orange mb-2">?? Años</span>
-                <span class="text-xs font-bold text-zinc-400 uppercase tracking-widest">Desde 2020</span>
+                <span class="text-xs font-bold text-theme-muted uppercase tracking-widest">Desde 2020</span>
             </div>
 
             <div class="flex flex-col items-center">
                 <span id="stat-mods" class="block text-4xl font-display font-bold text-btc-yellow mb-2">??</span>
-                <span class="text-xs font-bold text-zinc-400 uppercase tracking-widest">Mods/Datapacks</span>
+                <span class="text-xs font-bold text-theme-muted uppercase tracking-widest">Mods/Datapacks</span>
             </div>
 
             <div class="flex flex-col items-center">
                 <span id="stat-version" class="block text-4xl font-display font-bold text-btc-orange mb-2">???</span>
-                <span class="text-xs font-bold text-zinc-400 uppercase tracking-widest">Versión Actual</span>
+                <span class="text-xs font-bold text-theme-muted uppercase tracking-widest">Versión Actual</span>
             </div>
 
         </div>

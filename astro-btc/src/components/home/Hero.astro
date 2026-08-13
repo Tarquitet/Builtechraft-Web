@@ -3,7 +3,20 @@
 import heroActions from '../../data/heroActions.json';
 import links from '../../data/links.json';
 
-const bgImage = "url('/images/gallery/2_1.avif')";
+// Helper para buscar llaves dinámicas en la estructura anidada y devolver siempre un string
+const getLink = (key: string | undefined | null): string => {
+    if (!key) return '#';
+    const l = links as any;
+    if (typeof l[key] === 'string') return l[key];
+    for (const cat of Object.values(l)) {
+        if (typeof cat === 'object' && cat !== null && !Array.isArray(cat) && typeof (cat as any)[key] === 'string') {
+            return (cat as any)[key];
+        }
+    }
+    return '#';
+};
+
+const bgImage = `url('${links.assets.heroBackground}')`;
 ---
 
 <section id="inicio" class="hero-section">
@@ -11,7 +24,7 @@ const bgImage = "url('/images/gallery/2_1.avif')";
     <div class="hero-overlay"></div>
     
     <div class="hero-content">
-        <img src="/images/logo-text.webp" alt="Builtechraft" class="hero-logo" />
+        <img src={links.assets.logoText} alt="Builtechraft" class="hero-logo" />
         
         <p class="hero-description">
             Un mundo privado de Minecraft sin reiniciarse desde su creación con el objetivo de reducir la dependencia de mods y plugins complejos mediante el uso de los datapacks y mecánicas del juego base.
@@ -19,13 +32,14 @@ const bgImage = "url('/images/gallery/2_1.avif')";
 
         <div class="flex flex-col sm:flex-row flex-wrap gap-4 justify-center items-center w-full">
             {heroActions.map((action: any) => {
-                const url = links[action.keyLink as keyof typeof links] || action.href;
+                // Usamos el helper para obtener el string de forma segura
+                const url = getLink(action.keyLink) || action.href || '#';
                 return (
                     <a 
                         href={url} 
                         target={action.isExternal ? "_blank" : "_self"}
                         rel={action.isExternal ? "noopener noreferrer" : undefined}
-                        class={`inline-flex justify-center items-center gap-3 px-8 py-4 rounded-xl font-bold uppercase tracking-widest transition-all w-full sm:w-auto ${action.btnClass}`}
+                        class={`btn-retro inline-flex justify-center items-center gap-3 btn-retro w-full sm:w-auto ${action.btnClass}`}
                     >
                         {action.label}
                     </a>

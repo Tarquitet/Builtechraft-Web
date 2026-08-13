@@ -1,0 +1,64 @@
+---
+// src/components/Footer.astro
+import ThemeToggle from '../footer/ThemeToggle.astro';
+import links from '../../data/links.json';
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="border-t border-theme py-6 bg-theme-section">
+    <div class="container mx-auto px-6">
+        
+        {/* UNA SOLA LÍNEA EN DESKTOP, APILADO EN MÓVIL */}
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+            
+            {/* IZQUIERDA: Icono + Copyright + Aviso */}
+            <div class="flex items-center gap-3">
+                <img 
+                    src={links.assets.favicon} 
+                    alt="Builtechraft" 
+                    class="w-6 h-6 object-contain opacity-70"
+                    loading="lazy"
+                />
+                <div class="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs text-theme-muted">
+                    <span>&copy; {currentYear}</span>
+                    <span class="text-btc-orange font-bold">Builtechraft</span>
+                    <span class="opacity-50">|</span>
+                    <span class="opacity-70">Proyecto comunitario, sin afiliaciones.</span>
+                </div>
+            </div>
+
+            {/* CENTRO: Links en línea */}
+            <nav class="flex items-center gap-4 text-xs">
+                <a href={links.pages.rules} class="text-theme-muted hover:text-btc-orange transition-colors">
+                    Reglas
+                </a>
+                <a href={links.pages.wiki} class="text-theme-muted hover:text-btc-orange transition-colors">
+                    Wiki
+                </a>
+                <a href={links.social.discord} target="_blank" rel="noopener noreferrer" class="text-theme-muted hover:text-btc-orange transition-colors">
+                    Discord
+                </a>
+                <a href={links.social.donate} target="_blank" rel="noopener noreferrer" class="text-theme-muted hover:text-btc-orange transition-colors">
+                    Donar
+                </a>
+            </nav>
+
+            {/* DERECHA: Theme Toggle + Crédito */}
+            <div class="flex items-center gap-4">
+                <ThemeToggle />
+                <p class="text-xs text-theme-muted">
+                    <span class="opacity-70">Hecho con ❤ por</span>
+                    <a 
+                        href={links.developer.web} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="text-btc-orange hover:underline ml-1 font-medium"
+                    >
+                        Tarquitet
+                    </a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</footer>

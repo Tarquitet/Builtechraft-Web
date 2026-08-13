@@ -102,15 +102,15 @@ const createModCardHTML = (item: any) => {
     const displayDesc = isTruncated ? fullDesc.substring(0, maxChars).trim() + '...' : fullDesc;
     
     return `
-        <div class="mod-item snap-center shrink-0 w-60 flex flex-col bg-theme-card border border-theme rounded-2xl overflow-hidden hover:${colors.border} transition-colors duration-300 shadow-lg group/card">
-            <div class="w-full h-32 bg-black/10 dark:bg-black/40 relative flex items-center justify-center border-b border-theme p-4">
+        <div class="mod-item snap-center shrink-0 w-60 flex flex-col bg-theme-card border-theme-1  overflow-hidden hover:${colors.border} transition-colors duration-300 shadow-lg group/card">
+            <div class="w-full h-32 bg-theme-alternate relative flex items-center justify-center border-b border-theme p-4">
                 ${iconSrc}
             </div>
             <div class="p-5 flex flex-col flex-grow">
                 <h4 class="font-bold text-theme-main text-sm m-0 mb-3 truncate">${item.Name}</h4>
                 <span class="text-[9px] uppercase tracking-widest font-bold px-2 py-0.5 rounded ${colors.badge} border inline-block mb-3 self-start">${item.Type}</span>
                 <p class="text-xs text-theme-muted leading-relaxed m-0 flex-grow">${displayDesc}</p>
-                <a href="${item.Url}" target="_blank" rel="noopener noreferrer" class="mt-5 w-full text-center py-2.5 px-4 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-colors border border-theme bg-theme-alternate hover:bg-btc-orange/10 hover:text-btc-orange text-theme-main">
+                <a href="${item.Url}" target="_blank" rel="noopener noreferrer" class="mt-5 w-full text-center py-2.5 px-4  text-[10px] font-bold uppercase tracking-widest transition-colors border-theme-1 bg-theme-alternate hover:bg-btc-orange/10 hover:text-btc-orange text-theme-main">
                     ${isTruncated ? 'Leer más' : 'Ver enlace'}
                 </a>
             </div>

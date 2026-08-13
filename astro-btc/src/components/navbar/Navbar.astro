@@ -3,6 +3,32 @@
 import navData from '../../data/navigation.json';
 import links from '../../data/links.json';
 
+// Helper para buscar llaves dinámicas en la estructura anidada de links.json
+const getLink = (key: string | undefined | null): string => {
+    if (!key) return '#';
+    const l = links as any;
+    
+    // 1) Si tiene puntos, es una ruta explícita: "launchers.prism.url"
+    if (key.includes('.')) {
+        const val = key.split('.').reduce((acc, part) => (acc == null ? acc : acc[part]), l);
+        return typeof val === 'string' ? val : '#';
+    }
+    
+    // 2) Búsqueda recursiva por nombre de llave (para keys simples)
+    const findInObject = (obj: any, searchKey: string): string | null => {
+        for (const [k, v] of Object.entries(obj)) {
+            if (k === searchKey && typeof v === 'string') return v;
+            if (typeof v === 'object' && v !== null && !Array.isArray(v)) {
+                const found = findInObject(v, searchKey);
+                if (found) return found;
+            }
+        }
+        return null;
+    };
+    
+    return findInObject(l, key) || '#';
+};
+
 const mainItems = navData.main;
 const dropdowns = navData.dropdowns || {};
 ---
@@ -10,16 +36,14 @@ const dropdowns = navData.dropdowns || {};
 <header id="main-header" class="navbar-header">
     <div class="navbar-container">
         
-        <a href="/#inicio" class="flex items-center gap-2 transition-transform hover:scale-105 z-20">
-            <img src="/images/logo-text.webp" alt="Builtechraft" loading="eager" class="h-10 w-auto object-contain drop-shadow-md" />
+        <a href={getLink('pageInicio') || '/#inicio'} class="flex items-center gap-2 transition-transform hover:scale-105 z-20">
+            <img src={links.assets.favicon} alt="Builtechraft" loading="eager" class="h-10 w-auto object-contain drop-shadow-md" />
         </a>
 
         <nav class="hidden lg:flex items-center justify-end gap-10 flex-1">
             {mainItems.map((item: any) => {
-                // Resolución segura del enlace (garantiza que siempre haya una URL válida)
-                const targetUrl = (item.keyLink && (links as any)[item.keyLink]) 
-                    ? (links as any)[item.keyLink] 
-                    : (item.href || '#');
+                // Usamos el helper getLink()
+                const targetUrl = item.keyLink ? getLink(item.keyLink) : (item.href || '#');
                 const customStyle = item.hexColor ? `--text-muted: ${item.hexColor}; --color-btc-orange: ${item.hexColor};` : undefined;
                 const subItems = item.dropdownKey ? (dropdowns as any)[item.dropdownKey] : [];
 
@@ -41,9 +65,8 @@ const dropdowns = navData.dropdowns || {};
                         <div id={`nav-drop-${item.id}`} class="navbar-dropdown nav-dropdown-menu">
                              <div class="flex flex-col gap-1">
                                 {subItems.map((subItem: any) => {
-                                    const subUrl = (subItem.keyLink && (links as any)[subItem.keyLink]) 
-                                        ? (links as any)[subItem.keyLink] 
-                                        : (subItem.href || '#');
+                                    // Usamos el helper getLink() para los submenús
+                                    const subUrl = subItem.keyLink ? getLink(subItem.keyLink) : (subItem.href || '#');
                                     return (
                                         <a 
                                             href={subUrl} 
@@ -75,13 +98,12 @@ const dropdowns = navData.dropdowns || {};
     </div>
 </header>
 
-<button id="back-to-top" aria-label="Volver arriba" class="fixed bottom-8 right-8 z-50 bg-btc-orange text-white p-3.5 rounded-2xl shadow-lg shadow-btc-orange/30 opacity-0 invisible translate-y-4 transition-all duration-300 hover:-translate-y-1 hover:bg-orange-500 hover:shadow-btc-orange/50">
+<button id="back-to-top" aria-label="Volver arriba" class="fixed bottom-8 right-8 z-50 bg-btc-orange text-white p-3.5 rounded-none border-accent-4 shadow-lg shadow-btc-orange/30 opacity-0 invisible translate-y-4 transition-all duration-300 hover:-translate-y-1 hover:bg-orange-500 hover:shadow-btc-orange/50">
     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"></path></svg>
 </button>
 
 <script is:inline>
     document.addEventListener('DOMContentLoaded', () => {
-        // Lógica de CLIC EXCLUSIVO para desplegar submenús
         const dropdownBtns = document.querySelectorAll('.nav-dropdown-btn');
         const dropdownMenus = document.querySelectorAll('.nav-dropdown-menu');
 
@@ -92,7 +114,6 @@ const dropdowns = navData.dropdowns || {};
                 const targetMenu = document.getElementById(targetId);
                 const arrow = btn.querySelector('.arrow-svg');
 
-                // Cerrar cualquier otro submenú que estuviera abierto
                 dropdownMenus.forEach(menu => {
                     if (menu !== targetMenu) menu.classList.remove('is-open');
                 });
@@ -100,7 +121,6 @@ const dropdowns = navData.dropdowns || {};
                     if (a !== arrow) a.style.transform = 'rotate(0deg)';
                 });
 
-                // Abrir o cerrar el submenú actual
                 if (targetMenu) {
                     const isOpen = targetMenu.classList.toggle('is-open');
                     if (arrow) {
@@ -110,13 +130,11 @@ const dropdowns = navData.dropdowns || {};
             });
         });
 
-        // Cerrar submenús al hacer clic fuera
         document.addEventListener('click', () => {
             dropdownMenus.forEach(menu => menu.classList.remove('is-open'));
             document.querySelectorAll('.arrow-svg').forEach(a => a.style.transform = 'rotate(0deg)');
         });
 
-        // Botón Volver Arriba
         const bttBtn = document.getElementById('back-to-top');
         if (bttBtn) {
             window.addEventListener('scroll', () => {

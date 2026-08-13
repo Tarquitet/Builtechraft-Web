@@ -1,18 +1,71 @@
 {
-  "discord": "https://discord.gg/4KzRH5DPzx",
-  "wikiHome": "https://builtechraftwiki.tarquitet.com/",
-  "wikiWhats": "/wiki",
-  "wikiComoEntrar": "/#ingreso",
-  "wikiWhitelist": "https://builtechraftwiki.tarquitet.com/getting-started/acceso-whitelist/",
-  "Reglas": "/rules",
-  "mapaSurvival": "http://btcsmpmap.tarquitet.com:25625",
-  "mapaCreativo": "http://btccreativemap.tarquitet.com:25674",
-  "donate": "https://ko-fi.com/tarquitet",
-  "modpack": "https://modrinth.com/modpack/builtechraft-client-mods",
-  "modrinthApp": "https://modrinth.com/app",
-  "prism": "https://prismlauncher.org/",
-  "elyprism": "https://elyprismlauncher.github.io/",
-  "bobbyCache": "https://dub.sh/bobby_btc",
-  "wikiModpack": "/wiki/modpack",
-  "wikiBobby": "/wiki/modpack#bobby"
+  "social": {
+    "discord": "https://discord.gg/4KzRH5DPzx",
+    "donate": "https://ko-fi.com/tarquitet"
+  },
+
+  "pages": {
+    "inicio": "/#inicio",
+    "about": "/about",
+    "aboutMundos": "/about#mundos",
+    "aboutMods": "/about#mods",
+    "aboutModpack": "/about#modpack",
+    "aboutStaff": "/about#staff",
+    "aboutRoadmap": "/about#roadmap",
+    "rules": "/rules",
+    "wiki": "/wiki",
+    "ingreso": "/#ingreso"
+  },
+
+  "maps": {
+    "survival": "http://btcsmpmap.tarquitet.com:25625",
+    "creative": "http://btccreativemap.tarquitet.com:25674"
+  },
+
+  "wiki": {
+    "homeExternal": "https://builtechraftwiki.tarquitet.com/",
+    "wikiModpack": "/wiki/modpack",
+    "wikiLaunchers": "/wiki/launchers",
+    "wikiMods": "/wiki/modpack#mods",
+    "wikiBobby": "/wiki/modpack#bobby",
+    "wikiMecanicas": "/wiki/mecanicas",
+    "wikiWhitelist": "/wiki/whitelist",
+    "wikiHistory": "/wiki/historia",
+    "cuentaNoPuemium": "/wiki/cuenta#no-premium",
+    "cuentaPremium": "/wiki/cuenta#premium"
+  },
+
+  "modpack": {
+    "url": "https://modrinth.com/modpack/builtechraft-client-mods",
+    "apiProject": "https://api.modrinth.com/v2/project/",
+    "bobbyCache": "https://dub.sh/bobby_btc"
+  },
+
+  "launchers": {
+    "modrinthApp": {
+      "url": "https://modrinth.com/app",
+      "icon": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.modrinth.com%2Fmodrinth-new.png&f=1&nofb=1&ipt=7988d8dc4e111041a1e7f4c1da1ae26c4ae8c4ca4dd374c6ac3e79872af8bf3c"
+    },
+    "prism": {
+      "url": "https://prismlauncher.org/",
+      "icon": "https://prismlauncher.org/_astro/logo.CWs3Bi2E_Z1HYzg2.svg"
+    },
+    "elyprism": {
+      "url": "https://elyprismlauncher.github.io/",
+      "icon": "https://elyprismlauncher.github.io/assets/svg/icon.svg"
+    }
+  },
+
+  "assets": {
+    "logoText": "/images/logo-text.webp",
+    "favicon": "/images/favicon.png",
+    "defaultAvatar": "https://ui-avatars.com/api/?name=Staff&background=18181b&color=fff&size=150",
+    "heroBackground": "/images/gallery/2_1.avif",
+    "visionBackground": "/images/gallery/2_3.avif",
+    "howtoBackground": "/images/gallery/2_4.avif"
+  },
+
+  "developer": {
+    "web": "https://web.tarquitet.com"
+  }
 }

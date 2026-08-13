@@ -3,18 +3,45 @@
 import links from '../../data/links.json';
 import launchers from '../../data/launchers.json';
 
-const modpackUrl = links.modpack;
-const bobbyUrl = links.bobbyCache;
-const wikiModpackUrl = links.wikiModpack; 
-const wikiBobbyUrl = links.wikiBobby; 
+// Helper mejorado: soporta rutas con puntos y búsqueda recursiva
+const getLink = (key: string | undefined | null): string => {
+    if (!key) return '';
+    const l = links as any;
+    
+    // 1) Si tiene puntos, es una ruta explícita: "launchers.prism.url"
+    if (key.includes('.')) {
+        const val = key.split('.').reduce((acc, part) => (acc == null ? acc : acc[part]), l);
+        return typeof val === 'string' ? val : '';
+    }
+    
+    // 2) Búsqueda recursiva por nombre de llave (para keys simples)
+    const find = (obj: any): string | null => {
+        for (const [k, v] of Object.entries(obj)) {
+            if (k === key && typeof v === 'string') return v;
+            if (typeof v === 'object' && v !== null) {
+                const r = find(v);
+                if (r) return r;
+            }
+        }
+        return null;
+    };
+    
+    return find(l) || '';
+};
+
+const modpackUrl = links.modpack.url;
+const bobbyUrl = links.modpack.bobbyCache;
+const wikiModpackUrl = links.wiki.wikiModpack; 
+const wikiBobbyUrl = links.wiki.wikiBobby; 
+const modrinthApi = links.modpack.apiProject; 
 ---
 
-<section id="modpack" class="py-24 relative overflow-hidden transition-all duration-500 border-t" style="background-color: var(--bg-section); border-color: var(--border-subtle);">
+<section id="modpack" class="py-24 relative overflow-hidden transition-all duration-500 border-t" style="background-color: var(--bg-section); border-color: var(--border-subtle);" data-api-url={modrinthApi}>
     <div class="container mx-auto px-6 flex flex-col lg:flex-row items-center gap-12 max-w-6xl relative z-10">
         
         {/* TEXTO E INFO DE LAUNCHERS */}
         <div class="w-full lg:w-1/2 text-center md:text-left">
-            <div class="p-8 md:p-10 rounded-3xl border shadow-xl" style="background-color: var(--bg-card); border-color: var(--border-subtle);">
+            <div class="p-8 md:p-10  border shadow-xl" style="background-color: var(--bg-card); border-color: var(--border-subtle);">
                 
                 <h2 class="text-3xl md:text-4xl font-display font-bold mb-4 uppercase tracking-tight" style="color: var(--text-main);">
                     Potencia tu <span style="color: var(--text-modrinth);">Experiencia</span>
@@ -26,11 +53,11 @@ const wikiBobbyUrl = links.wikiBobby;
                 </p>
 
                 <ul class="space-y-3 mb-10 text-left">
-                    <li class="flex items-center gap-4 p-4 rounded-xl border bg-black/20" style="border-color: var(--border-subtle);">
+                    <li class="flex items-center gap-4 p-4  border  bg-theme-alternate" style="border-color: var(--border-subtle);">
                         <span class="text-xl shrink-0">🚀</span> 
                         <span class="text-sm md:text-base font-medium" style="color: var(--text-main);">Optimización extrema de FPS (Sodium/Lithium)</span>
                     </li>
-                    <li class="flex items-center gap-4 p-4 rounded-xl border bg-black/20" style="border-color: var(--border-subtle);">
+                    <li class="flex items-center gap-4 p-4  border  bg-theme-alternate" style="border-color: var(--border-subtle);">
                         <span class="text-xl shrink-0">🛠️</span> 
                         <span class="text-sm md:text-base font-medium" style="color: var(--text-main);">Herramientas Técnicas (Litematica/MiniHUD)</span>
                     </li>
@@ -44,8 +71,8 @@ const wikiBobbyUrl = links.wikiBobby;
                         {launchers.map((launcher) => {
                             if (!launcher.isSupported) {
                                 return (
-                                    <div class="flex items-center gap-4 bg-black/30 border p-4 rounded-xl opacity-70 grayscale select-none" style="border-color: var(--border-subtle);">
-                                        <span class="text-2xl">{launcher.icon}</span>
+                                    <div class="flex items-center gap-4  bg-theme-alternate border p-4  opacity-70 grayscale select-none" style="border-color: var(--border-subtle);">
+                                        <span class="text-2xl">{launcher.iconFallback}</span>
                                         <div>
                                             <span class="block text-sm font-bold" style="color: var(--text-main);">{launcher.name}</span>
                                             <span class="text-[10px] uppercase tracking-wider" style={`color: ${launcher.badgeColor};`}>{launcher.badge}</span>
@@ -55,11 +82,13 @@ const wikiBobbyUrl = links.wikiBobby;
                             }
 
                             return (
-                                <a href={links[launcher.urlKey as keyof typeof links]} target="_blank" class="flex items-center gap-4 bg-black/30 border p-4 rounded-xl transition-all group hover:bg-black/50" style="border-color: var(--border-subtle);">
+                                // AQUÍ USAMOS getLink() PARA EL HREF
+                                <a href={getLink(launcher.urlKey)} target="_blank" class="flex items-center gap-4  bg-theme-alternate border p-4  transition-all group hover:bg-black/50" style="border-color: var(--border-subtle);">
                                     {launcher.isImage ? (
-                                        <img src={launcher.icon} alt={launcher.name} class="w-7 h-7 object-contain group-hover:scale-110 transition-transform duration-300"/>
+                                        // AQUÍ USAMOS getLink() PARA EL SRC
+                                        <img src={getLink(launcher.iconKey)} alt={launcher.name} class="w-7 h-7 object-contain group-hover:scale-110 transition-transform duration-300"/>
                                     ) : (
-                                        <span class="text-2xl group-hover:scale-110 transition-transform duration-300">{launcher.icon}</span>
+                                        <span class="text-2xl group-hover:scale-110 transition-transform duration-300">{launcher.iconFallback}</span>
                                     )}
                                     <div>
                                         <span class={`block text-sm font-bold transition-colors ${launcher.textClass}`} style="color: var(--text-main);">{launcher.name}</span>
@@ -83,10 +112,10 @@ const wikiBobbyUrl = links.wikiBobby;
 
         {/* TARJETA DE DESCARGA PRINCIPAL */}
         <div class="w-full lg:w-1/2">
-            <a href={modpackUrl} target="_blank" class="group relative block p-12 rounded-3xl border overflow-hidden transition-all duration-500 hover:-translate-y-2 shadow-2xl modpack-download-card" style="background-color: var(--bg-card); border-color: var(--border-subtle);" data-modrinth-url={modpackUrl}>
+            <a href={modpackUrl} target="_blank" class="group relative block p-12  border overflow-hidden transition-all duration-500 hover:-translate-y-2 shadow-2xl modpack-download-card" style="background-color: var(--bg-card); border-color: var(--border-subtle);" data-modrinth-url={modpackUrl}>
                 
                 <div class="relative z-10 flex flex-col items-center justify-center text-center h-full gap-8">
-                    <div class="w-28 h-28 rounded-3xl flex items-center justify-center border transition-all overflow-hidden relative modpack-icon-container shadow-lg bg-black/20" style="border-color: var(--border-subtle);">
+                    <div class="w-28 h-28  flex items-center justify-center border transition-all overflow-hidden relative modpack-icon-container shadow-lg  bg-theme-alternate" style="border-color: var(--border-subtle);">
                         <span class="text-6xl modpack-emoji group-hover:scale-110 transition-transform duration-500 relative z-10">📦</span>
                     </div>
 
@@ -97,7 +126,7 @@ const wikiBobbyUrl = links.wikiBobby;
                         <p class="text-lg" style="color: var(--text-muted);">Vía Modrinth App o ZIP</p>
                     </div>
                     
-                    <div id="modpack-version-badge" class="mt-2 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border font-bold text-xs tracking-widest uppercase transition-all bg-black/20" style="border-color: var(--text-modrinth); color: var(--text-modrinth);">
+                    <div id="modpack-version-badge" class="mt-2 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border font-bold text-xs tracking-widest uppercase transition-all  bg-theme-alternate" style="border-color: var(--text-modrinth); color: var(--text-modrinth);">
                         <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                         Consultando API...
                     </div>
@@ -108,8 +137,9 @@ const wikiBobbyUrl = links.wikiBobby;
 
     {/* SECCIÓN BOBBY */}
     <div class="container mx-auto px-6 max-w-6xl relative z-10 mt-12">
-        <div class="w-full border transition-colors rounded-3xl p-8 md:p-10 flex flex-col md:flex-row items-center gap-8 shadow-xl relative overflow-hidden group hover:border-btc-orange/30" style="background-color: var(--bg-card); border-color: var(--border-subtle);">
-            <div class="w-20 h-20 rounded-2xl flex items-center justify-center border shrink-0 bg-black/20" style="border-color: var(--border-accent);">
+        <div class="w-full border transition-colors  p-8 md:p-10 flex flex-col md:flex-row items-center gap-8 shadow-xl relative overflow-hidden group hover:border-btc-orange/30" style="background-color: var(--bg-card); border-color: var(--border-subtle);">
+            
+            <div class="w-20 h-20  flex items-center justify-center border shrink-0  bg-theme-alternate" style="border-color: var(--border-accent);">
                 <span class="text-4xl">🔭</span>
             </div>
             
@@ -128,7 +158,7 @@ const wikiBobbyUrl = links.wikiBobby;
             </div>
             
             <div class="z-10 shrink-0 mt-4 md:mt-0 w-full md:w-auto">
-                <a href={bobbyUrl} target="_blank" class="flex items-center justify-center gap-3 bg-[#5865F2]/10 hover:bg-[#5865F2] text-[#5865F2] hover:text-white border border-[#5865F2]/30 px-8 py-4 rounded-xl transition-all duration-300 font-bold uppercase tracking-widest text-xs shadow-lg w-full md:w-auto group/btn">
+                <a href={bobbyUrl} target="_blank" class="flex items-center justify-center gap-3 bg-[#5865F2]/10 hover:bg-[#5865F2] text-[#5865F2] hover:text-white border border-[#5865F2]/30 px-8 py-4  transition-all duration-300 font-bold uppercase tracking-widest text-xs shadow-lg w-full md:w-auto group/btn">
                     Descargar Caché
                 </a>
             </div>
@@ -138,6 +168,9 @@ const wikiBobbyUrl = links.wikiBobby;
 
 <script>
     document.addEventListener('DOMContentLoaded', async () => {
+        const section = document.getElementById('modpack');
+        const apiUrl = section?.getAttribute('data-api-url') || 'https://api.modrinth.com/v2/project/';
+        
         const card = document.querySelector('.modpack-download-card');
         if (!card) return;
 
@@ -154,7 +187,8 @@ const wikiBobbyUrl = links.wikiBobby;
         const slug = getSlug(url);
 
         try {
-            const projectRes = await fetch(`https://api.modrinth.com/v2/project/${slug}`);
+            // Utilizamos la variable apiUrl que extrajimos de links.json
+            const projectRes = await fetch(`${apiUrl}${slug}`);
             if (projectRes.ok) {
                 const data = await projectRes.json();
                 if (data.icon_url && container) {
@@ -166,7 +200,7 @@ const wikiBobbyUrl = links.wikiBobby;
                 }
             }
 
-            const versionsRes = await fetch(`https://api.modrinth.com/v2/project/${slug}/version`);
+            const versionsRes = await fetch(`${apiUrl}${slug}/version`);
             if (versionsRes.ok) {
                 const versions = await versionsRes.json();
                 if (versions.length > 0) {

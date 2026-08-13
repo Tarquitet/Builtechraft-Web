@@ -19,23 +19,23 @@ import worldsCards from '../../data/worldsCards.json';
                 
                 <div class="absolute inset-0 bg-cover bg-center transform-gpu" style={`background-image: url('${card.bgImage}')`}></div>
                 
-                <div class="absolute inset-0 bg-black/60 transform-gpu"></div>
+                <div class="absolute inset-0 bg-theme-app opacity-85 transform-gpu"></div>
                 
                 <div class="relative z-10 max-w-xl transform-gpu">
-                    <span class={`text-[10px] font-bold uppercase tracking-widest border px-3 py-1 rounded-md inline-block mb-3 ${card.tagClass}`}>
+                    <span class={`badge-retro text-[10px] font-bold uppercase tracking-widest inline-block mb-3 ${card.tagClass}`}>
                         {card.tagText}
                     </span>
-                    <h3 class="text-4xl font-display font-bold text-white uppercase mb-4">
+                    <h3 class="text-4xl font-display font-bold text-theme-main uppercase mb-4">
                         {card.title}
                     </h3>
-                    <p class="text-zinc-200 leading-relaxed mb-8">
+                    <p class="text-theme-muted leading-relaxed mb-8">
                         {card.desc}
                     </p>
                     <a href={card.link}
                         data-target={card.dataTarget || undefined}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class={`inline-flex items-center gap-2 font-bold text-xs uppercase tracking-widest py-4 px-8 rounded-xl transition-all ${card.btnClass}`}>
+                        class={`btn-retro inline-flex items-center gap-2 font-bold text-xs uppercase tracking-widest btn-retro ${card.btnClass}`}>
                         Ver mapa
                     </a>
                 </div>
