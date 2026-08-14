@@ -45,7 +45,7 @@ const getLink = (key: string | undefined | null): string => {
                         rel={card.isExternal ? "noopener noreferrer" : undefined}
                         class={`card-retro ${card.hoverBorder}`}
                     >
-                        <div class={`w-16 h-16 rounded-none flex items-center justify-center shrink-0 border mb-5 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3 shadow-inner ${card.iconBg}`}>
+                        <div class={`w-16 h-16 flex items-center justify-center shrink-0 border mb-5 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3 shadow-inner ${card.iconBg}`}>
                             <Fragment set:html={card.iconSvg} />
                         </div>
                         

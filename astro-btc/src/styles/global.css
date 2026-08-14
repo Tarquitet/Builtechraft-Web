@@ -260,7 +260,7 @@ body {
     border-color: var(--border-subtle);
   }
   .welcome-badge {
-    @apply px-4 py-1.5 rounded-full border border-btc-orange/30 bg-btc-orange/15 text-btc-orange text-[10px] font-bold uppercase tracking-[0.2em] inline-block mb-6;
+    @apply px-4 py-1.5 border border-btc-orange/30 bg-btc-orange/15 text-btc-orange text-[10px] font-bold uppercase tracking-[0.2em] inline-block mb-6;
   }
   .welcome-title {
     @apply text-3xl md:text-5xl font-display font-bold uppercase tracking-tight mb-6;
@@ -338,7 +338,7 @@ body {
     border-color: var(--border-subtle);
   }
   .req-icon-box {
-    @apply w-14 h-14 shrink-0 rounded-full flex items-center justify-center border;
+    @apply w-14 h-14 shrink-0 flex items-center justify-center border;
     border-color: var(--border-subtle);
   }
   .req-icon-green {
@@ -416,7 +416,7 @@ body {
     @apply flex items-start gap-4 p-4  transition-all bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 border border-transparent;
   }
   .step-number {
-    @apply w-8 h-8 shrink-0 rounded-full border border-btc-orange/30 text-btc-orange flex items-center justify-center font-bold text-sm bg-btc-orange/15 mt-0.5;
+    @apply w-8 h-8 shrink-0 border border-btc-orange/30 text-btc-orange flex items-center justify-center font-bold text-sm bg-btc-orange/15 mt-0.5;
   }
 
   /* 5. NAVIGATION */
@@ -628,7 +628,7 @@ body {
 }
 
 .comparative-badge {
-  @apply px-4 py-1.5 rounded-full border border-btc-orange/30 bg-btc-orange/15 text-btc-orange text-[10px] font-bold uppercase tracking-[0.2em] inline-block mb-6;
+  @apply px-4 py-1.5 border border-btc-orange/30 bg-btc-orange/15 text-btc-orange text-[10px] font-bold uppercase tracking-[0.2em] inline-block mb-6;
 }
 
 .comparative-title {

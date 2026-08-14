@@ -65,11 +65,11 @@ const socialImageURL = new URL(image, Astro.url);
         })} />
 
         <script is:inline>
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark' || savedTheme === 'light') {
-            document.documentElement.setAttribute('data-theme', savedTheme);
-        }
-    </script>
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            }
+        </script>
     </head>
 
     <body class="bg-theme-app text-theme-main font-sans antialiased flex flex-col min-h-screen">

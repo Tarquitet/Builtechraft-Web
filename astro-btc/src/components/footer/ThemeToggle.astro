@@ -1,61 +1,97 @@
 ---
-// src/components/ThemeSelector.astro
+// src/components/footer/ThemeToggle.astro
 ---
 
-<div class="flex items-center gap-1 p-1 bg-theme-alternate border-theme-1  w-fit">
-    <button data-theme-btn="neutral" class="theme-btn relative p-2  transition-all" aria-label="Tema Gris Clásico">
-        <div class="w-5 h-5 rounded-full bg-[#171615] border-theme-2 border-btc-orange shadow-sm hover:scale-110 transition-transform"></div>
-    </button>
-    
-    <button data-theme-btn="dark" class="theme-btn relative p-2  transition-all" aria-label="Tema Azul Tecnológico">
-        <div class="w-5 h-5 rounded-full bg-[#0a1220] border-theme-2 border-[#6fe8f2] shadow-sm hover:scale-110 transition-transform"></div>
-    </button>
-    
-    <button data-theme-btn="light" class="theme-btn relative p-2  transition-all" aria-label="Tema Cian Claro">
-        <div class="w-5 h-5 rounded-full bg-[#edf7f9] border-theme-2 border-[#f97316] shadow-sm hover:scale-110 transition-transform"></div>
-    </button>
+<div class="theme-toggle" role="radiogroup" aria-label="Cambiar tema de la página">
+  <button class="tt-btn" data-set-theme="light" role="radio" title="Tema claro" aria-label="Tema claro">
+    <span class="tt-swatch tt-light"></span>
+  </button>
+  <button class="tt-btn" data-set-theme="dark" role="radio" title="Tema medianoche" aria-label="Tema medianoche">
+    <span class="tt-swatch tt-dark"></span>
+  </button>
+  <button class="tt-btn" data-set-theme="black" role="radio" title="Tema negro" aria-label="Tema negro">
+    <span class="tt-swatch tt-black"></span>
+  </button>
 </div>
 
-<script is:inline>
-    const setupThemeSelector = () => {
-        const btns = document.querySelectorAll('[data-theme-btn]');
-        const html = document.documentElement;
+<style>
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+  }
 
-        // Establecer el estado activo visual de los botones
-        const updateActiveState = (currentTheme) => {
-            btns.forEach(btn => {
-                const btnTheme = btn.getAttribute('data-theme-btn');
-                if(btnTheme === currentTheme) {
-                    btn.classList.add('bg-theme-card', 'shadow-sm');
-                    btn.classList.remove('opacity-50');
-                } else {
-                    btn.classList.remove('bg-theme-card', 'shadow-sm');
-                    btn.classList.add('opacity-50', 'hover:opacity-100');
-                }
-            });
-        };
+  .tt-btn {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease;
+  }
 
-        // Leer el tema inicial (si no hay, es 'neutral')
-        const initialTheme = html.getAttribute('data-theme') || 'neutral';
-        updateActiveState(initialTheme);
+  /* Círculos SIEMPRE con marco propio: visibles en cualquier tema */
+  .tt-swatch {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+  }
+  .tt-light { background: #f4f4f5; border: 2px solid #a1a1aa; }
+  .tt-dark  { background: #25657d; border: 2px solid #466193; }
+  .tt-black { background: #0a0a0a; border: 2px solid #676769; }
 
-        // Lógica al hacer clic
-        btns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const theme = btn.getAttribute('data-theme-btn');
-                
-                if (theme === 'neutral') {
-                    html.removeAttribute('data-theme');
-                    localStorage.removeItem('theme');
-                } else {
-                    html.setAttribute('data-theme', theme);
-                    localStorage.setItem('theme', theme);
-                }
-                updateActiveState(theme);
-            });
-        });
-    };
+  /* HOVER: ahora sí se nota el cursor encima */
+  .tt-btn:hover { background: rgba(128, 128, 128, .18); }
+  .tt-btn:hover .tt-swatch { transform: scale(1.18); }
 
-    setupThemeSelector();
-    document.addEventListener('astro:after-swap', setupThemeSelector);
+  /* Foco por teclado (accesibilidad) */
+  .tt-btn:focus-visible {
+    outline: 2px solid var(--text-accent);
+    outline-offset: 2px;
+  }
+
+  /* SELECCIONADO: marco naranja + brillo */
+  .tt-btn.is-active {
+    border-color: var(--text-accent);
+    background: rgba(249, 115, 22, .12);
+    box-shadow: 0 0 10px rgba(249, 115, 22, .35);
+  }
+  .tt-btn.is-active .tt-swatch {
+    border-color: var(--text-accent);
+    box-shadow: 0 0 8px rgba(249, 115, 22, .8);
+  }
+</style>
+
+<script>
+  function updateToggles() {
+    const current = document.documentElement.getAttribute('data-theme') || 'dark';
+    document.querySelectorAll('.theme-toggle').forEach((group) => {
+      group.querySelectorAll('.tt-btn').forEach((btn) => {
+        const active = btn.getAttribute('data-set-theme') === current;
+        btn.classList.toggle('is-active', active);
+        btn.setAttribute('aria-checked', active ? 'true' : 'false');
+      });
+    });
+  }
+
+  function applyTheme(theme: string) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    updateToggles();
+  }
+
+  document.querySelectorAll('.tt-btn').forEach((btn) => {
+    btn.addEventListener('click', () => applyTheme(btn.getAttribute('data-set-theme') || 'dark'));
+  });
+
+  updateToggles();
 </script>

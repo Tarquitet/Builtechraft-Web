@@ -15,14 +15,14 @@
         </div>
 
     <div class="relative w-full group">
-        <button id="rm-prev" class="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 md:-ml-6 z-10 bg-theme-card text-theme-main p-3 rounded-full border-theme-1 opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-0 hidden md:flex items-center justify-center hover:bg-btc-orange hover:border-btc-orange hover:text-white shadow-lg cursor-pointer">
+        <button id="rm-prev" class="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 md:-ml-6 z-10 bg-theme-card text-theme-main p-3 border-theme-1 opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-0 hidden md:flex items-center justify-center hover:bg-btc-orange hover:border-btc-orange hover:text-white shadow-lg cursor-pointer">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
         </button>
 
         <div id="roadmap-container" class="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6 hide-scrollbar scroll-smooth">
             </div>
 
-        <button id="rm-next" class="absolute right-0 top-1/2 -translate-y-1/2 -mr-4 md:-ml-6 z-10 bg-theme-card text-theme-main p-3 rounded-full border-theme-1 opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-0 hidden md:flex items-center justify-center hover:bg-btc-orange hover:border-btc-orange hover:text-white shadow-lg cursor-pointer">
+        <button id="rm-next" class="absolute right-0 top-1/2 -translate-y-1/2 -mr-4 md:-ml-6 z-10 bg-theme-card text-theme-main p-3 border-theme-1 opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-0 hidden md:flex items-center justify-center hover:bg-btc-orange hover:border-btc-orange hover:text-white shadow-lg cursor-pointer">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
         </button>
     </div>
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             return `
                 <div class="roadmap-card snap-center shrink-0 w-[85vw] md:w-[calc(33.333%-1rem)] bg-theme-card border-theme-1  p-6 flex flex-col group hover:border-btc-orange/30 shadow-lg" data-status="${estadoLimpio}">
                     <div class="mb-5">
-                        <span class="text-[10px] font-bold uppercase tracking-widest ${style.text} ${style.bg} border-theme-1 ${style.border} px-3 py-1.5 rounded-full inline-flex items-center gap-1.5 whitespace-nowrap">
+                        <span class="text-[10px] font-bold uppercase tracking-widest ${style.text} ${style.bg} border-theme-1 ${style.border} px-3 py-1.5 inline-flex items-center gap-1.5 whitespace-nowrap">
                             ${style.icon} ${estadoLimpio}
                         </span>
                     </div>
