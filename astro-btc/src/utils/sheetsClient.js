@@ -1,11 +1,8 @@
 // src/utils/sheetsClient.js
 
-// URL de tu API en Google Apps Script
-const API_URL =
-  'https://script.google.com/macros/s/AKfycbx4SxlkvL0R3vxNlzh8eT4ZWCJ_9sgZTJkQfzgIXQ9FDwSMaQTOYwW-GRNhsdjwV6Qi/exec';
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutos
+const GITHUB_BASE = 'https://raw.githubusercontent.com/Tarquitet/JSON-ServersData/main/builtechraft-web';
+const CACHE_DURATION = 5 * 60 * 1000;
 
-// Función genérica con caché integrada para sessionStorage
 async function fetchWithCache(actionKey, endpointUrl) {
   const cacheKey = `btc_cache_${actionKey}`;
   const timeKey = `btc_time_${actionKey}`;
@@ -18,7 +15,7 @@ async function fetchWithCache(actionKey, endpointUrl) {
       return JSON.parse(cached);
     }
 
-    const response = await fetch(endpointUrl);
+    const response = await fetch(endpointUrl, { cache: 'no-store' });
     const data = await response.json();
 
     sessionStorage.setItem(cacheKey, JSON.stringify(data));
@@ -27,32 +24,26 @@ async function fetchWithCache(actionKey, endpointUrl) {
     return data;
   } catch (error) {
     console.error(`Error cargando ${actionKey}:`, error);
-    // Si falla la red, intenta devolver lo que tenga en caché aunque haya expirado
     const fallback = sessionStorage.getItem(cacheKey);
     if (fallback) return JSON.parse(fallback);
     return actionKey === 'config' ? {} : [];
   }
 }
 
-// 1. Configuración Web (IPs, links, etc.)
 export async function getClientConfigTSV() {
-  return await fetchWithCache('config', `${API_URL}?action=config`);
+  return await fetchWithCache('config', `${GITHUB_BASE}/config.json`);
 }
 
-// 2. Roadmap
 export async function getRoadmapData() {
-  return await fetchWithCache('roadmap', `${API_URL}?action=roadmap`);
+  return await fetchWithCache('roadmap', `${GITHUB_BASE}/roadmap.json`);
 }
 
-// 3. Staff
 export async function getStaffData() {
-  return await fetchWithCache('staff', `${API_URL}?action=staff`);
+  return await fetchWithCache('staff', `${GITHUB_BASE}/staff.json`);
 }
 
-// 4. Mods y Datapacks
 export async function getModsAndDatapacks() {
-  const json = await fetchWithCache('mods', `${API_URL}?action=mods`);
-
+  const json = await fetchWithCache('mods', `${GITHUB_BASE}/mods.json`);
   return {
     mods: json.filter((item) => !item.Type.toLowerCase().includes('datapack')),
     datapacks: json.filter((item) => item.Type.toLowerCase().includes('datapack')),

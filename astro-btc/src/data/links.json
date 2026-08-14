@@ -6,7 +6,7 @@
 
   "pages": {
     "inicio": "/#inicio",
-    "about": "/about",
+    "about": "/about#vision",
     "aboutMundos": "/about#mundos",
     "aboutMods": "/about#mods",
     "aboutModpack": "/about#modpack",
