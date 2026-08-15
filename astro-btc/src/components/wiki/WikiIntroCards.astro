@@ -1,0 +1,84 @@
+---
+// src/components/wiki/WikiIntroCards.astro
+import links from '../../data/links.json';
+
+const wikiExternaUrl = links.wiki.homeExternal;
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+  
+  <!-- OPCIÓN 1: WIKI RÁPIDA (AQUÍ) -->
+  <div class="welcome-card hover:scale-105 transition-transform duration-300">
+    <div class="text-5xl mb-4">📚</div>
+    <h3 class="text-2xl font-display font-bold text-theme-main mb-4">
+      Wiki Rápida
+    </h3>
+    <p class="text-theme-muted mb-6 leading-relaxed">
+      Guías cortas y al grano. Perfectas para cuando necesitas resolver algo rápido sin leer párrafos eternos.
+    </p>
+    <ul class="space-y-2 mb-6 text-sm text-theme-muted">
+      <li class="flex items-start gap-2">
+        <span class="text-btc-orange">✓</span>
+        <span>Instalación del modpack en 3 pasos</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <span class="text-btc-orange">✓</span>
+        <span>Cómo configurar Bobby</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <span class="text-btc-orange">✓</span>
+        <span>Comandos básicos del servidor</span>
+      </li>
+    </ul>
+    <div class="mt-auto">
+      <a 
+        href={links.pages.wiki}
+        class="inline-flex items-center gap-2 text-btc-orange font-bold hover:underline"
+      >
+        Ver artículos
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- OPCIÓN 2: WIKI DETALLADA (EXTERNA) -->
+  <div class="welcome-card hover:scale-105 transition-transform duration-300">
+    <div class="text-5xl mb-4">🔬</div>
+    <h3 class="text-2xl font-display font-bold text-theme-main mb-4">
+      Wiki Completa
+    </h3>
+    <p class="text-theme-muted mb-6 leading-relaxed">
+      Documentación técnica detallada con capturas, videos y explicaciones avanzadas para los que quieren profundizar.
+    </p>
+    <ul class="space-y-2 mb-6 text-sm text-theme-muted">
+      <li class="flex items-start gap-2">
+        <span class="text-btc-yellow">✓</span>
+        <span>Guías paso a paso con imágenes</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <span class="text-btc-yellow">✓</span>
+        <span>Configuraciones avanzadas</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <span class="text-btc-yellow">✓</span>
+        <span>Troubleshooting y soluciones</span>
+      </li>
+    </ul>
+    <div class="mt-auto">
+      <a 
+        href={wikiExternaUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 text-btc-orange font-bold hover:underline"
+      >
+        Ir a builtechraftwiki.tarquitet.com
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+</div>

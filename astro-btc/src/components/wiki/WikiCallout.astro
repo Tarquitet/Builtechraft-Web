@@ -1,0 +1,43 @@
+---
+// src/components/wiki/WikiCallout.astro
+const { type = 'info', title = '' } = Astro.props;
+const map: Record<string, { icon: string; cls: string }> = {
+  info:   { icon: '💡', cls: 'callout-info' },
+  warn:   { icon: '⚠️', cls: 'callout-warn' },
+  ok:     { icon: '✅', cls: 'callout-ok' },
+  danger: { icon: '🛑', cls: 'callout-danger' },
+};
+const s = map[type] ?? map.info;
+---
+
+<aside class={`wiki-callout ${s.cls}`}>
+  <span class="co-icon">{s.icon}</span>
+  <div class="co-content">
+    {title && <strong class="co-title">{title}</strong>}
+    <slot />
+  </div>
+</aside>
+
+<style>
+  .wiki-callout {
+    display: flex;
+    gap: .8rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid;
+    margin: 0 0 1.25rem;
+  }
+  .co-icon { font-size: 1.2rem; flex-shrink: 0; }
+  .co-title {
+    display: block;
+    margin-bottom: .25rem;
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--text-main);
+  }
+  .co-content > :last-child { margin-bottom: 0; }
+  .callout-info   { border-color: rgba(59, 130, 246, .35);  background: rgba(59, 130, 246, .08); }
+  .callout-warn   { border-color: rgba(245, 158, 11, .4);   background: rgba(245, 158, 11, .08); }
+  .callout-ok     { border-color: rgba(16, 185, 129, .4);   background: rgba(16, 185, 129, .08); }
+  .callout-danger { border-color: rgba(239, 68, 68, .4);    background: rgba(239, 68, 68, .08); }
+</style>

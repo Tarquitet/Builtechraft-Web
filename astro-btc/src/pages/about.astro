@@ -6,7 +6,7 @@ import WorldsGrid from '../components/about/WorldsGrid.astro';
 import ModsAndDatapacks from '../components/about/ModsAndDatapacks.astro';
 import Staff from '../components/about/Staff.astro';
 import Roadmap from '../components/about/Roadmap.astro';
-import ComparativeTable from '../components/about/ComparativeTable.astro';
+import ComparisonCards from '../components/about/ComparisonCards.astro';
 import Modpack from '../components/about/Modpack.astro';
 ---
 
@@ -48,7 +48,26 @@ import Modpack from '../components/about/Modpack.astro';
 
             <ModsAndDatapacks />
 
-            <ComparativeTable />
+            {/* Introducción a la comparativa */}
+            <div class="text-center mb-10 mt-16">
+                <span
+                    class="px-4 py-1.5 rounded-full border border-btc-orange/30 bg-btc-orange/10 text-btc-orange text-[10px] font-bold uppercase tracking-[0.2em] mb-3 inline-block"
+                >
+                    La gran pregunta
+                </span>
+
+                <h3 class="text-3xl md:text-4xl font-display font-bold uppercase tracking-tight text-theme-main">
+                    ¿Mods, Plugins o <span class="text-btc-orange">Datapacks</span>?
+                </h3>
+
+                <p class="text-theme-muted mt-3 max-w-2xl mx-auto leading-relaxed">
+                    Tres formas de modificar Minecraft, tres filosofías muy distintas.
+                    Probamos las tres durante años y aquí te contamos por qué elegimos el camino
+                    más fiel al juego original.
+                </p>
+            </div>
+
+            <ComparisonCards />
         </section>
 
         <!-- Modpack -->

@@ -1,0 +1,148 @@
+---
+// src/layouts/WikiLayout.astro
+import Layout from './Layout.astro';
+import links from '../data/links.json';
+
+// MDX anida el frontmatter bajo `frontmatter`/`content`; .md lo esparce en props.
+// Leemos de ambos lados para que el layout sirva a .md y .mdx por igual.
+const fm = (Astro.props.frontmatter ?? Astro.props.content ?? {}) as Record<string, any>;
+
+const title       = (Astro.props.title ?? fm.title) ?? 'Wiki Builtechcraft';
+const description = (Astro.props.description ?? fm.description) ?? '';
+const author      = (Astro.props.author ?? fm.author) ?? 'Equipo Builtechcraft';
+const pubDate     = Astro.props.pubDate ?? fm.pubDate;
+const updated     = Astro.props.updated ?? fm.updated;
+
+const formatDate = (d?: string) =>
+  d ? new Date(d).toLocaleDateString('es-CO', { year: 'numeric', month: 'long', day: 'numeric' }) : null;
+---
+
+<Layout title={title} description={description}>
+  <div class="bg-theme-section min-h-screen">
+    <div class="container mx-auto px-6 max-w-4xl pt-28 md:pt-32 pb-20">
+
+      {/* Ruta + volver */}
+      <nav class="flex flex-wrap items-center justify-between gap-3 mb-8" aria-label="Ruta de navegación">
+        <a href={links.wiki.homeInternal} class="wiki-back">← Volver a la Wiki</a>
+        <p class="wiki-crumbs">
+          <a href={links.pages.inicio}>Inicio</a>
+          <span>/</span>
+          <a href={links.wiki.homeInternal}>Wiki</a>
+          <span>/</span>
+          <span class="crumb-current">{title}</span>
+        </p>
+      </nav>
+
+      {/* Cabecera con metadatos */}
+      <header class="mb-10 border-b border-theme pb-8">
+        <h1 class="wiki-title">{title}</h1>
+        {description && <p class="wiki-desc">{description}</p>}
+        <div class="wiki-meta">
+          <span>✍️ {author}</span>
+          {formatDate(pubDate) && <span>📅 {formatDate(pubDate)}</span>}
+          {formatDate(updated) && <span>🔄 Actualizado: {formatDate(updated)}</span>}
+        </div>
+      </header>
+
+      <div class="prose max-w-none">
+        <slot />
+      </div>
+
+    </div>
+  </div>
+</Layout>
+
+<style is:global>
+  .wiki-back {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .55rem 1rem;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    color: var(--text-muted);
+    font-size: .75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    transition: color .2s, border-color .2s;
+  }
+  .wiki-back:hover { color: var(--text-accent); border-color: var(--text-accent); }
+
+  .wiki-crumbs {
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+    font-size: .75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--text-muted);
+  }
+  .wiki-crumbs a:hover { color: var(--text-accent); }
+  .crumb-current { color: var(--text-main); }
+
+  .wiki-title {
+    font-size: 1.875rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
+    color: var(--text-main);
+  }
+  @media (min-width: 768px) { .wiki-title { font-size: 3rem; } }
+
+  .wiki-desc {
+    font-size: 1.125rem;
+    line-height: 1.625;
+    margin-bottom: 1.25rem;
+    color: var(--text-muted);
+  }
+
+  .wiki-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem 1.5rem;
+    font-size: .8rem;
+    color: var(--text-muted);
+  }
+
+  /* ===== PROSA (contenido MDX) ===== */
+  .prose h2 {
+    font-size: 1.5rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.025em;
+    margin-top: 3rem;
+    margin-bottom: 1.25rem;
+    color: var(--text-accent);
+  }
+  @media (min-width: 768px) { .prose h2 { font-size: 1.875rem; } }
+
+  .prose h3 {
+    font-size: 1.25rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.025em;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--text-main);
+  }
+  @media (min-width: 768px) { .prose h3 { font-size: 1.5rem; } }
+
+  .prose p { line-height: 1.625; margin-bottom: 1rem; color: var(--text-muted); }
+
+  .prose ul, .prose ol { margin-bottom: 1.5rem; margin-left: 1.25rem; }
+  .prose li { line-height: 1.625; color: var(--text-muted); }
+  .prose li + li { margin-top: .5rem; }
+  .prose ul li { list-style-type: disc; }
+  .prose ol li { list-style-type: decimal; }
+
+  .prose strong { font-weight: 700; color: var(--text-main); }
+
+  .prose a { font-weight: 700; color: var(--text-accent); }
+  .prose a:hover { text-decoration: underline; }
+</style>

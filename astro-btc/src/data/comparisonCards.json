@@ -1,0 +1,41 @@
+{
+  "badge": "Comparativa rápida",
+  "title": "¿Qué elegimos y por qué?",
+  "description": "Tres caminos, una decisión clara. Aquí el resumen, los detalles en la wiki.",
+
+  "cards": [
+    {
+      "type": "mods",
+      "icon": "🔧",
+      "title": "Mods",
+      "subtitle": "Forge / Fabric",
+      "color": "red",
+      "summary": "Modificaciones potentes que se instalan en tu equipo. Pueden cambiar casi cualquier aspecto del juego, pero requieren instalación y pueden romper mecánicas vanilla.",
+      "verdict": "Potente pero invasivo"
+    },
+    {
+      "type": "plugins",
+      "icon": "🔌",
+      "title": "Plugins",
+      "subtitle": "Spigot / Paper",
+      "color": "yellow",
+      "summary": "Modificaciones que solo se instalan en el servidor. Los jugadores no necesitan instalar nada, pero suelen romper mecánicas técnicas como granjas y redstone.",
+      "verdict": "Práctico pero con compromisos"
+    },
+    {
+      "type": "datapacks",
+      "icon": "📦",
+      "title": "Datapacks",
+      "subtitle": "Vanilla pura",
+      "color": "emerald",
+      "summary": "Archivos que van dentro del mundo. No requieren instalación, son 100% fieles al vanilla y funcionan inmediatamente con cada actualización de Minecraft.",
+      "verdict": "Simple, fiel y estable",
+      "highlighted": true
+    }
+  ],
+
+  "wikiLink": {
+    "text": "Ver comparativa detallada",
+    "linkKey": "wikiComparativa"
+  }
+}

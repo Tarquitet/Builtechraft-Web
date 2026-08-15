@@ -1,0 +1,50 @@
+---
+// src/components/wiki/WikiAccordion.astro
+const { title, icon = '', open = false } = Astro.props;
+---
+
+<details class="wiki-accordion" open={open}>
+  <summary>
+    <span>
+      {icon && <span class="wa-icon">{icon}</span>}
+      {title}
+    </span>
+    <span class="wa-sign" aria-hidden="true"></span>
+  </summary>
+  <div class="wa-body">
+    <slot />
+  </div>
+</details>
+
+<style>
+  .wiki-accordion {
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    margin: 0 0 1rem;
+  }
+  .wiki-accordion summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: .9rem 1.1rem;
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    color: var(--text-main);
+    list-style: none;
+    transition: background-color .2s, color .2s;
+  }
+  .wiki-accordion summary:hover {
+    color: var(--text-accent);
+    background: rgba(128, 128, 128, .08);
+  }
+  .wiki-accordion summary::-webkit-details-marker { display: none; }
+  .wa-icon { margin-right: .5rem; }
+  .wa-sign::before { content: '+'; font-size: 1.3rem; font-weight: 700; color: var(--text-accent); }
+  .wiki-accordion[open] .wa-sign::before { content: '−'; }
+  .wa-body { padding: 1rem 1.1rem 1.25rem; border-top: 1px solid var(--border-subtle); }
+  .wa-body > :last-child { margin-bottom: 0; }
+</style>

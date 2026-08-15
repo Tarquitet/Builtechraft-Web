@@ -32,7 +32,10 @@
     "wikiWhitelist": "/wiki/whitelist",
     "wikiHistory": "/wiki/historia",
     "cuentaNoPuemium": "/wiki/cuenta#no-premium",
-    "cuentaPremium": "/wiki/cuenta#premium"
+    "cuentaPremium": "/wiki/cuenta#premium",
+    "wikiComparativa": "/wiki/comparativa",
+    "homeInternal": "/wiki",
+    "wikiCuenta": "/wiki/cuenta"
   },
 
   "modpack": {

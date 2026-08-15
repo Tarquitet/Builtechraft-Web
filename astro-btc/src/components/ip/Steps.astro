@@ -112,28 +112,20 @@ const getLink = (key: string | undefined | null): string => {
             </div>
         </div>
 
-        {/* PREGUNTA Y TOGGLE DE MUNDO */}
+        {/* PREGUNTA Y TABS DE MUNDO */}
         <div class="text-center mb-6">
             <h3 class="text-lg md:text-xl font-display font-bold text-theme-main mb-4">
                 ¿A qué servidor quieres entrar?
             </h3>
-            <div class="flex items-center justify-center gap-4">
-                <span id="label-survival" class="toggle-label toggle-label-active">
+            <div class="world-tabs" id="world-tabs" role="tablist" aria-label="Seleccionar mundo">
+                <button id="tab-survival" type="button" role="tab" aria-selected="true"
+                        class="world-tab is-active" data-world="survival">
                     Survival
-                </span>
-                <button
-                    id="world-toggle"
-                    type="button"
-                    role="switch"
-                    aria-checked="false"
-                    aria-label="Cambiar entre Survival y Creativo"
-                    class="toggle-switch"
-                >
-                    <span class="toggle-thumb"></span>
                 </button>
-                <span id="label-creative" class="toggle-label toggle-label-inactive">
+                <button id="tab-creative" type="button" role="tab" aria-selected="false"
+                        class="world-tab" data-world="creative">
                     Creativo
-                </span>
+                </button>
             </div>
         </div>
 
@@ -249,50 +241,26 @@ const getLink = (key: string | undefined | null): string => {
         updateDisplay();
     });
 
-    // Tabs de plataforma (Java/Bedrock)
-    document.querySelectorAll('#platform-tabs .step-tab-btn').forEach(tab => {
+    // Tabs de mundo (Survival ↔ Creativo) — VERSION CUADRADA
+    document.querySelectorAll('#world-tabs .world-tab').forEach(tab => {
         tab.addEventListener('click', (e) => {
-            document.querySelectorAll('#platform-tabs .step-tab-btn').forEach(t => {
-                t.classList.remove('steps-tab-active');
-                t.classList.add('steps-tab-inactive');
-            });
             const target = e.currentTarget;
-            target.classList.remove('steps-tab-inactive');
-            target.classList.add('steps-tab-active');
-            
-            serverConfig.currentPlatform = target.getAttribute('data-target') || 'java';
+            const newWorld = target.getAttribute('data-world') || 'survival';
+            if (newWorld === serverConfig.currentWorld) return;
+
+            // Actualizar estado
+            serverConfig.currentWorld = newWorld;
+
+            // Actualizar visual
+            document.querySelectorAll('#world-tabs .world-tab').forEach(t => {
+                const isActive = t === target;
+                t.classList.toggle('is-active', isActive);
+                t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
+
             updateDisplay();
         });
     });
-
-    // Toggle de mundo (Survival ↔ Creativo)
-    const worldToggle = document.getElementById('world-toggle');
-    const labelSurvival = document.getElementById('label-survival');
-    const labelCreative = document.getElementById('label-creative');
-
-    if (worldToggle) {
-        worldToggle.addEventListener('click', () => {
-            const isSurvival = serverConfig.currentWorld === 'survival';
-            const newWorld = isSurvival ? 'creative' : 'survival';
-            
-            // Actualizar estado
-            serverConfig.currentWorld = newWorld;
-            
-            // Actualizar visual del toggle
-            worldToggle.setAttribute('aria-checked', isSurvival ? 'true' : 'false');
-            
-            // Actualizar labels
-            if (newWorld === 'survival') {
-                labelSurvival.classList.replace('toggle-label-inactive', 'toggle-label-active');
-                labelCreative.classList.replace('toggle-label-active', 'toggle-label-inactive');
-            } else {
-                labelSurvival.classList.replace('toggle-label-active', 'toggle-label-inactive');
-                labelCreative.classList.replace('toggle-label-inactive', 'toggle-label-active');
-            }
-            
-            updateDisplay();
-        });
-    }
 
     // Función para copiar al portapapeles
     window.copyGeneric = async function(elementId, btnElement) {

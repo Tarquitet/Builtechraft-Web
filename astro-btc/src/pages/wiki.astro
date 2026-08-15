@@ -2,15 +2,84 @@
 // src/pages/wiki.astro
 import Layout from '../layouts/Layout.astro';
 import DiscordBanner from '../components/discord/DiscordBanner.astro';
-import WikiIntro from '../components/wiki/WikiIntro.astro';
+import links from '../data/links.json';
+
+const getLink = (key: string | undefined | null): string => {
+  if (!key) return '#';
+  const l = links as any;
+  const find = (obj: any): string | null => {
+    for (const [k, v] of Object.entries(obj)) {
+      if (k === key && typeof v === 'string') return v;
+      if (typeof v === 'object' && v !== null) {
+        const r = find(v);
+        if (r) return r;
+      }
+    }
+    return null;
+  };
+  return find(l) || '#';
+};
+
+// Artículos MDX: la metadata vive en el frontmatter de cada archivo
+const mdxArticles = (await Astro.glob('./wiki/**/*.mdx'))
+  .map((mod: any) => ({ ...(mod.frontmatter ?? {}), url: mod.url }))
+  .filter((fm: any) => fm.title && fm.draft !== true);
+
+/*
+// Páginas wiki legacy en .astro (TRANSITORIO: bórralo al migrarlas a .mdx)
+const legacyArticles = [
+  { icon: '🧩', title: 'Modpack del servidor', description: 'Qué incluye el modpack oficial y por qué cada mod está ahí.', linkKey: 'wikiModpack', color: 'text-emerald-400', border: 'hover:border-emerald-500', order: 2 },
+  { icon: '🚀', title: 'Launchers e instalación', description: 'Instala el modpack paso a paso en Modrinth App, Prism y más.', linkKey: 'wikiLaunchers', color: 'text-blue-400', border: 'hover:border-blue-500', order: 3 },
+  { icon: '⚙️', title: 'Mecánicas del servidor', description: 'Comandos personalizados y sistemas únicos de Builtechcraft.', linkKey: 'wikiMecanicas', color: 'text-purple-400', border: 'hover:border-purple-500', order: 4 },
+  { icon: '📜', title: 'Whitelist', description: 'Cómo pedir tu acceso y los requisitos para entrar a jugar.', linkKey: 'wikiWhitelist', color: 'text-btc-yellow', border: 'hover:border-btc-yellow', order: 5 },
+  { icon: '🕰️', title: 'Historia del servidor', description: 'Cronología: desde el primer bloque hasta hoy.', linkKey: 'wikiHistory', color: 'text-red-400', border: 'hover:border-red-500', order: 6 },
+  { icon: '👤', title: 'Cuentas premium y no premium', description: 'Configura tu cuenta según tu caso para poder entrar.', linkKey: 'wikiCuenta', color: 'text-cyan-400', border: 'hover:border-cyan-500', order: 7 },
+];
+
+const articles = [...mdxArticles, ...legacyArticles].sort(
+  (a, b) => (a.order ?? 99) - (b.order ?? 99)
+);*/
+
+const articles = [...mdxArticles].sort(
+  (a, b) => (a.order ?? 99) - (b.order ?? 99)
+);
 ---
 
-<Layout
-    title="Wiki | Builtechraft"
-    description="Guías, tutoriales y documentación del servidor Builtechraft."
->
-    <main class="pt-32 pb-24 min-h-screen bg-theme-app">
-        <WikiIntro />
-    </main>
-    <DiscordBanner />
+<Layout title="Wiki | Builtechraft" description="Guías, tutoriales y documentación del servidor Builtechraft.">
+  <main class="pt-32 pb-24 min-h-screen bg-theme-section">
+    <div class="container mx-auto px-6 max-w-6xl">
+
+      <div class="text-center mb-16">
+        <span class="comparative-badge">Biblioteca</span>
+        <h1 class="category-title mt-4">
+          Artículos de la <span class="text-btc-orange">Wiki</span>
+        </h1>
+        <p class="category-subtitle">
+          Elige qué quieres leer: comparativas técnicas, guías de instalación, mecánicas del servidor y más.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {articles.map((article: any) => (
+          <a
+            href={article.url ?? getLink(article.linkKey)}
+            class={`card-retro ${article.border ?? 'hover:border-btc-orange'} group relative`}
+          >
+            {article.tag && (
+              <span class="badge-retro absolute top-4 right-4 text-btc-orange border-btc-orange/40">
+                {article.tag}
+              </span>
+            )}
+            <span class="text-4xl mb-4 block">{article.icon ?? '📄'}</span>
+            <h2 class={`text-lg font-display font-bold uppercase tracking-tight mb-2 ${article.color ?? 'text-btc-orange'} group-hover:underline`}>
+              {article.title}
+            </h2>
+            <p class="text-theme-muted text-sm leading-relaxed">{article.description}</p>
+          </a>
+        ))}
+      </div>
+
+    </div>
+  </main>
+  <DiscordBanner />
 </Layout>

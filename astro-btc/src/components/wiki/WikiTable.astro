@@ -1,0 +1,147 @@
+---
+// src/components/wiki/WikiTable.astro
+// Tabla universal de la wiki: todo se configura desde el MDX, sin JSON.
+//
+// headers: (string | { label, subtitle?, tone?, align? })[]
+// rows:    (string | { text, hint?, tone?, bold? })[][]
+// caption: string
+//
+// Atajos: un string que empiece por "✓" = tono good, "✗" = tono bad.
+
+const { headers = [], rows = [], caption = '' } = Astro.props as any;
+
+const TONES: Record<string, string> = {
+  good: 'wt-good',
+  warn: 'wt-warn',
+  bad: 'wt-bad',
+  accent: 'wt-accent',
+  muted: 'wt-muted',
+  main: 'wt-main',
+};
+
+const normHeader = (h: any) => (typeof h === 'string' ? { label: h } : h);
+
+const normCell = (c: any) => {
+  if (typeof c !== 'string') return c;
+  const t = c.trim();
+  if (t.startsWith('✓')) return { text: c, tone: 'good' };
+  if (t.startsWith('✗')) return { text: c, tone: 'bad' };
+  return { text: c };
+};
+---
+
+<div class="wiki-table-wrap">
+  <table class="wiki-table">
+    {caption && <caption class="wt-caption">{caption}</caption>}
+    <thead>
+      <tr>
+        {headers.map((h: any, i: number) => {
+          const nh = normHeader(h);
+          return (
+            <th class={`${nh.align === 'left' || i === 0 ? 'wt-th-left' : ''} ${nh.tone ? TONES[nh.tone] : ''}`}>
+              {nh.label}
+              {nh.subtitle && <span class="wt-sub">{nh.subtitle}</span>}
+            </th>
+          );
+        })}
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((row: any[]) => (
+        <tr>
+          {row.map((c: any, i: number) => {
+            const cell = normCell(c);
+            const cls = [
+              i === 0 ? 'wt-first' : '',
+              cell.tone ? TONES[cell.tone] : '',
+              cell.bold ? 'wt-bold' : '',
+            ].join(' ').trim();
+            return (
+              <td class={cls}>
+                {cell.text}
+                {cell.hint && <span class="wt-hint">{cell.hint}</span>}
+              </td>
+            );
+          })}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .wiki-table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    margin: 0 0 1.75rem;
+  }
+  .wiki-table { width: 100%; border-collapse: collapse; min-width: 640px; }
+  .wt-caption {
+    caption-side: top;
+    padding: .6rem 1rem;
+    font-size: .75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--text-muted);
+    text-align: left;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .wiki-table th {
+    padding: .9rem 1rem;
+    font-family: var(--font-display);
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border-subtle);
+    text-align: center;
+  }
+  .wiki-table th.wt-th-left { text-align: left; }
+  .wt-sub {
+    display: block;
+    margin-top: .2rem;
+    font-size: .62rem;
+    font-weight: 500;
+    letter-spacing: .04em;
+    text-transform: none;
+    opacity: .75;
+  }
+  .wiki-table td {
+    padding: .8rem 1rem;
+    font-size: .875rem;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border-subtle);
+    text-align: center;
+    vertical-align: top;
+  }
+
+  /* ===== TONOS Y VARIANTES (con especificidad suficiente) ===== */
+  .wiki-table td.wt-first {
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-main);
+  }
+  .wiki-table .wt-good { color: #34d399; }
+  .wiki-table .wt-warn { color: #fbbf24; }
+  .wiki-table .wt-bad { color: #f87171; }
+  .wiki-table .wt-accent { color: var(--text-accent); }
+  .wiki-table .wt-muted { color: var(--text-muted); }
+  .wiki-table .wt-main { color: var(--text-main); }
+  .wiki-table .wt-bold { font-weight: 700; }
+
+  .wt-hint {
+    display: block;
+    margin-top: .3rem;
+    font-size: .7rem;
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--text-muted);
+    opacity: .8;
+    max-width: 240px;
+  }
+  .wiki-table tr:last-child td { border-bottom: 0; }
+  .wiki-table tr:hover td { background: color-mix(in srgb, var(--text-accent) 6%, transparent); }
+</style>
