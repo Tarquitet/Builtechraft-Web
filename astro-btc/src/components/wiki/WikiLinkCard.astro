@@ -1,0 +1,82 @@
+---
+// src/components/wiki/WikiLinkCard.astro
+// Tarjeta de enlace externo con favicon automático (estilo LinkCard de Starlight, pero nativo)
+const { title, description = '', href, icon = '' } = Astro.props as {
+  title: string;
+  description?: string;
+  href: string;
+  icon?: string;
+};
+
+let favicon = icon;
+try {
+  if (!favicon) favicon = `https://www.google.com/s2/favicons?domain=${new URL(href).hostname}&sz=128`;
+} catch {
+  favicon = '';
+}
+---
+
+<a href={href} target="_blank" rel="noopener noreferrer" class="wiki-linkcard">
+  {favicon && <img src={favicon} alt="" class="wlc-icon" loading="lazy" />}
+  <div class="wlc-body">
+    <span class="wlc-title">{title}</span>
+    {description && <span class="wlc-desc">{description}</span>}
+  </div>
+  <svg class="wlc-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+  </svg>
+</a>
+
+<style>
+  .wiki-linkcard {
+    display: flex;
+    align-items: flex-start;
+    gap: .8rem;
+    padding: .9rem 1rem;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    transition: border-color .2s, transform .2s;
+  }
+  .wiki-linkcard:hover {
+    border-color: var(--text-accent);
+    transform: translateY(-2px);
+  }
+  .wlc-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    margin-top: .15rem;
+    image-rendering: pixelated;
+  }
+  .wlc-body {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+    min-width: 0;
+  }
+  .wlc-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    font-size: .9rem;
+    color: var(--text-main);
+  }
+  .wiki-linkcard:hover .wlc-title { color: var(--text-accent); }
+  .wlc-desc {
+    font-size: .78rem;
+    line-height: 1.45;
+    color: var(--text-muted);
+  }
+  .wlc-arrow {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    margin-left: auto;
+    margin-top: .2rem;
+    color: var(--text-muted);
+    opacity: 0;
+    transition: opacity .2s, color .2s;
+  }
+  .wiki-linkcard:hover .wlc-arrow { opacity: 1; color: var(--text-accent); }
+</style>

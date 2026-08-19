@@ -1,0 +1,99 @@
+---
+layout: ../../layouts/WikiLayout.astro
+title: 'Cómo sentarse y montar'
+description: 'Funciones para sentarte, montar a otros jugadores y gatear sin instalar nada.'
+author: 'Tarquitet'
+pubDate: '2026-08-03'
+updated: '2026-08-19'
+category: 'gameplay'
+icon: '🪑'
+color: 'text-amber-400'
+border: 'hover:border-amber-500'
+order: 2
+---
+
+import WikiCallout from '../../components/wiki/WikiCallout.astro';
+import WikiVideo from '../../components/wiki/WikiVideo.astro';
+import WikiAccordion from '../../components/wiki/WikiAccordion.astro';
+import WikiKbd from '../../components/wiki/WikiKbd.astro';
+import WikiCommand from '../../components/wiki/WikiCommand.astro';
+import WikiLink from '../../components/wiki/WikiLink.astro';
+
+Estas funciones dan vida a bases y reuniones. Puedes sentarte, montar a otros jugadores y gatear sin instalar nada.
+
+<WikiVideo youtube="1vZXAFr82HQ" caption="Video: Sentarse y montarse en jugadores" />
+
+## 🪑 Cómo sentarse
+
+Hemos integrado un sistema que te permite sentarte prácticamente en cualquier lugar, con tres formas diferentes:
+
+<WikiAccordion title="1. Interacción directa con bloques">
+
+La forma más natural. Si tienes **Escaleras, Losas (Slabs) o Troncos** colocados en el suelo, acércate, apunta al bloque y haz **Clic Derecho**. Tu personaje se sentará automáticamente en el borde del bloque.
+
+_Nota: Si por algún motivo de posicionamiento el clic derecho falla en ciertas escaleras, usa el método 2._
+
+</WikiAccordion>
+
+<WikiAccordion title="2. Sentarse en CUALQUIER bloque">
+
+¿Quieres sentarte en el pasto, encima de un cofre o en la punta de una montaña?
+
+- Mira directamente hacia abajo (apuntando a tus propios pies)
+- Presiona **dos veces seguidas el botón de agacharse (Doble Shift)**
+- Tu personaje se sentará exactamente en el bloque donde estés parado
+
+</WikiAccordion>
+
+<WikiAccordion title="3. El comando manual">
+
+Si prefieres usar el chat o estás levitando en modo Creativo, simplemente escribe:
+
+<WikiCommand command="/sit" description="Te sientas en tu ubicación actual." />
+
+</WikiAccordion>
+
+## Móntate sobre otros jugadores
+
+¡Sí, has leído bien! Puedes llevar a tus amigos a cuestas (o que ellos te lleven a ti).
+
+Acércate a otro jugador y haz **Doble Clic Derecho** sobre él. Tu personaje se montará en sus hombros como si fuera un caballo. Te moverás hacia donde él vaya, ideal para bromas, fotos grupales o transportar a alguien.
+
+## 🐛 Gatear
+
+Minecraft tiene una animación nativa para arrastrarse (la misma que usas cuando nadas o cierras una trampilla sobre tu cabeza). Puedes forzar esta animación en cualquier momento.
+
+<WikiCommand
+  command="/crawl"
+  description="Te tiras al suelo y te mueves arrastrándote. Presiona Shift para ponerte de pie."
+/>
+
+<WikiCallout type="warn" title="Movimiento lento">
+
+El movimiento en estado de gateo es bastante lento. Úsalo solo para escabullirte por túneles de 1x1 sin necesidad de cubos de agua.
+
+</WikiCallout>
+
+## ⚙️ Nota para jugadores Bedrock
+
+<WikiCallout type="info" title="Pequeño bug visual">
+
+Si eres jugador de **Bedrock**, es probable que al sentarte notes corazones de vida flotando debajo de ti, o una barra de nombre extraña.
+
+Esto ocurre porque los mods comerciales no tienen función nativa para sentarse en el aire. El mod invoca una entidad invisible (cerdito o soporte de armaduras) justo debajo de ti. Al conectarte desde Bedrock vía Geyser, tu juego a veces lee la "vida" de ese mob invisible.
+
+</WikiCallout>
+
+## 🔮 Evolución técnica prevista
+
+**Tarquitet está trabajando actualmente** en plasmar todas estas ideas en un script de Carpet (Scarpet) o en un Datapack propio. Ventajas previstas:
+
+- **Adiós a los cerdos invisibles:** Carpet gestionará la posición matemáticamente, sin entidades invisibles
+- **Soporte perfecto para Bedrock:** Sin entidades, sin bugs visuales
+- **Cero Lag:** Servidor más liviano, interacciones 100% Vanilla-Friendly
+
+<WikiCallout type="ok" title="Siguiente">
+
+Lee <WikiLink to="cambiar-tu-skin">Cómo cambiar tu skin</WikiLink> para personalizar tu apariencia.
+
+</WikiCallout>

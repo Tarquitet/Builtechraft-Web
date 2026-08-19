@@ -1,0 +1,44 @@
+---
+// src/components/wiki/WikiImage.astro
+const { src, alt = '', caption = '', align = 'center', width = 'full' } = Astro.props as {
+  src: string;
+  alt?: string;
+  caption?: string;
+  align?: string;
+  width?: string;
+};
+
+const ALIGN: Record<string, string> = { left: 'wi-left', center: 'wi-center', right: 'wi-right' };
+const WIDTH: Record<string, string> = { full: '', md: 'wi-md', sm: 'wi-sm' };
+
+const alignCls = ALIGN[align] ?? 'wi-center';
+const widthCls = WIDTH[width] ?? '';
+---
+
+<figure class={`wiki-image ${alignCls} ${widthCls}`}>
+  <img src={src} alt={alt} loading="lazy" />
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+  .wiki-image { margin: 0 0 1.75rem; }
+  .wiki-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+  }
+  .wiki-image figcaption {
+    margin-top: .5rem;
+    font-size: .72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+  .wi-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .wi-right { margin-left: auto; text-align: right; }
+  .wi-md { max-width: 560px; }
+  .wi-sm { max-width: 360px; }
+</style>

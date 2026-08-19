@@ -1,0 +1,273 @@
+---
+// src/components/wiki/WikiTimeline.astro
+// Línea de tiempo vertical con eventos alternando izquierda/derecha
+// Soporta múltiples eventos por año
+const { events = [] } = Astro.props as {
+  events: Array<{
+    year: string;
+    events: Array<{
+      title: string;
+      summary: string;
+      details?: string;
+    }>;
+  }>;
+};
+---
+
+<div class="wiki-timeline">
+  {events.map((yearGroup, i) => (
+    <div class={`wt-year-group ${i % 2 === 0 ? 'wt-left' : 'wt-right'}`}>
+      <div class="wt-marker">
+        <span class="wt-year">{yearGroup.year}</span>
+      </div>
+      <div class="wt-events-container">
+        {yearGroup.events.map((event, j) => (
+          <div class={`wt-event ${j > 0 ? 'wt-event-stacked' : ''}`}>
+            <div class="wt-content">
+              <h3 class="wt-title">{event.title}</h3>
+              <p class="wt-summary">{event.summary}</p>
+              {event.details && (
+                <>
+                  <button class="wt-toggle" type="button" aria-expanded="false">
+                    <span class="wt-toggle-text">Ver más</span>
+                    <svg class="wt-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                  </button>
+                  <div class="wt-details">
+                    <p>{event.details}</p>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>
+
+<script>
+  document.querySelectorAll('.wt-toggle').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const parent = btn.closest('.wt-event');
+      const details = parent?.querySelector('.wt-details');
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+      
+      btn.setAttribute('aria-expanded', String(!isExpanded));
+      details?.classList.toggle('wt-open');
+      btn.classList.toggle('wt-open');
+    });
+  });
+</script>
+
+<style>
+  .wiki-timeline {
+    position: relative;
+    margin: 3rem 0;
+    padding: 2rem 0;
+  }
+  
+  /* Línea central */
+  .wiki-timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      var(--border-subtle) 5%,
+      var(--border-subtle) 95%,
+      transparent 100%
+    );
+    transform: translateX(-50%);
+  }
+  
+  .wt-year-group {
+    position: relative;
+    width: 50%;
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .wt-left {
+    left: 0;
+    text-align: right;
+  }
+  
+  .wt-right {
+    left: 50%;
+    text-align: left;
+  }
+  
+  /* Marcador circular en la línea */
+  .wt-marker {
+    position: absolute;
+    top: 2rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 3px solid var(--text-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+  
+  .wt-left .wt-marker {
+    right: -30px;
+  }
+  
+  .wt-right .wt-marker {
+    left: -30px;
+  }
+  
+  .wt-year {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--text-accent);
+  }
+  
+  /* Contenedor de eventos */
+  .wt-events-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  /* Contenido de cada evento */
+  .wt-content {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    padding: 1.5rem;
+    position: relative;
+  }
+  
+  /* Flecha solo en el primer evento de cada año */
+  .wt-event:first-child .wt-content::before {
+    content: '';
+    position: absolute;
+    top: 2rem;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+  }
+  
+  .wt-left .wt-event:first-child .wt-content::before {
+    right: -20px;
+    border-left-color: var(--border-subtle);
+  }
+  
+  .wt-right .wt-event:first-child .wt-content::before {
+    left: -20px;
+    border-right-color: var(--border-subtle);
+  }
+  
+  .wt-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-main);
+    margin: 0 0 0.75rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  
+  .wt-summary {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin: 0 0 1rem 0;
+    line-height: 1.6;
+  }
+  
+  /* Botón toggle */
+  .wt-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    border: 1px solid var(--border-subtle);
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-accent);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .wt-toggle:hover {
+    background: var(--text-accent);
+    color: var(--bg-card);
+    border-color: var(--text-accent);
+  }
+  
+  .wt-toggle-icon {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s;
+  }
+  
+  .wt-toggle.wt-open .wt-toggle-icon {
+    transform: rotate(180deg);
+  }
+  
+  /* Detalles expandibles */
+  .wt-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, margin-top 0.3s;
+  }
+  
+  .wt-details.wt-open {
+    max-height: 500px;
+    margin-top: 1rem;
+    transition: max-height 0.6s ease-in;
+  }
+  
+  .wt-details p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin: 0;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+  
+  /* Responsive: todo a la izquierda en móvil */
+  @media (max-width: 768px) {
+    .wiki-timeline::before {
+      left: 30px;
+    }
+    
+    .wt-year-group {
+      width: 100%;
+      padding-left: 70px;
+      padding-right: 1rem;
+      text-align: left;
+    }
+    
+    .wt-left,
+    .wt-right {
+      left: 0;
+    }
+    
+    .wt-left .wt-marker,
+    .wt-right .wt-marker {
+      left: 0;
+      right: auto;
+    }
+    
+    .wt-left .wt-event:first-child .wt-content::before,
+    .wt-right .wt-event:first-child .wt-content::before {
+      left: -20px;
+      right: auto;
+      border-right-color: var(--border-subtle);
+      border-left-color: transparent;
+    }
+  }
+</style>

@@ -34,12 +34,12 @@
       { "name": "Futuros Planes", "keyLink": "aboutRoadmap" }
     ],
     "server_drop": [
-      { "name": "Cómo Entrar", "keyLink": "ingreso", "isExternal": false },
+      { "name": "Cómo Entrar", "keyLink": "wikiComoUnirse", "isExternal": false },
       { "name": "Sistema Whitelist", "keyLink": "wikiWhitelist", "isExternal": false },
-      { "name": "Mecánicas Servidor", "keyLink": "wikiModpack", "isExternal": false },
+      { "name": "Mecánicas Servidor", "keyLink": "wikiQueUsa", "isExternal": false },
       { "name": "Launcher Recomendado", "keyLink": "wikiLaunchers", "isExternal": false },
-      { "name": "Sobre Mods", "keyLink": "wikiMods", "isExternal": false },
-      { "name": "Historia del Servidor", "keyLink": "wikiHistory", "isExternal": false }
+      { "name": "Lista de Mods", "keyLink": "wikiListaMods", "isExternal": false },
+      { "name": "Historia del Servidor", "keyLink": "wikiHistoria", "isExternal": false }
     ],
     "maps_drop": [
       { "name": "Mapa Supervivencia", "keyLink": "survival", "isExternal": true },

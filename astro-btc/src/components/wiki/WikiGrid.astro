@@ -1,0 +1,22 @@
+---
+// src/components/wiki/WikiGrid.astro
+const { cols = 2 } = Astro.props as { cols?: number };
+---
+<div class={`wiki-grid wg-${cols}`}>
+  <slot />
+</div>
+
+<style>
+  .wiki-grid {
+    display: grid;
+    gap: 1rem;
+    margin: 0 0 1.75rem;
+    align-items: start;
+  }
+  .wg-2 { grid-template-columns: repeat(2, 1fr); }
+  .wg-3 { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 768px) {
+    .wiki-grid { grid-template-columns: 1fr; }
+  }
+  .wiki-grid > * { margin-bottom: 0; }
+</style>

@@ -1,0 +1,187 @@
+---
+layout: ../../layouts/WikiLayout.astro
+title: 'Comando /player (fake players)'
+description: 'Bots y jugadores sombra con Carpet Mod para granjas AFK y carga de chunks.'
+author: 'Tarquitet'
+pubDate: '2026-08-03'
+updated: '2026-08-19'
+category: 'gameplay'
+icon: '🤖'
+color: 'text-blue-400'
+border: 'hover:border-blue-500'
+order: 6
+---
+
+import WikiCallout from '../../components/wiki/WikiCallout.astro';
+import WikiCommand from '../../components/wiki/WikiCommand.astro';
+import WikiTable from '../../components/wiki/WikiTable.astro';
+import WikiAccordion from '../../components/wiki/WikiAccordion.astro';
+import WikiLink from '../../components/wiki/WikiLink.astro';
+
+En **Builtechraft** permitimos el uso de jugadores falsos (bots) para granjas técnicas y carga de chunks. Todo posible gracias al mod **Carpet** y su comando `/player`.
+
+<WikiCallout type="info" title="¿Qué es un fake player?">
+
+Una entidad controlada por el servidor que simula ser un jugador real. Puede moverse, mirar, romper bloques, hacer clic derecho y más, pero no puede chatear ni usar inventarios personalizados.
+
+</WikiCallout>
+
+## 🤖 ¿Para qué sirve /player?
+
+- **Granjas AFK automáticas:** Deja un bot en tu granja sin necesidad de estar conectado
+- **Carga de chunks:** Mantén áreas cargadas aunque no haya jugadores cerca
+- **Pruebas de redstone:** Simula presencia de un jugador para activar mecanismos
+- **Construcción colaborativa:** Un bot puede sostener items o realizar acciones repetitivas
+
+## 📋 Acciones principales
+
+<WikiTable
+  headers={['Acción', 'Qué hace']}
+  rows={[
+    ['spawn', 'Invoca al bot en el mundo'],
+    ['kill', 'Elimina al bot del mundo'],
+    ['move', 'Mueve al bot en una dirección'],
+    ['look', 'Hace que el bot mire hacia un punto'],
+    ['use', 'Usa su mano derecha (clic derecho)'],
+    ['attack', 'Ataca (clic izquierdo)'],
+    ['jump', 'Salta'],
+    ['sneak', 'Se agacha'],
+    ['sprint', 'Corre'],
+    ['stop', 'Detiene todas las acciones'],
+  ]}
+/>
+
+## 🛠️ Ejemplos prácticos
+
+<WikiAccordion title="Bot básico">
+
+<WikiCommand command="/player Steve spawn" description="Crea un bot llamado Steve donde estás parado." />
+
+<WikiCommand command="/player Steve move forward" description="El bot avanza en la dirección que mira." />
+
+<WikiCommand command="/player Steve look down" description="El bot mira hacia abajo." />
+
+<WikiCommand command="/player Steve kill" description="Elimina el bot." />
+
+</WikiAccordion>
+
+<WikiAccordion title="Granja de hierro AFK">
+
+<WikiCommand command="/player IronFarmer spawn" description="Invoca el bot." />
+
+<WikiCommand command="/player IronFarmer move forward" description="Lo mueve hacia adelante." />
+
+<WikiCommand command="/player IronFarmer use continuous" description="Lo deja haciendo clic derecho continuamente." />
+
+</WikiAccordion>
+
+<WikiAccordion title="Bot que ataca mobs">
+
+<WikiCommand command="/player Hunter spawn" description="Invoca el bot." />
+
+<WikiCommand
+  command="/player Hunter attack continuous"
+  description="Ataca continuamente a cualquier mob frente a él."
+/>
+
+</WikiAccordion>
+
+<WikiAccordion title="Carga de chunks">
+
+<WikiCommand
+  command="/player ChunkLoader spawn"
+  description="El bot aparecerá y se quedará quieto. Mientras esté, los chunks cercanos permanecerán cargados."
+/>
+
+</WikiAccordion>
+
+## 🎭 Jugador sombra (shadow)
+
+Una **sombra** es una entidad independiente que replica el comportamiento de un jugador real en tiempo real.
+
+<WikiCallout type="info" title="¿Cuándo usar shadow?">
+
+Cuando necesitas **replicar comportamiento específico** de un jugador real:
+
+- Pruebas de mecanismos complejos que requieren múltiples jugadores
+- Debugging de redstone desde múltiples perspectivas
+- Granjas que requieren comportamiento específico replicado
+
+</WikiCallout>
+
+<WikiCommand command="/player TuNombre shadow" description="Crea una sombra de ti que replica todas tus acciones." />
+
+<WikiTable
+  headers={['Caso', 'Bot normal', 'Shadow']}
+  rows={[
+    ['Granja de hierro AFK', { text: '✓ Suficiente', tone: 'good' }, { text: 'Innecesario', tone: 'muted' }],
+    ['Carga de chunks', { text: '✓ Suficiente', tone: 'good' }, { text: 'Innecesario', tone: 'muted' }],
+    ['Pruebas de mecanismos complejos', { text: 'Insuficiente', tone: 'warn' }, { text: '✓ Perfecto', tone: 'good' }],
+    ['Debugging multi-perspectiva', { text: 'Insuficiente', tone: 'warn' }, { text: '✓ Perfecto', tone: 'good' }],
+  ]}
+/>
+
+## ⚠️ Reglas y limitaciones
+
+<WikiCallout type="danger" title="Restricciones importantes">
+
+- **Nombres válidos:** Solo nombres válidos de Mojang (Premium). No nombres offline o inventados
+- **Ubicación:** Solo pueden invocarse en áreas donde haya jugadores conectados. **Prohibido en lugares deshabitados**
+- **Permisos:** Jugadores en survival no pueden usar selectores (@p, @e, @a). Solo nombres específicos
+- **Cantidad:** No abusar; cada bot/sombra consume recursos del servidor
+
+</WikiCallout>
+
+## ✅ Permitido vs ❌ No permitido
+
+<WikiAccordion title="✅ Permitido">
+
+- Granjas de hierro con un bot AFK cerca de donde estás jugando
+- Mantener chunks cargados para granjas de cultivos mientras estás en el área
+- Pruebas de mecanismos de redstone en tu base
+- Granjas de XP con bots atacando mobs en zonas controladas
+- Bots que siguen a jugadores en el spawn o áreas comunales
+
+</WikiAccordion>
+
+<WikiAccordion title="❌ No permitido">
+
+- Usar bots para minar bloques automáticamente (macro/auto-minado)
+- Crear ejércitos de bots para PvP
+- Usar bots para evadir el sistema de actividad del servidor
+- Spawnear bots en áreas lejanas donde no hay jugadores conectados
+- Usar nombres offline o inventados
+- Invocar bots en territorios de otros jugadores sin permiso
+- Usar selectores de entidades (@p, @e, etc.)
+
+</WikiAccordion>
+
+## 🔧 Solución de problemas
+
+<WikiAccordion title="El bot no aparece">
+
+- Verifica permisos para usar el comando
+- Asegúrate de que el nombre sea válido de Mojang
+- Confirma que hay jugadores conectados en el área
+
+</WikiAccordion>
+
+<WikiAccordion title="El bot no se mueve">
+
+- Usa `move forward` en lugar de coordenadas absolutas
+- Verifica que el bot no esté atrapado en bloques
+
+</WikiAccordion>
+
+<WikiAccordion title="El bot desaparece">
+
+- Los bots se eliminan al reiniciar el servidor
+- Vuelve a invocarlos después de cada reinicio
+
+</WikiAccordion>
+
+<WikiCallout type="ok" title="¿Listo para automatizar?">
+
+Invoca tu primer bot y empieza a construir mecanismos más eficientes. Si tienes dudas, consulta en nuestro <a href="https://discord.gg/builtechraft">Discord</a>.
+
+</WikiCallout>

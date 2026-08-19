@@ -1,0 +1,70 @@
+---
+// src/components/wiki/WikiCommand.astro
+const { command, description = '' } = Astro.props as { command: string; description?: string };
+---
+<div class="wiki-command">
+  <code class="wc-cmd">{command}</code>
+  <button class="wc-copy" type="button" aria-label="Copiar comando">Copiar</button>
+  {description && <p class="wc-desc">{description}</p>}
+</div>
+
+<script>
+  document.querySelectorAll('.wiki-command .wc-copy').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const cmd =
+        (btn.closest('.wiki-command')?.querySelector('.wc-cmd')?.textContent ?? '').trim();
+      try {
+        await navigator.clipboard.writeText(cmd);
+        const old = (btn as HTMLElement).textContent;
+        (btn as HTMLElement).textContent = '¡Copiado!';
+        btn.classList.add('wc-done');
+        setTimeout(() => {
+          (btn as HTMLElement).textContent = old;
+          btn.classList.remove('wc-done');
+        }, 1500);
+      } catch {}
+    });
+  });
+</script>
+
+<style>
+  .wiki-command {
+    position: relative;
+    margin: 0 0 1.5rem;
+    border: 1px solid var(--border-subtle);
+    background: #0b0f14;
+  }
+  .wc-cmd {
+    display: block;
+    padding: .9rem 6.5rem .9rem 1.1rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: .9rem;
+    color: #7ee787;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+  .wc-copy {
+    position: absolute;
+    top: .6rem;
+    right: .6rem;
+    padding: .35rem .8rem;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    color: var(--text-muted);
+    font-size: .65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    cursor: pointer;
+    transition: color .2s, border-color .2s;
+  }
+  .wc-copy:hover { color: var(--text-accent); border-color: var(--text-accent); }
+  .wc-copy.wc-done { color: #34d399; border-color: #34d399; }
+  .wc-desc {
+    margin: 0;
+    padding: .6rem 1.1rem;
+    border-top: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+    font-size: .85rem;
+  }
+</style>

@@ -1,0 +1,39 @@
+{
+  "categories": [
+    {
+      "key": "empezar",
+      "icon": "🚀",
+      "title": "Empezar a jugar",
+      "description": "Todo lo que necesitas para entrar y jugar por primera vez.",
+      "order": 1
+    },
+    {
+      "key": "gameplay",
+      "icon": "🎮",
+      "title": "Gameplay",
+      "description": "Comandos, mecánicas y trucos del día a día en el mundo.",
+      "order": 2
+    },
+    {
+      "key": "tecnico",
+      "icon": "⚙️",
+      "title": "Técnico",
+      "description": "Modpack, mods y el lado técnico del servidor.",
+      "order": 3
+    },
+    {
+      "key": "comunidad",
+      "icon": "💬",
+      "title": "Comunidad",
+      "description": "Historia, equipo, Discord y preguntas frecuentes.",
+      "order": 4
+    },
+    {
+      "key": "staff",
+      "icon": "🛠️",
+      "title": "Escritura de la Wiki",
+      "description": "Cómo se escribe y mantiene esta wiki.",
+      "order": 5
+    }
+  ]
+}

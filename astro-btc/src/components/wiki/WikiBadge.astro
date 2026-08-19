@@ -1,0 +1,29 @@
+---
+// src/components/wiki/WikiBadge.astro
+const { tone = 'muted' } = Astro.props as any;
+const cls = ({
+  good: 'wb-good', warn: 'wb-warn', bad: 'wb-bad',
+  accent: 'wb-accent', info: 'wb-info', muted: 'wb-muted',
+} as Record<string, string>)[tone] ?? 'wb-muted';
+---
+
+<span class={`wiki-badge ${cls}`}><slot /></span>
+
+<style>
+  .wiki-badge {
+    display: inline-block;
+    padding: .15rem .55rem;
+    border: 1px solid;
+    font-size: .65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    vertical-align: middle;
+  }
+  .wb-good   { color: #34d399; border-color: rgba(52, 211, 153, .4);  background: rgba(52, 211, 153, .08); }
+  .wb-warn   { color: #fbbf24; border-color: rgba(251, 191, 36, .4);  background: rgba(251, 191, 36, .08); }
+  .wb-bad    { color: #f87171; border-color: rgba(248, 113, 113, .4); background: rgba(248, 113, 113, .08); }
+  .wb-accent { color: var(--text-accent); border-color: var(--border-accent); background: rgba(249, 115, 22, .08); }
+  .wb-info   { color: #60a5fa; border-color: rgba(96, 165, 250, .4);  background: rgba(96, 165, 250, .08); }
+  .wb-muted  { color: var(--text-muted); border-color: var(--border-subtle); background: var(--bg-alternate); }
+</style>

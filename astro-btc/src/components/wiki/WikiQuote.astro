@@ -1,0 +1,29 @@
+---
+// src/components/wiki/WikiQuote.astro
+const { author = '' } = Astro.props as { author?: string };
+---
+<blockquote class="wiki-quote">
+  <div class="wq-body"><slot /></div>
+  {author && <cite>— {author}</cite>}
+</blockquote>
+
+<style>
+  .wiki-quote {
+    margin: 0 0 1.5rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--border-subtle);
+    border-left: 4px solid var(--text-accent);
+    background: var(--bg-card);
+  }
+  .wq-body > :last-child { margin-bottom: 0; }
+  .wiki-quote cite {
+    display: block;
+    margin-top: .6rem;
+    font-size: .78rem;
+    font-style: normal;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--text-muted);
+  }
+</style>

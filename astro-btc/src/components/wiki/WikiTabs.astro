@@ -1,0 +1,95 @@
+---
+// src/components/wiki/WikiTabs.astro
+// Pestañas horizontales: barra de botones arriba, contenido abajo.
+// Una sola pestaña activa a la vez.
+---
+
+<div class="wiki-tabs" data-wiki-tabs>
+  <div class="wtabs-bar" role="tablist"></div>
+  <div class="wtabs-panels">
+    <slot />
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('[data-wiki-tabs]').forEach((root) => {
+    const bar = root.querySelector('.wtabs-bar') as HTMLElement | null;
+    const panels = Array.from(
+      root.querySelectorAll(':scope > .wtabs-panels > [data-wiki-tab]')
+    ) as HTMLElement[];
+    if (!bar || panels.length === 0) return;
+
+    const activate = (idx: number) => {
+      panels.forEach((p, i) => p.classList.toggle('is-active', i === idx));
+      buttons.forEach((b, i) => {
+        b.classList.toggle('is-active', i === idx);
+        b.setAttribute('aria-selected', i === idx ? 'true' : 'false');
+      });
+    };
+
+    const buttons = panels.map((panel, i) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'wtabs-btn';
+      btn.setAttribute('role', 'tab');
+      btn.setAttribute('aria-selected', 'false');
+      btn.textContent = panel.getAttribute('data-label') || `Tab ${i + 1}`;
+      btn.addEventListener('click', () => activate(i));
+      bar.appendChild(btn);
+      return btn;
+    });
+
+    activate(0);
+  });
+</script>
+
+<style is:global>
+  [data-wiki-tabs] {
+    margin: 0 0 1.75rem;
+  }
+  .wtabs-bar {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid var(--border-subtle);
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+  .wtabs-btn {
+    flex-shrink: 0;
+    padding: .75rem 1.25rem;
+    background: transparent;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    font-size: .78rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color .2s, border-color .2s, background-color .2s;
+    white-space: nowrap;
+  }
+  .wtabs-btn:hover {
+    color: var(--text-main);
+    background: color-mix(in srgb, var(--text-accent) 6%, transparent);
+  }
+  .wtabs-btn.is-active {
+    color: var(--text-accent);
+    border-bottom-color: var(--text-accent);
+  }
+  [data-wiki-tab] {
+    display: none;
+    padding: 1.25rem 1rem;
+    border: 1px solid var(--border-subtle);
+    border-top: 0;
+    background: var(--bg-card);
+  }
+  [data-wiki-tab].is-active {
+    display: block;
+  }
+  [data-wiki-tab] > :last-child {
+    margin-bottom: 0;
+  }
+</style>

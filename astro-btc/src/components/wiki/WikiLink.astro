@@ -1,0 +1,24 @@
+---
+// src/components/wiki/WikiLink.astro
+// Link interno entre artículos de la wiki. Solo necesitas el slug (nombre del archivo sin .mdx).
+// Ejemplo: <WikiLink to="faq">preguntas frecuentes</WikiLink> → <a href="/wiki/faq">preguntas frecuentes</a>
+
+const { to } = Astro.props as { to: string };
+const url = `/wiki/${to}`;
+---
+
+<a href={url} class="wiki-link"><slot /></a>
+
+<style>
+  .wiki-link {
+    color: var(--text-accent);
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-color: rgba(249, 115, 22, 0.3);
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.2s;
+  }
+  .wiki-link:hover {
+    text-decoration-color: var(--text-accent);
+  }
+</style>

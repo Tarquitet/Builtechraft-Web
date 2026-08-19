@@ -1,0 +1,36 @@
+---
+// src/components/wiki/WikiDynmap.astro
+import links from '../../data/links.json';
+
+const { map = 'survival', src = '', height = 480, caption = '' } = Astro.props as {
+  map?: string;
+  src?: string;
+  height?: number;
+  caption?: string;
+};
+
+const maps = (links as any).maps ?? {};
+const url = src || (map === 'creative' ? maps.creative : maps.survival) || '';
+---
+<figure class="wiki-dynmap">
+  <iframe src={url} style={`height:${height}px`} loading="lazy" title={caption || 'Mapa del servidor'}></iframe>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+  .wiki-dynmap { margin: 0 0 1.75rem; }
+  .wiki-dynmap iframe {
+    width: 100%;
+    display: block;
+    border: 1px solid var(--border-subtle);
+    background: #000;
+  }
+  .wiki-dynmap figcaption {
+    margin-top: .5rem;
+    font-size: .72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+</style>

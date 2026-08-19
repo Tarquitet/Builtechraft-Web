@@ -1,0 +1,18 @@
+---
+// src/components/wiki/WikiKbd.astro
+---
+<kbd class="wiki-kbd"><slot /></kbd>
+
+<style>
+  .wiki-kbd {
+    display: inline-block;
+    padding: .1rem .5rem;
+    border: 1px solid var(--border-subtle);
+    border-bottom-width: 3px;
+    background: var(--bg-alternate);
+    color: var(--text-main);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: .8em;
+    border-radius: 4px;
+  }
+</style>

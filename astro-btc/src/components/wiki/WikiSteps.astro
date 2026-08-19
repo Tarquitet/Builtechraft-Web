@@ -1,0 +1,49 @@
+---
+// src/components/wiki/WikiSteps.astro
+const { steps = [] } = Astro.props as any;
+---
+
+<ol class="wiki-steps">
+  {steps.map((s: any, i: number) => (
+    <li class="ws-item">
+      <span class="ws-num">{i + 1}</span>
+      <div class="ws-body">
+        {s.title && <h4 class="ws-title">{s.title}</h4>}
+        {s.text && <p class="ws-text">{s.text}</p>}
+        {s.image && <img src={s.image} alt={s.title ?? ''} loading="lazy" class="ws-img" />}
+      </div>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .wiki-steps { list-style: none; margin: 0 0 1.75rem; padding: 0; }
+  .ws-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    margin-bottom: .75rem;
+  }
+  .ws-num {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    display: grid;
+    place-items: center;
+    background: var(--text-accent);
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
+  .ws-title {
+    margin: 0 0 .35rem;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    color: var(--text-main);
+  }
+  .ws-text { margin: 0; color: var(--text-muted); line-height: 1.6; font-size: .9rem; }
+  .ws-img { margin-top: .75rem; width: 100%; border: 1px solid var(--border-subtle); }
+</style>

@@ -1,0 +1,40 @@
+---
+// src/components/wiki/WikiSpoiler.astro
+const { title = 'Spoiler' } = Astro.props as any;
+---
+
+<details class="wiki-spoiler">
+  <summary>
+    <span>👁️</span> {title} <span class="wk-hint">— click para revelar</span>
+  </summary>
+  <div class="wk-content">
+    <slot />
+  </div>
+</details>
+
+<style>
+  .wiki-spoiler {
+    border: 1px dashed var(--border-subtle);
+    background: var(--bg-card);
+    margin: 0 0 1.25rem;
+  }
+  .wiki-spoiler summary {
+    cursor: pointer;
+    padding: .7rem 1rem;
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--text-muted);
+    list-style: none;
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    transition: color .2s;
+  }
+  .wiki-spoiler summary:hover { color: var(--text-accent); }
+  .wiki-spoiler summary::-webkit-details-marker { display: none; }
+  .wk-hint { opacity: .6; font-weight: 500; text-transform: none; letter-spacing: .02em; }
+  .wk-content { padding: .75rem 1rem 1rem; border-top: 1px dashed var(--border-subtle); }
+  .wk-content > :last-child { margin-bottom: 0; }
+</style>

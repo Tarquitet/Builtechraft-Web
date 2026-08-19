@@ -1,0 +1,93 @@
+---
+layout: ../../layouts/WikiLayout.astro
+title: 'Qué usa el servidor'
+description: 'Cómo llevamos el control de mods, actualizaciones y reglas personalizadas.'
+author: 'Tarquitet'
+pubDate: '2026-08-03'
+updated: '2026-08-19'
+category: 'tecnico'
+icon: '⚙️'
+color: 'text-purple-400'
+border: 'hover:border-purple-500'
+order: 1
+---
+
+import WikiCallout from '../../components/wiki/WikiCallout.astro';
+import WikiAccordion from '../../components/wiki/WikiAccordion.astro';
+import WikiTable from '../../components/wiki/WikiTable.astro';
+import WikiLink from '../../components/wiki/WikiLink.astro';
+
+En Builtechcraft creemos en la transparencia total. Aquí te explicamos **cómo controlamos las modificaciones** y los ajustes que hacen funcionar el servidor.
+
+## 🔄 Control de actualizaciones
+
+Actualizar un servidor técnico no es tan simple como pulsar un botón. Mantenemos un **Panel de Control de Actualizaciones** en Google Sheets que monitorea todo:
+
+<WikiCallout type="info" title="Tres reglas de oro">
+
+1. **Estado de cada mod esencial** con indicador de compatibilidad con la nueva versión de Minecraft
+2. **Medidor de progreso automático** — si faltan mods críticos, el panel marca "NO" en rojo
+3. **Seguridad ante todo** — jamás actualizamos si un mod de seguridad u optimización no está listo; preferimos esperar a corromper el mapa
+
+</WikiCallout>
+
+## ⚙️ Por qué usamos Fabric
+
+En Builtechcraft decidimos un servidor basado en **Mods (Fabric)** en lugar de Plugins (Spigot, Paper) por dos razones:
+
+<WikiTable
+  headers={['Criterio', 'Fabric (lo que usamos)', 'Plugins (lo que no usamos)']}
+  rows={[
+    ['Velocidad de actualizaciones', { text: 'Días', tone: 'good' }, { text: 'Meses', tone: 'bad' }],
+    ['Respeto al vanilla', { text: '100% fiel', tone: 'good' }, { text: 'Modifica código base', tone: 'bad' }],
+    [
+      'Mecánicas técnicas (granjas, redstone)',
+      { text: 'Intactas', tone: 'good' },
+      { text: 'Rompes granjas', tone: 'bad' },
+    ],
+    ['Experiencia ideal para ingeniería', { text: '✓ Sí', tone: 'good' }, { text: '✗ No', tone: 'bad' }],
+  ]}
+/>
+
+<WikiCallout type="ok" title="Filosofía">
+
+Fabric respeta al 100% las mecánicas originales del juego. Esto lo hace ideal para jugadores técnicos que quieren construir granjas, sistemas de redstone y proyectos de ingeniería.
+
+</WikiCallout>
+
+## 📖 Reglas de juego y ajustes de Carpet
+
+Aplicamos ajustes personalizados (Tweaks) para hacer el día a día más cómodo en Survival. Cada regla tiene un código de colores:
+
+<WikiTable
+  headers={['Color', 'Estado', 'Qué significa']}
+  rows={[
+    [{ text: 'Verde', tone: 'good' }, 'Definitivo', 'Regla activa y definitiva por defecto'],
+    [{ text: 'Naranja', tone: 'warn' }, 'Experimental', 'Puede quedarse o eliminarse'],
+    [{ text: 'Amarillo', tone: 'warn' }, 'En prueba', 'Activa, pero alta probabilidad de ser removida'],
+    [{ text: 'Rojo', tone: 'bad' }, 'Descartado', 'Ya no se usa'],
+    ['Gris', 'Planeado', 'En revisión o esperando implementación'],
+  ]}
+/>
+
+<WikiCallout type="warn" title="Objetivo final">
+
+**No romper el juego**, sino pulir sus asperezas para que la ingeniería y la creatividad fluyan al máximo.
+
+</WikiCallout>
+
+## 🔗 Dónde ver todo el detalle
+
+Toda la información técnica sincronizada en tiempo real vive en nuestra página principal, en la sección "Sobre el servidor":
+
+<WikiCallout type="info" title="Lista completa">
+
+Consulta la <a href="/about#mods">lista sincronizada de mods y datapacks</a> en nuestra página principal. Se actualiza automáticamente.
+
+</WikiCallout>
+
+<WikiCallout type="ok" title="Siguiente">
+
+Lee <WikiLink to="lista-mods">Lista de mods y datapacks</WikiLink> para ver qué hay instalado ahora mismo.
+
+</WikiCallout>

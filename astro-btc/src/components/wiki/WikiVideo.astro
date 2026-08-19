@@ -1,0 +1,46 @@
+---
+// src/components/wiki/WikiVideo.astro
+const { youtube = '', src = '', caption = '' } = Astro.props as any;
+---
+
+<figure class="wiki-video">
+  {youtube ? (
+    <div class="wv-frame">
+      <iframe
+        src={`https://www.youtube-nocookie.com/embed/${youtube}`}
+        title={caption || 'Video'}
+        loading="lazy"
+        allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+  ) : src ? (
+    <video src={src} controls preload="metadata"></video>
+  ) : null}
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+  .wiki-video { margin: 0 0 1.75rem; }
+  .wv-frame {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    border: 1px solid var(--border-subtle);
+    background: #000;
+  }
+  .wv-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .wiki-video video {
+    width: 100%;
+    display: block;
+    border: 1px solid var(--border-subtle);
+    background: #000;
+  }
+  .wiki-video figcaption {
+    margin-top: .5rem;
+    font-size: .72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+</style>

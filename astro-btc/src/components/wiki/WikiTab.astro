@@ -1,0 +1,8 @@
+---
+// src/components/wiki/WikiTab.astro
+// Cada panel de pestaña. Usa data-label para el texto del botón.
+const { label = 'Tab' } = Astro.props as { label?: string };
+---
+<section data-wiki-tab data-label={label}>
+  <slot />
+</section>

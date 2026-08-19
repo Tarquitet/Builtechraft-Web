@@ -1,0 +1,84 @@
+---
+layout: ../../layouts/WikiLayout.astro
+title: 'Teletransporte con brújulas'
+description: 'Sistema de teletransporte usando Magnetitas y brújulas vinculadas.'
+author: 'Tarquitet'
+pubDate: '2026-08-03'
+updated: '2026-08-19'
+category: 'gameplay'
+icon: '🧭'
+color: 'text-purple-400'
+border: 'hover:border-purple-500'
+order: 1
+---
+
+import WikiCallout from '../../components/wiki/WikiCallout.astro';
+import WikiSteps from '../../components/wiki/WikiSteps.astro';
+import WikiImage from '../../components/wiki/WikiImage.astro';
+import WikiAccordion from '../../components/wiki/WikiAccordion.astro';
+import WikiLink from '../../components/wiki/WikiLink.astro';
+
+Viaja entre puntos lejanos sin usar `/warp` ni `/home`. **LodestoneTP** usa magnetitas y brújulas vinculadas para conservar la experiencia Survival.
+
+<WikiCallout type="info" title="🧭 La evolución del transporte">
+
+Introducida en la mítica **versión 1.16 (Nether Update)**, la Magnetita revolucionó la navegación original de Minecraft. El datapack **LodestoneTP** lleva esto al siguiente nivel: al vincularle una brújula, el sistema lee los datos magnéticos almacenados y te permite viajar instantáneamente a ese punto. Es una modificación técnica brillante que recompensa el esfuerzo de conseguir materiales valiosos sin usar trampas.
+
+</WikiCallout>
+
+## 🛠️ Crea tu punto de teletransporte
+
+Para crear tu propia red de viaje rápido (ya sea en tu base personal, en un bioma lejano o en una granja técnica), sigue estos pasos:
+
+<WikiSteps
+  steps={[
+    {
+      title: 'Construir la Magnetita',
+      text: 'La Magnetita es un bloque de alto valor y fabricarla representa un verdadero hito en tu progresión. Necesitarás 8 Ladrillos de Piedra Cincelada rodeando el perímetro y 1 Lingote de Netherite en el centro. Desde la actualización 1.20 también requieres una Plantilla de Herrería de Mejora para el Netherite.',
+      image: 'https://minecraft.wiki/images/Lodestone_JE1_BE1.png',
+    },
+    {
+      title: 'Vincular la Brújula',
+      text: 'Craftea una brújula normal (4 lingotes de hierro y 1 polvo de redstone). Acércate a la Magnetita que acabas de colocar y haz Clic Derecho con la brújula en la mano. Verás que la brújula obtiene un brillo morado. Ahora es una Brújula de Magnetita y apuntará siempre hacia ese bloque.',
+      image: 'https://minecraft.wiki/images/Compass_JE3_BE3.gif',
+    },
+    {
+      title: 'Ejecutar el Teletransporte',
+      text: 'Pon la Brújula de Magnetita en tu mano principal. Mantén presionado Shift (Agacharse) y haz Clic Derecho mirando al aire. El datapack leerá las etiquetas NBT de tu brújula, emitirá sonido y partículas moradas, y serás teletransportado instantáneamente justo encima de la Magnetita.',
+    },
+  ]}
+/>
+
+## ⚖️ Límites del viaje rápido
+
+Para que esta mecánica siga siendo un reto justo y no parezca un comando trampa, el datapack impone ciertas limitaciones:
+
+- **Consumo de recursos:** El viaje rápido somete a la brújula a gran energía. Dependiendo de los ajustes de dificultad actuales, **usar la brújula podría consumirla** o restar niveles de experiencia. ¡Úsala solo en emergencias!
+- **Restricción de Dimensiones:** El teletransporte solo funciona si estás en la **misma dimensión** que la Magnetita (Overworld → Overworld, Nether → Nether). Intentar viajar entre dimensiones cancela el teletransporte.
+- **Magnetitas Destruidas:** Si alguien (o un Creeper) rompe la Magnetita de destino, la conexión se corta. Tu brújula perderá su función y el teletransporte quedará inhabilitado.
+
+## 💡 Consejos para arquitectos e ingenieros
+
+<WikiAccordion title="Renombra tus brújulas">
+
+Pasa tus brújulas vinculadas por un Yunque y ponles nombres descriptivos (ej. _"Base Principal"_, _"Granja de Slimes"_). Así sabrás a dónde te lleva cada una.
+
+</WikiAccordion>
+
+<WikiAccordion title="Crea una Sala de Portales (Hub)">
+
+Si tienes un megaproyecto, construye una habitación centralizada en tu base con varias Magnetitas. Tu red de transporte rápido quedará organizada.
+
+</WikiAccordion>
+
+<WikiAccordion title="El truco del Ender Chest">
+
+Lleva siempre un Cofre de Ender contigo y guarda allí todas tus brújulas de Magnetita. Tendrás acceso rápido a toda tu infraestructura logística sin ocupar espacio en tu inventario principal.
+
+</WikiAccordion>
+
+<WikiCallout type="ok" title="Siguiente">
+
+Lee <WikiLink to="sentar-y-montar">Cómo sentarse y montar</WikiLink> para más mecánicas de gameplay.
+
+</WikiCallout>
