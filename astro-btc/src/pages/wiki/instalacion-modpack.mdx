@@ -1,0 +1,131 @@
+---
+layout: ../../layouts/WikiLayout.astro
+title: 'Instalación del modpack'
+description: 'Cómo instalar el modpack oficial, configurarlo y usar bobby.'
+author: 'Tarquitet'
+pubDate: '2026-08-21'
+category: 'tecnico'
+icon: '📦'
+color: 'text-purple-400'
+border: 'hover:border-purple-500'
+order: 6
+---
+
+import WikiCallout from '../../components/wiki/WikiCallout.astro';
+import WikiSteps from '../../components/wiki/WikiSteps.astro';
+import WikiAccordion from '../../components/wiki/WikiAccordion.astro';
+import WikiCommand from '../../components/wiki/WikiCommand.astro';
+import WikiLink from '../../components/wiki/WikiLink.astro';
+
+El modpack oficial es **opcional**. Úsalo para mejorar el rendimiento y acceder a herramientas técnicas compatibles.
+
+## Instala el paquete oficial
+
+<WikiSteps
+  steps={[
+    {
+      title: 'Instala un launcher compatible',
+      text: 'Usa Prism Launcher con una cuenta Premium, o ElyPrism si accedes mediante Ely.by. Revisa la guía de launchers si no sabes cuál usar.',
+    },
+    {
+      title: 'Descarga la versión publicada',
+      text: 'Busca "Builtechraft" en el launcher y descarga la versión más reciente. Recomendamos no mezclar archivos de otros modpacks en esta instancia.',
+    },
+    {
+      title: 'Inicia una vez y revisa los mods',
+      text: 'Inicia Minecraft una vez para que se configure todo. Después, abre la lista de mods y elimina cualquier añadido no aprobado. Si el cliente falla, restaura una instalación limpia del paquete.',
+    },
+  ]}
+/>
+
+## Configura las herramientas técnicas
+
+Una vez instalado el modpack, revisa la configuración de estas herramientas clave:
+
+<WikiAccordion title="🔧 Litematica">
+
+Sirve para **visualizar esquemáticas** de construcciones.
+
+**Desactiva** toda función de colocación o interacción automática. Solo úsala como referencia visual.
+
+</WikiAccordion>
+
+<WikiAccordion title="📊 MiniHUD">
+
+Muestra información técnica del mundo (coordenadas, bioma, TPS, etc.).
+
+**No actives** opciones que revelen datos ocultos del mundo (estructuras, spawners, etc.).
+
+</WikiAccordion>
+
+<WikiAccordion title="🗺️ VoxelMap">
+
+Guarda mapas y puntos locales (waypoints).
+
+**No importes ni compartas** ubicaciones privadas sin permiso del dueño. Respeta el trabajo ajeno.
+
+</WikiAccordion>
+
+<WikiAccordion title="🌐 Bobby">
+
+Conserva chunks ya recibidos por tu cliente, extendiendo el renderizado más allá de lo que envía el servidor.
+
+**Importante:** no obtiene chunks nuevos ni permite ver cambios remotos sin acercarte. Si una construcción se modificó, debes acercarte para que tu cliente la actualice.
+
+</WikiAccordion>
+
+## Instala la caché opcional
+
+La caché de Bobby y VoxelMap reduce la espera visual al explorar zonas ya visitadas por otros jugadores. Puede ocupar **más de 1 GB** de espacio.
+
+<WikiSteps
+  steps={[
+    {
+      title: 'Inicia el modpack una vez',
+      text: 'Arranca Minecraft con el modpack y ciérralo. Esto crea las carpetas de configuración.',
+    },
+    {
+      title: 'Descarga las cachés',
+      text: 'Consigue la caché de Bobby y la caché de VoxelMap desde los enlaces oficiales.',
+    },
+    {
+      title: 'Extrae los archivos',
+      text: 'Descomprime ambos archivos en la carpeta .minecraft de esa instancia. Fusiona las carpetas bobby y voxelmap cuando el sistema lo solicite.',
+    },
+    {
+      title: 'No sobrescribas archivos ajenos',
+      text: 'Solo fusiona las carpetas bobby y voxelmap. No toques ningún otro archivo.',
+    },
+  ]}
+/>
+
+<WikiCallout type="warn" title="La caché puede mostrar construcciones antiguas">
+
+Si alguien modificó una zona después de que se generó la caché, **tú seguirás viendo la versión antigua** hasta que te acerques físicamente. Nunca tomes decisiones basándote solo en lo que muestra la caché.
+
+</WikiCallout>
+
+## Lista de comprobación antes de entrar
+
+Antes de conectarte al servidor, verifica:
+
+<WikiCallout type="ok" title="Checklist final">
+
+- ✅ Usas la **versión nativa actual** del servidor
+- ✅ Solo tienes mods de cliente **permitidos** (revisa <WikiLink to="mods-permitidos">mods permitidos</WikiLink>)
+- ✅ **Desactivaste** macros, automatización y cualquier herramienta de ventaja
+- ✅ **Desactivaste** funciones automáticas de Litematica, MiniHUD, etc.
+
+</WikiCallout>
+
+<WikiCallout type="danger" title="Si no puedes identificar la función de un archivo">
+
+**No lo cargues.** Solicita confirmación al staff en el foro de Discord antes de usarlo.
+
+</WikiCallout>
+
+<WikiCallout type="ok" title="Siguiente paso">
+
+Ya tienes el modpack configurado. Lee <WikiLink to="como-unirse">Cómo unirse al servidor</WikiLink> para conectarte por primera vez.
+
+</WikiCallout>

@@ -1,0 +1,52 @@
+# Builtechraft
+
+> Servidor privado de Minecraft que une construcción, exploración e ingeniería en un mundo monumental.
+
+## Páginas principales
+
+- [Inicio](/): Página principal con información del servidor
+- [Nosotros](/about): Visión, mundos, mods, modpack, equipo y roadmap
+- [Reglas](/rules): Normativa completa del servidor
+- [Wiki](/wiki): Biblioteca de guías y documentación
+
+## Wiki — Biblioteca
+
+### Empezar a jugar
+- [¿Qué es esta wiki?](/wiki/intro): Introducción a la documentación
+- [¿Por qué datapacks?](/wiki/comparativa): Comparativa Mods vs Plugins vs Datapacks
+- [Launchers e instalación](/wiki/launchers): Guía de instalación del modpack
+- [Cuenta Ely.by](/wiki/cuenta-ely-by): Creación y configuración de cuenta No-Premium
+- [Cómo unirse al servidor](/wiki/como-unirse): Proceso completo de entrada
+- [Whitelist](/wiki/whitelist): Sistema de acceso y registro
+- [Registro en el servidor](/wiki/registro): Validación con Alternative Auth
+- [Nuestro Discord](/wiki/discord): Centro de la comunidad
+
+### Gameplay
+- [Teletransporte con magnetitas](/wiki/lodestone-tp): Sistema de teletransporte con brújulas
+- [Sentarse y montarse](/wiki/sentar-y-montar): Comandos /sit y /crawl
+- [Cambiar tu skin](/wiki/cambiar-tu-skin): Gestión de apariencias
+- [Waypoints y mapa web](/wiki/waypoints-y-mapa): Exploración desde el navegador
+- [Cabezas decorativas](/wiki/cabezas-decorativas): Sistema de cabezas customizadas
+- [Comando /player](/wiki/comando-player): Fake players y jugador sombra
+
+### Técnico
+- [Lista de mods y datapacks](/wiki/lista-mods): Registro de modificaciones activas
+- [Qué usa el servidor](/wiki/que-usa-el-servidor): Filosofía técnica
+- [Planes a futuro](/wiki/planes-a-futuro): Roadmap de mejoras
+- [Preguntas frecuentes](/wiki/faq): Respuestas a dudas comunes
+
+### Comunidad
+- [¿Qué es Builtechraft?](/wiki/que-es-builtechraft): Filosofía del servidor
+- [Fundador del proyecto](/wiki/fundador): Tarquitet
+- [Equipo colaborador](/wiki/equipo): Staff del servidor
+- [Historia del servidor](/wiki/historia): Línea de tiempo desde 2020
+- [Inspiraciones](/wiki/inspiraciones): Referencias y proyectos que nos inspiraron
+
+### Staff (documentación interna)
+- [Cómo escribir artículos](/wiki/escribir-articulos): Guía de escritura MDX
+- [Componentes básicos](/wiki/componentes-basicos): Tablas, callouts, acordeones
+- [Componentes media](/wiki/componentes-media): Imágenes y videos
+- [Componentes interactivos](/wiki/componentes-interactivos): Tabs, pasos, spoilers
+- [Componentes código](/wiki/componentes-codigo): Comandos y teclas
+- [Contribuir desde GitHub](/wiki/github-contribuir): Fork y pull requests
+- [Enlazar artículos](/wiki/links-entre-articulos): Links internos y anchors
