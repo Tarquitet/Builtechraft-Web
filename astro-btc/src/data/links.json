@@ -35,7 +35,7 @@
   "modpack": {
     "apiProject": "https://api.modrinth.com/v2/project/",
     "bobbyCache": "https://dub.sh/bobby_btc",
-    "url": "https://modrinth.com/modpack/builtechraft-client-mods"
+    "url": "https://modrinth.com/modpack/btc-client"
   },
 
   "pages": {
