@@ -1,221 +1,127 @@
 ---
 // src/components/rules/Rules.astro
+import metadata from '../../data/rules/metadata.json';
+import links from '../../data/links.json';
 
-const archivosGlob = import.meta.glob('/src/data/normas/*.json', { eager: true });
-const groups = Object.values(archivosGlob).map((archivo: any) => archivo.default || archivo);
-
-interface Section {
+interface RuleSection {
   id: string;
+  file: string;
   title: string;
   icon: string;
+  scope: 'juego' | 'discord' | 'ambos';
 }
 
-// Crear índice plano para navegación
-const allSections = groups.flatMap(group => 
-  group.sections.map((section: Section) => ({
-    id: section.id,
-    title: section.title,
-    icon: section.icon,
-    groupId: group.id
-  }))
-);
+interface RuleMetadata {
+  golden: string[];
+  sections: RuleSection[];
+}
+
+interface RuleMetadata {
+  golden: string[];
+  sections: RuleSection[];
+  footer?: {
+    updated: string;
+    disclaimer: string;
+    contactText: string;
+    contactLink: string;
+    contactLabel: string;
+  };
+}
+
+const rulesData = metadata as RuleMetadata;
+
+const sectionModules = import.meta.glob('../../data/rules/sections/*.mdx', {
+  eager: true,
+}) as Record<string, { default: any }>;
+
+const getSectionComponent = (filename: string) => {
+  const path = `../../data/rules/sections/${filename}`;
+  return sectionModules[path]?.default ?? null;
+};
+
+const scopeLabels: Record<string, string> = {
+  juego: '🎮 Juego',
+  discord: '💬 Discord',
+  ambos: '🌐 Ambos',
+};
 ---
 
 <section id="reglas" class="py-24 bg-theme-panel relative min-h-screen">
-    <div class="container mx-auto px-6 max-w-6xl relative z-10">
-        
-        {/* HEADER */}
-        <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-display font-bold text-theme-text uppercase tracking-tight">
-                Normas de <span class="text-theme-accent">Builtechraft</span>
-            </h2>
-            <p class="text-theme-main opacity-80 text-lg max-w-2xl mx-auto mt-4 italic">
-                Este servidor ha pasado por muchos eventos y situaciones. Estas normas reflejan nuestra filosofía, ética y valores.
-            </p>
-        </div>
+  <div class="container mx-auto px-6 max-w-4xl relative z-10">
 
-        <div class="flex gap-8">
-            
-            {/* ÍNDICE LATERAL (solo desktop) */}
-            <aside class="hidden lg:block w-64 shrink-0">
-                <div class="sticky top-24">
-                   <div class="bg-theme-card border-theme-1  p-4">
-                        <h3 class="text-xs font-bold uppercase tracking-widest text-theme-muted mb-3 px-2">
-                            Índice de Normas
-                        </h3>
-                        <nav class="flex flex-col gap-1">
-                            {allSections.map(section => (
-                                <a 
-                                    href={`#section-${section.id}`}
-                                    class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-theme-muted hover:text-theme-main hover:bg-theme-alternate transition-colors"
-                                >
-                                    <span class="text-lg">{section.icon}</span>
-                                    <span class="truncate">{section.id}. {section.title}</span>
-                                </a>
-                            ))}
-                        </nav>
-                    </div>
+    <div class="text-center mb-12">
+      <h2 class="text-4xl md:text-5xl font-display font-bold text-theme-main uppercase tracking-tight">
+        Normas de <span class="text-btc-orange">Builtechcraft</span>
+      </h2>
+      <p class="text-theme-muted text-base mt-4 max-w-2xl mx-auto">
+        Se aplican tanto dentro del servidor de Minecraft como en nuestro Discord.
+      </p>
+    </div>
+
+    {/* ===== REGLAS DE ORO (data-driven) ===== */}
+    {rulesData.golden && rulesData.golden.length > 0 && (
+      <div class="border border-btc-orange/30 bg-btc-orange/5 p-6 md:p-8 mb-12 mt-10">
+        <h3 class="text-btc-orange font-display font-bold uppercase tracking-widest text-sm mb-4">
+          ⚡ Datos Imporantes
+        </h3>
+        <ol class="space-y-2 text-theme-main text-sm list-decimal list-inside">
+          {rulesData.golden.map((rule: string) => (
+            <li>{rule}</li>
+          ))}
+        </ol>
+      </div>
+    )}
+
+    {/* ===== SECCIONES ===== */}
+    <div class="space-y-10">
+      {rulesData.sections.map((section) => {
+        const SectionComponent = getSectionComponent(section.file);
+        const scopeLabel = scopeLabels[section.scope] ?? '';
+        return (
+          <div id={`section-${section.id}`} class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-4 flex-wrap">
+              <div class="w-10 h-10 border border-btc-orange/20 bg-btc-orange/10 flex items-center justify-center">
+                <span class="text-xl">{section.icon}</span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="text-xs font-bold uppercase tracking-widest text-btc-orange">
+                    Sección {section.id}
+                  </span>
+                  {scopeLabel && (
+                    <span class="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 border border-btc-orange/20 text-theme-muted">
+                      {scopeLabel}
+                    </span>
+                  )}
                 </div>
-            </aside>
-
-            {/* CONTENIDO PRINCIPAL */}
-            <div class="flex-1 space-y-12">
-                
-                {/* CONTROL GLOBAL */}
-                <div class="flex justify-end">
-                    <button 
-                        id="toggle-all-btn"
-                        class="text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-lg border-theme-1 bg-theme-card hover:bg-theme-alternate transition-colors text-theme-main"
-                    >
-                        Colapsar todo
-                    </button>
-                </div>
-
-                {/* GRUPOS DE REGLAS */}
-                {groups.map((group) => (
-                    <div class="space-y-8">
-                        
-                        {/* ENCABEZADO DEL GRUPO */}
-                        <div class="flex items-center gap-4 pb-4 border-b-2 border-btc-orange/20">
-                            <span class="text-5xl drop-shadow-lg">{group.icon}</span>
-                            <div>
-                                <h2 class="text-2xl md:text-3xl font-bold text-theme-main uppercase tracking-wide">
-                                    {group.title}
-                                </h2>
-                                <p class="text-theme-muted text-sm md:text-base mt-1">{group.desc}</p>
-                            </div>
-                        </div>
-
-                        {/* SECCIONES */}
-                        <div class="space-y-6">
-                            {group.sections && group.sections.map((section: any) => (
-                                <div id={`section-${section.id}`} class="scroll-mt-24">
-                                    
-                                    {/* ENCABEZADO DE SECCIÓN */}
-                                    <div class="flex items-center gap-3 mb-4">
-                                        <div class="w-10 h-10 rounded-lg bg-btc-orange/10 border border-btc-orange/20 flex items-center justify-center">
-                                            <span class="text-xl">{section.icon}</span>
-                                        </div>
-                                        <div>
-                                            <span class="text-xs font-bold uppercase tracking-widest text-btc-orange">
-                                                Sección {section.id}
-                                            </span>
-                                            <h3 class="text-xl font-display font-bold text-theme-main">
-                                                {section.title}
-                                            </h3>
-                                        </div>
-                                    </div>
-
-                                    {/* REGLAS */}
-                                    <div class="space-y-3">
-                                        {section.rules && section.rules.map((rule: any, ruleIndex: number) => (
-                                            <div class="rule-card bg-theme-card border-theme-1  overflow-hidden">
-                                                
-                                                {/* ENCABEZADO DE REGLA (clickeable) */}
-                                                <button 
-                                                    class="rule-trigger w-full p-5 flex items-start gap-4 text-left hover:bg-theme-alternate transition-colors"
-                                                    data-rule-index={ruleIndex}
-                                                >
-                                                    <span class="shrink-0 w-12 h-12 rounded-lg bg-btc-yellow/10 border border-btc-yellow/20 flex items-center justify-center">
-                                                        <span class="text-btc-yellow font-mono font-bold text-sm">{rule.num}</span>
-                                                    </span>
-                                                    <div class="flex-1 min-w-0">
-                                                        <h4 class="text-base font-bold text-theme-main mb-1">{rule.text}</h4>
-                                                        <p class="text-sm text-theme-muted">{rule.sub}</p>
-                                                    </div>
-                                                    <svg class="rule-arrow w-5 h-5 text-theme-muted transition-transform shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                                                    </svg>
-                                                </button>
-
-                                                {/* DETALLES (colapsable) */}
-                                                <div class="rule-content grid grid-rows-[0fr] transition-[grid-template-rows] duration-300">
-                                                    <div class="overflow-hidden">
-                                                        {rule.details && rule.details.length > 0 && (
-                                                            <div class="p-5 pt-0 space-y-2">
-                                                                {rule.details.map((detail: string) => {
-                                                                    const m = detail.match(/^(\d+\.\d+\.[a-z]+)\s*:\s*(.*)$/i);
-                                                                    const code = m ? m[1] : null;
-                                                                    const full = m ? m[2] : detail;
-                                                                    
-                                                                    const lm = full.match(/^([^:]{3,45}):([\s\S]*)$/);
-                                                                    const label = lm ? lm[1].trim() : null;
-                                                                    const body = lm ? lm[2].trim() : full;
-                                                                    
-                                                                    return (
-                                                                        <div class="flex gap-3 text-sm bg-theme-alternate border-theme-1 border-l-2 border-l-btc-orange/40 rounded-lg p-3">
-                                                                            {code && (
-                                                                                <span class="shrink-0 h-fit mt-0.5 font-mono text-[10px] font-bold text-btc-yellow bg-btc-yellow/10 border border-btc-yellow/20 rounded px-1.5 py-0.5 select-none">
-                                                                                    {code}
-                                                                                </span>
-                                                                            )}
-                                                                            <p class="text-theme-muted leading-relaxed">
-                                                                                {label && <strong class="text-theme-main font-bold">{label}: </strong>}
-                                                                                {body}
-                                                                            </p>
-                                                                        </div>
-                                                                    );
-                                                                })}
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                ))}
+                <h3 class="text-xl font-display font-bold text-theme-main">
+                  {section.title}
+                </h3>
+              </div>
             </div>
+
+            {SectionComponent ? <SectionComponent /> : (
+              <p class="text-theme-muted text-sm">⚠️ Falta contenido: {section.file}</p>
+            )}
+          </div>
+        );
+      })}
+    </div>
+
+    {/* ===== FOOTER ===== */}
+        {rulesData.footer && (
+          <div class="mt-16 pt-8 border-t border-theme-muted/20 text-center">
+            <p class="text-theme-muted text-xs">
+              {rulesData.footer.disclaimer} Última revisión: {rulesData.footer.updated}.
+            </p>
+            <p class="text-theme-muted text-xs mt-2">
+              {rulesData.footer.contactText}{' '}
+              <a href={links.social.discord} target="_blank" rel="noopener noreferrer" class="text-btc-orange hover:underline">
+                {rulesData.footer.contactLabel}
+              </a>.
+            </p>
+          </div>
+        )}
+
+  </div>
 </section>
-
-<script is:inline>
-    document.addEventListener('DOMContentLoaded', () => {
-        // 1. Toggle individual de reglas
-        document.querySelectorAll('.rule-trigger').forEach(trigger => {
-            trigger.addEventListener('click', () => {
-                const card = trigger.closest('.rule-card');
-                const content = card.querySelector('.rule-content');
-                const arrow = trigger.querySelector('.rule-arrow');
-                const isOpen = content.style.gridTemplateRows === '1fr';
-
-                content.style.gridTemplateRows = isOpen ? '0fr' : '1fr';
-                arrow.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
-            });
-        });
-
-        // 2. Botón "Expandir/Colapsar todo"
-        const toggleBtn = document.getElementById('toggle-all-btn');
-        let allExpanded = false;
-
-        toggleBtn.addEventListener('click', () => {
-            allExpanded = !allExpanded;
-            const allContents = document.querySelectorAll('.rule-content');
-            const allArrows = document.querySelectorAll('.rule-arrow');
-
-            allContents.forEach(content => {
-                content.style.gridTemplateRows = allExpanded ? '1fr' : '0fr';
-            });
-
-            allArrows.forEach(arrow => {
-                arrow.style.transform = allExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
-            });
-
-            toggleBtn.textContent = allExpanded ? 'Colapsar todo' : 'Expandir todo';
-        });
-
-        // 3. Smooth scroll para el índice
-        document.querySelectorAll('a[href^="#section-"]').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href').substring(1);
-                const target = document.getElementById(targetId);
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-    });
-</script>

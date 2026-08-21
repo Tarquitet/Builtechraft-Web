@@ -1,0 +1,70 @@
+---
+// src/components/wiki/WikiRule.astro
+// Regla colapsable con número naranja. El detalle va dentro con WikiRuleItem.
+const { num, title, sub = '' } = Astro.props as { num: string; title: string; sub?: string };
+---
+
+<details class="wiki-rule">
+  <summary class="wr-summary">
+    <span class="wr-num">{num}</span>
+    <span class="wr-head">
+      <span class="wr-title">{title}</span>
+      {sub && <span class="wr-sub">{sub}</span>}
+    </span>
+    <span class="wr-plus" aria-hidden="true">+</span>
+  </summary>
+  <div class="wr-body">
+    <slot />
+  </div>
+</details>
+
+<style is:global>
+  .wiki-rule {
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    margin-bottom: .75rem;
+  }
+  .wr-summary {
+    display: flex;
+    align-items: flex-start;
+    gap: .9rem;
+    padding: 1rem 1.1rem;
+    cursor: pointer;
+    list-style: none;
+  }
+  .wr-summary::-webkit-details-marker { display: none; }
+  .wr-summary::marker { content: ''; }
+  .wr-num {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.6rem;
+    height: 2.6rem;
+    padding: 0 .4rem;
+    background: color-mix(in srgb, var(--text-accent) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--text-accent) 30%, transparent);
+    color: var(--text-accent);
+    font-family: monospace;
+    font-weight: 700;
+    font-size: .85rem;
+  }
+  .wr-head { display: flex; flex-direction: column; gap: .15rem; min-width: 0; }
+  .wr-title { font-weight: 700; color: var(--text-main); font-size: .95rem; }
+  .wr-sub { color: var(--text-muted); font-size: .8rem; }
+  .wr-plus {
+    margin-left: auto;
+    color: var(--text-accent);
+    font-weight: 700;
+    font-size: 1.15rem;
+    line-height: 1;
+    transition: transform .2s;
+  }
+  .wiki-rule[open] .wr-plus { transform: rotate(45deg); }
+  .wiki-rule[open] .wr-summary { background: color-mix(in srgb, var(--text-accent) 6%, transparent); }
+  .wr-body {
+    padding: 1rem 1.1rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .wr-body > :last-child { margin-bottom: 0; }
+</style>

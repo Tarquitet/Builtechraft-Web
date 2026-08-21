@@ -1,0 +1,43 @@
+{
+  "golden": [
+    "Lee con calma. Tómate tu tiempo.",
+    "Estas normas están diseñadas para cubrir distintos casos de uso.",
+    "Principalmente están enfocadas para el servidor de Minecraft.",
+    "Discord es un canal de soporte opcional, no obligatorio (úsenlo para compartir con otros miembros).",
+    "Se pueden aplicar cambios para ir mejorando y crecer como comunidad.",
+    "Tenemos categorías: 'Ambas' aplica a Discord y Minecraft. 'Juego' solo a Minecraft."
+  ],
+  "sections": [
+    { "id": "01", "file": "01-convivencia.mdx", "title": "Respeto y Convivencia", "icon": "✨", "scope": "ambos" },
+    { "id": "02", "file": "02-servidor.mdx", "title": "Servidor y Disponibilidad", "icon": "💻", "scope": "juego" },
+    { "id": "03", "file": "03-cuentas.mdx", "title": "Cuentas, Acceso y Apelaciones", "icon": "🔐", "scope": "ambos" },
+    {
+      "id": "04",
+      "file": "04-construcciones.mdx",
+      "title": "Construcciones y Espacio",
+      "icon": "🏗️",
+      "scope": "juego"
+    },
+    { "id": "05", "file": "05-juego-limpio.mdx", "title": "Juego Limpio", "icon": "⚔️", "scope": "juego" },
+    { "id": "06", "file": "06-rendimiento.mdx", "title": "Rendimiento y Entidades", "icon": "⚙️", "scope": "juego" },
+    {
+      "id": "07",
+      "file": "07-bromas-arte.mdx",
+      "title": "Bromas y Contenido Artístico",
+      "icon": "🎨",
+      "scope": "juego"
+    },
+    { "id": "08", "file": "08-comercio.mdx", "title": "Comercio y Estafas", "icon": "💰", "scope": "ambos" },
+    { "id": "09", "file": "09-staff.mdx", "title": "Staff y Sanciones", "icon": "🛡️", "scope": "ambos" },
+    { "id": "10", "file": "10-actualizaciones.mdx", "title": "Actualizaciones", "icon": "🔄", "scope": "juego" },
+    { "id": "11", "file": "11-sentido-comun.mdx", "title": "Sentido Común", "icon": "🧠", "scope": "ambos" },
+    { "id": "12", "file": "12-eventos.mdx", "title": "Eventos", "icon": "🎉", "scope": "ambos" },
+    { "id": "13", "file": "13-inactividad.mdx", "title": "Jugadores Inactivos", "icon": "💤", "scope": "juego" }
+  ],
+  "footer": {
+    "updated": "Agosto 2026",
+    "disclaimer": "Estas normas pueden cambiar sin previo aviso.",
+    "contactText": "¿Dudas? Abre un ticket en",
+    "contactLabel": "Discord"
+  }
+}
