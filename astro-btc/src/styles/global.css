@@ -11,119 +11,72 @@
 
 /* --- TEMA OSCURO (Sin negro puro, adiós fatiga visual) --- */
 :root {
-  --bg-app: #171615;
-  --bg-section: #1c1b1a;
-  --bg-alternate: #22201e;
-  --bg-card: #242220;
-  --bg-card-hover: #2c2926;
+  --bg-app: #0d0d0d; /* Negro suave */
+  --bg-section: #111111; /* Gris muy oscuro */
+  --bg-alternate: #161616; /* Gris carbón */
+  --bg-card: #1a1a1a; /* Pizarra negro */
+  --bg-card-hover: #222222;
 
-  --text-main: #f4f4f5;
-  --text-muted: #a1a1aa;
-  --text-accent: #ea580c;
+  --text-main: #f0f0f0; /* Blanco suave */
+  --text-muted: #888888; /* Gris medio */
+  --text-accent: #ea580c; /* Naranja BTC */
   --text-highlight: #f59e0b;
 
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-accent: rgba(234, 88, 12, 0.3);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-accent: rgba(234, 88, 12, 0.4);
 
-  --shadow-soft: 0 20px 50px rgba(0, 0, 0, 0.6);
+  --shadow-soft: 0 25px 60px rgba(0, 0, 0, 0.7);
   --img-overlay: rgba(234, 88, 12, 0.12);
-
-  --grad-1: #2d2e3d;
-  --grad-2: #2546a9;
-  --grad-3: #5865f2;
-
-  --grad-mod-1: #22c55e;
-  --grad-mod-2: #262626;
-  --grad-mod-3: #4ade80;
-  --grad-mod-text: #ffffff;
-  --text-modrinth: #22c55e;
-
-  --grad-surv-1: #381005;
-  --grad-surv-2: #c2410c;
-  --grad-surv-3: #ea580c;
-
-  --grad-text: #ffffff;
 
   color-scheme: dark;
 }
 
 /* --- TEMA OSCURO (Azul Profundo/Cian de Qwen) --- */
 html[data-theme='dark'] {
-  --bg-app: #0a1220;
-  --bg-section: #0d1626;
-  --bg-alternate: #101c30;
-  --bg-card: #13233c;
-  --bg-card-hover: #1c2c44;
+  --bg-app: #1a1f2e; /* Azul noche profundo */
+  --bg-section: #1e2538; /* Azul petróleo */
+  --bg-alternate: #252d42; /* Azul grisáceo */
+  --bg-card: #232b3d; /* Pizarra oscuro */
+  --bg-card-hover: #2a3347;
 
-  --text-main: #eaf2fb;
-  --text-muted: #9fb3cc;
+  --text-main: #e8e6e3; /* Blanco hueso */
+  --text-muted: #9ca3af; /* Gris medio */
+  --text-accent: #ea580c; /* Naranja BTC */
+  --text-highlight: #f59e0b;
 
-  --text-accent: #f97316;
-  --text-highlight: #6fe8f2;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-accent: rgba(234, 88, 12, 0.35);
 
-  --border-subtle: #1c2c44;
-  --border-accent: rgba(111, 232, 242, 0.4);
-
-  --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.45);
+  --shadow-soft: 0 20px 50px rgba(0, 0, 0, 0.5);
   --img-overlay: rgba(10, 18, 32, 0.6);
 
-  --grad-1: #0a1220;
-  --grad-2: #13233c;
-  --grad-3: #6fe8f2;
-
-  --grad-mod-1: #22c55e;
-  --grad-mod-2: #101c30;
-  --grad-mod-3: #4ade80;
-  --grad-mod-text: #ffffff;
-  --text-modrinth: #22c55e;
-
-  --grad-surv-1: #ff8a1e;
-  --grad-surv-2: #ffd23f;
-  --grad-surv-3: #f97316;
-
-  --grad-text: #eaf2fb;
-  --scroll-track: #0a1220;
-  --scroll-thumb: #1c2c44;
   color-scheme: dark;
 }
 
 /* --- TEMA CLARO (Hielo/Cian Claro Tech) --- */
 html[data-theme='light'] {
-  --bg-app: #e0f2f5;
-  --bg-section: #edf7f9;
-  --bg-alternate: #d3ecf0;
-  --bg-card: #f4fafb;
-  --bg-card-hover: #dcf0f3;
+  --bg-app: #f0f5f9; /* Azul hielo muy suave (fondo principal) */
+  --bg-section: #e2eaf2; /* Azul grisáceo claro (secciones) */
+  --bg-alternate: #d4e0ed; /* Azul medio para tarjetas alternas */
+  --bg-card: #ffffff; /* Blanco puro (tarjetas) */
+  --bg-card-hover: #f8fbff; /* Blanco con tinte azul al pasar el mouse */
 
-  --text-main: #0a1220;
-  --text-muted: #3a506b;
+  --text-main: #1e293b; /* Slate 800 (azul oscuro, mucho mejor que negro) */
+  --text-muted: #64748b; /* Slate 500 (gris azulado para texto secundario) */
 
-  --text-accent: #f97316;
-  --text-highlight: #ff8a1e;
+  /* OPCIÓN A: Mantener tu marca Naranja sobre el fondo azul (Recomendado, contraste excelente) */
+  --text-accent: #ea580c;
+  --text-highlight: #f59e0b;
 
-  --border-subtle: rgba(17, 142, 155, 0.15);
-  --border-accent: rgba(249, 115, 22, 0.35);
+  /* OPCIÓN B: Si quieres que el tema claro sea 100% azul estilo ModernBeta, descomenta la línea de abajo y comenta la de arriba: */
+  /* --text-accent: #2563eb;  /* Azul Royal ModernBeta */
 
-  --shadow-soft: 0 15px 40px rgba(10, 18, 32, 0.08);
-  --img-overlay: rgba(111, 232, 242, 0.25);
+  --border-subtle: rgba(30, 41, 59, 0.1);
+  --border-accent: rgba(234, 88, 12, 0.25); /* O rgba(37, 99, 235, 0.3) si usas la Opción B */
 
-  --grad-1: #d3ecf0;
-  --grad-2: #a5f3f9;
-  --grad-3: #6fe8f2;
+  --shadow-soft: 0 10px 30px rgba(30, 41, 59, 0.08);
+  --img-overlay: rgba(30, 41, 59, 0.05);
 
-  --grad-mod-1: #dcfce7;
-  --grad-mod-2: #bbf7d0;
-  --grad-mod-3: #86efac;
-  --grad-mod-text: #14532d;
-  --text-modrinth: #16a34a;
-
-  --grad-surv-1: #ffedd5;
-  --grad-surv-2: #ffd23f;
-  --grad-surv-3: #f97316;
-
-  --grad-text: #0a1220;
-  --scroll-track: #d3ecf0;
-  --scroll-thumb: #a5f3f9;
   color-scheme: light;
 }
 
