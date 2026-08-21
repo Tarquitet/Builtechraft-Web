@@ -1,189 +1,199 @@
 ---
 // src/components/wiki/Staff.astro
+// Estilo LiberCraft SIN modal: la bio y redes van directo bajo la foto.
+// Data-driven desde Google Sheets (getStaffData). Sin backdrop-blur = sin lag.
 ---
 
-<style>
-    /* Soporte para variables dinámicas inyectadas por JS */
-    .staff-card:hover h4 { color: var(--dynamic-color) !important; }
-    .staff-card:hover .avatar-container { 
-        border-color: var(--dynamic-color) !important;
-        box-shadow: 0 10px 30px -10px var(--dynamic-color) !important;
-    }
-    .social-btn:hover { 
-        border-color: var(--dynamic-color) !important;
-        background-color: var(--dynamic-bg) !important; 
-    }
-</style>
-
 <section id="staff" class="py-24 relative overflow-hidden border-y border-theme bg-theme-section min-h-[750px]">
-    <div class="container mx-auto px-6 max-w-5xl">
-        <h2 class="text-4xl md:text-5xl font-display font-bold text-center mb-16 uppercase text-theme-main tracking-tight">
-            Nuestro <span class="text-btc-orange">Equipo</span>
-        </h2>
+  <div class="container mx-auto px-6 max-w-5xl">
+    <h2 class="text-4xl md:text-5xl font-display font-bold text-center mb-4 uppercase text-theme-main tracking-tight">
+      Nuestro <span class="text-btc-orange">Equipo</span>
+    </h2>
+    <p class="text-theme-muted text-center text-sm md:text-base mb-16 max-w-2xl mx-auto">
+      Gracias a estas damas y caballeros en ayudarnos en distintas áreas de este proyecto.
+    </p>
 
-        <div id="loading-staff" class="flex flex-col justify-center items-center py-10 text-theme-muted gap-3">
-            <span class="text-4xl animate-bounce">👑</span>
-            <span class="animate-pulse font-bold tracking-widest uppercase text-sm">Cargando equipo...</span>
-        </div>
-
-        <div id="staff-container" class="hidden flex-col gap-12 min-h-[450px]">
-            <div id="staff-rows" class="flex flex-col gap-16"></div>
-        </div>
+    <div id="loading-staff" class="flex flex-col justify-center items-center py-10 text-theme-muted gap-3">
+      <span class="text-4xl animate-bounce">👑</span>
+      <span class="animate-pulse font-bold tracking-widest uppercase text-sm">Cargando equipo...</span>
     </div>
+
+    <div id="staff-container" class="hidden flex-col gap-16 min-h-[450px]">
+      <div id="staff-rows" class="flex flex-col gap-16"></div>
+    </div>
+  </div>
 </section>
 
-<div id="staff-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 opacity-0 pointer-events-none transition-opacity duration-300 bg-black/80 backdrop-blur-md">
-    <div id="staff-detail-card" class="bg-theme-card border-theme-1  p-8 max-w-3xl w-full shadow-2xl flex flex-col sm:flex-row items-center gap-8 relative transform scale-95 transition-transform duration-300">
-        
-        <button id="close-detail-btn" class="absolute top-4 right-4 text-theme-muted hover:text-theme-main p-2 text-xs font-bold uppercase tracking-widest cursor-pointer">
-            ✕ Cerrar
-        </button>
-        
-        <div class="w-32 h-32 sm:w-48 sm:h-48  overflow-hidden shrink-0 bg-theme-alternate border-theme-1 shadow-inner">
-            <img id="detail-avatar" src="" alt="" class="w-full h-full object-cover" />
-        </div>
-        
-        <div class="flex flex-col text-center sm:text-left flex-grow w-full">
-            <h3 id="detail-name" class="text-3xl font-bold text-theme-main uppercase mb-1">Nombre</h3>
-            <span id="detail-role" class="text-xs font-bold uppercase tracking-widest mb-4">Rol</span>
-            <p id="detail-bio" class="text-theme-muted text-sm leading-relaxed mb-6">Biografía...</p>
-            <div id="detail-socials" class="flex flex-wrap justify-center sm:justify-start gap-3 mt-auto"></div>
-        </div>
+<style is:global>
+  /* ===== GRUPOS POR ROL ===== */
+  .staff-group { display: flex; flex-direction: column; align-items: center; gap: .75rem; }
+  .sg-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+  }
+  .sg-desc { color: var(--text-muted); font-size: .85rem; text-align: center; max-width: 480px; }
+  .sg-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
 
-    </div>
-</div>
+  /* ===== TARJETA ESTILO LIBERCRAFT (SIN MODAL) ===== */
+  .staff-card {
+    width: 240px;
+    background: var(--bg-card);
+    border: 3px solid var(--c, #71717a);
+    border-radius: 14px;
+    padding: 1.5rem 1.25rem;
+    text-align: center;
+    transition: transform .25s, box-shadow .25s;
+    box-shadow: 0 6px 18px -8px rgb(0 0 0 / .5);
+    display: flex;
+    flex-direction: column;
+  }
+  .staff-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px -12px var(--c, #71717a);
+  }
+  .sc-avatar {
+    width: 6.5rem;
+    height: 6.5rem;
+    margin: 0 auto 1rem;
+    overflow: hidden;
+    border-radius: 10px;
+    background: var(--bg-section);
+    flex-shrink: 0;
+  }
+  .sc-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    image-rendering: pixelated;
+  }
+  .sc-name {
+    color: var(--c, #71717a);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    font-size: 1rem;
+  }
+  .sc-meta { display: block; color: var(--text-muted); font-size: .72rem; margin-top: .35rem; }
+  .sc-quote { color: var(--text-muted); font-size: .78rem; line-height: 1.5; margin-top: .75rem; }
+  .sc-bio {
+    color: var(--text-muted);
+    font-size: .76rem;
+    line-height: 1.55;
+    margin-top: .85rem;
+    padding-top: .85rem;
+    border-top: 1px solid var(--border-subtle);
+    text-align: left;
+  }
+  .sc-socials {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .4rem;
+    margin-top: .9rem;
+  }
+  .sc-socials a {
+    font-size: .6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    padding: .3rem .55rem;
+    color: var(--text-muted);
+    border: 1px solid var(--border-subtle);
+    transition: color .2s, border-color .2s;
+  }
+  .sc-socials a:hover {
+    color: var(--c, #71717a);
+    border-color: var(--c, #71717a);
+  }
+</style>
 
 <script>
 import { getStaffData } from '../../utils/sheetsClient.js';
 import links from '../../data/links.json';
+
 document.addEventListener('DOMContentLoaded', async () => {
-    const loadingEl = document.getElementById('loading-staff') as HTMLElement;
-    const container = document.getElementById('staff-container') as HTMLElement;
-    const rowsWrapper = document.getElementById('staff-rows') as HTMLElement;
-    
-    // Elementos del Modal
-    const modal = document.getElementById('staff-modal') as HTMLElement;
-    const detailCard = document.getElementById('staff-detail-card') as HTMLElement;
-    const closeBtn = document.getElementById('close-detail-btn') as HTMLElement;
+  const loadingEl = document.getElementById('loading-staff') as HTMLElement;
+  const container = document.getElementById('staff-container') as HTMLElement;
+  const rowsWrapper = document.getElementById('staff-rows') as HTMLElement;
 
-    const defaultAvatar = links.assets.defaultAvatar;
+  const defaultAvatar = links.assets.defaultAvatar;
 
-    try {
-        const staffMembers = await getStaffData();
+  const ROLE_DESC: Record<string, string> = {
+    'Fundador': 'Quien inició todo el proyecto. Dirección técnica y creativa del servidor.',
+    'Admin': 'Administradores con acceso a los sistemas principales del servidor.',
+    'Moderador': 'Cuidan la comunidad y ayudan con los problemas del día a día.',
+  };
 
-        if (staffMembers && staffMembers.length > 0 && rowsWrapper) {
-            
-            // 1. Agrupar dinámicamente
-            const groupedStaff: Record<string, { members: any[], color: string }> = {};
-            
-            staffMembers.forEach((member: any) => {
-                const rol = member.Rol?.trim() || 'Staff';
-                const color = member.Color?.trim() || '#71717a';
-                if (!groupedStaff[rol]) {
-                    groupedStaff[rol] = { members: [], color: color };
-                }
-                groupedStaff[rol].members.push(member);
-            });
+  try {
+    const staffMembers = await getStaffData();
 
-            // 2. Generar el HTML
-            let htmlOutput = '';
-            for (const [rol, data] of Object.entries(groupedStaff)) {
-                htmlOutput += `
-                    <div class="flex flex-col items-center gap-6">
-                        <span class="text-xs font-bold uppercase tracking-[0.2em] px-5 py-2  border bg-theme-card shadow-sm" style="color: ${data.color}; border-color: ${data.color}40;">
-                            ${rol}
-                        </span>
-                        <div class="flex flex-wrap justify-center gap-8 sm:gap-12">
-                `;
-                data.members.forEach((member: any) => {
-                    const avatarUrl = member.Avatar?.trim() ? member.Avatar.trim() : defaultAvatar;
-                    
-                    htmlOutput += `
-                        <button class="staff-card group flex flex-col items-center gap-4 cursor-pointer transition-transform duration-300 hover:-translate-y-2 focus:outline-none" style="--dynamic-color: ${data.color};" data-member='${JSON.stringify(member).replace(/'/g, "&#39;")}'>
-                            <div class="avatar-container w-28 h-28 sm:w-36 sm:h-36  overflow-hidden border-theme-2 transition-all duration-300 bg-theme-alternate">
-                                <img src="${avatarUrl}" alt="${member.Nombre}" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300" loading="lazy" onerror="this.onerror=null; this.src='${defaultAvatar}';" />
-                            </div>
-                            <h4 class="text-theme-main font-bold text-sm uppercase tracking-wider transition-colors duration-300">${member.Nombre}</h4>
-                        </button>
-                    `;
-                });
+    if (staffMembers && staffMembers.length > 0 && rowsWrapper) {
 
-                htmlOutput += `</div></div>`;
+      const grouped: Record<string, { color: string; members: any[] }> = {};
+      staffMembers.forEach((m: any) => {
+        const rol = (m.Rol || 'Staff').trim();
+        const color = (m.Color || '#71717a').trim();
+        if (!grouped[rol]) grouped[rol] = { color, members: [] };
+        grouped[rol].members.push(m);
+      });
+
+      let html = '';
+      for (const [rol, data] of Object.entries(grouped)) {
+        html += `
+          <div class="staff-group">
+            <h3 class="sg-title" style="color: ${data.color};">${rol}</h3>
+            ${ROLE_DESC[rol] ? `<p class="sg-desc">${ROLE_DESC[rol]}</p>` : ''}
+            <div class="sg-cards">
+        `;
+
+        for (const m of data.members) {
+          const avatar = (m.Avatar || '').trim() || defaultAvatar;
+          const meta = [m.Clan, m.Pronombres].filter((v: string) => v && v.trim()).join(' · ');
+
+          // Redes sociales (solo las que tengan URL)
+          let socialsHtml = '';
+          ['Twitch', 'Youtube', 'Github', 'Twitter', 'Instagram'].forEach((red) => {
+            if (m[red] && m[red].trim() !== '') {
+              socialsHtml += `<a href="${m[red].trim()}" target="_blank" rel="noopener noreferrer">${red}</a>`;
             }
+          });
 
-            rowsWrapper.innerHTML = htmlOutput;
-            if (loadingEl) loadingEl.style.display = 'none';
-            if (container) {
-                container.classList.remove('hidden');
-                container.classList.add('flex');
-            }
-
-            // 3. Funciones del Modal
-            const openModal = () => {
-                modal.classList.remove('opacity-0', 'pointer-events-none');
-                detailCard.classList.remove('scale-95');
-                detailCard.classList.add('scale-100');
-                document.body.style.overflow = 'hidden';
-            };
-            const closeModal = () => {
-                modal.classList.add('opacity-0', 'pointer-events-none');
-                detailCard.classList.remove('scale-100');
-                detailCard.classList.add('scale-95');
-                document.body.style.overflow = '';
-            };
-
-            // 4. Asignar datos al Modal al hacer clic
-            const buttons = document.querySelectorAll('.staff-card');
-            buttons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const memberData = JSON.parse(btn.getAttribute('data-member') || '{}');
-                    const memberColor = memberData.Color?.trim() || '#71717a';
-                    
-                    const imgEl = document.getElementById('detail-avatar') as HTMLImageElement;
-                    if (imgEl) imgEl.src = memberData.Avatar?.trim() ? memberData.Avatar.trim() : defaultAvatar;
-                    
-                    const nameEl = document.getElementById('detail-name');
-                    if (nameEl) nameEl.textContent = memberData.Nombre;
-
-                    const roleEl = document.getElementById('detail-role');
-                    if (roleEl) {
-                        roleEl.textContent = memberData.Rol || 'Staff';
-                        roleEl.style.color = memberColor;
-                    }
-
-                    const bioEl = document.getElementById('detail-bio');
-                    if (bioEl) bioEl.textContent = memberData.Bio || 'Sin biografía disponible.';
-
-                    const socialsEl = document.getElementById('detail-socials');
-                    if (socialsEl) {
-                        socialsEl.innerHTML = '';
-                        ['Twitch', 'Youtube', 'Github', 'Twitter', 'Instagram'].forEach(red => {
-                            if (memberData[red] && memberData[red].trim() !== '') {
-                                        socialsEl.innerHTML += `
-                                    <a href="${memberData[red]}" target="_blank" rel="noopener noreferrer" class="social-btn px-5 py-2.5 bg-theme-alternate border-theme-1  text-[10px] font-bold uppercase tracking-widest text-theme-muted hover:text-theme-main transition-all duration-300" style="--dynamic-color: ${memberColor}; --dynamic-bg: ${memberColor}20;">
-                                        ${red}
-                                    </a>`;
-                            }
-                        });
-                    }
-
-                    openModal();
-                });
-            });
-
-            if (closeBtn) closeBtn.addEventListener('click', closeModal);
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) closeModal();
-            });
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && !modal.classList.contains('opacity-0')) {
-                    closeModal();
-                }
-            });
+          html += `
+            <div class="staff-card" style="--c: ${data.color};">
+              <div class="sc-avatar">
+                <img src="${avatar}" alt="${m.Nombre}" loading="lazy" onerror="this.onerror=null;this.src='${defaultAvatar}';" />
+              </div>
+              <h4 class="sc-name">${m.Nombre}</h4>
+              ${meta ? `<span class="sc-meta">${meta}</span>` : ''}
+              ${m.Frase ? `<p class="sc-quote">"${m.Frase}"</p>` : ''}
+              ${m.Bio ? `<p class="sc-bio">${m.Bio}</p>` : ''}
+              ${socialsHtml ? `<div class="sc-socials">${socialsHtml}</div>` : ''}
+            </div>
+          `;
         }
-    } catch (error) {
-        console.error("Error cargando staff:", error);
-        if (loadingEl) loadingEl.innerHTML = "<span class='text-red-500 font-bold'>Error al conectar con la API de Staff.</span>";
+
+        html += `</div></div>`;
+      }
+
+      rowsWrapper.innerHTML = html;
+      if (loadingEl) loadingEl.style.display = 'none';
+      if (container) {
+        container.classList.remove('hidden');
+        container.classList.add('flex');
+      }
     }
+  } catch (error) {
+    console.error('Error cargando staff:', error);
+    if (loadingEl) loadingEl.innerHTML = "<span class='text-red-500 font-bold'>Error al conectar con la API de Staff.</span>";
+  }
 });
 </script>
