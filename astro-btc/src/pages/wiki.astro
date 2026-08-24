@@ -1,102 +1,47 @@
 ---
-// src/pages/wiki.astro
 import Layout from '../layouts/Layout.astro';
 import DiscordBanner from '../components/discord/DiscordBanner.astro';
-import links from '../data/links.json';
-import categoriesConfig from '../data/wikiCategories.json';
 
-const getLink = (key: string | undefined | null): string => {
-  if (!key) return '#';
-  const l = links as any;
-  const find = (obj: any): string | null => {
-    for (const [k, v] of Object.entries(obj)) {
-      if (k === key && typeof v === 'string') return v;
-      if (typeof v === 'object' && v !== null) {
-        const r = find(v);
-        if (r) return r;
-      }
-    }
-    return null;
+// Lee TODOS los intro.mdx que estén dentro de una carpeta de primer nivel en wiki/
+// Ejemplo de ruta detectada: './wiki/gameplay/intro.mdx'
+const categoryModules = import.meta.glob('./wiki/*/intro.mdx', { eager: true }) as any;
+
+const categories = Object.entries(categoryModules).map(([path, mod]: [string, any]) => {
+  const fm = mod.frontmatter ?? {};
+  // Extrae el nombre de la carpeta: './wiki/gameplay/intro.mdx' -> 'gameplay'
+  const slug = path.split('/')[2]; 
+  return {
+    slug,
+    title: fm.title || slug,
+    description: fm.description || 'Explora los artículos de esta categoría.',
+    icon: fm.icon || '📂',
+    color: fm.color || 'text-btc-orange',
+    border: fm.border || 'hover:border-btc-orange',
+    order: fm.order ?? 99,
+    url: `/wiki/${slug}`
   };
-  return find(l) || '#';
-};
-
-// Artículos MDX (la metadata vive en el frontmatter de cada archivo)
-const modules = import.meta.glob('./wiki/**/*.mdx', { eager: true });
-const mdxArticles = Object.entries(modules)
-  .map(([path, mod]: [string, any]) => {
-    const fm = mod.frontmatter ?? {};
-    // path es algo como './wiki/intro.mdx'
-    const slug = path.replace(/^\.\/wiki\/(.+)\.mdx$/, '$1');
-    return {
-      ...fm,
-      url: `/wiki/${slug}`,
-      slug,
-    };
-  })
-  .filter((fm: any) => fm.title && fm.draft !== true);
-
-const sortByOrder = (arr: any[]) => arr.sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
-
-// Genera secciones dinámicamente desde el JSON de categorías
-const sections = categoriesConfig.categories
-  .sort((a, b) => a.order - b.order)
-  .map((cat) => ({
-    id: cat.key,
-    icon: cat.icon,
-    title: cat.title,
-    desc: cat.description,
-    items: sortByOrder(mdxArticles.filter((a: any) => (a.category ?? 'empezar') === cat.key)),
-  }))
-  .filter((s) => s.items.length > 0);
+}).sort((a, b) => a.order - b.order);
 ---
 
-<Layout title="Wiki | Builtechcraft" description="Guías, tutoriales y documentación del servidor Builtechcraft.">
+<Layout title="Wiki | Builtechraft" description="Guías, tutoriales y documentación del servidor Builtechraft.">
   <main class="pt-32 pb-24 min-h-screen bg-theme-section">
     <div class="container mx-auto px-6 max-w-6xl">
-
       <div class="text-center mb-16">
         <span class="comparative-badge">Biblioteca</span>
-        <h1 class="category-title mt-4">
-          Artículos de la <span class="text-btc-orange">Wiki</span>
-        </h1>
-        <p class="category-subtitle">
-          Elige qué quieres leer: comparativas técnicas, guías de instalación, mecánicas del servidor y más.
-        </p>
+        <h1 class="category-title mt-4">Artículos de la <span class="text-btc-orange">Wiki</span></h1>
+        <p class="category-subtitle">Elige una categoría para explorar guías, tutoriales y documentación.</p>
       </div>
 
-      {sections.map((section) => (
-        <section id={section.id} class="mb-16 scroll-mt-28">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="text-2xl">{section.icon}</span>
-            <h2 class="text-2xl font-display font-bold uppercase tracking-tight text-theme-main">
-              {section.title}
-            </h2>
-          </div>
-          <p class="text-theme-muted text-sm mb-6">{section.desc}</p>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {section.items.map((article: any) => (
-              <a
-                href={article.url ?? getLink(article.linkKey)}
-                class={`card-retro ${article.border ?? 'hover:border-btc-orange'} group relative`}
-              >
-                {article.tag && (
-                  <span class="badge-retro absolute top-4 right-4 text-btc-orange border-btc-orange/40">
-                    {article.tag}
-                  </span>
-                )}
-                <span class="text-4xl mb-4 block">{article.icon ?? '📄'}</span>
-                <h3 class={`text-lg font-display font-bold uppercase tracking-tight mb-2 ${article.color ?? 'text-btc-orange'} group-hover:underline`}>
-                  {article.title}
-                </h3>
-                <p class="text-theme-muted text-sm leading-relaxed">{article.description}</p>
-              </a>
-            ))}
-          </div>
-        </section>
-      ))}
-
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {categories.map((cat) => (
+          <a href={cat.url} class={`card-retro ${cat.border} group relative p-8 flex flex-col gap-4`}>
+            <span class="text-5xl mb-2 block">{cat.icon}</span>
+            <h2 class={`text-2xl font-display font-bold uppercase tracking-tight ${cat.color}`}>{cat.title}</h2>
+            <p class="text-theme-muted text-sm leading-relaxed flex-grow">{cat.description}</p>
+            <span class="text-xs font-bold uppercase tracking-widest text-btc-orange group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">Explorar categoría <span>→</span></span>
+          </a>
+        ))}
+      </div>
     </div>
   </main>
   <DiscordBanner />

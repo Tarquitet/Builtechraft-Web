@@ -1,0 +1,207 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Launchers e instalación'
+description: 'Instala el modpack paso a paso según tu tipo de cuenta: Premium o No-Premium.'
+author: 'Tarquitet'
+pubDate: '2026-08-03'
+updated: '2026-08-19'
+category: 'empezar'
+icon: '🚀'
+color: 'text-blue-400'
+border: 'hover:border-blue-500'
+order: 2
+---
+
+import links from '@/data/links.json';
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiTabs from '@/components/wiki/WikiTabs.astro';
+import WikiTab from '@/components/wiki/WikiTab.astro';
+import WikiSteps from '@/components/wiki/WikiSteps.astro';
+import WikiTable from '@/components/wiki/WikiTable.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+Un launcher inicia Minecraft y organiza tus instancias. Elige la guía según tu tipo de cuenta.
+
+<WikiCallout type="warn" title="Solo desde fuentes oficiales">
+
+Usa siempre el sitio oficial del launcher. No descargues instaladores desde anuncios o enlaces desconocidos.
+
+</WikiCallout>
+
+## ¿Qué launcher usar?
+
+<WikiTable
+  headers={['Tipo de cuenta', 'Launcher recomendado', 'Por qué']}
+  rows={[
+    ['Premium (Microsoft)', { text: 'Prism Launcher', tone: 'good' }, 'Ligero, open source, compatible con Modrinth'],
+    [
+      'No-Premium (Ely.by)',
+      { text: 'ElyPrism Launcher', tone: 'good' },
+      'Fork de Prism con soporte nativo para Ely.by',
+    ],
+    ['Cualquiera', { text: 'TLauncher', tone: 'bad' }, 'Código cerrado, sin soporte Ely.by, conflictos con skins'],
+  ]}
+/>
+
+## Guía de instalación
+
+<WikiTabs>
+
+<WikiTab label="Premium (Prism Launcher)">
+
+### 1. Descarga Prism Launcher
+
+<WikiSteps
+  steps={[
+    { title: 'Ve al sitio oficial', text: 'Entra a prismlauncher.org y descarga el instalador.' },
+    { title: 'Completa la instalación', text: 'Abre el instalador y sigue los pasos.' },
+    { title: 'Abre el launcher', text: 'Una vez instalado, ábrelo para configurarlo.' },
+  ]}
+/>
+
+### 2. Añade tu cuenta Microsoft
+
+<WikiSteps
+  steps={[
+    { title: 'Ve a Cuentas', text: 'En la esquina superior derecha, haz clic en Cuentas.' },
+    { title: 'Selecciona Añadir cuenta Microsoft', text: 'Completa el inicio de sesión en la ventana del navegador.' },
+    { title: 'Verifica', text: 'Una vez logueado, verás tu nombre de usuario en el launcher.' },
+  ]}
+/>
+
+### 3. Crea una instancia
+
+<WikiSteps
+  steps={[
+    { title: 'Haz clic en Añadir instancia', text: 'Botón en la barra superior.' },
+    { title: 'Elige la versión', text: 'Selecciona la versión nativa actual del servidor (verifica en Discord).' },
+    { title: 'Selecciona Fabric', text: 'Como cargador de mods, elige Fabric y la versión recomendada.' },
+    { title: 'Importa el modpack', text: 'Puedes importar el modpack oficial desde Modrinth (opcional).' },
+  ]}
+/>
+
+<WikiCallout type="info" title="Alternativa">
+
+XMCL también admite cuentas Microsoft. El launcher oficial de Minecraft funciona pero es más lento y ofrece menos control.
+
+</WikiCallout>
+
+</WikiTab>
+
+<WikiTab label="No-Premium (ElyPrism)">
+
+### 1. Descarga ElyPrism Launcher
+
+<WikiSteps
+  steps={[
+    { title: 'Busca ElyPrism Launcher', text: 'Entra a su página oficial.' },
+    {
+      title: 'Descarga el instalador',
+      text: 'Haz clic en Download y descarga el archivo para Windows (ej: ElyPrismLauncher-Windows-MSVC-Setup.exe).',
+    },
+    {
+      title: 'Abre el instalador',
+      text: 'Si Windows dice que protegió tu PC, haz clic en Más información → Ejecutar de todas formas.',
+    },
+    {
+      title: 'Marca las casillas importantes',
+      text: 'Deja marcadas las casillas de accesos directos y Visual Studio Runtime.',
+    },
+    { title: 'Instala', text: 'Haz clic en Siguiente e Instalar.' },
+  ]}
+/>
+
+<WikiCallout type="ok" title="Es seguro">
+
+ElyPrism es de código abierto y completamente seguro. La pantalla azul de Windows es normal.
+
+</WikiCallout>
+
+### 2. Vincula tu cuenta Ely.by
+
+<WikiSteps
+  steps={[
+    { title: 'Abre ElyPrism Launcher', text: 'Una vez instalado, ábrelo.' },
+    { title: 'Ve a Cuentas', text: 'En la esquina superior derecha.' },
+    { title: 'Selecciona Añadir cuenta Ely.by', text: 'Inicia sesión con las credenciales de tu cuenta de Ely.by.' },
+    { title: 'Verifica', text: 'Una vez logueado, verás tu nombre de usuario y la cara de tu skin.' },
+  ]}
+/>
+
+<WikiCallout type="info" title="¿No tienes cuenta Ely.by?">
+
+Crea una en ely.by antes de continuar. Necesitas esta cuenta para que los demás vean tu skin.
+
+</WikiCallout>
+
+### 3. Crea una instancia
+
+<WikiSteps
+  steps={[
+    { title: 'Haz clic en Añadir Instancia', text: 'Botón en la barra superior.' },
+    { title: 'Elige la versión', text: 'Selecciona la versión de Minecraft (ej: 1.21.1 para Builtechraft).' },
+    {
+      title: 'Selecciona Fabric',
+      text: 'Como cargador de mods, elige Fabric y la versión recomendada (la que tiene estrellita).',
+    },
+    { title: 'Haz clic en OK', text: 'Tienes un Minecraft limpio instalado.' },
+  ]}
+/>
+
+### 4. Descarga mods desde el launcher
+
+<WikiSteps
+  steps={[
+    { title: 'Selecciona tu instancia', text: 'Haz clic en el botón Editar (a la derecha).' },
+    { title: 'Ve a la pestaña de Mods', text: 'Haz clic en Descargar Mods (arriba a la derecha).' },
+    { title: 'Busca en Modrinth', text: 'Te recomendamos usar la fuente de Modrinth (más rápida y segura).' },
+    {
+      title: 'Selecciona y confirma',
+      text: 'Escribe el nombre del mod, selecciónalo y haz clic en Revisar y Confirmar.',
+    },
+  ]}
+/>
+
+<WikiCallout type="info" title="Dependencias automáticas">
+
+El launcher detecta automáticamente si un mod necesita otros mods para funcionar y los descarga todos de golpe.
+
+</WikiCallout>
+
+</WikiTab>
+
+</WikiTabs>
+
+## Launchers no recomendados
+
+<WikiCallout type="danger" title="TLauncher">
+
+No recomendamos TLauncher bajo ninguna circunstancia:
+
+- Código cerrado con antecedentes de controversias de seguridad
+- No ofrece soporte para Ely.by
+- Puede causar conflictos con skins, cuentas y configuraciones del servidor
+
+Desinstálalo si lo utilizabas. Después, instala Prism Launcher o ElyPrism desde su fuente oficial.
+
+</WikiCallout>
+
+## Prácticas que debes evitar
+
+<WikiCallout type="warn" title="No hagas esto">
+
+- No descargues launchers desde enlaces acortados, anuncios, videos o repositorios desconocidos
+- No compartas la contraseña de tu cuenta Microsoft o Ely.by (el staff nunca te la pedirá)
+- No uses instaladores modificados o versiones que prometan ventajas
+
+</WikiCallout>
+
+## ¡A jugar!
+
+Una vez tengas tu launcher configurado y tus mods instalados, cierra la ventana de edición y haz clic en **Lanzar**. La primera vez puede tardar un poco porque el launcher configurará los archivos, pero en cuanto abra tendrás un Minecraft completamente funcional.
+
+<WikiCallout type="ok" title="Siguiente paso">
+
+Lee <WikiLink to="como-unirse">Cómo unirse al servidor</WikiLink> para agregar Builtechcraft a tu lista.
+
+</WikiCallout>

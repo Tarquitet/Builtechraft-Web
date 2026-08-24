@@ -1,0 +1,69 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'GM4 Bookshelf Inspector (Inspector de Librerías)'
+description: 'Revisa qué libros encantados hay dentro de una librería sin necesidad de romperla y arruinar tu decoración.'
+author: 'Tarquitet'
+pubDate: '2026-08-03'
+updated: '2026-08-19'
+icon: '📚'
+color: 'text-indigo-400'
+border: 'hover:border-indigo-500'
+order: 10
+tag: 'Modrinth'
+---
+
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+# GM4 Bookshelf Inspector
+
+¿Te ha pasado que tienes una pared entera de librerías en tu base donde guardas todos tus libros encantados, pero ya no recuerdas en cuál de las 50 librerías guardaste ese libro de _Reparación (Mending)_ o _Fortuna III_?
+
+En el Minecraft normal, la única forma de saberlo es romper la librería, sacar los libros y volver a ponerla. Un desastre para la decoración y una pérdida de tiempo enorme. El datapack **GM4 Bookshelf Inspector** soluciona esto de forma elegante.
+
+## 🛠️ Cómo usarlo
+
+Es tan simple que parece magia, pero no requiere ningún objeto especial ni comandos.
+
+1. Acércate a cualquier bloque de **Librería** (`bookshelf`) que tenga libros guardados dentro.
+2. Asegúrate de tener la **mano vacía** (o cualquier objeto que no sea para interactuar con otros bloques).
+3. Haz **Clic Derecho** sobre la librería.
+
+¡Listo! Se abrirá una interfaz (GUI) que te mostrará los 3 libros encantados que hay dentro de ese bloque específico.
+
+<WikiCallout type="info" title="💡 Tip de Organización">
+  Si usas este datapack, te recomendamos construir tu biblioteca ordenando los libros por tipo (ej. una sección para
+  encantamientos de armadura, otra para herramientas, otra para arcos). Así, cuando uses el Inspector, sabrás
+  exactamente en qué zona buscar.
+</WikiCallout>
+
+## 🏗️ Ventajas para Constructores y Coleccionistas
+
+### 1. Cero Destrucción
+
+Puedes revisar el contenido de tus librerías sin tener que romperlas. Esto mantiene intacta la estética de tu biblioteca, tu sala de encantamientos o tu muro de almacenamiento.
+
+### 2. Ahorro de Tiempo
+
+En lugar de romper y recraftear (o recolocar) librerías, encuentras el libro que necesitas en 2 segundos.
+
+### 3. Ideal para Servidores Multijugador
+
+Si compartes base con amigos, pueden dejar "notas" o libros escritos dentro de las librerías y usar el Inspector para leerlos sin sacarlos, funcionando como un buzón o panel de avisos decorativo.
+
+<WikiCallout type="warn" title="⚠️ Solo es para INSPECCIONAR">
+  Recuerda que este datapack es un **Inspector**. Te permite *ver* qué hay dentro, pero **no te permite sacar o meter
+  libros** desde esa interfaz. Para mover los libros, tendrás que romper la librería como siempre. Está diseñado para
+  consultar, no para manipular el inventario.
+</WikiCallout>
+
+## Casos de uso creativos
+
+- **Museos de Encantamientos:** Crea una exhibición donde cada librería muestre un libro encantado raro o único. Los visitantes podrán hacer clic derecho para ver qué es sin poder robarlo.
+- **Pistas y Acertijos:** Si estás construyendo un mapa de aventuras o una zona de puzzles en tu base, puedes esconder libros escritos con pistas dentro de librerías específicas.
+
+<WikiCallout type="ok" title="Siguiente">
+  ¿Quieres darle vida a tus construcciones con figuras detalladas? Lee{' '}
+  <WikiLink to="armor-statues-datapack">Armor Statues Datapack</WikiLink> para aprender a posar estatuas de armadura
+  como un profesional.
+</WikiCallout>

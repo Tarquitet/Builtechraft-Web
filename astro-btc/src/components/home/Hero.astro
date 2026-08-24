@@ -1,50 +1,99 @@
 ---
 // src/components/home/Hero.astro
-import heroActions from '../../data/heroActions.json';
 import links from '../../data/links.json';
-
-// Helper para buscar llaves dinámicas en la estructura anidada y devolver siempre un string
-const getLink = (key: string | undefined | null): string => {
-    if (!key) return '#';
-    const l = links as any;
-    if (typeof l[key] === 'string') return l[key];
-    for (const cat of Object.values(l)) {
-        if (typeof cat === 'object' && cat !== null && !Array.isArray(cat) && typeof (cat as any)[key] === 'string') {
-            return (cat as any)[key];
-        }
-    }
-    return '#';
-};
-
-const bgImage = `url('${links.assets.heroBackground}')`;
 ---
 
-<section id="inicio" class="hero-section">
-    <div class="hero-bg-image" style={{ backgroundImage: bgImage }}></div>
-    <div class="hero-overlay"></div>
-    
-    <div class="hero-content">
-        <img src={links.assets.logoText} alt="Builtechraft" class="hero-logo" />
-        
-        <p class="hero-description">
-            Un mundo privado de Minecraft sin reiniciarse desde su creación con el objetivo de reducir la dependencia de mods y plugins complejos mediante el uso de los datapacks y mecánicas del juego base.
-        </p>
+<section class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-theme-section">
+  
+  <!-- Fondo con imagen -->
+  <div class="absolute inset-0 bg-[url('/images/gallery/2_1.avif')] bg-cover bg-center"></div>
+  
+  <!-- Overlay dinámico usando la variable del tema (sin negro hardcodeado) -->
+  <div class="absolute inset-0 hero-overlay"></div>
 
-        <div class="flex flex-col sm:flex-row flex-wrap gap-4 justify-center items-center w-full">
-            {heroActions.map((action: any) => {
-                // Usamos el helper para obtener el string de forma segura
-                const url = getLink(action.keyLink) || action.href || '#';
-                return (
-                    <a 
-                        href={url} 
-                        target={action.isExternal ? "_blank" : "_self"}
-                        rel={action.isExternal ? "noopener noreferrer" : undefined}
-                        class={`btn-retro inline-flex justify-center items-center gap-3 btn-retro w-full sm:w-auto ${action.btnClass}`}
-                    >
-                        {action.label}
-                    </a>
-                );
-            })}
-        </div>
+  <!-- Contenido Principal: Filas alineadas -->
+  <div class="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 py-20 flex flex-col justify-center min-h-screen gap-0">
+    
+    <!-- Fila 1: B + BUILD -->
+    <div class="flex items-center justify-between w-full leading-none">
+      <span class="hero-letter text-[10rem] md:text-[14rem] lg:text-[18rem] font-brutal font-black text-accent tracking-tighter block animate-slide-up">
+        B
+      </span>
+      <span class="hero-word text-[10rem] md:text-[14rem] lg:text-[18rem] font-brutal font-black text-accent tracking-tighter block animate-slide-right text-right">
+        BUILD
+      </span>
     </div>
+
+    <!-- Fila 2: T + TECH -->
+    <div class="flex items-center justify-between w-full leading-none -mt-4 md:-mt-6 lg:-mt-8">
+      <span class="hero-letter text-[10rem] md:text-[14rem] lg:text-[18rem] font-brutal font-black text-muted tracking-tighter block animate-slide-up" style="animation-delay: 0.15s;">
+        T
+      </span>
+      <span class="hero-word text-[10rem] md:text-[14rem] lg:text-[18rem] font-brutal font-black text-muted tracking-tighter block animate-slide-right text-right" style="animation-delay: 0.15s;">
+        TECH
+      </span>
+    </div>
+
+    <!-- Fila 3: C + CRAFT -->
+    <div class="flex items-center justify-between w-full leading-none -mt-4 md:-mt-6 lg:-mt-8">
+      <span class="hero-letter text-[10rem] md:text-[14rem] lg:text-[18rem] font-brutal font-black text-main tracking-tighter block animate-slide-up" style="animation-delay: 0.3s;">
+        C
+      </span>
+      <span class="hero-word text-[10rem] md:text-[14rem] lg:text-[18rem] font-brutal font-black text-main tracking-tighter block animate-slide-right text-right" style="animation-delay: 0.3s;">
+        CRAFT
+      </span>
+    </div>
+
+  </div>
+
+  <!-- BOTÓN SCROLL: Cuadrado pequeño, esquina inferior derecha -->
+  <a 
+    href="#welcome" 
+    class="absolute bottom-8 right-8 z-20 w-14 h-14 flex items-center justify-center border border-white/30 bg-black/40 hover:bg-accent hover:border-accent transition-all duration-300 group animate-fade-in"
+    style="animation-delay: 0.8s;"
+    aria-label="Bajar"
+  >
+    <svg class="w-6 h-6 text-white group-hover:text-white animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+    </svg>
+  </a>
 </section>
+
+<style>
+  /* Fuente brutalista */
+  @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+  
+  .font-brutal {
+    font-family: 'Anton', sans-serif;
+    letter-spacing: -0.02em;
+  }
+
+  /* Overlay dinámico: usa el color de fondo del tema con 85% de opacidad */
+  .hero-overlay {
+    background: color-mix(in srgb, var(--bg-section) 85%, transparent);
+  }
+
+  /* Colores del tema */
+  .text-accent { color: var(--text-accent); }
+  .text-muted { color: var(--text-muted); }
+  .text-main { color: var(--text-main); }
+
+  @keyframes slide-up {
+    0% { opacity: 0; transform: translateY(80px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes slide-right {
+    0% { opacity: 0; transform: translateX(80px); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+  
+  @keyframes fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  .animate-slide-up { animation: slide-up 0.9s ease-out forwards; }
+  .animate-slide-right { animation: slide-right 0.9s ease-out forwards; }
+  .animate-fade-in { animation: fade-in 0.6s ease-out forwards; opacity: 0; }
+</style>

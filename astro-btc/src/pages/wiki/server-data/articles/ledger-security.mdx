@@ -1,0 +1,75 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Ledger (Sistema de Seguridad y Registro)'
+description: 'El guardián silencioso del servidor. Aprende cómo funciona el registro de acciones y qué hacer si te roban o griefean.'
+author: 'Tarquitet'
+pubDate: '2026-08-03'
+updated: '2026-08-19'
+icon: '️'
+color: 'text-rose-400'
+border: 'hover:border-rose-500'
+order: 12
+tag: 'Seguridad'
+---
+
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+# Ledger: El Guardián del Servidor
+
+**Ledger** es un mod de seguridad y registro que actúa como una cámara de vigilancia invisible y omnipresente en todo el servidor. Registra **absolutamente cada acción** que ocurre: colocar bloques, romper bloques, abrir cofres, mover objetos, matar entidades, etc.
+
+Su objetivo es simple: garantizar que tus construcciones y objetos estén seguros, y que cualquier acto de maldad pueda ser revertido y castigado.
+
+<WikiCallout type="warn" title="🚨 LA REGLA DE ORO: ¡NO TE VENGUES!">
+Si llegas a tu base y ves que te robaron o destruyeron algo:
+1. **NO toques nada** en la zona afectada (para no alterar las "huellas digitales").
+2. **NO busques al culpable** para hacer justicia por tu mano.
+3. **Abre un ticket en Discord** inmediatamente con las coordenadas.
+
+Tomar la justicia por tu mano está **estrictamente prohibido** y resultará en la misma sanción (o peor) que la del agresor original. Deja que el Staff use Ledger para resolverlo.
+
+</WikiCallout>
+
+## 🛠️ ¿Cómo funciona por dentro?
+
+Cada vez que interactúas con el mundo, Ledger guarda una "foto" de esa acción en su base de datos interna.
+
+- **Quién:** El nombre exacto del jugador.
+- **Qué:** El bloque roto, el objeto robado o la entidad matada.
+- **Cuándo:** La fecha y hora exacta (hasta el segundo).
+- **Dónde:** Las coordenadas X, Y, Z precisas.
+
+## ️ ¿Qué hace el Staff cuando abres un ticket?
+
+Cuando reportas un incidente, el equipo de administración utiliza los comandos de Ledger para investigar:
+
+1. **Inspección:** Revisamos el historial de la zona afectada para ver exactamente quién estuvo ahí y qué hizo.
+2. **Rollback (Reversión):** Si confirmamos el robo o el _griefing_, usamos Ledger para **deshacer las acciones del culpable**. Esto significa que los bloques rotos vuelven a su lugar y los objetos robados regresan a tu cofre (o al suelo) como si nada hubiera pasado.
+3. **Sanción:** El jugador responsable recibe la sanción correspondiente según las reglas del servidor (desde advertencias hasta baneo permanente).
+
+<WikiCallout type="info" title="💡 ¿Puedo usarlo yo?">
+  Los comandos de consulta de Ledger (como `/ledger` o `/lg`) están **restringidos exclusivamente al Staff**. Esto es
+  para evitar que los jugadores espíen las acciones de otros o saturen el servidor con consultas masivas. Si necesitas
+  saber algo, ¡abre un ticket!
+</WikiCallout>
+
+## ️ Intentar evadir el sistema
+
+Algunos jugadores creen que pueden ser más listos que el sistema. Intentar borrar el historial, usar exploits para engañar al mod, o coordinar robos para que no queden registros directos es **imposible** a largo plazo.
+
+<WikiCallout type="warn" title="Cero Tolerancia">
+  Cualquier intento de manipular, evadir o explotar bugs para evitar que Ledger registre tus acciones resultará en un
+  **BANEO PERMANENTE INMEDIATO**, sin derecho a apelación. El sistema es robusto y siempre deja rastro.
+</WikiCallout>
+
+## 🤝 Convivencia y Confianza
+
+Ledger está aquí para que puedas construir tu megaproyecto, guardar tus diamantes en un cofre de madera en medio del bosque, o dejar tus herramientas en tu granja lejana **sin miedo**.
+
+Confía en el sistema, respeta el trabajo de los demás y recuerda: en Builtechraft, la justicia es rápida, precisa y automática.
+
+<WikiCallout type="ok" title="¡Fin de la sección de Datapacks!">
+  Has llegado al final de la guía de mecánicas y datapacks del servidor. Si quieres volver al inicio de la Wiki para ver
+  otras categorías, haz clic en <WikiLink to="/wiki">Volver a la Wiki</WikiLink>.
+</WikiCallout>

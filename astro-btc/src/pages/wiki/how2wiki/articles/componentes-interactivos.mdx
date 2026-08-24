@@ -1,0 +1,84 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Tabs, pasos y spoilers'
+description: 'Componentes interactivos: WikiTabs, WikiSteps, WikiSpoiler.'
+author: 'Tarquitet'
+pubDate: '2026-08-13'
+category: 'staff'
+icon: '🎛️'
+color: 'text-cyan-400'
+border: 'hover:border-cyan-500'
+order: 13
+---
+
+import links from '@/data/links.json';
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiTabs from '@/components/wiki/WikiTabs.astro';
+import WikiTab from '@/components/wiki/WikiTab.astro';
+import WikiSteps from '@/components/wiki/WikiSteps.astro';
+import WikiSpoiler from '@/components/wiki/WikiSpoiler.astro';
+
+## WikiTabs + WikiTab
+
+<WikiTabs>
+
+<WikiTab label="Opción A">
+
+Contenido de la pestaña A.
+
+</WikiTab>
+
+<WikiTab label="Opción B">
+
+Contenido de la pestaña B.
+
+</WikiTab>
+
+</WikiTabs>
+
+```mdx
+<WikiTabs>
+
+<WikiTab label="Opción A">
+
+Markdown aquí.
+
+</WikiTab>
+
+</WikiTabs>
+```
+
+## WikiSteps
+
+<WikiSteps
+  steps={[
+    { title: 'Paso uno', text: 'Texto corto.' },
+    { title: 'Paso dos', text: 'Con imagen opcional:', image: '/images/gallery/2_3.avif' },
+  ]}
+/>
+
+```mdx
+<WikiSteps steps={[{ title: 'Paso', text: '...', image: '/img.webp' }]} />
+```
+
+## WikiSpoiler
+
+<WikiSpoiler title="Ejemplo de secreto">
+
+Solo se ve al hacer click.
+
+</WikiSpoiler>
+
+```mdx
+<WikiSpoiler title="Título">
+
+Contenido oculto.
+
+</WikiSpoiler>
+```
+
+<WikiCallout type="ok" title="Siguiente">
+
+<a href={links.wiki.wikiDevComponentesCodigo}>Comandos y teclas</a>.
+
+</WikiCallout>

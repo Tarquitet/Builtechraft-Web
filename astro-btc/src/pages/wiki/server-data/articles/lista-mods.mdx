@@ -1,0 +1,91 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Lista de mods y datapacks'
+description: 'Registro en tiempo real de las modificaciones activas en el servidor.'
+author: 'Tarquitet'
+pubDate: '2026-08-03'
+updated: '2026-08-19'
+category: 'tecnico'
+icon: '🧩'
+color: 'text-emerald-400'
+border: 'hover:border-emerald-500'
+order: 2
+---
+
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiAccordion from '@/components/wiki/WikiAccordion.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+En **Builtechraft** creemos en la transparencia total de nuestro rendimiento técnico. Mantenemos un sistema semi-vanilla optimizado para garantizar estabilidad sin perder la esencia clásica del juego.
+
+## Consulta la lista en tiempo real
+
+La lista completa y sincronizada de mods, datapacks y plugins activos vive en nuestra página principal:
+
+<WikiCallout type="info" title="Registro actualizado">
+
+Consulta el registro en tiempo real en <a href="/about#mods">nuestra página principal, sección mods</a>. Se actualiza automáticamente cuando cambiamos algo en el servidor.
+
+</WikiCallout>
+
+## Qué encontrarás en el registro
+
+<WikiAccordion title="Mods de Optimización y QoL">
+
+Herramientas diseñadas exclusivamente para mejorar el rendimiento y la calidad de vida en el cliente. Incluyen:
+
+- **Optimización del cliente** (Sodium, Lithium, FerriteCore)
+- **Mejoras visuales** (shaders, mapas minimap)
+- **Calidad de vida** (JEI, Mod Menu, inventarios extendidos)
+- **Renderizado extendido** (Bobby para ver chunks más lejanos)
+
+</WikiAccordion>
+
+<WikiAccordion title="Datapacks Técnicos">
+
+Ajustes de comportamiento nativo del servidor sin alterar la progresión natural de supervivencia:
+
+- **Teletransporte con magnetitas** (LodestoneTP)
+- **Sentarse, montar y gatear**
+- **Cabezas decorativas personalizadas**
+- **Comandos de Carpet Mod** (/player, /shadow)
+- **Waypoints públicos en mapa web**
+
+</WikiAccordion>
+
+<WikiAccordion title="Mods client-side recomendados">
+
+Si entras con el modpack oficial, estos mods vienen incluidos. Si entras vanilla, puedes instalarlos por tu cuenta:
+
+- **Sodium** + **Lithium** + **FerriteCore** (optimización)
+- **Bobby** (ver chunks más allá del renderizado del servidor)
+- **Xaero's Minimap** o **VoxelMap** (mapa minimapa)
+- **JEI / REI** (recetas de crafteo)
+- **Litematica** (solo para consultar esquemáticas, sin auto-colocación)
+
+</WikiAccordion>
+
+## Política de mods
+
+<WikiCallout type="warn" title="Mods permitidos">
+
+- Mods de optimización y calidad de vida del paquete oficial
+- Herramientas client-side que no automaticen acciones ni revelen información oculta
+- Shaders y resource packs visuales (sin X-Ray)
+
+</WikiCallout>
+
+<WikiCallout type="danger" title="Mods prohibidos">
+
+- X-Ray o paquetes que revelen minerales
+- Auto-minado, autoclickers, macros
+- ESP, fly, reach, killaura
+- Cualquier cosa que dé ventaja sobre otros jugadores
+
+</WikiCallout>
+
+<WikiCallout type="ok" title="Más información">
+
+Lee <WikiLink to="que-usa-el-servidor">Qué usa el servidor</WikiLink> para entender la filosofía técnica detrás de cada elección.
+
+</WikiCallout>

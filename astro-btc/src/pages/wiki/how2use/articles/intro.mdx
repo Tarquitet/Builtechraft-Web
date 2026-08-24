@@ -1,0 +1,59 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: '¿Qué es esta wiki?'
+description: 'Todo lo que necesitas saber para sobrevivir y construir en Builtechraft.'
+author: 'Tarquitet'
+pubDate: '2026-08-13'
+icon: '🦊'
+color: 'text-btc-orange'
+border: 'hover:border-btc-orange'
+tag: 'Guía'
+order: 0
+category: 'empezar'
+---
+
+import links from '@/data/links.json';
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+
+Aquí encontrarás guías, trucos y todo lo que necesitas para disfrutar Builtechraft al máximo.
+
+## Para qué sirve esta wiki
+
+Esta wiki es la memoria y el manual de Builtechraft: aquí vive todo lo que necesitas para entender, entrar y aprovechar el servidor sin depender de nadie.
+
+En lugar de responder las mismas dudas cien veces en Discord, las dejamos escritas aquí, con calma y sin tecnicismos, para que las leas cuando quieras.
+
+## Dos tipos de documentación
+
+<WikiCallout type="info" title="📚 Wiki Rápida (aquí mismo)">
+
+Guías cortas y al grano. Perfectas para cuando necesitas resolver algo rápido sin leer párrafos eternos. Ejemplo:
+
+- Instalación del modpack en 3 pasos
+- Cómo configurar Bobby
+- Comandos básicos del servidor
+
+</WikiCallout>
+
+<WikiCallout type="ok" title="🔬 Wiki Completa (documentación técnica)">
+
+Era la documentación: muy técnica y detallada, con capturas, videos y explicaciones avanzadas para los que quieren profundizar.
+
+- Guías paso a paso con imágenes
+- Configuraciones avanzadas
+- Troubleshooting y soluciones
+
+Actualmente ya no se mantiene. Si tienes curiosidad por ver su información, puedes verla <a href={links.wiki.homeExternal}>aquí</a>.
+
+</WikiCallout>
+
+## Cómo está organizada
+
+- **Artículos**: cada tema tiene su propia página (comparativas, guías, mecánicas, historia…).
+- **Lista de artículos**: en <a href={links.pages.wiki}>la biblioteca</a> encuentras todas las tarjetas para elegir qué leer.
+- **Componentes**: tablas, desplegables y notas que hacen la lectura más ligera.
+
+## Qué NO es esta wiki
+
+- No es un reglamento: las normas viven en <a href={links.pages.rules}>Reglas</a>.
+- No es la wiki externa antigua: esa quedó como archivo histórico.

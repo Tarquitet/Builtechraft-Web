@@ -1,0 +1,80 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import DiscordBanner from '../../../components/discord/DiscordBanner.astro';
+
+// 1. OBTENER RUTAS DINÁMICAS - Busca intro.mdx (no index.mdx)
+export function getStaticPaths() {
+  const categoryModules = import.meta.glob('../*/intro.mdx', { eager: true }) as any;
+  
+  console.log("🔍 Categorías encontradas:", Object.keys(categoryModules));
+
+  const paths = Object.keys(categoryModules).map((path) => {
+    const category = path.replace(/^\.\.\//, '').replace(/\/intro\.mdx$/, '');
+    return { params: { category } };
+  });
+  
+  console.log("🔍 Rutas a generar:", paths);
+  return paths;
+}
+
+const { category } = Astro.params;
+
+// 2. LEER LA INFO DE LA CATEGORÍA (intro.mdx)
+const introModule = await import(`../${category}/intro.mdx`);
+const catInfo = introModule.frontmatter ?? {};
+
+// 3. LEER ARTÍCULOS DESDE articles/
+const articleModules = import.meta.glob('../*/articles/*.mdx', { eager: true }) as any;
+
+console.log(`🔍 Todos los artículos:`, Object.keys(articleModules));
+
+const articles = Object.entries(articleModules)
+  .filter(([path]) => path.includes(`/${category}/articles/`))
+  .map(([path, mod]: [string, any]) => {
+    const fm = mod.frontmatter ?? {};
+    const slug = path.replace(/^.*\/articles\/(.+)\.mdx$/, '$1');
+    return {
+      ...fm,
+      url: `/wiki/${category}/articles/${slug}`,
+      slug
+    };
+  })
+  .filter((fm: any) => fm.title && fm.draft !== true)
+  .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
+
+console.log(`🔍 Artículos en ${category}:`, articles.map(a => a.slug));
+---
+
+<Layout title={`${catInfo.title || category} | Wiki Builtechraft`} description={catInfo.description || ''}>
+  <main class="pt-32 pb-24 min-h-screen bg-theme-section">
+    <div class="container mx-auto px-6 max-w-6xl">
+      <a href="/wiki" class="wiki-back mb-8">← Volver a la Wiki</a>
+
+      <div class="flex items-center gap-4 mb-12">
+        <span class="text-6xl">{catInfo.icon ?? '📂'}</span>
+        <div>
+          <h1 class={`text-4xl font-display font-bold uppercase tracking-tight ${catInfo.color ?? 'text-btc-orange'}`}>{catInfo.title || category}</h1>
+          <p class="text-theme-muted text-lg mt-2">{catInfo.description || ''}</p>
+        </div>
+      </div>
+
+      {articles.length > 0 ? (
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {articles.map((article: any) => (
+            <a href={article.url} class={`card-retro ${article.border ?? 'hover:border-btc-orange'} group relative`}>
+              {article.tag && <span class="badge-retro absolute top-4 right-4 text-btc-orange border-btc-orange/40">{article.tag}</span>}
+              <span class="text-4xl mb-4 block">{article.icon ?? '📄'}</span>
+              <h3 class={`text-lg font-display font-bold uppercase tracking-tight mb-2 ${article.color ?? 'text-btc-orange'} group-hover:underline`}>{article.title}</h3>
+              <p class="text-theme-muted text-sm leading-relaxed">{article.description}</p>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-20 border border-dashed border-theme rounded-lg">
+          <p class="text-theme-muted text-lg">No hay artículos en esta categoría aún.</p>
+        </div>
+      )}
+    </div>
+  </main>
+  <DiscordBanner />
+</Layout>

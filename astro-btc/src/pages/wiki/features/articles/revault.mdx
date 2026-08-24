@@ -1,0 +1,68 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Revault (Cofre Portátil)'
+description: 'Lleva un cofre personal en tu inventario para transportar recursos sin hacer viajes infinitos.'
+author: 'Tarquitet'
+pubDate: '2026-08-03'
+updated: '2026-08-19'
+icon: '🎒'
+color: 'text-yellow-400'
+border: 'hover:border-yellow-500'
+order: 8
+tag: 'Modrinth'
+---
+
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+# Revault
+
+Hacer viajes infinitos entre tu granja lejana y tu base principal es una de las tareas más tediosas de Minecraft. El datapack **Revault** soluciona esto añadiendo un objeto increíblemente útil: un **cofre que puedes llevar en tu inventario**.
+
+## 🛠️ Cómo funciona
+
+El funcionamiento es tan simple como colocar y romper un cofre normal, pero con un giro mágico:
+
+1. **Obtén tu Revault**: Craftea el objeto (o recíbelo según la configuración del servidor).
+2. **Colócalo**: Haz clic derecho en el suelo para colocarlo como si fuera un cofre normal.
+3. **Guarda tus cosas**: Abre su interfaz y deposita todos los recursos que hayas farmeado.
+4. **Recógelos**: Haz clic derecho sobre el cofre colocado **con la mano vacía** (o con el mismo objeto Revault, según la configuración).
+5. ¡Listo! El cofre desaparece del suelo y vuelve a tu inventario, **conservando todos los objetos que tenía dentro**.
+
+<WikiCallout type="info" title="💡 Tip de uso">
+  Puedes tener varios Revaults y renombrarlos en un yunque (ej. "Madera", "Piedra", "Loot del Nether") para mantener tu
+  inventario organizado durante expediciones largas.
+</WikiCallout>
+
+## 🚨 ADVERTENCIA CRÍTICA DE SEGURIDAD
+
+<WikiCallout type="warn" title="¡NO ES UN ENDER CHEST!">
+  A diferencia del Cofre de Ender, el contenido del Revault **NO está vinculado a tu cuenta**. Si mueres con el Revault
+  en el inventario, **se caerá al suelo como cualquier otro objeto**. Si cae en lava, se quema. Si no lo recoges a
+  tiempo, desaparecerá. **Nunca** lo uses para guardar tus objetos más valiosos (diamantes, netherite) mientras exploras
+  zonas de alto riesgo.
+</WikiCallout>
+
+## 🎯 Mejores casos de uso
+
+### 1. Expediciones al Nether o al End
+
+En lugar de hacer 10 viajes para traer oro, cuarzo o end stone, llena tu Revault, recógelo y haz un solo viaje de regreso a tu base segura.
+
+### 2. Limpieza de Granjas Lejanas
+
+Si tienes una granja de hierro o de aldeanos a 5,000 bloques de tu base, usa el Revault para acumular los cofres de salida y traerlos todos de una sola vez.
+
+### 3. Construcción en Terrenos Difíciles
+
+Si estás construyendo en una montaña o sobre el océano y no tienes espacio para colocar cofres temporales, el Revault te sirve como almacenamiento portátil mientras trabajas.
+
+## ⚙️ Compatibilidad y Reglas
+
+- **Protección de zonas**: Si colocas un Revault en una zona protegida (como el Claim de otro jugador o el Spawn), las reglas normales de protección de bloques aplican. No podrás colocarlo ni recogerlo si no tienes permisos en esa área.
+- **Shulker Boxes**: El Revault es un excelente complemento para las Cajas de Shulker. Usa las Shulker para almacenamiento masivo en tu base, y el Revault para el transporte activo.
+
+<WikiCallout type="ok" title="Siguiente">
+  ¿Necesitas saber qué bloque estás mirando o sus coordenadas exactas? Lee{' '}
+  <WikiLink to="info-tools">Info Tools</WikiLink> para descubrir las herramientas de información del servidor.
+</WikiCallout>

@@ -1,0 +1,99 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Durability Ping (Alerta de Durabilidad)'
+description: 'Tu pantalla parpadeará en rojo cuando tu herramienta o armadura esté a punto de romperse.'
+author: 'Tarquitet'
+pubDate: '2026-08-03'
+updated: '2026-08-19'
+icon: '⚠️'
+color: 'text-amber-400'
+border: 'hover:border-amber-500'
+order: 3
+tag: 'Vanilla Tweaks'
+---
+
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+# Durability Ping
+
+¿Alguna vez se te ha roto el pico de diamante o netherite **justo cuando estabas minando obsidiana** o en medio de una cueva oscura sin antorchas? Este datapack evita ese desastre con una advertencia visual simple pero efectiva.
+
+## 🛠️ Cómo funciona
+
+El sistema es automático y no requiere configuración:
+
+1. Cuando la herramienta o armadura que tienes equipada llegue a **1 punto de durabilidad**, tu pantalla parpadeará brevemente en color **rojo**.
+2. El parpadeo es una señal de alerta inmediata para que repares o cambies de herramienta **antes** de que sea demasiado tarde.
+
+<WikiCallout type="warn" title="Solo funciona con el objeto en la mano">
+  El parpadeo rojo **solo ocurre** si tienes el objeto en tu mano principal o secundaria. Si tienes un pico con 1 de
+  durabilidad en tu inventario pero no lo estás usando, no recibirá la alerta. ¡Revisa tu inventario antes de minar por
+  mucho tiempo!
+</WikiCallout>
+
+## 💡 Consejos de uso
+
+### 1. Lleva siempre materiales de reparación
+
+Cuando el parpadeo rojo aparezca, es tu señal para:
+
+- Sacar un **yunque portátil** (si tienes uno)
+- Usar **lingotes o materiales** para reparar en un yunque cercano
+- Cambiar a tu **herramienta de respaldo**
+
+### 2. Configura tu hotbar inteligentemente
+
+Mantén en tu barra de acceso rápido:
+
+- Tu herramienta principal
+- Una herramienta de respaldo (mismo tipo, menor calidad)
+- Un yunque (si es posible)
+
+### 3. No ignores la alerta
+
+Si ignoras el parpadeo y la herramienta se rompe:
+
+- **Pérdida de tiempo**: Tendrás que regresar a buscar otra herramienta
+- **Pérdida de recursos**: Si se rompe en el Nether o el End, puede ser catastrófico
+- **Riesgo de muerte**: Si es tu espada o armadura, podrías morir en combate
+
+## ️ Compatibilidad con encantamientos
+
+<WikiCallout type="ok" title="Irrompible (Unbreaking)">
+  El datapack **respeta** el encantamiento Irrompible. Si tu herramienta tiene Irrompible III, el parpadeo aparecerá más
+  tarde, ya que la durabilidad se consume más lentamente. Es la combinación perfecta para herramientas de alto nivel.
+</WikiCallout>
+
+## 🎯 Casos de uso críticos
+
+### Minería de Obsidiana
+
+Estás minando obsidiana para un portal al Nether. Tu pico de diamante tiene Irrompible III pero ya está muy usado. El parpadeo rojo te avisa **antes** de que se rompa en el último bloque, evitando que quedes atrapado en el Nether sin portal.
+
+### Exploración del End
+
+Estás luchando contra el Dragón o explorando ciudades del End. Tu espada o arco está al límite. El parpadeo te da tiempo de cambiar a tu arma de respaldo antes de quedarte indefenso.
+
+### Granjas automáticas
+
+Si estás AFK en una granja de mobs o hierro, el parpadeo te avisa para que repares el hacha o pico que esté usando la granja antes de que se detenga.
+
+<WikiCallout type="info" title="Personalización avanzada">
+  Si eres administrador del servidor o tienes permisos, algunos datapacks permiten ajustar la intensidad del parpadeo o
+  el punto de durabilidad en el que se activa. Consulta con el staff si esta opción está disponible.
+</WikiCallout>
+
+## 🔧 Alternativa: Barra de durabilidad visible
+
+Si prefieres una solución más visual, también puedes:
+
+- Activar la opción **"Mostrar durabilidad"** en F3 + H (Java Edition)
+- Usar **mods de interfaz** que muestren números exactos de durabilidad
+
+Pero el parpadeo rojo tiene una ventaja: **es imposible de ignorar**, incluso si estás distraído.
+
+<WikiCallout type="ok" title="Siguiente">
+  Lee <WikiLink to="custom-trades">Custom Trades</WikiLink> para descubrir los nuevos comercios de los aldeanos en el
+  servidor.
+</WikiCallout>

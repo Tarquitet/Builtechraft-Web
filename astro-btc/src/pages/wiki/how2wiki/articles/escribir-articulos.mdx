@@ -1,0 +1,150 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Cómo escribir artículos'
+description: 'Frontmatter, reglas MDX, preview local y flujo de trabajo completo.'
+author: 'Tarquitet'
+pubDate: '2026-08-13'
+category: 'staff'
+icon: '✍️'
+color: 'text-cyan-400'
+border: 'hover:border-cyan-500'
+order: 10
+---
+
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiTable from '@/components/wiki/WikiTable.astro';
+import WikiSteps from '@/components/wiki/WikiSteps.astro';
+import WikiCommand from '@/components/wiki/WikiCommand.astro';
+import WikiKbd from '@/components/wiki/WikiKbd.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+import links from '@/data/links.json';
+
+<WikiCallout type="info" title="Antes de empezar">
+
+Asume que ya tienes VSCode y el repo clonado. Si no, lee <WikiLink to="github-contribuir">Contribuir desde GitHub</WikiLink>.
+
+</WikiCallout>
+
+## Flujo de trabajo
+
+<WikiSteps
+  steps={[
+    { title: 'Abre VSCode', text: 'Abre la carpeta astro-btc y corre el servidor local.' },
+    { title: 'Crea tu .mdx', text: 'Nuevo archivo en src/pages/wiki/. El nombre = la URL final.' },
+    { title: 'Escribe el frontmatter', text: 'Copia la plantilla y rellena título, descripción e icono.' },
+    { title: 'Preview y push', text: 'Revisa en el navegador, guarda, commit y push.' },
+  ]}
+/>
+
+<WikiCommand command="bun run dev" description="Levanta el servidor local en localhost:4321" />
+
+## Frontmatter (plantilla)
+
+```mdx
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Título del artículo'
+description: 'Una línea que resume el artículo.'
+author: 'Tu nombre'
+pubDate: '2026-08-13'
+category: 'gameplay'
+icon: '📄'
+color: 'text-btc-orange'
+border: 'hover:border-btc-orange'
+order: 10
+---
+```
+
+<WikiTable
+  headers={['Campo', 'Obligatorio', 'Qué hace']}
+  rows={[
+    ['layout', '✓ Sí', 'El layout que envuelve el artículo'],
+    ['title', '✓ Sí', 'Título del artículo y de su tarjeta'],
+    ['description', '✓ Sí', 'Descripción corta (SEO + tarjeta)'],
+    ['author', 'No', 'Quién escribió el artículo'],
+    ['pubDate', 'No', 'Fecha de publicación (ISO)'],
+    ['category', '✓ Sí', 'Categoría: empezar, gameplay, tecnico, comunidad, staff'],
+    ['icon', 'No', 'Emoji de la tarjeta'],
+    ['color / border', 'No', 'Clases Tailwind de la tarjeta'],
+    ['order', 'No', 'Posición en la biblioteca'],
+    ['draft: true', 'No', 'Lo oculta mientras trabajas'],
+  ]}
+/>
+
+## Las 3 reglas de oro
+
+<WikiCallout type="warn" title="Rompen el build si las olvidas">
+
+1. **Línea en blanco** antes y después de cada componente.
+
+2. **Nunca llaves sueltas**: los símbolos {'{'} y {'}'} son JavaScript en MDX.
+
+3. **Links por componente**: usa {'<WikiLink to="faq">'} para wiki, usa {'<a href={links.pages.rules}>'} para páginas principales.
+
+</WikiCallout>
+
+## Regla 1: Líneas en blanco
+
+❌ **MAL:**
+
+```mdx
+<WikiCallout type="info">Texto sin línea en blanco.</WikiCallout>
+```
+
+✅ **BIEN:**
+
+```mdx
+<WikiCallout type="info">
+
+Texto con línea en blanco antes y después.
+
+</WikiCallout>
+```
+
+## Regla 2: Llaves son JavaScript
+
+❌ **MAL:**
+
+```mdx
+Usa {nombre} para referirte a algo.
+```
+
+✅ **BIEN:**
+
+```mdx
+Usa {'{'}nombre{'}'} para referirte a algo.
+```
+
+## Regla 3: Links por componente
+
+❌ **MAL (wiki):**
+
+```mdx
+Lee <a href="/wiki/faq">las preguntas</a>.
+```
+
+✅ **BIEN (wiki):**
+
+```mdx
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+Lee <WikiLink to="faq">las preguntas</WikiLink>.
+```
+
+✅ **BIEN (página principal):**
+
+```mdx
+import links from '@/data/links.json';
+
+Lee <a href={links.pages.rules}>las reglas</a>.
+```
+
+## Atajos de VSCode
+
+Pulsa <WikiKbd>Ctrl</WikiKbd> + <WikiKbd>Shift</WikiKbd> + <WikiKbd>P</WikiKbd> y escribe "file" para saltar a cualquier archivo.
+
+<WikiCallout type="ok" title="Siguiente paso">
+
+Lee <WikiLink to="componentes-basicos">Tablas, callouts y acordeones</WikiLink>.
+
+</WikiCallout>

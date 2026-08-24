@@ -1,0 +1,57 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Enlazar artículos'
+description: 'Links entre MDX, anchors internos y links externos por links.json.'
+author: 'Tarquitet'
+pubDate: '2026-08-13'
+category: 'staff'
+icon: '🔗'
+color: 'text-cyan-400'
+border: 'hover:border-cyan-500'
+order: 16
+---
+
+import links from '@/data/links.json';
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiTable from '@/components/wiki/WikiTable.astro';
+
+## La regla de oro
+
+Todos los links viven en `links.json`. En el MDX los usas importando el objeto:
+
+```mdx
+import links from '@/data/links.json';
+
+Lee <a href={links.wiki.wikiComparativa}>la comparativa</a>.
+```
+
+## Tipos de link
+
+<WikiTable
+  headers={['Tipo', 'Cómo se escribe', 'Ejemplo']}
+  rows={[
+    ['Interno (wiki)', 'links.wiki.CLAVE', '<a href={links.wiki.wikiComparativa}>…</a>'],
+    ['Interno (página)', 'links.pages.CLAVE', '<a href={links.pages.rules}>…</a>'],
+    ['Externo', 'links.wiki.homeExternal', '<a href={links.wiki.homeExternal}>…</a>'],
+  ]}
+/>
+
+## Anchors (ir a una sección)
+
+Para linkar a un encabezado concreto, agrega `#slug` al final. El slug es el título en minúsculas y con guiones:
+
+```mdx
+<a href={`${links.wiki.wikiComparativa}#fundamentos`}>Ir a Fundamentos</a>
+```
+
+<WikiCallout type="warn" title="Markdown [texto](url)">
+
+La sintaxis `[texto](url)` solo acepta URLs literales. Para links de `links.json` usa siempre `<a href={...}>`.
+
+</WikiCallout>
+
+<WikiCallout type="ok" title="Listo">
+
+Con esto ya dominas la wiki. Vuelve a <a href={links.wiki.homeInternal}>la biblioteca</a> cuando quieras.
+
+</WikiCallout>

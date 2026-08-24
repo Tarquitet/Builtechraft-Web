@@ -1,0 +1,79 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Info Tools (Herramientas de Información)'
+description: 'Descubre qué bloque estás mirando, sus coordenadas y datos técnicos sin usar menús complicados.'
+author: 'Tarquitet'
+pubDate: '2026-08-03'
+updated: '2026-08-19'
+icon: ''
+color: 'text-cyan-400'
+border: 'hover:border-cyan-500'
+order: 9
+tag: 'Modrinth'
+---
+
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+# Info Tools
+
+¿Alguna vez te has encontrado con un bloque raro y no sabes su nombre exacto? ¿O necesitas saber el nivel de luz de una zona para evitar que spawneen mobs, pero te da pereza abrir la pantalla de depuración (F3)?
+
+El datapack **Info Tools** añade objetos especiales que actúan como "linternas de datos". Al usarlos, te muestran información técnica y útil sobre lo que estás mirando directamente en tu pantalla.
+
+## 🛠️ Cómo usarlo
+
+El sistema es extremadamente intuitivo y no requiere que escribas ningún comando.
+
+1. **Consigue la herramienta:** Busca en tu inventario creativo (o pídele al Staff en Discord) el objeto designado, que suele ser un **Palo renombrado** (ej. "Info Stick" o "Varita de Información") o una **Brújula especial**.
+2. **Sostén la herramienta:** Colócala en tu mano principal.
+3. **Apunta y observa:** Mira directamente hacia el bloque o la entidad (mob, jugador, animal) que quieres analizar.
+4. **Lee la información:** Los datos aparecerán automáticamente en la parte superior de tu pantalla (en la barra de acción) o en el chat, dependiendo de la configuración.
+
+<WikiCallout type="info" title=" ¿No tienes la herramienta?">
+  Si estás en modo Supervivencia y no sabes cómo conseguirla, ¡no te preocupes! Pregunta en nuestro canal de `#soporte`
+  en Discord. El Staff puede darte una o indicarte la receta de crafteo si está habilitada.
+</WikiCallout>
+
+## 📊 ¿Qué información te muestra?
+
+Dependiendo de si apuntas a un bloque o a una entidad, la herramienta te revelará datos muy específicos:
+
+### Si apuntas a un BLOQUE:
+
+- **Nombre del bloque:** El ID exacto (ej. `minecraft:deepslate_iron_ore`).
+- **Coordenadas:** La posición X, Y, Z exacta del bloque.
+- **Nivel de luz:** ¡Súper útil! Te dice cuánta luz hay en ese bloque (del 0 al 15). Si es 0 o menos de 7, ¡cuidado con los zombies!
+- **Dureza y resistencia:** Cuánto tarda en romperse o si es resistente a las explosiones.
+
+### Si apuntas a una ENTIDAD (Mobs, Jugadores, Items):
+
+- **Tipo de entidad:** (ej. `minecraft:zombie`, `minecraft:item`).
+- **Salud (Vida):** Cuántos corazones le quedan.
+- **Nombre personalizado:** Si el mob tiene un nombre puesto con etiqueta.
+- **UUID:** (Solo para usuarios avanzados/staff) El identificador único de esa entidad.
+
+## 🎯 Casos de uso en el día a día
+
+### 1. Construcción segura (Anti-Mob Spawning)
+
+Estás iluminando tu base o una cueva. En lugar de adivinar, usa la Info Tool para ver el **nivel de luz exacto** del suelo. Si marca 7 o menos, coloca una antorcha más. ¡Adiós a los creepers sorpresa!
+
+### 2. Identificación de bloques técnicos
+
+Estás copiando un diseño de YouTube y no sabes si ese bloque es "Piedra lisa" (Stone) o "Andesita pulida" (Polished Andesite). Apunta con la herramienta y lo sabrás al instante.
+
+### 3. Localización precisa
+
+Necesitas darle las coordenadas de un bug o de una estructura a un amigo o al Staff. Apunta al bloque, lee las coordenadas en tu pantalla y cópialas. Mucho más rápido que abrir el F3 y buscar los números pequeños.
+
+<WikiCallout type="warn" title="⚠️ Uso responsable">
+  La herramienta está diseñada para ser una ayuda, no un juguete. Apuntar constantemente a cientos de entidades
+  diferentes en un área muy pequeña (como una granja de mobs masiva) podría generar mucho texto en tu pantalla. Úsala
+  cuando realmente necesites el dato.
+</WikiCallout>
+
+<WikiCallout type="ok" title="Siguiente">
+  ¿Tienes librerías llenas de libros encantados y no sabes qué hay dentro? Lee{' '}
+  <WikiLink to="gm4-bookshelf-inspector">GM4 Bookshelf Inspector</WikiLink> para ver su contenido sin romperlas.
+</WikiCallout>

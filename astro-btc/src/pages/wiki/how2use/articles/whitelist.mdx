@@ -1,0 +1,122 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Whitelist y registro'
+description: 'Solicita acceso al servidor y completa el registro para poder jugar.'
+author: 'Tarquitet'
+pubDate: '2026-08-04'
+updated: '2026-08-19'
+category: 'empezar'
+icon: '🔐'
+color: 'text-btc-yellow'
+border: 'hover:border-btc-yellow'
+order: 4
+---
+
+import links from '@/data/links.json';
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiSteps from '@/components/wiki/WikiSteps.astro';
+import WikiAccordion from '@/components/wiki/WikiAccordion.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+La **whitelist** protege los mundos y el trabajo de la comunidad. Solicita acceso en Discord antes de intentar entrar.
+
+## Por qué el servidor es semi-privado
+
+En sus inicios, Builtechcraft funcionaba como un servidor completamente público. Cualquier persona con la IP podía entrar, explorar y construir. Sin embargo, nos dimos cuenta de que muchas personas abusaban de esa libertad para dañar el trabajo de los demás o romper el ambiente tranquilo que buscábamos.
+
+Para proteger el esfuerzo, las mega-construcciones y los sistemas de ingeniería de nuestros jugadores, tomamos la decisión de hacer el servidor **semi-privado**.
+
+Hoy en día, la única manera de ingresar a cualquiera de nuestros mundos es estar registrado en nuestra base de datos. Si tu nombre de usuario no está en la Whitelist, el servidor rechazará tu conexión automáticamente.
+
+## Solicita acceso
+
+<WikiSteps
+  steps={[
+    {
+      title: 'Únete a la comunidad',
+      text: 'El primer paso obligatorio es estar en nuestro Servidor de Discord. Es nuestra vía de comunicación oficial.',
+    },
+    {
+      title: 'Solicita acceso',
+      text: 'Dependiendo de cómo esté estructurado el Discord en ese momento, deberás presentarte o solicitar tu ingreso en el canal correspondiente.',
+    },
+    {
+      title: 'Espera la aprobación',
+      text: 'Actualmente, solo un grupo muy reducido de personas de confianza tienen el poder de agregar usuarios a la Whitelist.',
+    },
+  ]}
+/>
+
+<WikiCallout type="info" title="Control administrativo">
+
+Solo aproximadamente tres administradores (incluyendo a Tarquitet) pueden agregar usuarios a la Whitelist. Esto garantiza que sepamos exactamente quién entra a nuestra casa.
+
+</WikiCallout>
+
+## Tiempo de espera
+
+Sabemos que tienes ganas de jugar, pero te pedimos un poco de paciencia. Como el proceso es manual y los administradores somos personas con responsabilidades (estudio, trabajo, etc.), la aprobación no es instantánea.
+
+<WikiCallout type="ok" title="Menos de 24 horas">
+
+Por lo general, tu usuario será agregado a la Whitelist en **menos de un día**. Una vez que un administrador te haya añadido, se te notificará directamente a través de Discord para avisarte que ya tienes vía libre para entrar.
+
+</WikiCallout>
+
+## Después de la aprobación
+
+Una vez que te avisen que estás en la Whitelist, podrás conectarte al servidor y cargar el mundo. Sin embargo, notarás que tu personaje está congelado y no puedes interactuar con nada.
+
+<WikiCallout type="info" title="No es lag">
+
+Esto se debe a nuestro **sistema de contraseñas interno (Login)**. Necesitas registrarte por primera vez para proteger tu identidad y empezar a jugar oficialmente.
+
+</WikiCallout>
+
+## Registro en el servidor
+
+Cuando entres por primera vez y aparezcas congelado, sigue estos pasos:
+
+<WikiSteps
+  steps={[
+    { title: 'Lee el mensaje del chat', text: 'El servidor te mostrará instrucciones sobre cómo registrarte.' },
+    { title: 'Usa el comando de registro', text: 'Sigue las instrucciones exactas que aparecen en el chat.' },
+    {
+      title: 'Confirma tu contraseña',
+      text: 'El servidor te pedirá que confirmes tu contraseña para completar el registro.',
+    },
+    { title: 'Descongela', text: 'Una vez registrado, podrás moverte y empezar a jugar.' },
+  ]}
+/>
+
+<WikiCallout type="warn" title="Guarda tu contraseña">
+
+No olvides la contraseña que creaste. La necesitarás cada vez que entres al servidor para iniciar sesión.
+
+</WikiCallout>
+
+## Preguntas frecuentes
+
+<WikiAccordion title="¿Qué pasa si olvido mi contraseña?">
+
+Publica una solicitud en el foro de Discord. El staff puede ayudarte a restablecerla después de verificar tu identidad.
+
+</WikiAccordion>
+
+<WikiAccordion title="¿Puedo cambiar mi nombre de usuario?">
+
+Un cambio de nombre puede afectar tu acceso, inventario y whitelist. Avísanos mediante una solicitud antes de entrar con el nombre nuevo.
+
+</WikiAccordion>
+
+<WikiAccordion title="¿Por qué me rechaza la conexión?">
+
+Si no estás en la whitelist, el servidor te rechazará automáticamente. Solicita acceso en Discord y espera la aprobación.
+
+</WikiAccordion>
+
+<WikiCallout type="ok" title="¿Todo listo?">
+
+Si ya tienes whitelist y registro completado, lee <WikiLink to="como-unirse">Cómo unirse al servidor</WikiLink> para conectarte.
+
+</WikiCallout>

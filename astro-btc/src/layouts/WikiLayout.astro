@@ -3,8 +3,6 @@
 import Layout from './Layout.astro';
 import links from '../data/links.json';
 
-// MDX anida el frontmatter bajo `frontmatter`/`content`; .md lo esparce en props.
-// Leemos de ambos lados para que el layout sirva a .md y .mdx por igual.
 const fm = (Astro.props.frontmatter ?? Astro.props.content ?? {}) as Record<string, any>;
 
 const title       = (Astro.props.title ?? fm.title) ?? 'Wiki Builtechcraft';
@@ -13,21 +11,41 @@ const author      = (Astro.props.author ?? fm.author) ?? 'Equipo Builtechcraft';
 const pubDate     = Astro.props.pubDate ?? fm.pubDate;
 const updated     = Astro.props.updated ?? fm.updated;
 
+// 🧠 DETECCIÓN AUTOMÁTICA DE CATEGORÍA DESDE LA URL
+// Ejemplo URL: /wiki/features/articles/silence-mobs
+// Split: ['', 'wiki', 'features', 'articles', 'silence-mobs']
+const pathParts = Astro.url.pathname.split('/');
+// La categoría SIEMPRE es el índice 2 (después de '' y 'wiki')
+const category = pathParts[2]; 
+
 const formatDate = (d?: string) =>
   d ? new Date(d).toLocaleDateString('es-CO', { year: 'numeric', month: 'long', day: 'numeric' }) : null;
+
+// Lógica inteligente para el botón de regreso
+const backLink = category ? `/wiki/${category}` : (links.wiki.homeInternal || '/wiki');
+const backText = category ? `← Volver a ${category.toUpperCase()}` : '← Volver a la Wiki';
 ---
 
 <Layout title={title} description={description}>
   <div class="bg-theme-section min-h-screen">
     <div class="container mx-auto px-6 max-w-4xl pt-28 md:pt-32 pb-20">
 
-      {/* Ruta + volver */}
+      {/* Ruta + volver inteligente */}
       <nav class="flex flex-wrap items-center justify-between gap-3 mb-8" aria-label="Ruta de navegación">
-        <a href={links.wiki.homeInternal} class="wiki-back">← Volver a la Wiki</a>
+        <a href={backLink} class="wiki-back">{backText}</a>
+        
         <p class="wiki-crumbs">
-          <a href={links.pages.inicio}>Inicio</a>
           <span>/</span>
           <a href={links.wiki.homeInternal}>Wiki</a>
+          
+          {/* Si hay categoría, la mostramos en el breadcrumb */}
+          {category && (
+            <>
+              <span>/</span>
+              <a href={backLink}>{category.toUpperCase()}</a>
+            </>
+          )}
+          
           <span>/</span>
           <span class="crumb-current">{title}</span>
         </p>

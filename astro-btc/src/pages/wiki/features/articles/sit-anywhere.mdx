@@ -1,0 +1,69 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Sit Anywhere (Sentarse en cualquier lugar)'
+description: 'Aprende a sentarte en escaleras, losas, vallas y casi cualquier bloque para decorar tus bases o descansar.'
+author: 'Tarquitet'
+pubDate: '2026-08-03'
+updated: '2026-08-19'
+icon: '🪑'
+color: 'text-blue-400'
+border: 'hover:border-blue-500'
+order: 5
+tag: 'Modrinth'
+---
+
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+# Sit Anywhere
+
+¿Tu taberna se ve increíble pero tus amigos siguen de pie como estatuas? ¿Quieres construir un anfiteatro o una sala de espera realista? El datapack **Sit Anywhere!** te permite sentarte en casi cualquier bloque sólido del juego.
+
+## ️ Cómo usarlo
+
+El sistema es intuitivo y no requiere comandos raros. Está diseñado para no romper la interacción normal con los bloques.
+
+1. Acércate al bloque donde quieres sentarte (escaleras, losas, vallas, muros, camas, o incluso bloques completos como piedra o madera).
+2. Mantén presionada la tecla **Shift (Agacharse)**.
+3. Haz **Clic Derecho** sobre el bloque.
+
+¡Listo! Tu personaje se sentará automáticamente en el borde o centro del bloque.
+
+<WikiCallout type="info" title="¿Por qué Shift + Clic Derecho?">
+  Usar Shift evita que el datapack interfiera con bloques que ya tienen una acción al hacer clic derecho (como abrir un
+  cofre, usar una cama o interactuar con una mesa de crafteo). Si solo hicieras clic derecho, el juego no sabría si
+  quieres abrir el cofre o sentarte en él.
+</WikiCallout>
+
+## Cómo levantarse
+
+Levantarse es igual de fácil. Tienes dos opciones:
+
+- **Saltar:** Presiona la barra espaciadora.
+- **Caminar:** Simplemente muévete con las teclas WASD.
+
+## 🏗️ Ideas para constructores y decoradores
+
+Este datapack es una mina de oro para darle vida a tus proyectos:
+
+- **Tabernas y Cafeterías:** Coloca sillas (usando escaleras o losas) alrededor de las mesas. ¡Los jugadores podrán sentarse a "tomar algo"!
+- **Anfiteatros y Cines:** Construye gradas con escaleras de piedra o madera. Tu público podrá sentarse a ver un evento en vivo o una película hecha con mapas.
+- **Zonas de AFK:** Crea un banco en el spawn o en tu base donde los jugadores puedan sentarse cómodamente mientras esperan a sus amigos.
+- **Parques:** Usa losas y vallas para crear bancos de parque realistas.
+
+<WikiCallout type="warn" title="Cuidado con el vacío y la lava">
+  El datapack te permite sentarte en *cualquier* bloque, ¡incluso si está flotando en el aire o sobre lava! Si te
+  sientas en un bloque inseguro y alguien lo rompe (o cae por la gravedad, como la arena), **caerás al vacío o te
+  quemarás**. Asegúrate de que tu asiento sea 100% seguro.
+</WikiCallout>
+
+## ⚙️ Compatibilidad y límites
+
+- **Bloques transparentes:** No puedes sentarte en bloques como el vidrio, las hojas o las antorchas, ya que el juego no los considera "sólidos" para sentarse.
+- **Bloques con hitbox complejo:** En bloques como las cercas (fences) o muros, tu personaje se sentará en la parte superior. Visualmente puede quedar un poco flotando, ¡pero funciona!
+- **Multijugador:** Si otro jugador ya está sentado en un bloque, tú no podrás sentarte en el mismo espacio exacto. ¡Respeta el espacio personal!
+
+<WikiCallout type="ok" title="Siguiente">
+  ¿Necesitas moverte rápido por el mapa en modo creativo? Lee <WikiLink to="teleport-book">Teleport Book</WikiLink> para
+  descubrir el libro de teletransporte exclusivo para builders.
+</WikiCallout>
