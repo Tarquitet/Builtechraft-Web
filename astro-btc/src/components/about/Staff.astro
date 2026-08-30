@@ -127,62 +127,58 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const defaultAvatar = links.assets.defaultAvatar;
 
-  const ROLE_DESC: Record<string, string> = {
-    'Fundador': 'Quien inició todo el proyecto. Dirección técnica y creativa del servidor.',
-    'Admin': 'Administradores con acceso a los sistemas principales del servidor.',
-    'Moderador': 'Cuidan la comunidad y ayudan con los problemas del día a día.',
-  };
-
   try {
+    // El JSON ya viene ORDENADO y con COLORES VÁLIDOS desde Google Sheets/GitHub
     const staffMembers = await getStaffData();
 
     if (staffMembers && staffMembers.length > 0 && rowsWrapper) {
+      let html = '';
+      let currentRole = '';
 
-      const grouped: Record<string, { color: string; members: any[] }> = {};
+      // Como viene ordenado, solo detectamos cuando cambia el rol para crear un nuevo grupo
       staffMembers.forEach((m: any) => {
         const rol = (m.Rol || 'Staff').trim();
         const color = (m.Color || '#71717a').trim();
-        if (!grouped[rol]) grouped[rol] = { color, members: [] };
-        grouped[rol].members.push(m);
-      });
 
-      let html = '';
-      for (const [rol, data] of Object.entries(grouped)) {
-        html += `
-          <div class="staff-group">
-            <h3 class="sg-title" style="color: ${data.color};">${rol}</h3>
-            ${ROLE_DESC[rol] ? `<p class="sg-desc">${ROLE_DESC[rol]}</p>` : ''}
-            <div class="sg-cards">
-        `;
-
-        for (const m of data.members) {
-          const avatar = (m.Avatar || '').trim() || defaultAvatar;
-          const meta = [m.Clan, m.Pronombres].filter((v: string) => v && v.trim()).join(' · ');
-
-          // Redes sociales (solo las que tengan URL)
-          let socialsHtml = '';
-          ['Twitch', 'Youtube', 'Github', 'Twitter', 'Instagram'].forEach((red) => {
-            if (m[red] && m[red].trim() !== '') {
-              socialsHtml += `<a href="${m[red].trim()}" target="_blank" rel="noopener noreferrer">${red}</a>`;
-            }
-          });
-
+        // Si es un rol nuevo, cerramos el grupo anterior y abrimos uno nuevo
+        if (rol !== currentRole) {
+          if (currentRole !== '') html += `</div></div>`; // Cierra sg-cards y staff-group
+          
+          currentRole = rol;
           html += `
-            <div class="staff-card" style="--c: ${data.color};">
-              <div class="sc-avatar">
-                <img src="${avatar}" alt="${m.Nombre}" loading="lazy" onerror="this.onerror=null;this.src='${defaultAvatar}';" />
-              </div>
-              <h4 class="sc-name">${m.Nombre}</h4>
-              ${meta ? `<span class="sc-meta">${meta}</span>` : ''}
-              ${m.Frase ? `<p class="sc-quote">"${m.Frase}"</p>` : ''}
-              ${m.Bio ? `<p class="sc-bio">${m.Bio}</p>` : ''}
-              ${socialsHtml ? `<div class="sc-socials">${socialsHtml}</div>` : ''}
-            </div>
+            <div class="staff-group">
+              <h3 class="sg-title" style="color: ${color};">${rol}</h3>
+              <div class="sg-cards">
           `;
         }
 
-        html += `</div></div>`;
-      }
+        // Renderizar tarjeta individual
+        const avatar = (m.Avatar || '').trim() || defaultAvatar;
+        const meta = [m.Clan, m.Pronombres].filter((v: string) => v && String(v).trim()).join(' · ');
+        
+        let socialsHtml = '';
+        ['Twitch', 'Youtube', 'Github', 'Twitter', 'Instagram'].forEach((red) => {
+          if (m[red] && String(m[red]).trim() !== '') {
+            socialsHtml += `<a href="${m[red].trim()}" target="_blank" rel="noopener noreferrer">${red}</a>`;
+          }
+        });
+
+        html += `
+          <div class="staff-card" style="--c: ${color};">
+            <div class="sc-avatar">
+              <img src="${avatar}" alt="${m.Nombre}" loading="lazy" onerror="this.onerror=null;this.src='${defaultAvatar}';" />
+            </div>
+            <h4 class="sc-name">${m.Nombre}</h4>
+            ${meta ? `<span class="sc-meta">${meta}</span>` : ''}
+            ${m.Frase ? `<p class="sc-quote">"${m.Frase}"</p>` : ''}
+            ${m.Bio ? `<p class="sc-bio">${m.Bio}</p>` : ''}
+            ${socialsHtml ? `<div class="sc-socials">${socialsHtml}</div>` : ''}
+          </div>
+        `;
+      });
+
+      // Cerrar el último grupo
+      if (currentRole !== '') html += `</div></div>`;
 
       rowsWrapper.innerHTML = html;
       if (loadingEl) loadingEl.style.display = 'none';
