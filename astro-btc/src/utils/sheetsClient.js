@@ -1,7 +1,7 @@
 // src/utils/sheetsClient.js
 
-const GITHUB_BASE = 'https://raw.githubusercontent.com/Tarquitet/JSON-ServersData/main/builtechraft-web';
-const CACHE_DURATION = 5 * 60 * 1000;
+const GITHUB_BASE = 'https://cdn.jsdelivr.net/gh/Tarquitet/JSON-ServersData@main/builtechraft-web';
+const CACHE_DURATION = 15 * 60 * 1000; // 15 minutos de caché en el navegador
 
 async function fetchWithCache(actionKey, endpointUrl) {
   const cacheKey = `btc_cache_${actionKey}`;
@@ -11,19 +11,29 @@ async function fetchWithCache(actionKey, endpointUrl) {
     const cached = sessionStorage.getItem(cacheKey);
     const cachedTime = sessionStorage.getItem(timeKey);
 
+    // 1. Si tenemos los datos en el navegador y no han pasado 15 min, los usamos (¡Súper rápido!)
     if (cached && cachedTime && Date.now() - parseInt(cachedTime) < CACHE_DURATION) {
       return JSON.parse(cached);
     }
 
-    const response = await fetch(endpointUrl, { cache: 'no-store' });
+    // 2. Si no, vamos a jsDelivr. Agregamos ?t=... para romper la caché de 12h de jsDelivr
+    // y forzar que traiga lo último que subió Google Sheets a GitHub.
+    const response = await fetch(`${endpointUrl}?t=${Date.now()}`, { cache: 'no-store' });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
     const data = await response.json();
 
+    // 3. Guardamos en el navegador para las próximas 15 minutos
     sessionStorage.setItem(cacheKey, JSON.stringify(data));
     sessionStorage.setItem(timeKey, Date.now().toString());
 
     return data;
   } catch (error) {
     console.error(`Error cargando ${actionKey}:`, error);
+    // Si falla la red, usamos lo último que teníamos guardado como respaldo
     const fallback = sessionStorage.getItem(cacheKey);
     if (fallback) return JSON.parse(fallback);
     return actionKey === 'config' ? {} : [];
