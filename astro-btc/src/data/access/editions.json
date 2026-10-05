@@ -1,0 +1,22 @@
+{
+  "step": 3,
+  "type": "grid",
+  "label": "Edición",
+  "title": "Tipo de Minecraft",
+  "items": [
+    {
+      "id": "java",
+      "name": "Java Edition",
+      "icon": "☕",
+      "image": "/images/access/javamenu.png",
+      "platforms": ["pc", "mobile"]
+    },
+    {
+      "id": "bedrock",
+      "name": "Bedrock Edition",
+      "icon": "🪨",
+      "image": "/images/access/bedrockmenu.png",
+      "platforms": ["pc", "mobile", "console"]
+    }
+  ]
+}

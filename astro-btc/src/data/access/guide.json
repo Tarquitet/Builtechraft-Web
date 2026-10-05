@@ -1,0 +1,80 @@
+{
+  "step": 6,
+  "type": "guide",
+  "label": "Guía",
+  "title": "Guía de conexión",
+  "items": [
+    {
+      "id": "java",
+      "edition": "java",
+      "steps": [
+        {
+          "title": "Ve a Multijugador",
+          "description": "Haz click en el botón 'Multijugador' en el menú principal.\nAsegúrate de estar en la versión nás reciente, si no, utilizar la versión: {version}",
+          "icon": "🔐",
+          "image": "/images/access/guide-java-step1.webp"
+        },
+        {
+          "title": "Agrega el servidor",
+          "description": "Haz click en 'Agregar servidor'.",
+          "icon": "➕",
+          "image": "/images/access/guide-java-step2.webp"
+        },
+        {
+          "title": "Ingresa los datos",
+          "description": "Escribe un nombre y la dirección IP del servidor.\nSURVIVAL IP: {javaSmp}\nCREATIVO IP: {javaCreative}",
+          "icon": "🌐",
+          "image": "/images/access/guide-java-step3.webp"
+        },
+        {
+          "title": "¡Conéctate!",
+          "description": "Haz clic en 'Unirse al servidor' y disfruta.",
+          "icon": "🚀",
+          "image": "/images/access/guide-java-step5.webp"
+        },
+        {
+          "title": "Esperando la aprobación",
+          "description": "Este servidor es privado y contamos con una whitelist para evitar inconvenientes. Puedes aceletrar el proceso de aprobación estándo en la red social Discord y solicitar el acceso dando tu nombre de usuario.",
+          "icon": "🛑",
+          "image": "/images/access/guide-java-step4.webp"
+        }
+      ]
+    },
+    {
+      "id": "bedrock",
+      "edition": "bedrock",
+      "steps": [
+        {
+          "title": "Presiona Play",
+          "description": "Desde el menú principal, haz clic en el botón verde 'Play' (Jugar).",
+          "icon": "🎮",
+          "image": "/images/access/guide-bedrock-step1.webp"
+        },
+        {
+          "title": "Ve a Servidores",
+          "description": "Selecciona la pestaña 'Servers' (Servidores) y desplázate hacia abajo hasta encontrar el botón '+ Add server'.",
+          "icon": "",
+          "image": "/images/access/guide-bedrock-step2.webp"
+        },
+        {
+          "title": "Agrega el servidor",
+          "description": "Haz clic en '+ Add server' y completa los datos:\n\nServer name: (El nombre que quieras)\nServer address: {bedrockSmp} (Survival) o {bedrockCreative} (Creativo)\nPort: {bedrockPort}",
+          "icon": "➕",
+          "image": "/images/access/guide-bedrock-step3.webp"
+        },
+        {
+          "title": "Guarda y juega",
+          "description": "Presiona 'Add and play' (verde) o 'Add server' (gris). El servidor aparecerá en tu lista de 'Other Servers'. Selecciónalo y presiona PLAY.",
+          "icon": "🚀",
+          "image": "/images/access/guide-bedrock-step4.webp"
+        },
+        {
+          "title": "Esperando aprobación",
+          "description": "Este servidor es privado y contamos con whitelist. Puedes acelerar el proceso uniéndote a nuestro Discord y solicitando acceso con tu nombre de usuario.",
+          "icon": "",
+          "image": "/images/access/guide-bedrock-step5.webp"
+        }
+      ]
+    }
+  ]
+}

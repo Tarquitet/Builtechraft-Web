@@ -1,0 +1,24 @@
+{
+  "step": 4,
+  "type": "grid",
+  "label": "Cuenta",
+  "title": "Tipo de cuenta",
+  "items": [
+    {
+      "id": "premium",
+      "name": "Premium (Mojang/Microsoft)",
+      "icon": "✅",
+      "image": "/images/access/premium-account.png",
+      "description": "Cuenta oficial comprada en Minecraft.net",
+      "editions": ["java", "bedrock"]
+    },
+    {
+      "id": "no-premium",
+      "name": "No Premium (Ely.by)",
+      "icon": "🦅",
+      "image": "/images/access/elyby-account.png",
+      "description": "Cuenta gratuita de Ely.by",
+      "editions": ["java"]
+    }
+  ]
+}

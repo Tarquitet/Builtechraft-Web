@@ -1,0 +1,68 @@
+{
+  "step": 5,
+  "type": "grid",
+  "label": "Launcher",
+  "title": "Launcher a utilizar",
+  "items": [
+    {
+      "id": "prismlauncher",
+      "name": "Prism (Premium)",
+      "icon": "",
+      "image": "/images/access/launcher-prism.avif",
+      "editions": ["java"],
+      "platforms": ["pc"],
+      "accountTypes": ["premium"],
+      "downloadUrl": "https://prismlauncher.org/"
+    },
+    {
+      "id": "elyby",
+      "name": "ElyPrism (No Premium)",
+      "icon": "🦅",
+      "image": "/images/access/launcher-elyby.png",
+      "editions": ["java"],
+      "platforms": ["pc"],
+      "accountTypes": ["no-premium"],
+      "downloadUrl": "https://elyprismlauncher.github.io/"
+    },
+    {
+      "id": "official",
+      "name": "Oficial (Premium)",
+      "icon": "🛡️",
+      "image": "/images/access/launcher-official.png",
+      "editions": ["java", "bedrock"],
+      "platforms": ["pc"],
+      "accountTypes": ["premium"],
+      "downloadUrl": "https://www.minecraft.net/en-us/download"
+    },
+    {
+      "id": "MJlauncher",
+      "name": "MJlauncher (Android)",
+      "icon": "📱",
+      "image": "/images/access/launcher-mjlauncher.jpg",
+      "editions": ["java"],
+      "platforms": ["mobile"],
+      "accountTypes": ["premium", "no-premium"],
+      "downloadUrl": "https://play.google.com/store/apps/details?id=git.artdeell.mjlaunch&hl=en-US"
+    },
+    {
+      "id": "bedrock-android",
+      "name": "Minecraft Bedrock (Android)",
+      "icon": "📱",
+      "image": "/images/access/launcher-bedrock-android.png",
+      "editions": ["bedrock"],
+      "platforms": ["mobile"],
+      "accountTypes": ["premium"],
+      "downloadUrl": "https://play.google.com/store/apps/details?id=com.mojang.minecraftpe"
+    },
+    {
+      "id": "bedrock-ios",
+      "name": "Minecraft Bedrock (iOS)",
+      "icon": "🍎",
+      "image": "/images/access/launcher-bedrock-ios.png",
+      "editions": ["bedrock"],
+      "platforms": ["mobile"],
+      "accountTypes": ["premium"],
+      "downloadUrl": "https://apps.apple.com/us/app/minecraft/id479516143"
+    }
+  ]
+}
