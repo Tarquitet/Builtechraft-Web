@@ -1,5 +1,4 @@
 ---
-// src/components/home/CategoryCards.astro
 import cards from '../../data/aboutCards.json';
 import links from '../../data/links.json';
 
@@ -24,17 +23,19 @@ const getLink = (key: string | undefined | null): string => {
 };
 ---
 
-<section class="py-24 bg-theme-section relative z-10 border-t border-theme">
-    <div class="container mx-auto px-6 max-w-7xl">
+<section class="py-16 bg-theme-section relative z-10">
+    <div class="container mx-auto px-6 max-w-5xl">
         
-        <div class="text-center mb-16">
-            <h2 class="category-title">
-                Explora <span class="text-btc-orange">Nuestra Página Web</span>
+        <div class="text-center py-16 container mx-auto px-6 max-w-4xl">
+            <h2 class="text-3xl md:text-4xl font-display font-bold text-theme-main uppercase tracking-tight">
+                Explora <span class="text-btc-orange">Nuestra Web</span>
             </h2>
-            <p class="category-subtitle">Aquí tienes los enlaces a las secciones principales de nuestra página web.</p>
+            <p class="text-theme-muted mt-3 text-base leading-relaxed max-w-2xl mx-auto">
+                Descubre las secciones más importantes de nuestro sitio web y accede a información detallada sobre el servidor, sus mundos, mods, datapacks, staff y roadmap.    
+            </p>
         </div>
 
-        <div class="card-retro grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             
             {cards.map((card: any) => {
                 const href = getLink(card.keyLink);
@@ -43,19 +44,28 @@ const getLink = (key: string | undefined | null): string => {
                         href={href} 
                         target={card.isExternal ? "_blank" : "_self"}
                         rel={card.isExternal ? "noopener noreferrer" : undefined}
-                        class={`card-retro ${card.hoverBorder}`}
+                        class="group flex items-center gap-5 p-5 bg-theme-card border border-theme-1 transition-all duration-300 hover:border-btc-orange/50 hover:-translate-y-0.5"
+                        style="box-shadow: 4px 4px 0px rgba(0,0,0,0.3);"
                     >
-                        <div class={`w-16 h-16 flex items-center justify-center shrink-0 border mb-5 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3 shadow-inner ${card.iconBg}`}>
+                        <!-- Icono a la izquierda -->
+                        <div class={`w-14 h-14 flex items-center justify-center shrink-0 border transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3 ${card.iconBg}`}>
                             <Fragment set:html={card.iconSvg} />
                         </div>
                         
-                        <h3 class={`text-lg font-display font-bold text-theme-main uppercase tracking-wide mb-2 transition-colors duration-300 ${card.titleHover}`}>
-                            {card.title}
-                        </h3>
-                        
-                        <p class="text-theme-muted text-sm leading-relaxed flex-grow">
-                            {card.desc}
-                        </p>
+                        <!-- Texto a la derecha -->
+                        <div class="flex-1 min-w-0">
+                            <h3 class={`text-sm font-display font-bold text-theme-main uppercase tracking-wide mb-1 transition-colors duration-300 ${card.titleHover}`}>
+                                {card.title}
+                            </h3>
+                            <p class="text-theme-muted text-xs leading-relaxed truncate">
+                                {card.desc}
+                            </p>
+                        </div>
+
+                        <!-- Flecha sutil -->
+                        <div class="opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-300 text-btc-orange shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </div>
                     </a>
                 );
             })}

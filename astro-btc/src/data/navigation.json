@@ -1,49 +1,37 @@
 {
   "main": [
     { "id": "inicio", "name": "Inicio", "keyLink": "inicio", "isExternal": false },
-    {
-      "id": "nosotros",
-      "name": "Nosotros",
-      "hasDropdown": true,
-      "dropdownKey": "about_drop"
-    },
-    {
-      "id": "server",
-      "name": "Servidor",
-      "hasDropdown": true,
-      "dropdownKey": "server_drop"
-    },
+    { "id": "nosotros", "name": "Sobre Nosotros", "keyLink": "about", "isExternal": false },
+    { "id": "jugar", "name": "Jugar", "keyLink": "ingreso", "isExternal": false, "isPrimary": true },
     {
       "id": "mapas",
       "name": "Mapas",
       "hasDropdown": true,
       "dropdownKey": "maps_drop"
     },
-    { "id": "normativa", "name": "Reglas", "keyLink": "rules", "isExternal": false },
-    { "id": "guias", "name": "Wiki", "keyLink": "wiki", "isExternal": false },
+    {
+      "id": "wiki",
+      "name": "Wiki",
+      "hasDropdown": true,
+      "dropdownKey": "wiki_drop"
+    },
     { "id": "discord", "name": "Discord", "keyLink": "discord", "isExternal": true, "hexColor": "#5865F2" },
     { "id": "donaciones", "name": "Donar", "keyLink": "donate", "isExternal": true, "hexColor": "#ec4899" }
   ],
   "dropdowns": {
-    "about_drop": [
-      { "name": "Nuestra Visión", "keyLink": "about" },
-      { "name": "Nuestros Mundos", "keyLink": "aboutMundos" },
-      { "name": "Mods & Datapacks", "keyLink": "aboutMods" },
-      { "name": "Nuestro Modpack", "keyLink": "aboutModpack" },
-      { "name": "Nuestro Equipo", "keyLink": "aboutStaff" },
-      { "name": "Futuros Planes", "keyLink": "aboutRoadmap" }
-    ],
-    "server_drop": [
-      { "name": "Cómo Entrar", "keyLink": "wikiComoUnirse", "isExternal": false },
-      { "name": "Sistema Whitelist", "keyLink": "wikiWhitelist", "isExternal": false },
-      { "name": "Mecánicas Servidor", "keyLink": "wikiQueUsa", "isExternal": false },
-      { "name": "Launcher Recomendado", "keyLink": "wikiLaunchers", "isExternal": false },
-      { "name": "Lista de Mods", "keyLink": "wikiListaMods", "isExternal": false },
-      { "name": "Historia del Servidor", "keyLink": "wikiHistoria", "isExternal": false }
-    ],
     "maps_drop": [
       { "name": "Mapa Supervivencia", "keyLink": "survival", "isExternal": true },
       { "name": "Mapa Creativo", "keyLink": "creative", "isExternal": true }
+    ],
+    "wiki_drop": [
+      { "name": "Portal de la Wiki", "keyLink": "wiki", "isExternal": false, "isPrimary": true },
+      { "name": "Reglas del Servidor", "keyLink": "rules", "isExternal": false },
+      { "name": "Cómo Unirse", "keyLink": "wikiComoUnirse", "isExternal": false },
+      { "name": "Sistema Whitelist", "keyLink": "wikiWhitelist", "isExternal": false },
+      { "name": "Preguntas Frecuentes", "keyLink": "wikiFaq", "isExternal": false },
+      { "name": "Equipo de Staff", "keyLink": "wikiEquipo", "isExternal": false },
+      { "name": "Historia del Servidor", "keyLink": "wikiHistoria", "isExternal": false },
+      { "name": "Mecánicas del Servidor", "keyLink": "wikiQueUsa", "isExternal": false }
     ]
   }
 }

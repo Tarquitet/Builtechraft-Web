@@ -55,18 +55,18 @@ const wizardSteps: WizardStep[] = Object.values(modules)
               <div class="w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center font-display font-bold text-lg md:text-xl transition-all duration-300 ${
                 isActive 
                   ? 'bg-btc-orange text-white border-2 border-btc-orange' 
-                  : 'bg-transparent text-white/40 border-2 border-white/30'
+                  : 'bg-transparent text-slate-500 dark:text-white/40 border-2 border-slate-300 dark:border-white/30'
               } ${isCurrent ? 'scale-110 ring-4 ring-btc-orange/30' : ''}">
                 ${step.step}
               </div>
               <span class="text-xs md:text-sm uppercase font-display font-bold whitespace-nowrap mt-2 ${
-                isCurrent ? 'text-btc-orange' : isActive ? 'text-white/70' : 'text-white/40'
+                isCurrent ? 'text-btc-orange' : isActive ? 'text-slate-700 dark:text-white/70' : 'text-slate-500 dark:text-white/40'
               } transition-colors duration-300">${step.label}</span>
             </div>
             ${!isLast ? `<div class="w-8 md:w-12 h-1 ${
               isActive && wizardSteps[i + 1]?.step <= state.currentStep 
                 ? 'bg-btc-orange' 
-                : 'bg-white/20'
+                : 'bg-slate-300 dark:bg-white/20'
             } transition-colors duration-300 rounded"></div>` : ''}
           </div>
         `;

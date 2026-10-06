@@ -7,11 +7,9 @@
     "logoText": "/images/logo-text.webp",
     "visionBackground": "/images/gallery/2_3.avif"
   },
-
   "developer": {
     "web": "https://web.tarquitet.com"
   },
-
   "launchers": {
     "elyprism": {
       "icon": "https://elyprismlauncher.github.io/assets/svg/icon.svg",
@@ -26,40 +24,34 @@
       "url": "https://prismlauncher.org/"
     }
   },
-
   "maps": {
     "creative": "http://btccreativemap.tarquitet.com:25674",
     "survival": "http://btcsmpmap.tarquitet.com:25625"
   },
-
   "modpack": {
     "apiProject": "https://api.modrinth.com/v2/project/",
     "bobbyCache": "https://dub.sh/bobby_btc",
     "url": "https://modrinth.com/modpack/btc-client"
   },
-
   "pages": {
-    "about": "/about#vision",
-    "aboutMods": "/about#mods",
-    "aboutModpack": "/about#modpack",
-    "aboutMundos": "/about#mundos",
-    "aboutRoadmap": "/about#roadmap",
-    "aboutStaff": "/about#staff",
-    "ingreso": "/#ingreso",
     "inicio": "/#inicio",
+    "about": "/#vision",
+    "aboutMundos": "/#mundos",
+    "aboutMods": "/#mods",
+    "aboutModpack": "/#modpack",
+    "aboutStaff": "/#staff",
+    "aboutRoadmap": "/#roadmap-component",
+    "ingreso": "/#ingreso",
     "rules": "/rules",
     "wiki": "/wiki"
   },
-
   "social": {
     "discord": "https://discord.gg/4KzRH5DPzx",
     "donate": "https://ko-fi.com/tarquitet"
   },
-
   "wiki": {
     "homeExternal": "https://builtechraftwiki.tarquitet.com/",
     "homeInternal": "/wiki",
-
     "cuentaNoPremium": "/wiki/how2use/articles/cuenta-ely-by#no-premium",
     "cuentaPremium": "/wiki/how2use/articles/cuenta-ely-by#premium",
     "wikiBobby": "/wiki/server-data/articles/que-usa-el-servidor#bobby",
@@ -69,7 +61,6 @@
     "wikiComparativa": "/wiki/how2use/articles/comparativa",
     "wikiCuenta": "/wiki/how2use/articles/cuenta-ely-by",
     "wikiCuentaElyBy": "/wiki/how2use/articles/cuenta-ely-by",
-
     "wikiDevComponentesBasicos": "/wiki/how2wiki/articles/componentes-basicos",
     "wikiDevComponentesCodigo": "/wiki/how2wiki/articles/componentes-codigo",
     "wikiDevComponentesInteractivos": "/wiki/how2wiki/articles/componentes-interactivos",
@@ -77,7 +68,6 @@
     "wikiDevEscribir": "/wiki/how2wiki/articles/escribir-articulos",
     "wikiDevGithub": "/wiki/how2wiki/articles/github-contribuir",
     "wikiDevLinks": "/wiki/how2wiki/articles/links-entre-articulos",
-
     "wikiDiscord": "/wiki/community/articles/discord",
     "wikiEquipo": "/wiki/community/articles/equipo",
     "wikiFaq": "/wiki/community/articles/faq",
@@ -87,7 +77,6 @@
     "wikiInspiraciones": "/wiki/community/articles/inspiraciones",
     "wikiLaunchers": "/wiki/how2use/articles/launchers",
     "wikiLaunchersNoPremium": "/wiki/how2use/articles/launchers#no-premium-elyprism",
-
     "wikiListaMods": "/wiki/server-data/articles/lista-mods",
     "wikiLodestone": "/wiki/features/articles/lodestone-tp",
     "wikiMecanicas": "/wiki/features",
