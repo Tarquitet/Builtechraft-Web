@@ -1,15 +1,13 @@
 ---
-// src/components/wiki/Staff.astro
-// Estilo LiberCraft SIN modal: la bio y redes van directo bajo la foto.
-// Data-driven desde Google Sheets (getStaffData). Sin backdrop-blur = sin lag.
+// src/components/about/Staff.astro
 ---
 
-<section id="staff" class="py-24 relative overflow-hidden border-y border-theme bg-theme-section min-h-[750px]">
+<section id="staff" class="py-12 md:py-16 lg:py-24 relative overflow-hidden border-y border-theme bg-theme-section">
   <div class="container mx-auto px-6 max-w-5xl">
-    <h2 class="text-4xl md:text-5xl font-display font-bold text-center mb-4 uppercase text-theme-main tracking-tight">
+    <h2 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-center mb-4 uppercase text-theme-main tracking-tight">
       Nuestro <span class="text-btc-orange">Equipo</span>
     </h2>
-    <p class="text-theme-muted text-center text-sm md:text-base mb-16 max-w-2xl mx-auto">
+    <p class="text-theme-muted text-center text-sm md:text-base mb-12 md:mb-16 max-w-2xl mx-auto">
       Gracias a estas damas y caballeros en ayudarnos en distintas áreas de este proyecto.
     </p>
 
@@ -18,101 +16,201 @@
       <span class="animate-pulse font-bold tracking-widest uppercase text-sm">Cargando equipo...</span>
     </div>
 
-    <div id="staff-container" class="hidden flex-col gap-16 min-h-[450px]">
-      <div id="staff-rows" class="flex flex-col gap-16"></div>
+    <div id="staff-container" class="hidden flex-col min-h-[300px]">
+      <div id="staff-rows" class="flex flex-col"></div>
     </div>
   </div>
 </section>
 
 <style is:global>
-  /* ===== GRUPOS POR ROL ===== */
-  .staff-group { display: flex; flex-direction: column; align-items: center; gap: .75rem; }
-  .sg-title {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1.5rem;
-    text-transform: uppercase;
-    letter-spacing: .03em;
-  }
-  .sg-desc { color: var(--text-muted); font-size: .85rem; text-align: center; max-width: 480px; }
-  .sg-cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
-    margin-top: 2.5rem;
+  .staff-group { 
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.25rem !important;
+    margin-bottom: 1rem !important;
   }
 
-  /* ===== TARJETA ESTILO LIBERCRAFT (SIN MODAL) ===== */
+  .sg-title {
+    font-family: var(--font-display) !important;
+    font-weight: 700 !important;
+    font-size: 1.6rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    text-align: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .sg-cards {
+    display: flex !important;
+    gap: 0.5rem !important;
+    margin-top: 0.25rem !important;
+    overflow-x: auto !important;
+    padding: 0.25rem !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    width: 100% !important;
+  }
+
+  .sg-cards::-webkit-scrollbar { display: none !important; }
+
   .staff-card {
-    width: 240px;
-    background: var(--bg-card);
-    border: 3px solid var(--c, #71717a);
-    border-radius: 14px;
-    padding: 1.5rem 1.25rem;
-    text-align: center;
-    transition: transform .25s, box-shadow .25s;
-    box-shadow: 0 6px 18px -8px rgb(0 0 0 / .5);
-    display: flex;
-    flex-direction: column;
+    min-width: 200px !important;
+    max-width: 200px !important;
+    width: 200px !important;
+    scroll-snap-align: center !important;
+    background: var(--bg-card) !important;
+    border: 3px solid var(--c, #71717a) !important;
+    border-radius: 14px !important;
+    padding: 0.75rem !important;
+    text-align: center !important;
+    transition: transform .25s, box-shadow .25s !important;
+    box-shadow: 0 6px 18px -8px rgb(0 0 0 / .5) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    flex-shrink: 0 !important;
+    cursor: default !important;
   }
-  .staff-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 14px 30px -12px var(--c, #71717a);
-  }
+
   .sc-avatar {
-    width: 6.5rem;
-    height: 6.5rem;
-    margin: 0 auto 1rem;
-    overflow: hidden;
-    border-radius: 10px;
-    background: var(--bg-section);
-    flex-shrink: 0;
+    width: 4.5rem !important;
+    height: 4.5rem !important;
+    margin: 0 auto 0.5rem !important;
+    overflow: hidden !important;
+    border-radius: 10px !important;
+    background: var(--bg-section) !important;
+    flex-shrink: 0 !important;
   }
+
   .sc-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    image-rendering: pixelated;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    image-rendering: pixelated !important;
   }
+
   .sc-name {
-    color: var(--c, #71717a);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: .05em;
-    font-size: 1rem;
+    color: var(--c, #71717a) !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    font-size: 1rem !important;
+    margin: 0 !important;
   }
-  .sc-meta { display: block; color: var(--text-muted); font-size: .72rem; margin-top: .35rem; }
-  .sc-quote { color: var(--text-muted); font-size: .78rem; line-height: 1.5; margin-top: .75rem; }
+
+  .sc-meta { 
+    display: block !important; 
+    color: var(--text-muted) !important; 
+    font-size: 0.7rem !important; 
+    margin-top: 0.25rem !important; 
+  }
+
+  .sc-quote { 
+    color: var(--text-muted) !important; 
+    font-size: 0.75rem !important; 
+    line-height: 1.4 !important; 
+    margin-top: 0.5rem !important; 
+  }
+
   .sc-bio {
-    color: var(--text-muted);
-    font-size: .76rem;
-    line-height: 1.55;
-    margin-top: .85rem;
-    padding-top: .85rem;
-    border-top: 1px solid var(--border-subtle);
-    text-align: left;
+    color: var(--text-muted) !important;
+    font-size: 0.8rem !important;
+    line-height: 1.5 !important;
+    margin-top: 0.5rem !important;
+    padding-top: 0.5rem !important;
+    border-top: 1px solid var(--border-subtle) !important;
+    text-align: left !important;
+    display: none !important;
   }
+
   .sc-socials {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: .4rem;
-    margin-top: .9rem;
+    display: none !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 0.4rem !important;
+    margin-top: 0.5rem !important;
   }
+
   .sc-socials a {
-    font-size: .6rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: .08em;
-    padding: .3rem .55rem;
-    color: var(--text-muted);
-    border: 1px solid var(--border-subtle);
-    transition: color .2s, border-color .2s;
+    font-size: 0.6rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    padding: 0.3rem 0.5rem !important;
+    color: var(--text-muted) !important;
+    border: 1px solid var(--border-subtle) !important;
+    transition: color .2s, border-color .2s !important;
   }
+
   .sc-socials a:hover {
-    color: var(--c, #71717a);
-    border-color: var(--c, #71717a);
+    color: var(--c, #71717a) !important;
+    border-color: var(--c, #71717a) !important;
+  }
+
+  .sc-expand-arrow {
+    display: block !important;
+    margin-top: 0.5rem !important;
+    color: var(--c, #71717a) !important;
+    transition: transform .3s !important;
+  }
+
+  .sc-expand-arrow svg {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+  }
+
+  .staff-card.is-expanded .sc-bio,
+  .staff-card.is-expanded .sc-socials {
+    display: flex !important;
+  }
+
+  .staff-card.is-expanded .sc-expand-arrow svg {
+    transform: rotate(180deg) !important;
+  }
+
+  /* ===== DESKTOP: Hover activo, tarjetas completas ===== */
+  @media (min-width: 768px) {
+    .staff-group {
+      margin-bottom: 2.5rem !important;
+      gap: 0.5rem !important;
+    }
+    
+    .sg-title {
+      font-size: 1.75rem !important;
+    }
+    
+    .sg-cards {
+      flex-wrap: wrap !important;
+      justify-content: center !important;
+      overflow-x: visible !important;
+      padding: 0 !important;
+      margin-top: 1rem !important;
+    }
+    
+    .staff-card {
+      min-width: auto !important;
+      max-width: none !important;
+      width: 240px !important;
+      padding: 1.25rem !important;
+      cursor: default !important;
+    }
+    
+    .staff-card:hover {
+      transform: translateY(-4px) !important;
+      box-shadow: 0 14px 30px -12px var(--c, #71717a) !important;
+    }
+    
+    .sc-avatar {
+      width: 6rem !important;
+      height: 6rem !important;
+    }
+    
+    .sc-name { font-size: 1.05rem !important; }
+    .sc-bio { display: block !important; font-size: 0.76rem !important; }
+    .sc-socials { display: flex !important; }
+    .sc-expand-arrow { display: none !important; }
   }
 </style>
 
@@ -128,21 +226,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   const defaultAvatar = links.assets.defaultAvatar;
 
   try {
-    // El JSON ya viene ORDENADO y con COLORES VÁLIDOS desde Google Sheets/GitHub
     const staffMembers = await getStaffData();
 
     if (staffMembers && staffMembers.length > 0 && rowsWrapper) {
       let html = '';
       let currentRole = '';
 
-      // Como viene ordenado, solo detectamos cuando cambia el rol para crear un nuevo grupo
       staffMembers.forEach((m: any) => {
         const rol = (m.Rol || 'Staff').trim();
         const color = (m.Color || '#71717a').trim();
 
-        // Si es un rol nuevo, cerramos el grupo anterior y abrimos uno nuevo
         if (rol !== currentRole) {
-          if (currentRole !== '') html += `</div></div>`; // Cierra sg-cards y staff-group
+          if (currentRole !== '') html += `</div></div>`;
           
           currentRole = rol;
           html += `
@@ -152,7 +247,6 @@ document.addEventListener('DOMContentLoaded', async () => {
           `;
         }
 
-        // Renderizar tarjeta individual
         const avatar = (m.Avatar || '').trim() || defaultAvatar;
         const meta = [m.Clan, m.Pronombres].filter((v: string) => v && String(v).trim()).join(' · ');
         
@@ -173,11 +267,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             ${m.Frase ? `<p class="sc-quote">"${m.Frase}"</p>` : ''}
             ${m.Bio ? `<p class="sc-bio">${m.Bio}</p>` : ''}
             ${socialsHtml ? `<div class="sc-socials">${socialsHtml}</div>` : ''}
+            <div class="sc-expand-arrow">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </div>
           </div>
         `;
       });
 
-      // Cerrar el último grupo
       if (currentRole !== '') html += `</div></div>`;
 
       rowsWrapper.innerHTML = html;
@@ -186,6 +284,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         container.classList.remove('hidden');
         container.classList.add('flex');
       }
+
+      // Toggle de expansión SOLO en móvil
+      const isMobile = () => window.innerWidth < 768;
+      
+      document.querySelectorAll('.staff-card').forEach((card) => {
+        card.addEventListener('click', (e) => {
+          // Solo expandir en móvil
+          if (isMobile()) {
+            // Evitar que se expanda si se hace clic en un enlace de redes sociales
+            if ((e.target as HTMLElement).tagName === 'A') return;
+            card.classList.toggle('is-expanded');
+          }
+        });
+      });
     }
   } catch (error) {
     console.error('Error cargando staff:', error);

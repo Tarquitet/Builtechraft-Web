@@ -1,4 +1,5 @@
 ---
+// src/components/access/AccessWizard.astro
 import links from '../../data/links.json';
 
 interface WizardStep {
@@ -17,12 +18,22 @@ const wizardSteps: WizardStep[] = Object.values(modules)
   .sort((a, b) => a.step - b.step);
 ---
 
-<section id="access-wizard-section" class="py-24 bg-theme-section relative">
+<style is:global>
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
+<section id="access-wizard-section" class="py-12 md:py-24 bg-theme-section relative">
   <div class="container mx-auto px-6 max-w-6xl relative z-10">
     
-    <div class="mb-16" id="progress-bar-container"></div>
+    <div class="mb-8 md:mb-16" id="progress-bar-container"></div>
 
-    <div class="bg-theme-card p-8 md:p-12" style="box-shadow: 8px 8px 0px rgba(0,0,0,0.5);">
+    <div class="bg-theme-card p-6 md:p-12" style="box-shadow: 8px 8px 0px rgba(0,0,0,0.5);">
       <div id="wizard-content"></div>
     </div>
   </div>
@@ -36,67 +47,89 @@ const wizardSteps: WizardStep[] = Object.values(modules)
     const progressBar = document.getElementById('progress-bar-container');
     const content = document.getElementById('wizard-content');
 
-    let serverConfig = { JavaSmp: "btcsmp.tarquitet.com", JavaCreative: "btccreative.tarquitet.com", BedrockSmp: "btcsmp.tarquitet.com", BedrockCreative: "btccreative.tarquitet.com", BedrockPort: "19232", JavaMin: "1.20.x", JavaMax: "1.21.x", BedrockVer: "1.20.x - 1.21.x" };
-    try {
-      const res = await fetch('https://cdn.jsdelivr.net/gh/Tarquitet/JSON-ServersData@main/builtechraft-web/config.json?t=' + Date.now());
-      if (res.ok) serverConfig = { ...serverConfig, ...(await res.json()) };
-    } catch (e) { console.warn("Config por defecto", e); }
+    // 1. Configuración por defecto (fallback de seguridad)
+    let serverConfig = { 
+      JavaSmp: "btcsmp.tarquitet.com", 
+      JavaCreative: "btccreative.tarquitet.com", 
+      BedrockSmp: "btcsmp.tarquitet.com", 
+      BedrockCreative: "btccreative.tarquitet.com", 
+      BedrockPort: "19232", 
+      JavaMin: "1.20.x", 
+      JavaMax: "1.21.x", 
+      BedrockVer: "1.20.x - 1.21.x" 
+    };
+
+    // 2. LEER LA CACHÉ GLOBAL que ya crea tu ConfigLoader.astro
+    const cachedConfig = sessionStorage.getItem('btc_config');
+    if (cachedConfig) {
+      try {
+        serverConfig = { ...serverConfig, ...JSON.parse(cachedConfig) };
+      } catch (e) {}
+    }
+
+    // 3. Escuchar el evento por si el ConfigLoader apenas está terminando de cargar
+    window.addEventListener('btc:config-loaded', (e) => {
+      serverConfig = { ...serverConfig, ...e.detail };
+      if (state.currentStep > 5) {
+        renderGuide();
+      }
+    });
 
     function updateProgress() {
-  progressBar.innerHTML = `
-    <div class="flex items-center justify-center gap-0">
-      ${wizardSteps.map((step, i) => {
-        const isActive = step.step <= state.currentStep;
-        const isCurrent = step.step === state.currentStep;
-        const isLast = i === wizardSteps.length - 1;
-        return `
-          <div class="flex items-center">
-            <div class="flex flex-col items-center px-2 md:px-4">
-              <div class="w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center font-display font-bold text-lg md:text-xl transition-all duration-300 ${
-                isActive 
-                  ? 'bg-btc-orange text-white border-2 border-btc-orange' 
-                  : 'bg-transparent text-slate-500 dark:text-white/40 border-2 border-slate-300 dark:border-white/30'
-              } ${isCurrent ? 'scale-110 ring-4 ring-btc-orange/30' : ''}">
-                ${step.step}
+      progressBar.innerHTML = `
+        <div class="flex items-center justify-center gap-0 overflow-x-auto hide-scrollbar py-2 px-2 md:px-0">
+          ${wizardSteps.map((step, i) => {
+            const isActive = step.step <= state.currentStep;
+            const isCurrent = step.step === state.currentStep;
+            const isLast = i === wizardSteps.length - 1;
+            return `
+              <div class="flex items-center shrink-0">
+                <div class="flex flex-col items-center px-1 md:px-3">
+                  <div class="w-8 h-8 md:w-12 md:h-12 rounded-full flex items-center justify-center font-display font-bold text-sm md:text-xl transition-all duration-300 ${
+                    isActive 
+                      ? 'bg-btc-orange text-white border-2 border-btc-orange' 
+                      : 'bg-transparent text-slate-500 dark:text-white/40 border-2 border-slate-300 dark:border-white/30'
+                  } ${isCurrent ? 'scale-110 ring-4 ring-btc-orange/30' : ''}">
+                    ${step.step}
+                  </div>
+                  <span class="text-[10px] md:text-sm uppercase font-display font-bold whitespace-nowrap mt-1 md:mt-2 ${
+                    isCurrent ? 'text-btc-orange' : isActive ? 'text-slate-700 dark:text-white/70' : 'text-slate-500 dark:text-white/40'
+                  } transition-colors duration-300 hidden md:block">${step.label}</span>
+                </div>
+                ${!isLast ? `<div class="w-3 md:w-10 h-0.5 md:h-1 ${
+                  isActive && wizardSteps[i + 1]?.step <= state.currentStep 
+                    ? 'bg-btc-orange' 
+                    : 'bg-slate-300 dark:bg-white/20'
+                } transition-colors duration-300 rounded"></div>` : ''}
               </div>
-              <span class="text-xs md:text-sm uppercase font-display font-bold whitespace-nowrap mt-2 ${
-                isCurrent ? 'text-btc-orange' : isActive ? 'text-slate-700 dark:text-white/70' : 'text-slate-500 dark:text-white/40'
-              } transition-colors duration-300">${step.label}</span>
-            </div>
-            ${!isLast ? `<div class="w-8 md:w-12 h-1 ${
-              isActive && wizardSteps[i + 1]?.step <= state.currentStep 
-                ? 'bg-btc-orange' 
-                : 'bg-slate-300 dark:bg-white/20'
-            } transition-colors duration-300 rounded"></div>` : ''}
-          </div>
-        `;
-      }).join('')}
-    </div>
-  `;
-}
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
 
     function renderRules() {
       const step = wizardSteps.find(s => s.step === 1);
       content.innerHTML = `
-  <div class="text-center max-w-2xl mx-auto">
-    <div class="mb-8">
-      <h3 class="text-3xl md:text-4xl font-display font-bold text-theme-main uppercase tracking-tight mb-6">${step?.title || 'Normas de la Comunidad'}</h3>
-      <p class="text-theme-muted text-lg leading-relaxed mb-8">${step?.content || 'Antes de ingresar, es obligatorio leer y aceptar las reglas.'}</p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-        <a href="${links.pages?.rules || links.rules || '/reglas'}" target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-btc-orange text-white font-bold uppercase tracking-wider text-sm hover:bg-btc-orange/90 transition-all" style="box-shadow: 4px 4px 0px rgba(0,0,0,0.5);">
-          LEER REGLAS
-        </a>
-      </div>
-    </div>
-    <label class="flex items-center justify-center gap-3 cursor-pointer select-none group mb-6">
-      <input type="checkbox" id="accept-rules-checkbox" class="w-5 h-5 accent-btc-orange cursor-pointer rounded" />
-      <span class="text-sm text-theme-muted group-hover:text-theme-main transition-colors">He leído y acepto las reglas y asumo la responsabilidad de su cumplimiento.</span>
-    </label>
-    <button id="btn-continue-rules" disabled class="px-10 py-5 bg-btc-orange text-white font-bold uppercase tracking-wider text-lg transition-all disabled:opacity-30 disabled:cursor-not-allowed disabled:grayscale" style="box-shadow: 6px 6px 0px rgba(0,0,0,0.5);">
-      ${step?.buttonText || 'Acepto y continuar'}
-    </button>
-  </div>
-`;
+        <div class="text-center max-w-2xl mx-auto">
+          <div class="mb-8">
+            <h3 class="text-3xl md:text-4xl font-display font-bold text-theme-main uppercase tracking-tight mb-6">${step?.title || 'Normas de la Comunidad'}</h3>
+            <p class="text-theme-muted text-lg leading-relaxed mb-8">${step?.content || 'Antes de ingresar, es obligatorio leer y aceptar las reglas.'}</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+              <a href="${links.pages?.rules || links.rules || '/reglas'}" target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-btc-orange text-white font-bold uppercase tracking-wider text-sm hover:bg-btc-orange/90 transition-all" style="box-shadow: 4px 4px 0px rgba(0,0,0,0.5);">
+                LEER REGLAS
+              </a>
+            </div>
+          </div>
+          <label class="flex items-center justify-center gap-3 cursor-pointer select-none group mb-6">
+            <input type="checkbox" id="accept-rules-checkbox" class="w-5 h-5 accent-btc-orange cursor-pointer rounded" />
+            <span class="text-sm text-theme-muted group-hover:text-theme-main transition-colors">He leído y acepto las reglas y asumo la responsabilidad de su cumplimiento.</span>
+          </label>
+          <button id="btn-continue-rules" disabled class="px-10 py-5 bg-btc-orange text-white font-bold uppercase tracking-wider text-lg transition-all disabled:opacity-30 disabled:cursor-not-allowed disabled:grayscale" style="box-shadow: 6px 6px 0px rgba(0,0,0,0.5);">
+            ${step?.buttonText || 'Acepto y continuar'}
+          </button>
+        </div>
+      `;
 
       const checkbox = document.getElementById('accept-rules-checkbox');
       const btn = document.getElementById('btn-continue-rules');
@@ -109,6 +142,7 @@ const wizardSteps: WizardStep[] = Object.values(modules)
       });
     }
 
+    // ===== AQUÍ ESTÁ LA FUNCIÓN CORREGIDA CON EL DISEÑO HORIZONTAL EN MÓVIL =====
     function renderGrid(stepNum) {
       const currentStepData = wizardSteps.find(s => s.step === stepNum);
       if (!currentStepData) return;
@@ -121,41 +155,39 @@ const wizardSteps: WizardStep[] = Object.values(modules)
       });
 
       content.innerHTML = `
-        <div class="mb-12">
-          ${stepNum > 1 ? `<div class="md:hidden mb-6"><button class="btn-back px-6 py-3 border-2 border-theme-border text-theme-muted hover:text-btc-orange hover:border-btc-orange transition-all font-bold uppercase tracking-wider text-sm whitespace-nowrap" id="btn-back-mobile">Atrás</button></div>` : ''}
-          <div class="relative">
-            <h3 class="text-3xl md:text-4xl font-display font-bold text-theme-main uppercase tracking-tight text-center">${currentStepData.title}</h3>
-            ${stepNum > 1 ? `<button class="btn-back hidden md:block absolute left-0 top-1/2 -translate-y-1/2 px-6 py-3 border-2 border-theme-border text-theme-muted hover:text-btc-orange hover:border-btc-orange transition-all font-bold uppercase tracking-wider text-sm whitespace-nowrap" id="btn-back-desktop">Atrás</button>` : ''}
-          </div>
+        <div class="mb-8">
+          ${stepNum > 1 ? `<div class="mb-6"><button class="px-6 py-3 border-2 border-theme-1 text-theme-muted hover:text-btc-orange hover:border-btc-orange transition-all font-bold uppercase tracking-wider text-sm" id="btn-back-mobile">← Atrás</button></div>` : ''}
+          <h3 class="text-2xl md:text-4xl font-display font-bold text-theme-main uppercase tracking-tight text-center">${currentStepData.title}</h3>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Layout responsive: horizontal en móvil, vertical en desktop -->
+        <div class="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           ${filtered.map((item) => `
-            <button class="group grid-item-btn" data-id="${item.id}" style="padding:0; display:flex; flex-direction:column; border:none; background:transparent; cursor:pointer; transition:transform 0.15s; width:100%; max-width:280px; margin:0 auto;">
-              <div style="width:100%; aspect-ratio:16/9; overflow:hidden; background:rgba(0,0,0,0.15); position:relative; box-shadow:6px 6px 0px rgba(0,0,0,0.5);">
-                ${item.image ? `<img src="${item.image}" alt="${item.name}" style="width:100%; height:100%; object-fit:contain; display:block;" class="group-hover:scale-105 transition-transform" />` : `<div style="display:flex; align-items:center; justify-content:center; width:100%; height:100%; font-size:2.5rem;">${item.icon || '📦'}</div>`}
+            <button class="group grid-item-btn flex md:flex-col items-center md:items-stretch gap-4 md:gap-0 p-4 md:p-0 bg-theme-card border-2 border-theme-1 hover:border-btc-orange transition-all text-left md:text-center" data-id="${item.id}" style="box-shadow: 4px 4px 0px rgba(0,0,0,0.3);">
+              
+              <!-- Imagen: pequeña a la izquierda en móvil, grande arriba en desktop -->
+              <div class="w-16 h-16 md:w-full md:h-32 flex items-center justify-center bg-theme-alternate border border-theme-1 shrink-0 md:mb-0 overflow-hidden" style="box-shadow: 3px 3px 0px rgba(0,0,0,0.3);">
+                ${item.image ? `<img src="${item.image}" alt="${item.name}" class="w-full h-full object-contain group-hover:scale-105 transition-transform" />` : `<div class="text-2xl md:text-4xl">${item.icon || '📦'}</div>`}
               </div>
-              <div style="padding:0.75rem 0.5rem 0.4rem; text-align:center;">
-                <h4 style="font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-main,white); margin:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.name}</h4>
-                ${item.downloadUrl ? `<a href="${item.downloadUrl}" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:0.3rem; margin-top:0.5rem; padding:0.35rem 0.75rem; font-size:0.7rem; color:var(--btc-orange,#ea580c); border:1px solid var(--btc-orange,#ea580c); border-radius:2px; text-decoration:none; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;" class="hover:bg-btc-orange/10 transition-colors" onclick="event.stopPropagation()">Descargar →</a>` : ''}
+              
+              <!-- Texto: a la derecha en móvil, abajo en desktop -->
+              <div class="flex-1 min-w-0 flex flex-col justify-center md:pt-4 md:pb-2">
+                <h4 class="text-sm md:text-base font-display font-bold uppercase tracking-wide text-theme-main leading-tight line-clamp-2">${item.name}</h4>
               </div>
+              
             </button>
           `).join('')}
         </div>
       `;
 
       document.getElementById('btn-back-mobile')?.addEventListener('click', goBack);
-      document.getElementById('btn-back-desktop')?.addEventListener('click', goBack);
 
       content.querySelectorAll('.grid-item-btn').forEach((btn) => {
         btn.addEventListener('mouseenter', () => { 
-          btn.style.transform = 'translate(-2px, -2px)'; 
-          const shadowBox = btn.querySelector('div');
-          if(shadowBox) shadowBox.style.boxShadow = '8px 8px 0px rgba(234, 88, 12, 0.4)'; 
+          btn.style.borderColor = 'var(--btc-orange, #ea580c)';
         });
         btn.addEventListener('mouseleave', () => { 
-          btn.style.transform = 'translate(0, 0)'; 
-          const shadowBox = btn.querySelector('div');
-          if(shadowBox) shadowBox.style.boxShadow = '6px 6px 0px rgba(0,0,0,0.5)'; 
+          btn.style.borderColor = '';
         });
         btn.addEventListener('click', () => {
           const key = currentStepData.label === 'Edición' ? 'edition' : currentStepData.label === 'Launcher' ? 'launcher' : currentStepData.label === 'Cuenta' ? 'accountType' : 'platform';
@@ -166,112 +198,100 @@ const wizardSteps: WizardStep[] = Object.values(modules)
     }
 
     function renderGuide() {
-  const guideStep = wizardSteps.find(s => s.type === 'guide');
+      const guideStep = wizardSteps.find(s => s.type === 'guide');
+      
+      let guide;
+      if (state.selected.accountType) {
+        guide = guideStep.items.find((g) => g.account === state.selected.accountType);
+      }
+      if (!guide) {
+        guide = guideStep.items.find((g) => g.edition === state.selected.edition) || guideStep.items[0];
+      }
+      
+      if (!guide) {
+        content.innerHTML = '<p class="text-center text-theme-muted">No se encontró la guía.</p>';
+        return;
+      }
   
-  // Si el usuario eligió cuenta "invalid", mostrar guía de error
-  let guide;
-  
-  // Primero buscar por accountType (para el caso invalid)
-  if (state.selected.accountType) {
-    guide = guideStep.items.find((g) => g.account === state.selected.accountType);
-  }
-  
-  // Si no encontró por account, buscar por edition
-  if (!guide) {
-    guide = guideStep.items.find((g) => g.edition === state.selected.edition) || guideStep.items[0];
-  }
-  
-  if (!guide) {
-    content.innerHTML = '<p class="text-center text-theme-muted">No se encontró la guía.</p>';
-    return;
-  }
-  
-  const displayVersion = state.selected.edition === 'bedrock' ? serverConfig.BedrockVer : serverConfig.JavaMax;
+      const displayVersion = state.selected.edition === 'bedrock' ? serverConfig.BedrockVer : serverConfig.JavaMax;
 
-  content.innerHTML = `
-    <div class="mb-12">
-      <div class="md:hidden mb-6"><button class="btn-back px-6 py-3 border-2 border-theme-border text-theme-muted hover:text-btc-orange hover:border-btc-orange transition-all font-bold uppercase tracking-wider text-sm whitespace-nowrap" id="btn-back-mobile">Atrás</button></div>
-      <div class="relative">
-        <h3 class="text-3xl md:text-4xl font-display font-bold text-theme-main uppercase tracking-tight text-center">${guideStep.title}</h3>
-        <button class="btn-back hidden md:block absolute left-0 top-1/2 -translate-y-1/2 px-6 py-3 border-2 border-theme-border text-theme-muted hover:text-btc-orange hover:border-btc-orange transition-all font-bold uppercase tracking-wider text-sm whitespace-nowrap" id="btn-back-desktop">Atrás</button>
-      </div>
-    </div>
-    <div class="space-y-6 max-w-3xl mx-auto mb-12">
-      ${guide.steps.map((s, i) => {
-        let desc = (s.description || "")
-          .replace(/{javaSmp}/g, serverConfig.JavaSmp)
-          .replace(/{javaCreative}/g, serverConfig.JavaCreative)
-          .replace(/{bedrockSmp}/g, serverConfig.BedrockSmp)
-          .replace(/{bedrockCreative}/g, serverConfig.BedrockCreative)
-          .replace(/{bedrockPort}/g, serverConfig.BedrockPort)
-          .replace(/{ip}/g, state.selected.edition === 'bedrock' ? serverConfig.BedrockSmp : serverConfig.JavaSmp)
-          .replace(/{port}/g, state.selected.edition === 'bedrock' ? serverConfig.BedrockPort : "")
-          .replace(/{version}/g, displayVersion);
+      content.innerHTML = `
+        <div class="mb-12">
+          <div class="mb-8"><button class="px-6 py-3 border-2 border-theme-1 text-theme-muted hover:text-btc-orange hover:border-btc-orange transition-all font-bold uppercase tracking-wider text-sm" id="btn-back-mobile">← Atrás</button></div>
+          <h3 class="text-2xl md:text-4xl font-display font-bold text-theme-main uppercase tracking-tight text-center">${guideStep.title}</h3>
+        </div>
         
-        return `
-          <div class="card-retro p-6" style="box-shadow: 6px 6px 0px rgba(0,0,0,0.5); background: var(--bg-card, #1e293b);">
-            <div class="flex items-start gap-4 mb-4">
-              <div class="w-12 h-12 bg-btc-orange/10 flex items-center justify-center text-2xl shrink-0" style="border: 2px solid rgba(234, 88, 12, 0.3);">${s.icon || ''}</div>
-              <div class="flex-1">
-                <div class="flex items-center gap-3 mb-2">
-                  <span class="text-xs font-bold uppercase tracking-widest text-btc-orange">Paso ${i + 1}</span>
-                  <h4 class="text-lg font-display font-bold text-theme-main">${s.title}</h4>
-                </div>
-                <p class="text-sm text-theme-muted leading-relaxed whitespace-pre-line">${desc}</p>
+        <div class="max-w-3xl mx-auto mb-12">
+          ${guide.steps.map((s, i) => {
+            let desc = (s.description || "")
+              .replace(/{javaSmp}/g, serverConfig.JavaSmp)
+              .replace(/{javaCreative}/g, serverConfig.JavaCreative)
+              .replace(/{bedrockSmp}/g, serverConfig.BedrockSmp)
+              .replace(/{bedrockCreative}/g, serverConfig.BedrockCreative)
+              .replace(/{bedrockPort}/g, serverConfig.BedrockPort)
+              .replace(/{ip}/g, state.selected.edition === 'bedrock' ? serverConfig.BedrockSmp : serverConfig.JavaSmp)
+              .replace(/{port}/g, state.selected.edition === 'bedrock' ? serverConfig.BedrockPort : "")
+              .replace(/{version}/g, displayVersion);
+            
+            return `
+              <div class="mb-12 last:mb-0">
+                ${s.image ? `
+                  <div class="mb-6">
+                    <img src="${s.image}" alt="${s.title}" class="w-full max-w-[90%] mx-auto border border-theme-1" style="box-shadow: 6px 6px 0px rgba(0,0,0,0.4);" />
+                  </div>
+                ` : ''}
+                <span class="text-sm font-bold uppercase tracking-widest text-btc-orange block mb-2">Paso ${i + 1}</span>
+                <h4 class="text-xl md:text-2xl font-display font-bold text-theme-main mb-3">${s.title}</h4>
+                <p class="text-base text-theme-muted leading-relaxed whitespace-pre-line">${desc}</p>
               </div>
-            </div>
-            ${s.image ? `<div style="text-align:center; margin-top:1rem;"><img src="${s.image}" alt="${s.title}" style="display:inline-block; max-width:100%; box-shadow: 4px 4px 0px rgba(0,0,0,0.3);" /></div>` : ''}
-          </div>
-        `;
-      }).join('')}
-    </div>
-    <div class="text-center pt-8">
-      <button id="btn-reset" class="px-8 py-4 border-2 border-theme-border text-theme-muted hover:text-btc-orange hover:border-btc-orange transition-all font-bold uppercase tracking-wider text-base">Volver arriba</button>
-    </div>
-  `;
+            `;
+          }).join('')}
+        </div>
+        
+        <div class="text-center pt-8">
+          <button id="btn-reset" class="px-8 py-4 border-2 border-theme-1 text-theme-muted hover:text-btc-orange hover:border-btc-orange transition-all font-bold uppercase tracking-wider text-sm">Volver arriba</button>
+        </div>
+      `;
 
-  document.getElementById('btn-back-mobile')?.addEventListener('click', goBack);
-  document.getElementById('btn-back-desktop')?.addEventListener('click', goBack);
-  document.getElementById('btn-reset')?.addEventListener('click', () => { wizard.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
-}
+      document.getElementById('btn-back-mobile')?.addEventListener('click', goBack);
+      document.getElementById('btn-reset')?.addEventListener('click', () => { wizard.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+    }
 
     function goNext() {
-  // Buscar si el item seleccionado tiene "skipTo"
-  const currentStepData = wizardSteps.find(s => s.step === state.currentStep);
-  if (currentStepData?.items) {
-    const selectedItem = currentStepData.items.find(item => {
-      const key = currentStepData.label === 'Edición' ? 'edition' 
-               : currentStepData.label === 'Launcher' ? 'launcher'
-               : currentStepData.label === 'Cuenta' ? 'accountType'
-               : 'platform';
-      return item.id === state.selected[key];
-    });
-    
-    if (selectedItem?.skipTo) {
-      goToStep(selectedItem.skipTo);
-      return;
-    }
-  }
+      const currentStepData = wizardSteps.find(s => s.step === state.currentStep);
+      if (currentStepData?.items) {
+        const selectedItem = currentStepData.items.find(item => {
+          const key = currentStepData.label === 'Edición' ? 'edition' 
+                  : currentStepData.label === 'Launcher' ? 'launcher'
+                  : currentStepData.label === 'Cuenta' ? 'accountType'
+                  : 'platform';
+          return item.id === state.selected[key];
+        });
+        
+        if (selectedItem?.skipTo) {
+          goToStep(selectedItem.skipTo);
+          return;
+        }
+      }
 
-  // Flujo normal
-  let nextNum = state.currentStep + 1;
-  while (nextNum <= 5) {
-    const nextStepData = wizardSteps.find(s => s.step === nextNum);
-    if (nextStepData?.type === 'grid' && nextStepData.items) {
-      const filtered = nextStepData.items.filter((item) => {
-        if (item.platforms && state.selected.platform && !item.platforms.includes(state.selected.platform)) return false;
-        if (item.editions && state.selected.edition && !item.editions.includes(state.selected.edition)) return false;
-        if (item.accountTypes && state.selected.accountType && !item.accountTypes.includes(state.selected.accountType)) return false;
-        return true;
-      });
-      if (filtered.length > 0) break;
-    } else {
-      break;
+      let nextNum = state.currentStep + 1;
+      while (nextNum <= 5) {
+        const nextStepData = wizardSteps.find(s => s.step === nextNum);
+        if (nextStepData?.type === 'grid' && nextStepData.items) {
+          const filtered = nextStepData.items.filter((item) => {
+            if (item.platforms && state.selected.platform && !item.platforms.includes(state.selected.platform)) return false;
+            if (item.editions && state.selected.edition && !item.editions.includes(state.selected.edition)) return false;
+            if (item.accountTypes && state.selected.accountType && !item.accountTypes.includes(state.selected.accountType)) return false;
+            return true;
+          });
+          if (filtered.length > 0) break;
+        } else {
+          break;
+        }
+        nextNum++;
+      }
+      goToStep(nextNum);
     }
-    nextNum++;
-  }
-  goToStep(nextNum);
-}
 
     function goBack() {
       let prevNum = state.currentStep - 1;

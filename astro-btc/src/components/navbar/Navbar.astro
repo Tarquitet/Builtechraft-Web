@@ -3,18 +3,13 @@
 import navData from '../../data/navigation.json';
 import links from '../../data/links.json';
 
-// Helper para buscar llaves dinámicas en la estructura anidada de links.json
 const getLink = (key: string | undefined | null): string => {
     if (!key) return '#';
     const l = links as any;
-    
-    // 1) Si tiene puntos, es una ruta explícita: "launchers.prism.url"
     if (key.includes('.')) {
         const val = key.split('.').reduce((acc, part) => (acc == null ? acc : acc[part]), l);
         return typeof val === 'string' ? val : '#';
     }
-    
-    // 2) Búsqueda recursiva por nombre de llave (para keys simples)
     const findInObject = (obj: any, searchKey: string): string | null => {
         for (const [k, v] of Object.entries(obj)) {
             if (k === searchKey && typeof v === 'string') return v;
@@ -25,7 +20,6 @@ const getLink = (key: string | undefined | null): string => {
         }
         return null;
     };
-    
     return findInObject(l, key) || '#';
 };
 
@@ -33,47 +27,85 @@ const mainItems = navData.main;
 const dropdowns = navData.dropdowns || {};
 ---
 
-<header id="main-header" class="navbar-header">
-    <div class="navbar-container">
+<!-- ESTILOS PARA EL BOTTOM SHEET -->
+<style is:global>
+    .bottom-sheet {
+        position: fixed; inset: 0; z-index: 60;
+        display: flex; align-items: flex-end; pointer-events: none;
+    }
+    .bottom-sheet.is-open { pointer-events: auto; }
+    .bottom-sheet-backdrop {
+        position: absolute; inset: 0; background: rgba(0, 0, 0, 0.6);
+        opacity: 0; transition: opacity 0.3s ease; backdrop-filter: blur(4px);
+    }
+    .bottom-sheet.is-open .bottom-sheet-backdrop { opacity: 1; }
+    .bottom-sheet-panel {
+        position: relative; width: 100%; max-height: 85vh;
+        background-color: var(--bg-card, #1e293b);
+        border-top-left-radius: 1.5rem; border-top-right-radius: 1.5rem;
+        transform: translateY(100%); transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+        overflow-y: auto; overscroll-behavior: contain;
+        border-top: 1px solid var(--border-subtle, #334155);
+    }
+    .bottom-sheet.is-open .bottom-sheet-panel { transform: translateY(0); }
+    .sheet-handle {
+        width: 2.5rem; height: 0.25rem; background: var(--border-subtle, #475569);
+        border-radius: 9999px; margin: 0.75rem auto 0;
+    }
+</style>
+
+<!-- HEADER MÓVIL - Sin desbordamiento horizontal -->
+<header class="lg:hidden fixed top-0 left-0 z-[100] bg-theme-app border-b border-theme-1" style="width: 100%; max-width: 100vw; box-sizing: border-box;">
+    <div class="flex items-center justify-between h-16" style="width: 100%; max-width: 100vw; padding: 0 1rem; box-sizing: border-box;">
+        <!-- Logo a la izquierda -->
+        <a href={getLink('inicio') || '/'} class="flex items-center gap-2 shrink-0">
+            <img src={links.assets.favicon} alt="Builtechraft" class="h-8 w-auto" />
+        </a>
         
-        <a href={getLink('pageInicio') || '/#inicio'} class="flex items-center gap-2 transition-transform hover:scale-105 z-20">
+        <!-- Botón hamburguesa a la derecha -->
+        <button 
+            id="mobile-menu-toggle" 
+            class="p-2 text-theme-main hover:text-btc-orange transition-colors shrink-0" 
+            aria-label="Menú"
+        >
+            <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+            <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+    </div>
+</header>
+
+<!-- 2. HEADER DESKTOP (Solo visible en pantallas grandes: hidden lg:block) -->
+<header id="main-header" class="hidden lg:block navbar-header fixed top-0 w-full z-50 bg-theme-app border-b border-theme-1">
+    <div class="container mx-auto px-6 flex items-center justify-between h-16">
+        <a href={getLink('inicio') || '/'} class="flex items-center gap-2 transition-transform hover:scale-105 z-20">
             <img src={links.assets.favicon} alt="Builtechraft" loading="eager" class="h-10 w-auto object-contain drop-shadow-md" />
         </a>
 
-        <nav class="hidden lg:flex items-center justify-end gap-10 flex-1">
+        <nav class="flex items-center justify-end gap-8 flex-1">
             {mainItems.map((item: any) => {
-                // Usamos el helper getLink()
                 const targetUrl = item.keyLink ? getLink(item.keyLink) : (item.href || '#');
                 const customStyle = item.hexColor ? `--text-muted: ${item.hexColor}; --color-btc-orange: ${item.hexColor};` : undefined;
                 const subItems = item.dropdownKey ? (dropdowns as any)[item.dropdownKey] : [];
 
                 return item.hasDropdown ? (
                     <div class="relative py-2">
-                        <button 
-                            type="button"
-                            class="nav-link flex items-center gap-1.5 cursor-pointer outline-none nav-dropdown-btn"
-                            data-dropdown-target={`nav-drop-${item.id}`}
-                            style={customStyle}
-                        >
+                        <button type="button" class="nav-link flex items-center gap-1.5 cursor-pointer outline-none nav-dropdown-btn" data-dropdown-target={`nav-drop-${item.id}`} style={customStyle}>
                             {item.name}
                             <svg class="w-4 h-4 text-theme-muted transition-transform duration-300 arrow-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
                             </svg>
                             <span class="nav-line"></span>
                         </button>
-                        
                         <div id={`nav-drop-${item.id}`} class="navbar-dropdown nav-dropdown-menu">
-                             <div class="flex flex-col gap-1">
+                             <div class="flex flex-col gap-1 p-2">
                                 {subItems.map((subItem: any) => {
-                                    // Usamos el helper getLink() para los submenús
                                     const subUrl = subItem.keyLink ? getLink(subItem.keyLink) : (subItem.href || '#');
                                     return (
-                                        <a 
-                                            href={subUrl} 
-                                            target={subItem.isExternal ? "_blank" : "_self"}
-                                            rel={subItem.isExternal ? "noopener noreferrer" : undefined}
-                                            class="submenu-link"
-                                        >
+                                        <a href={subUrl} target={subItem.isExternal ? "_blank" : "_self"} rel={subItem.isExternal ? "noopener noreferrer" : undefined} class="submenu-link px-3 py-2 rounded-md">
                                              {subItem.name}
                                         </a>
                                     );
@@ -82,13 +114,7 @@ const dropdowns = navData.dropdowns || {};
                         </div>
                     </div>
                 ) : (
-                    <a 
-                        href={targetUrl} 
-                        target={item.isExternal ? "_blank" : "_self"}
-                        rel={item.isExternal ? "noopener noreferrer" : undefined}
-                        class="nav-link" 
-                        style={customStyle}
-                    >
+                    <a href={targetUrl} target={item.isExternal ? "_blank" : "_self"} rel={item.isExternal ? "noopener noreferrer" : undefined} class="nav-link" style={customStyle}>
                          {item.name}
                         <span class="nav-line"></span>
                     </a>
@@ -98,12 +124,114 @@ const dropdowns = navData.dropdowns || {};
     </div>
 </header>
 
-<button id="back-to-top" aria-label="Volver arriba" class="fixed bottom-8 right-8 z-50 bg-btc-orange text-white p-3.5 rounded-none border-accent-4 shadow-lg shadow-btc-orange/30 opacity-0 invisible translate-y-4 transition-all duration-300 hover:-translate-y-1 hover:bg-orange-500 hover:shadow-btc-orange/50">
-    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"></path></svg>
+<!-- 3. BOTTOM SHEET MENÚ MÓVIL (lg:hidden) -->
+<div id="mobile-sheet" class="bottom-sheet lg:hidden">
+    <div class="bottom-sheet-backdrop" id="sheet-backdrop"></div>
+    <div class="bottom-sheet-panel">
+        <div class="sheet-handle"></div>
+        <nav class="flex flex-col gap-2 py-6 px-6">
+            {mainItems.map((item: any) => {
+                const targetUrl = item.keyLink ? getLink(item.keyLink) : (item.href || '#');
+                const customStyle = item.hexColor ? `--text-muted: ${item.hexColor}; --color-btc-orange: ${item.hexColor};` : undefined;
+                const subItems = item.dropdownKey ? (dropdowns as any)[item.dropdownKey] : [];
+
+                return item.hasDropdown ? (
+                    <div class="w-full">
+                        <button type="button" class="mobile-nav-link flex items-center justify-between w-full px-4 py-3 rounded-lg hover:bg-white/5 transition-colors" data-dropdown-id={`sub-${item.id}`} style={customStyle}>
+                            <span class="font-bold text-theme-main">{item.name}</span>
+                            <svg class="w-4 h-4 text-theme-muted transition-transform duration-300 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div id={`sub-${item.id}`} class="hidden flex-col gap-1 mt-1 ml-4 pl-4 border-l border-theme-1">
+                            {subItems.map((subItem: any) => {
+                                const subUrl = subItem.keyLink ? getLink(subItem.keyLink) : (subItem.href || '#');
+                                return (
+                                    <a href={subUrl} target={subItem.isExternal ? "_blank" : "_self"} rel={subItem.isExternal ? "noopener noreferrer" : undefined} class="mobile-submenu-link block px-4 py-2 rounded-lg text-sm text-theme-muted hover:text-btc-orange hover:bg-white/5 transition-colors">
+                                        {subItem.name}
+                                    </a>
+                                );
+                            })}
+                        </div>
+                    </div>
+                ) : (
+                    <a href={targetUrl} class="mobile-nav-link block px-4 py-3 rounded-lg font-bold text-theme-main hover:bg-white/5 hover:text-btc-orange transition-colors" style={customStyle} target={item.isExternal ? "_blank" : "_self"} rel={item.isExternal ? "noopener noreferrer" : undefined}>
+                        {item.name}
+                    </a>
+                );
+            })}
+        </nav>
+    </div>
+</div>
+
+<!-- BOTÓN VOLVER ARRIBA - Simplificado -->
+<button 
+    id="back-to-top" 
+    aria-label="Volver arriba" 
+    class="fixed bottom-6 right-6 z-40 bg-btc-orange text-white w-12 h-12 rounded-md shadow-lg shadow-btc-orange/30 opacity-0 invisible translate-y-4 transition-all duration-300 hover:-translate-y-1 hover:bg-orange-500 hover:shadow-btc-orange/50 flex items-center justify-center"
+>
+    <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"></path>
+    </svg>
 </button>
 
 <script is:inline>
     document.addEventListener('DOMContentLoaded', () => {
+        // --- Lógica del Menú Móvil ---
+        const toggleBtn = document.getElementById('mobile-menu-toggle');
+        const sheet = document.getElementById('mobile-sheet');
+        const backdrop = document.getElementById('sheet-backdrop');
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const closeIcon = document.getElementById('close-icon');
+
+        const openSheet = () => {
+            sheet?.classList.add('is-open');
+            hamburgerIcon?.classList.add('hidden');
+            closeIcon?.classList.remove('hidden');
+            toggleBtn?.setAttribute('aria-expanded', 'true');
+            document.body.style.overflow = 'hidden';
+        };
+
+        const closeSheet = () => {
+            sheet?.classList.remove('is-open');
+            hamburgerIcon?.classList.remove('hidden');
+            closeIcon?.classList.add('hidden');
+            toggleBtn?.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+        };
+
+        toggleBtn?.addEventListener('click', () => {
+            if (sheet?.classList.contains('is-open')) closeSheet();
+            else openSheet();
+        });
+
+        backdrop?.addEventListener('click', closeSheet);
+
+        const subToggles = document.querySelectorAll('[data-dropdown-id]');
+        subToggles.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.getAttribute('data-dropdown-id');
+                if (!targetId) return;
+                const targetMenu = document.getElementById(targetId);
+                const arrow = btn.querySelector('.arrow-icon');
+                if (targetMenu) {
+                    const isSubOpen = !targetMenu.classList.contains('hidden');
+                    if (isSubOpen) {
+                        targetMenu.classList.add('hidden'); targetMenu.classList.remove('flex');
+                        if (arrow) arrow.style.transform = 'rotate(0deg)';
+                    } else {
+                        targetMenu.classList.remove('hidden'); targetMenu.classList.add('flex');
+                        if (arrow) arrow.style.transform = 'rotate(180deg)';
+                    }
+                }
+            });
+        });
+
+        sheet?.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => setTimeout(closeSheet, 150));
+        });
+
+        // --- Lógica del Menú Desktop ---
         const dropdownBtns = document.querySelectorAll('.nav-dropdown-btn');
         const dropdownMenus = document.querySelectorAll('.nav-dropdown-menu');
 
@@ -114,18 +242,12 @@ const dropdowns = navData.dropdowns || {};
                 const targetMenu = document.getElementById(targetId);
                 const arrow = btn.querySelector('.arrow-svg');
 
-                dropdownMenus.forEach(menu => {
-                    if (menu !== targetMenu) menu.classList.remove('is-open');
-                });
-                document.querySelectorAll('.arrow-svg').forEach(a => {
-                    if (a !== arrow) a.style.transform = 'rotate(0deg)';
-                });
+                dropdownMenus.forEach(menu => { if (menu !== targetMenu) menu.classList.remove('is-open'); });
+                document.querySelectorAll('.arrow-svg').forEach(a => { if (a !== arrow) a.style.transform = 'rotate(0deg)'; });
 
                 if (targetMenu) {
                     const isOpen = targetMenu.classList.toggle('is-open');
-                    if (arrow) {
-                        arrow.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
-                    }
+                    if (arrow) arrow.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
                 }
             });
         });
@@ -135,17 +257,18 @@ const dropdowns = navData.dropdowns || {};
             document.querySelectorAll('.arrow-svg').forEach(a => a.style.transform = 'rotate(0deg)');
         });
 
+        // --- Lógica del Botón Volver Arriba ---
         const bttBtn = document.getElementById('back-to-top');
         if (bttBtn) {
             window.addEventListener('scroll', () => {
-                if (window.scrollY > 400) {
+                if (window.scrollY > 300) { // Reducido a 300 para que aparezca antes en móvil
                     bttBtn.classList.remove('opacity-0', 'invisible', 'translate-y-4');
                     bttBtn.classList.add('opacity-100', 'visible', 'translate-y-0');
                 } else {
                     bttBtn.classList.add('opacity-0', 'invisible', 'translate-y-4');
                     bttBtn.classList.remove('opacity-100', 'visible', 'translate-y-0');
                 }
-            });
+            }, { passive: true });
 
             bttBtn.addEventListener('click', () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });

@@ -3,6 +3,6 @@
   "type": "rules",
   "label": "Reglas",
   "title": "Normas de la Comunidad",
-  "content": "Es responsabilidad del usuario leer, comprender y cumplir con las reglas de este servidor. El incumplimiento de estas puede resultar en una sanción temporal o una expulsión permanente.",
-  "buttonText": "He leído y acepto las normas"
+  "content": "El incumplimiento puede resultar en una sanción temporal o permanente.",
+  "buttonText": "Continuar"
 }

@@ -90,6 +90,19 @@ body {
     color 0.5s ease;
 }
 
+/* PREVENIR SCROLL HORIZONTAL EN MÓVIL */
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+}
+
+/* Asegurar que elementos fijos no causen desbordamiento */
+* {
+  box-sizing: border-box;
+}
+
 /* --- CLASES DE UTILIDAD GLOBALES --- */
 .bg-theme-app {
   background-color: var(--bg-app);
@@ -673,4 +686,24 @@ body {
 .world-tab:focus-visible {
   outline: 2px solid var(--text-highlight);
   outline-offset: -4px;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.howto-hero {
+  padding-top: 3rem; /* Más compacto en móvil */
+  padding-bottom: 3rem;
+  min-height: 300px;
+}
+@media (min-width: 768px) {
+  .howto-hero {
+    padding-top: 5rem; /* Tamaño original en desktop */
+    padding-bottom: 5rem;
+    min-height: 500px;
+  }
 }

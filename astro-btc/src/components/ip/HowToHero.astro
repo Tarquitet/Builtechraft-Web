@@ -5,7 +5,7 @@ import links from '../../data/links.json';
 const bgImage = `url('${links.assets.howtoBackground}')`;
 ---
 
-<section class="howto-hero">
+<section class="howto-hero py-12 md:py-24">
     <div class="absolute inset-0 z-0 bg-cover bg-center opacity-40" style={{ backgroundImage: bgImage }}></div>
     <div class="absolute inset-0 z-1 bg-theme-app opacity-60 pointer-events-none"></div>
     <div class="container mx-auto px-6 max-w-4xl relative z-10">
@@ -13,7 +13,7 @@ const bgImage = `url('${links.assets.howtoBackground}')`;
             ¿Listo para <span class="text-btc-orange">entrar?</span>
         </h1>
         <p class="howto-hero-desc">
-            Sigue estos pasos para unirte al servidor. Revisa qué necesitas, configura tu juego y conéctate sin problemas.
+            Sigue estos pasos para unirte al servidor.
             <br><span class="text-btc-yellow font-bold mt-2 inline-block">¡Te esperamos!</span>
         </p>
     </div>

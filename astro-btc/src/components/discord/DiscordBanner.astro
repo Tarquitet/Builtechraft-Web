@@ -6,10 +6,11 @@
     <div class="container mx-auto px-6 max-w-5xl">
         
         {/* BANNER COMPACTO TIPO ANUNCIO */}
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-theme-card border-theme-1  p-5 md:p-6 hover:border-[#5865F2]/40 transition-colors">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-theme-card border-theme-1 p-5 md:p-6 hover:border-[#5865F2]/40 transition-colors">
             
             <div class="flex items-center gap-4 text-center sm:text-left">
-                <span class="text-4xl shrink-0 select-none">🎮</span>
+                {/* Emoji oculto en móvil (hidden), visible en md en adelante (md:block) */}
+                <span class="text-4xl shrink-0 select-none hidden md:block">🎮</span>
                 <div>
                     <h2 class="text-lg md:text-xl font-display font-bold text-theme-main uppercase tracking-tight">
                         ¿Necesitas ayuda? <span class="text-[#5865F2]">Únete al Discord</span>
@@ -26,7 +27,7 @@
                 data-target="discord"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="shrink-0 inline-flex items-center gap-2 bg-[#5865F2]/10 hover:bg-[#5865F2] text-[#5865F2] hover:text-white border border-[#5865F2]/30 px-6 py-3  font-bold uppercase text-xs tracking-widest transition-all"
+                class="shrink-0 inline-flex items-center gap-2 bg-[#5865F2]/10 hover:bg-[#5865F2] text-[#5865F2] hover:text-white border border-[#5865F2]/30 px-6 py-3 font-bold uppercase text-xs tracking-widest transition-all"
             >
                 <span>Unirse</span>
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">

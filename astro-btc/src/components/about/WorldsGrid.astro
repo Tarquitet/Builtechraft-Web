@@ -15,27 +15,26 @@ import worldsCards from '../../data/worldsCards.json';
 
     <div class="grid grid-cols-1 lg:grid-cols-2 w-full">
         {worldsCards.map((card) => (
-            <div class={`relative group overflow-hidden h-[500px] lg:h-[600px] flex flex-col justify-end p-8 md:p-16 ${card.wrapperClass}`}>
+            <div class={`relative group overflow-hidden h-[300px] md:h-[450px] lg:h-[600px] flex flex-col justify-end p-6 md:p-10 ${card.wrapperClass}`}>
                 
                 <div class="absolute inset-0 bg-cover bg-center transform-gpu" style={`background-image: url('${card.bgImage}')`}></div>
                 
                 <div class="absolute inset-0 bg-theme-app opacity-85 transform-gpu"></div>
                 
                 <div class="relative z-10 max-w-xl transform-gpu">
-                    <span class={`badge-retro text-[10px] font-bold uppercase tracking-widest inline-block mb-3 ${card.tagClass}`}>
-                        {card.tagText}
-                    </span>
-                    <h3 class="text-4xl font-display font-bold text-theme-main uppercase mb-4">
+                    <!-- TAG ELIMINADO -->
+                    
+                    <h3 class="text-3xl md:text-4xl font-display font-bold text-theme-main uppercase mb-3 md:mb-4">
                         {card.title}
                     </h3>
-                    <p class="text-theme-muted leading-relaxed mb-8">
+                    <p class="text-sm md:text-base text-theme-muted leading-relaxed mb-6 md:mb-8">
                         {card.desc}
                     </p>
                     <a href={card.link}
                         data-target={card.dataTarget || undefined}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class={`btn-retro inline-flex items-center gap-2 font-bold text-xs uppercase tracking-widest btn-retro ${card.btnClass}`}>
+                        class={`btn-retro inline-flex items-center gap-2 font-bold text-xs uppercase tracking-widest ${card.btnClass}`}>
                         Ver mapa
                     </a>
                 </div>

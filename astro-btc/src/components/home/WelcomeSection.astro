@@ -3,30 +3,69 @@
 import welcomeCards from '../../data/welcomeCards.json';
 ---
 
-<section class="welcome-section">
+<section class="py-12 md:py-16 lg:py-24 bg-theme-section">
     <div class="container mx-auto px-6 max-w-6xl">
         
-        <div class="max-w-3xl mb-16">
-            <h2 class="welcome-title">
-                Qué es
-                <span class="text-btc-orange">Builtechraft</span>
+        <div class="max-w-3xl mb-10 md:mb-16">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold uppercase tracking-tight text-theme-main mb-4">
+                Qué es <span class="text-btc-orange">Builtechraft</span>
             </h2>
-            <p class="welcome-desc">
-                Builtechraft es un servidor Survival privado pensado para los jugadores que disfrutan construir y plasmar sus ideas, desde una pequeña casa hasta mega estructuras.</br>Está basado en el cargador de mods popular Fabric y mantiene una experiencia cercana a Minecraft Vanilla con mejoras cuidadosamente seleccionadas.
+            <p class="text-theme-muted text-sm md:text-base leading-relaxed">
+                Builtechraft es un servidor Survival privado pensado para los jugadores que disfrutan construir y plasmar sus ideas, desde una pequeña casa hasta mega estructuras. Está basado en Fabric y mantiene una experiencia cercana a Minecraft Vanilla con mejoras cuidadosamente seleccionadas.
             </p>
         </div>
 
-        <div class="grid gap-6 md:grid-cols-2">
-            {welcomeCards.map((card) => (
-                <article class="welcome-card">
-                    <h3 class="welcome-card-title">
-                        {card.title}
-                    </h3>
-                    <p class="welcome-card-desc">
-                        {card.desc}
-                    </p>
+        <!-- Grid en desktop, pila vertical en móvil -->
+        <div class="grid gap-4 md:gap-6 md:grid-cols-2">
+            {welcomeCards.map((card, index) => (
+                <article class="welcome-card border border-theme-1 bg-theme-card p-4 md:p-6 transition-all" style="box-shadow: 4px 4px 0px rgba(0,0,0,0.3);">
+                    
+                    <!-- Encabezado clickeable (solo en móvil) -->
+                    <button 
+                        class="w-full flex items-center justify-between text-left md:cursor-default group" 
+                        onclick="toggleWelcomeCard(this)"
+                        data-index={index}
+                    >
+                        <h3 class="text-lg md:text-xl font-display font-bold text-theme-main group-hover:text-btc-orange transition-colors">
+                            {card.title}
+                        </h3>
+                        <!-- Flecha: visible solo en móvil, oculta en desktop -->
+                        <svg class="w-5 h-5 text-btc-orange transition-transform duration-300 md:hidden shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    
+                    <!-- Contenido: oculto en móvil por defecto, siempre visible en desktop -->
+                    <div class="welcome-desc-container hidden md:block mt-3 pt-3 md:pt-4">
+                        <p class="text-sm md:text-base text-theme-muted leading-relaxed">
+                            {card.desc}
+                        </p>
+                    </div>
+                    
                 </article>
             ))}
         </div>
     </div>
 </section>
+
+<script is:inline>
+    function toggleWelcomeCard(btn) {
+        // Solo activar el acordeón en pantallas móviles (< 768px)
+        if (window.innerWidth < 768) {
+            const container = btn.nextElementSibling;
+            const icon = btn.querySelector('svg');
+            
+            if (container.classList.contains('hidden')) {
+                // Abrir
+                container.classList.remove('hidden');
+                container.classList.add('block');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                // Cerrar
+                container.classList.add('hidden');
+                container.classList.remove('block');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+    }
+</script>
