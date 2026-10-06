@@ -6,49 +6,69 @@
   "items": [
     {
       "id": "prismlauncher",
-      "name": "Prism (Premium)",
-      "icon": "",
-      "image": "/images/access/launcher-prism.avif",
-      "editions": ["java"],
+      "name": "Prism Launcher (Mods)",
+      "icon": "⚙️",
+      "image": "/images/access/launchers/prism.avif",
+      "editions": ["java", "bedrock"],
       "platforms": ["pc"],
-      "accountTypes": ["premium"],
+      "accountTypes": ["premium", "elyby"],
       "downloadUrl": "https://prismlauncher.org/"
     },
     {
       "id": "elyby",
-      "name": "ElyPrism (No Premium)",
+      "name": "Ely.by Launcher",
       "icon": "🦅",
-      "image": "/images/access/launcher-elyby.png",
+      "image": "/images/access/launchers/elyprism.avif",
       "editions": ["java"],
       "platforms": ["pc"],
-      "accountTypes": ["no-premium"],
-      "downloadUrl": "https://elyprismlauncher.github.io/"
+      "accountTypes": ["elyby"],
+      "downloadUrl": "https://ely.by/"
+    },
+    {
+      "id": "sklauncher",
+      "name": "SKLauncher",
+      "icon": "🚀",
+      "image": "/images/access/launchers/sklauncher.avif",
+      "editions": ["java"],
+      "platforms": ["pc"],
+      "accountTypes": ["invalid"],
+      "downloadUrl": "https://skmedix.pl/"
+    },
+    {
+      "id": "tlauncher",
+      "name": "TLauncher",
+      "icon": "",
+      "image": "/images/access/launchers/tlauncher.avif",
+      "editions": ["java"],
+      "platforms": ["pc"],
+      "accountTypes": ["invalid"],
+      "downloadUrl": "https://tlauncher.org/"
+    },
+    {
+      "id": "tllegacy",
+      "name": "TL Legacy",
+      "icon": "",
+      "image": "/images/access/launchers/tlegacy.avif",
+      "editions": ["java"],
+      "platforms": ["pc"],
+      "accountTypes": ["invalid"],
+      "downloadUrl": "https://llaun.ch/en"
     },
     {
       "id": "official",
-      "name": "Oficial (Premium)",
+      "name": "Launcher Oficial (Premium)",
       "icon": "🛡️",
-      "image": "/images/access/launcher-official.png",
+      "image": "/images/access/launchers/official.avif",
       "editions": ["java", "bedrock"],
       "platforms": ["pc"],
       "accountTypes": ["premium"],
       "downloadUrl": "https://www.minecraft.net/en-us/download"
     },
     {
-      "id": "MJlauncher",
-      "name": "MJlauncher (Android)",
-      "icon": "📱",
-      "image": "/images/access/launcher-mjlauncher.jpg",
-      "editions": ["java"],
-      "platforms": ["mobile"],
-      "accountTypes": ["premium", "no-premium"],
-      "downloadUrl": "https://play.google.com/store/apps/details?id=git.artdeell.mjlaunch&hl=en-US"
-    },
-    {
       "id": "bedrock-android",
       "name": "Minecraft Bedrock (Android)",
-      "icon": "📱",
-      "image": "/images/access/launcher-bedrock-android.png",
+      "icon": "",
+      "image": "/images/access/launchers/bedrock-android.avif",
       "editions": ["bedrock"],
       "platforms": ["mobile"],
       "accountTypes": ["premium"],
@@ -58,11 +78,21 @@
       "id": "bedrock-ios",
       "name": "Minecraft Bedrock (iOS)",
       "icon": "🍎",
-      "image": "/images/access/launcher-bedrock-ios.png",
+      "image": "/images/access/launchers/bedrock-ios.avif",
       "editions": ["bedrock"],
       "platforms": ["mobile"],
       "accountTypes": ["premium"],
       "downloadUrl": "https://apps.apple.com/us/app/minecraft/id479516143"
+    },
+    {
+      "id": "MJlauncher",
+      "name": "MJlauncher (Android)",
+      "icon": "📱",
+      "image": "/images/access/launchers/mjlauncher.avif",
+      "editions": ["java"],
+      "platforms": ["mobile"],
+      "accountTypes": ["premium", "elyby"],
+      "downloadUrl": "https://play.google.com/store/apps/details?id=git.artdeell.mjlaunch&hl=en-US"
     }
   ]
 }

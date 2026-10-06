@@ -8,14 +8,14 @@
       "id": "java",
       "name": "Java Edition",
       "icon": "☕",
-      "image": "/images/access/javamenu.png",
+      "image": "/images/access/editions/java.avif",
       "platforms": ["pc", "mobile"]
     },
     {
       "id": "bedrock",
       "name": "Bedrock Edition",
       "icon": "🪨",
-      "image": "/images/access/bedrockmenu.png",
+      "image": "/images/access/editions/bedrock.avif",
       "platforms": ["pc", "mobile", "console"]
     }
   ]

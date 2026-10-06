@@ -164,76 +164,112 @@ const wizardSteps: WizardStep[] = Object.values(modules)
     }
 
     function renderGuide() {
-      const guideStep = wizardSteps.find(s => s.type === 'guide');
-      const guide = guideStep.items.find((g) => g.edition === state.selected.edition) || guideStep.items[0];
-      const displayVersion = state.selected.edition === 'bedrock' ? serverConfig.BedrockVer : serverConfig.JavaMax;
+  const guideStep = wizardSteps.find(s => s.type === 'guide');
+  
+  // Si el usuario eligió cuenta "invalid", mostrar guía de error
+  let guide;
+  
+  // Primero buscar por accountType (para el caso invalid)
+  if (state.selected.accountType) {
+    guide = guideStep.items.find((g) => g.account === state.selected.accountType);
+  }
+  
+  // Si no encontró por account, buscar por edition
+  if (!guide) {
+    guide = guideStep.items.find((g) => g.edition === state.selected.edition) || guideStep.items[0];
+  }
+  
+  if (!guide) {
+    content.innerHTML = '<p class="text-center text-theme-muted">No se encontró la guía.</p>';
+    return;
+  }
+  
+  const displayVersion = state.selected.edition === 'bedrock' ? serverConfig.BedrockVer : serverConfig.JavaMax;
 
-      content.innerHTML = `
-        <div class="mb-12">
-          <div class="md:hidden mb-6"><button class="btn-back px-6 py-3 border-2 border-theme-border text-theme-muted hover:text-btc-orange hover:border-btc-orange transition-all font-bold uppercase tracking-wider text-sm whitespace-nowrap" id="btn-back-mobile">Atrás</button></div>
-          <div class="relative">
-            <h3 class="text-3xl md:text-4xl font-display font-bold text-theme-main uppercase tracking-tight text-center">${guideStep.title}</h3>
-            <button class="btn-back hidden md:block absolute left-0 top-1/2 -translate-y-1/2 px-6 py-3 border-2 border-theme-border text-theme-muted hover:text-btc-orange hover:border-btc-orange transition-all font-bold uppercase tracking-wider text-sm whitespace-nowrap" id="btn-back-desktop">Atrás</button>
-          </div>
-        </div>
-        <div class="space-y-6 max-w-3xl mx-auto mb-12">
-          ${guide.steps.map((s, i) => {
-            let desc = (s.description || "")
-              .replace(/{javaSmp}/g, serverConfig.JavaSmp)
-              .replace(/{javaCreative}/g, serverConfig.JavaCreative)
-              .replace(/{bedrockSmp}/g, serverConfig.BedrockSmp)
-              .replace(/{bedrockCreative}/g, serverConfig.BedrockCreative)
-              .replace(/{bedrockPort}/g, serverConfig.BedrockPort)
-              .replace(/{ip}/g, state.selected.edition === 'bedrock' ? serverConfig.BedrockSmp : serverConfig.JavaSmp)
-              .replace(/{port}/g, state.selected.edition === 'bedrock' ? serverConfig.BedrockPort : "")
-              .replace(/{version}/g, displayVersion);
-            
-            return `
-              <div class="card-retro p-6" style="box-shadow: 6px 6px 0px rgba(0,0,0,0.5); background: var(--bg-card, #1e293b);">
-                <div class="flex items-start gap-4 mb-4">
-                  <div class="w-12 h-12 bg-btc-orange/10 flex items-center justify-center text-2xl shrink-0" style="border: 2px solid rgba(234, 88, 12, 0.3);">${s.icon || ''}</div>
-                  <div class="flex-1">
-                    <div class="flex items-center gap-3 mb-2">
-                      <span class="text-xs font-bold uppercase tracking-widest text-btc-orange">Paso ${i + 1}</span>
-                      <h4 class="text-lg font-display font-bold text-theme-main">${s.title}</h4>
-                    </div>
-                    <p class="text-sm text-theme-muted leading-relaxed whitespace-pre-line">${desc}</p>
-                  </div>
+  content.innerHTML = `
+    <div class="mb-12">
+      <div class="md:hidden mb-6"><button class="btn-back px-6 py-3 border-2 border-theme-border text-theme-muted hover:text-btc-orange hover:border-btc-orange transition-all font-bold uppercase tracking-wider text-sm whitespace-nowrap" id="btn-back-mobile">Atrás</button></div>
+      <div class="relative">
+        <h3 class="text-3xl md:text-4xl font-display font-bold text-theme-main uppercase tracking-tight text-center">${guideStep.title}</h3>
+        <button class="btn-back hidden md:block absolute left-0 top-1/2 -translate-y-1/2 px-6 py-3 border-2 border-theme-border text-theme-muted hover:text-btc-orange hover:border-btc-orange transition-all font-bold uppercase tracking-wider text-sm whitespace-nowrap" id="btn-back-desktop">Atrás</button>
+      </div>
+    </div>
+    <div class="space-y-6 max-w-3xl mx-auto mb-12">
+      ${guide.steps.map((s, i) => {
+        let desc = (s.description || "")
+          .replace(/{javaSmp}/g, serverConfig.JavaSmp)
+          .replace(/{javaCreative}/g, serverConfig.JavaCreative)
+          .replace(/{bedrockSmp}/g, serverConfig.BedrockSmp)
+          .replace(/{bedrockCreative}/g, serverConfig.BedrockCreative)
+          .replace(/{bedrockPort}/g, serverConfig.BedrockPort)
+          .replace(/{ip}/g, state.selected.edition === 'bedrock' ? serverConfig.BedrockSmp : serverConfig.JavaSmp)
+          .replace(/{port}/g, state.selected.edition === 'bedrock' ? serverConfig.BedrockPort : "")
+          .replace(/{version}/g, displayVersion);
+        
+        return `
+          <div class="card-retro p-6" style="box-shadow: 6px 6px 0px rgba(0,0,0,0.5); background: var(--bg-card, #1e293b);">
+            <div class="flex items-start gap-4 mb-4">
+              <div class="w-12 h-12 bg-btc-orange/10 flex items-center justify-center text-2xl shrink-0" style="border: 2px solid rgba(234, 88, 12, 0.3);">${s.icon || ''}</div>
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-2">
+                  <span class="text-xs font-bold uppercase tracking-widest text-btc-orange">Paso ${i + 1}</span>
+                  <h4 class="text-lg font-display font-bold text-theme-main">${s.title}</h4>
                 </div>
-                ${s.image ? `<div style="text-align:center; margin-top:1rem;"><img src="${s.image}" alt="${s.title}" style="display:inline-block; max-width:100%; box-shadow: 4px 4px 0px rgba(0,0,0,0.3);" /></div>` : ''}
+                <p class="text-sm text-theme-muted leading-relaxed whitespace-pre-line">${desc}</p>
               </div>
-            `;
-          }).join('')}
-        </div>
-        <div class="text-center pt-8">
-          <button id="btn-reset" class="px-8 py-4 border-2 border-theme-border text-theme-muted hover:text-btc-orange hover:border-btc-orange transition-all font-bold uppercase tracking-wider text-base">Volver arriba</button>
-        </div>
-      `;
+            </div>
+            ${s.image ? `<div style="text-align:center; margin-top:1rem;"><img src="${s.image}" alt="${s.title}" style="display:inline-block; max-width:100%; box-shadow: 4px 4px 0px rgba(0,0,0,0.3);" /></div>` : ''}
+          </div>
+        `;
+      }).join('')}
+    </div>
+    <div class="text-center pt-8">
+      <button id="btn-reset" class="px-8 py-4 border-2 border-theme-border text-theme-muted hover:text-btc-orange hover:border-btc-orange transition-all font-bold uppercase tracking-wider text-base">Volver arriba</button>
+    </div>
+  `;
 
-      document.getElementById('btn-back-mobile')?.addEventListener('click', goBack);
-      document.getElementById('btn-back-desktop')?.addEventListener('click', goBack);
-      document.getElementById('btn-reset')?.addEventListener('click', () => { wizard.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
-    }
+  document.getElementById('btn-back-mobile')?.addEventListener('click', goBack);
+  document.getElementById('btn-back-desktop')?.addEventListener('click', goBack);
+  document.getElementById('btn-reset')?.addEventListener('click', () => { wizard.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+}
 
     function goNext() {
-      let nextNum = state.currentStep + 1;
-      while (nextNum <= 5) {
-        const nextStepData = wizardSteps.find(s => s.step === nextNum);
-        if (nextStepData?.type === 'grid' && nextStepData.items) {
-          const filtered = nextStepData.items.filter((item) => {
-            if (item.platforms && state.selected.platform && !item.platforms.includes(state.selected.platform)) return false;
-            if (item.editions && state.selected.edition && !item.editions.includes(state.selected.edition)) return false;
-            if (item.accountTypes && state.selected.accountType && !item.accountTypes.includes(state.selected.accountType)) return false;
-            return true;
-          });
-          if (filtered.length > 0) break;
-        } else {
-          break;
-        }
-        nextNum++;
-      }
-      goToStep(nextNum);
+  // Buscar si el item seleccionado tiene "skipTo"
+  const currentStepData = wizardSteps.find(s => s.step === state.currentStep);
+  if (currentStepData?.items) {
+    const selectedItem = currentStepData.items.find(item => {
+      const key = currentStepData.label === 'Edición' ? 'edition' 
+               : currentStepData.label === 'Launcher' ? 'launcher'
+               : currentStepData.label === 'Cuenta' ? 'accountType'
+               : 'platform';
+      return item.id === state.selected[key];
+    });
+    
+    if (selectedItem?.skipTo) {
+      goToStep(selectedItem.skipTo);
+      return;
     }
+  }
+
+  // Flujo normal
+  let nextNum = state.currentStep + 1;
+  while (nextNum <= 5) {
+    const nextStepData = wizardSteps.find(s => s.step === nextNum);
+    if (nextStepData?.type === 'grid' && nextStepData.items) {
+      const filtered = nextStepData.items.filter((item) => {
+        if (item.platforms && state.selected.platform && !item.platforms.includes(state.selected.platform)) return false;
+        if (item.editions && state.selected.edition && !item.editions.includes(state.selected.edition)) return false;
+        if (item.accountTypes && state.selected.accountType && !item.accountTypes.includes(state.selected.accountType)) return false;
+        return true;
+      });
+      if (filtered.length > 0) break;
+    } else {
+      break;
+    }
+    nextNum++;
+  }
+  goToStep(nextNum);
+}
 
     function goBack() {
       let prevNum = state.currentStep - 1;

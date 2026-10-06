@@ -8,19 +8,19 @@
       "id": "pc",
       "name": "Computadora",
       "icon": "💻",
-      "image": "/images/access/platform-pc.png"
+      "image": "/images/access/platform/pc.avif"
     },
     {
       "id": "mobile",
       "name": "Móvil",
       "icon": "📱",
-      "image": "/images/access/platform-mobile.png"
+      "image": "/images/access/platform/mobile.avif"
     },
     {
       "id": "console",
       "name": "Consola",
       "icon": "🎮",
-      "image": "/images/access/platform-console.png"
+      "image": "/images/access/platform/console.avif"
     }
   ]
 }

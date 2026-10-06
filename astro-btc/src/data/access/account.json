@@ -8,17 +8,25 @@
       "id": "premium",
       "name": "Premium (Mojang/Microsoft)",
       "icon": "✅",
-      "image": "/images/access/premium-account.png",
+      "image": "/images/access/account/premium.avif",
       "description": "Cuenta oficial comprada en Minecraft.net",
       "editions": ["java", "bedrock"]
     },
     {
-      "id": "no-premium",
-      "name": "No Premium (Ely.by)",
+      "id": "elyby",
+      "name": "Ely.by (Semi Premium)",
       "icon": "🦅",
-      "image": "/images/access/elyby-account.png",
-      "description": "Cuenta gratuita de Ely.by",
+      "image": "/images/access/account/elyby.avif",
+      "description": "Cuenta gratuita registrada en ely.by",
       "editions": ["java"]
+    },
+    {
+      "id": "invalid",
+      "name": "No Premium",
+      "icon": "⚠️",
+      "image": "/images/access/account/invalid.avif",
+      "description": "Cuenta no compatible con nuestro servidor",
+      "editions": ["java", "bedrock"]
     }
   ]
 }
