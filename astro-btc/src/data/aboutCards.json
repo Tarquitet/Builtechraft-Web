@@ -2,8 +2,8 @@
   {
     "title": "Nuestros Mundos",
     "desc": "Explora nuestros mapas de Supervivencia y Creativo en tiempo real.",
-    "keyLink": "maps.survival",
-    "isExternal": true,
+    "keyLink": "pages.aboutMundos",
+    "isExternal": false,
     "hoverBorder": "hover:border-emerald-500",
     "iconBg": "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
     "titleHover": "group-hover:text-emerald-400",

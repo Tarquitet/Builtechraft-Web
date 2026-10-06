@@ -34,8 +34,13 @@
     }
   ],
 
+  "modsLink": {
+    "text": "Mods y Datapacks",
+    "linkKey": "aboutModsDatapacks"
+  },
+
   "wikiLink": {
-    "text": "Ver comparativa detallada",
+    "text": "Ver Comparación",
     "linkKey": "wikiComparativa"
   }
 }

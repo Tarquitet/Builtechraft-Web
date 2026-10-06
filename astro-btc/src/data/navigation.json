@@ -26,12 +26,8 @@
     "wiki_drop": [
       { "name": "Portal de la Wiki", "keyLink": "wiki", "isExternal": false, "isPrimary": true },
       { "name": "Reglas del Servidor", "keyLink": "rules", "isExternal": false },
-      { "name": "Cómo Unirse", "keyLink": "wikiComoUnirse", "isExternal": false },
-      { "name": "Sistema Whitelist", "keyLink": "wikiWhitelist", "isExternal": false },
       { "name": "Preguntas Frecuentes", "keyLink": "wikiFaq", "isExternal": false },
-      { "name": "Equipo de Staff", "keyLink": "wikiEquipo", "isExternal": false },
-      { "name": "Historia del Servidor", "keyLink": "wikiHistoria", "isExternal": false },
-      { "name": "Mecánicas del Servidor", "keyLink": "wikiQueUsa", "isExternal": false }
+      { "name": "Historia del Servidor", "keyLink": "wikiHistoria", "isExternal": false }
     ]
   }
 }

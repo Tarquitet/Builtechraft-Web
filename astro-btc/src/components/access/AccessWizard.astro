@@ -83,7 +83,9 @@ const wizardSteps: WizardStep[] = Object.values(modules)
       <h3 class="text-3xl md:text-4xl font-display font-bold text-theme-main uppercase tracking-tight mb-6">${step?.title || 'Normas de la Comunidad'}</h3>
       <p class="text-theme-muted text-lg leading-relaxed mb-8">${step?.content || 'Antes de ingresar, es obligatorio leer y aceptar las reglas.'}</p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-        <a href="${links.pages?.rules || links.rules || '/reglas'}" target="_blank" rel="noopener noreferrer" class="px-6 py-3 border-2 border-theme-border text-theme-muted hover:text-btc-orange hover:border-btc-orange transition-all font-bold uppercase tracking-wider text-sm">Leer reglas completas</a>
+        <a href="${links.pages?.rules || links.rules || '/reglas'}" target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-btc-orange text-white font-bold uppercase tracking-wider text-sm hover:bg-btc-orange/90 transition-all" style="box-shadow: 4px 4px 0px rgba(0,0,0,0.5);">
+          LEER REGLAS
+        </a>
       </div>
     </div>
     <label class="flex items-center justify-center gap-3 cursor-pointer select-none group mb-6">

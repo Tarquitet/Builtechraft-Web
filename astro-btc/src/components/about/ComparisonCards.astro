@@ -1,5 +1,4 @@
 ---
-// src/components/about/ComparisonCards.astro
 import cards from '../../data/comparisonCards.json';
 import links from '../../data/links.json';
 
@@ -21,24 +20,22 @@ const getLink = (key: string | undefined | null): string => {
 
 const getColorClasses = (color: string) => {
   switch (color) {
-    case 'red':
-      return { text: 'text-red-400', border: 'border-red-500/30' };
-    case 'yellow':
-      return { text: 'text-btc-yellow', border: 'border-btc-yellow/30' };
-    case 'emerald':
-      return { text: 'text-emerald-400', border: 'border-emerald-500/30' };
-    default:
-      return { text: 'text-theme-main', border: 'border-theme' };
+    case 'red': return { text: 'text-red-400', border: 'border-red-500/30' };
+    case 'yellow': return { text: 'text-btc-yellow', border: 'border-btc-yellow/30' };
+    case 'emerald': return { text: 'text-emerald-400', border: 'border-emerald-500/30' };
+    default: return { text: 'text-theme-main', border: 'border-theme-1' };
   }
 };
 ---
 
 <div class="mt-12">
+
+  <!-- Tarjetas de comparación -->
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
     {cards.cards.map((card) => {
       const colors = getColorClasses(card.color);
       return (
-        <div class={`card-retro ${colors.border} ${card.highlighted ? 'border-theme-accent' : ''} flex flex-col`}>
+        <div class={`card-retro ${colors.border} ${card.highlighted ? 'border-btc-orange/50' : ''} flex flex-col`}>
           <span class="text-5xl mb-4 block">{card.icon}</span>
           <h3 class={`text-xl font-display font-bold uppercase tracking-tight mb-1 ${colors.text}`}>
             {card.title}
@@ -49,7 +46,7 @@ const getColorClasses = (color: string) => {
           <p class="text-sm text-theme-muted leading-relaxed mb-4 flex-grow">
             {card.summary}
           </p>
-          <p class={`text-sm font-bold ${colors.text} border-t border-theme pt-3 mt-auto`}>
+          <p class={`text-sm font-bold ${colors.text} mt-auto pt-3`}>
             {card.verdict}
           </p>
         </div>
@@ -57,16 +54,20 @@ const getColorClasses = (color: string) => {
     })}
   </div>
 
-  {/* Único link de salida: el botón grande */}
-  <div class="text-center">
+  <!-- Botones -->
+  <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+    <a 
+      href={getLink(cards.modsLink.linkKey)}
+      class="btn-retro inline-flex items-center gap-3"
+    >
+      {cards.modsLink.text}
+    </a>
+
     <a 
       href={getLink(cards.wikiLink.linkKey)}
       class="btn-retro inline-flex items-center gap-3"
     >
       {cards.wikiLink.text}
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-      </svg>
     </a>
   </div>
 </div>
