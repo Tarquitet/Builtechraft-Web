@@ -1,0 +1,35 @@
+---
+interface Props {
+  label: string;
+  items: Array<{ id: string; href: string; label: string; isExternal?: boolean }>;
+  isActive?: boolean;
+  dropdownId: string; // <-- NUEVO: Identificador único para el script
+}
+const { label, items, isActive = false, dropdownId } = Astro.props;
+---
+
+<div class="relative group">
+  <button 
+    class:list={['nav-dropdown-btn', 'nav-link flex items-center gap-1', isActive ? 'active-parent' : '']}
+    data-dropdown-target={dropdownId}
+  >
+    {label}
+    <svg class="arrow-svg w-3 h-3 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+    </svg>
+    <span class="nav-line"></span>
+  </button>
+  
+  <div class="navbar-dropdown" id={dropdownId}> <!-- <-- EL SCRIPT ABRE ESTO -->
+    {items.map((item) => (
+      <a 
+        href={item.href} 
+        target={item.isExternal ? "_blank" : "_self"}
+        rel={item.isExternal ? "noopener noreferrer" : undefined}
+        class="submenu-link block"
+      >
+        {item.label}
+      </a>
+    ))}
+  </div>
+</div>

@@ -1,177 +1,177 @@
 ﻿{
-    "page":  {
-                 "title":  "Home | Builtechraft",
-                 "description":  "A private semi-vanilla Minecraft server focused on building, engineering, and community.",
-                 "comparisonBadge":  "The big question",
-                 "comparisonTitle":  "Mods, plugins, or datapacks?",
-                 "comparisonDescription":  "Three ways to modify Minecraft, three different philosophies. We tried all three for years and here is why we chose the option that stays closest to the original game.",
-                 "modsBadge":  "Mods and datapacks",
-                 "modsTitle":  "Server enhancements",
-                 "modsDescription":  "We use mods and datapacks focused on performance, quality of life, and building tools.",
-                 "roadmapTitle":  "What we are working on",
-                 "roadmapDescription":  "Explore upcoming expansions, planned maintenance, and server updates."
-             },
-    "hero":  {
-                 "scrollDown":  "Scroll down",
-                 "description":  "Bringing together the essence of Minecraft and thoughtful enhancements that unite artistic creativity and ingenuity."
-             },
-    "welcome":  {
-                    "title":  "What is",
-                    "description":  "Builtechraft is a private survival server for players who enjoy building and bringing their ideas to life, from a small house to megastructures. It runs on Fabric and stays close to the vanilla Minecraft experience, with carefully selected enhancements.",
-                    "cards":  {
-                                  "vanilla":  {
-                                                  "title":  "ðŸŒ¿ Vanilla+",
-                                                  "desc":  "The vanilla experience comes first. Mods and datapacks enhance it without changing the core game."
-                                              },
-                                  "whitelist":  {
-                                                    "title":  "ðŸ”’ Whitelist",
-                                                    "desc":  "Access is restricted to keep the community small and active, and to protect the world for the long term."
-                                                },
-                                  "creative":  {
-                                                   "title":  "ðŸ—ï¸ Creative world",
-                                                   "desc":  "Design, test, and plan your builds before bringing them into the survival world."
-                                               },
-                                  "innovation":  {
-                                                     "title":  "ðŸ”¥ Constant innovation",
-                                                     "desc":  "We develop projects that bring together building and the potential of datapacks."
-                                                 }
-                              }
-                },
-    "categories":  {
-                       "title":  "Explore our website",
-                       "description":  "Discover the main sections and find information about the server, its worlds, mods, datapacks, team, and roadmap.",
-                       "cards":  {
-                                     "worlds":  {
-                                                    "title":  "Our worlds",
-                                                    "desc":  "Explore our survival and creative maps in real time."
-                                                },
-                                     "join":  {
-                                                  "title":  "How to join",
-                                                  "desc":  "A step-by-step guide to setting up your account and joining the server."
-                                              },
-                                     "mods":  {
-                                                  "title":  "Mods and datapacks",
-                                                  "desc":  "Learn about the technical enhancements we use."
-                                              },
-                                     "history":  {
-                                                     "title":  "Server history",
-                                                     "desc":  "Explore our beginnings, evolution, and community milestones."
-                                                 },
-                                     "staff":  {
-                                                   "title":  "Our team",
-                                                   "desc":  "Meet the people who help keep the server running."
-                                               },
-                                     "rules":  {
-                                                   "title":  "Server rules",
-                                                   "desc":  "Read the community and fair-play guidelines."
-                                               },
-                                     "faq":  {
-                                                 "title":  "Frequently asked questions",
-                                                 "desc":  "Find answers about accounts, lag, and gameplay mechanics."
-                                             },
-                                     "discord":  {
-                                                     "title":  "Discord community",
-                                                     "desc":  "Join Discord for events, support, and conversation."
-                                                 },
-                                     "donate":  {
-                                                    "title":  "Support the project",
-                                                    "desc":  "Your contribution helps us keep the servers running and improving."
-                                                }
-                                 }
-                   },
-    "worlds":  {
-                   "title":  "Our worlds",
-                   "description":  "Builtechraft has two main worlds: one for survival and another for designing, experimenting, and planning builds before bringing them into the game.",
-                   "mapButton":  "View map",
-                   "cards":  {
-                                 "creative":  {
-                                                  "title":  "Creative world",
-                                                  "desc":  "Try ideas, plan projects, and experiment with blocks before building in survival. Bring your imagination to life here first."
-                                              },
-                                 "survival":  {
-                                                  "title":  "Survival world",
-                                                  "desc":  "The serverâ€™s main world. Projects, exploration, and builds that shape Builtechraftâ€™s history all happen here."
-                                              }
-                             }
-               },
-    "comparison":  {
-                       "cards":  {
-                                     "mods":  {
-                                                  "title":  "Mods",
-                                                  "subtitle":  "Forge / Fabric",
-                                                  "summary":  "Powerful modifications installed on your computer. They can change almost any part of the game, but require installation and may alter vanilla mechanics.",
-                                                  "verdict":  "Powerful, but intrusive"
-                                              },
-                                     "plugins":  {
-                                                     "title":  "Plugins",
-                                                     "subtitle":  "Spigot / Paper",
-                                                     "summary":  "Modifications installed only on the server. Players need no extra installation, but technical mechanics such as farms and redstone may be affected.",
-                                                     "verdict":  "Convenient, with trade-offs"
-                                                 },
-                                     "datapacks":  {
-                                                       "title":  "Datapacks",
-                                                       "subtitle":  "Pure vanilla",
-                                                       "summary":  "Files included in the world. They require no installation, preserve vanilla gameplay, and work with Minecraft updates.",
-                                                       "verdict":  "Simple, faithful, and stable"
-                                                   }
-                                 },
-                       "modsLink":  "Mods and datapacks",
-                       "wikiLink":  "View comparison"
-                   },
-    "modpack":  {
-                    "badge":  "Modded experience",
-                    "title":  "Do you enjoy mods?",
-                    "description":  "There is no need to configure everything from scratch. We prepared mod profiles and options that are easy to download and install with our access guide.",
-                    "profiles":  "View available profiles",
-                    "guide":  "Open the access guide",
-                    "bobbyTitle":  "See farther with Bobby",
-                    "bobbyDescription":  "We use Bobby to load and view distant chunks smoothly, maintaining good performance even on large maps.",
-                    "installInstructions":  "View installation instructions",
-                    "downloadCache":  "Download cache"
-                },
-    "staff":  {
-                  "title":  "Our team",
-                  "description":  "Thanks to everyone who contributes to the different areas of this project.",
-                  "loading":  "Loading team...",
-                  "error":  "Could not load team data."
-              },
-    "vision":  {
-                   "title":  "A project built for the joy of Minecraft",
-                   "description":  "We preserve the essence of Minecraft while building an epic world with enhancements that make the experience comfortable and enjoyable for every kind of player."
-               },
-    "stats":  {
-                  "years":  "Years",
-                  "since":  "Since 2020",
-                  "mods":  "Mods and datapacks",
-                  "currentVersion":  "Current version"
-              },
-    "mods":  {
-                 "loading":  "Syncing the database...",
-                 "datapacks":  "Installed datapacks",
-                 "serverMods":  "Server mods",
-                 "readMore":  "Read more",
-                 "viewLink":  "View link",
-                 "networkError":  "Could not connect to the database."
-             },
-    "roadmap":  {
-                    "statuses":  {
-                                     "pending":  "Pending",
-                                     "planned":  "Planned",
-                                     "progress":  "In progress",
-                                     "testing":  "Testing",
-                                     "concept":  "Concept"
-                                 }
-                },
-    "discord":  {
-                    "title":  "Need help?",
-                    "action":  "Join Discord",
-                    "description":  "Request access, get technical help, or report an issue. The team and community are here for you.",
-                    "button":  "Join"
-                },
-    "donation":  {
-                     "title":  "Enjoying Builtechraft?",
-                     "action":  "Buy us a coffee",
-                     "description":  "Since 2020, the server has been sustained by the communityâ€™s dedication and support. You can help by buying us a coffee.",
-                     "button":  "Donate"
-                 }
+  "page": {
+    "title": "Home | Builtechraft",
+    "description": "A private semi-vanilla Minecraft server focused on building, engineering, and community.",
+    "comparisonBadge": "The big question",
+    "comparisonTitle": "Mods, plugins, or datapacks?",
+    "comparisonDescription": "Three ways to modify Minecraft, three different philosophies. We tried all three for years and here is why we chose the option that stays closest to the original game.",
+    "modsBadge": "Mods and datapacks",
+    "modsTitle": "Server enhancements",
+    "modsDescription": "We use mods and datapacks focused on performance, quality of life, and building tools.",
+    "roadmapTitle": "What we are working on",
+    "roadmapDescription": "Explore upcoming expansions, planned maintenance, and server updates."
+  },
+  "hero": {
+    "scrollDown": "Scroll down",
+    "description": "Bringing together the essence of Minecraft and thoughtful enhancements that unite artistic creativity and ingenuity."
+  },
+  "welcome": {
+    "title": "What is",
+    "description": "Builtechraft is a private survival server for players who enjoy building and bringing their ideas to life, from a small house to megastructures. It runs on Fabric and stays close to the vanilla Minecraft experience, with carefully selected enhancements.",
+    "cards": {
+      "vanilla": {
+        "title": "🌿 Vanilla+",
+        "desc": "The vanilla experience comes first. Mods and datapacks enhance it without changing the core game."
+      },
+      "whitelist": {
+        "title": " Whitelist",
+        "desc": "Access is restricted to keep the community small and active, and to protect the world for the long term."
+      },
+      "creative": {
+        "title": "️ Creative world",
+        "desc": "Design, test, and plan your builds before bringing them into the survival world."
+      },
+      "innovation": {
+        "title": "🔥 Constant innovation",
+        "desc": "We develop projects that bring together building and the potential of datapacks."
+      }
+    }
+  },
+  "categories": {
+    "title": "Explore our website",
+    "description": "Discover the main sections and find information about the server, its worlds, mods, datapacks, team, and roadmap.",
+    "cards": {
+      "worlds": {
+        "title": "Our worlds",
+        "desc": "Explore our survival and creative maps in real time."
+      },
+      "join": {
+        "title": "How to join",
+        "desc": "A step-by-step guide to setting up your account and joining the server."
+      },
+      "mods": {
+        "title": "Mods and datapacks",
+        "desc": "Learn about the technical enhancements we use."
+      },
+      "history": {
+        "title": "Server history",
+        "desc": "Explore our beginnings, evolution, and community milestones."
+      },
+      "staff": {
+        "title": "Our team",
+        "desc": "Meet the people who help keep the server running."
+      },
+      "rules": {
+        "title": "Server rules",
+        "desc": "Read the community and fair-play guidelines."
+      },
+      "faq": {
+        "title": "Frequently asked questions",
+        "desc": "Find answers about accounts, lag, and gameplay mechanics."
+      },
+      "discord": {
+        "title": "Discord community",
+        "desc": "Join Discord for events, support, and conversation."
+      },
+      "donate": {
+        "title": "Support the project",
+        "desc": "Your contribution helps us keep the servers running and improving."
+      }
+    }
+  },
+  "worlds": {
+    "title": "Our worlds",
+    "description": "Builtechraft has two main worlds: one for survival and another for designing, experimenting, and planning builds before bringing them into the game.",
+    "mapButton": "View map",
+    "cards": {
+      "creative": {
+        "title": "Creative world",
+        "desc": "Try ideas, plan projects, and experiment with blocks before building in survival. Bring your imagination to life here first."
+      },
+      "survival": {
+        "title": "Survival world",
+        "desc": "The server's main world. Projects, exploration, and builds that shape Builtechraft's history all happen here."
+      }
+    }
+  },
+  "comparison": {
+    "cards": {
+      "mods": {
+        "title": "Mods",
+        "subtitle": "Forge / Fabric",
+        "summary": "Powerful modifications installed on your computer. They can change almost any part of the game, but require installation and may alter vanilla mechanics.",
+        "verdict": "Powerful, but intrusive"
+      },
+      "plugins": {
+        "title": "Plugins",
+        "subtitle": "Spigot / Paper",
+        "summary": "Modifications installed only on the server. Players need no extra installation, but technical mechanics such as farms and redstone may be affected.",
+        "verdict": "Convenient, with trade-offs"
+      },
+      "datapacks": {
+        "title": "Datapacks",
+        "subtitle": "Pure vanilla",
+        "summary": "Files included in the world. They require no installation, preserve vanilla gameplay, and work with Minecraft updates.",
+        "verdict": "Simple, faithful, and stable"
+      }
+    },
+    "modsLink": "Mods and datapacks",
+    "wikiLink": "View comparison"
+  },
+  "modpack": {
+    "badge": "Modded experience",
+    "title": "Do you enjoy mods?",
+    "description": "There is no need to configure everything from scratch. We prepared mod profiles and options that are easy to download and install with our access guide.",
+    "profiles": "View available profiles",
+    "guide": "Open the access guide",
+    "bobbyTitle": "See farther with Bobby",
+    "bobbyDescription": "We use Bobby to load and view distant chunks smoothly, maintaining good performance even on large maps.",
+    "installInstructions": "View installation instructions",
+    "downloadCache": "Download cache"
+  },
+  "staff": {
+    "title": "Our team",
+    "description": "Thanks to everyone who contributes to the different areas of this project.",
+    "loading": "Loading team...",
+    "error": "Could not load team data."
+  },
+  "vision": {
+    "title": "A project built for the joy of Minecraft",
+    "description": "We preserve the essence of Minecraft while building an epic world with enhancements that make the experience comfortable and enjoyable for every kind of player."
+  },
+  "stats": {
+    "years": "Years",
+    "since": "Since 2020",
+    "mods": "Mods and datapacks",
+    "currentVersion": "Current version"
+  },
+  "mods": {
+    "loading": "Syncing the database...",
+    "datapacks": "Installed datapacks",
+    "serverMods": "Server mods",
+    "readMore": "Read more",
+    "viewLink": "View link",
+    "networkError": "Could not connect to the database."
+  },
+  "roadmap": {
+    "statuses": {
+      "pending": "Pending",
+      "planned": "Planned",
+      "progress": "In progress",
+      "testing": "Testing",
+      "concept": "Concept"
+    }
+  },
+  "discord": {
+    "title": "Need help?",
+    "action": "Join Discord",
+    "description": "Request access, get technical help, or report an issue. The team and community are here for you.",
+    "button": "Join"
+  },
+  "donation": {
+    "title": "Enjoying Builtechraft?",
+    "action": "Buy us a coffee",
+    "description": "Since 2020, the server has been sustained by the community's dedication and support. You can help by buying us a coffee.",
+    "button": "Donate"
+  }
 }

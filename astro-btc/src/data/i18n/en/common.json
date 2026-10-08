@@ -1,18 +1,18 @@
 ﻿{
   "navigation": {
     "home": "Home",
-    "about": "About Us",
+    "about": "About",
     "play": "Play",
     "maps": "Maps",
     "wiki": "Wiki",
     "discord": "Discord",
-    "donate": "Donate",
-    "survivalMap": "Survival Map",
-    "creativeMap": "Creative Map",
+    "donate": "Support",
+    "survivalMap": "Survival",
+    "creativeMap": "Creative",
     "wikiPortal": "Wiki Portal",
-    "rules": "Server Rules",
-    "faq": "Frequently Asked Questions",
-    "history": "Server History",
+    "rules": "Rules",
+    "faq": "FAQ",
+    "history": "Our History",
     "menu": "Menu",
     "backToTop": "Back to top",
     "switchToEnglish": "Switch to English",
@@ -21,8 +21,8 @@
   "footer": {
     "unrelatedToMojang": "Not affiliated with Mojang",
     "rules": "Rules",
-    "donate": "Donate",
-    "madeWithLove": "Made with â¤ by"
+    "donate": "Support",
+    "madeWithLove": "Made with ❤ by"
   },
   "theme": {
     "group": "Change page theme",
@@ -45,8 +45,8 @@
     "fullItems": ["Step-by-step guides with images", "Advanced configurations", "Troubleshooting"],
     "viewArticles": "View articles",
     "openFullWiki": "Open the complete wiki",
-    "backToWiki": "â† Back to the Wiki",
-    "backToCategoryPrefix": "â† Back to",
+    "backToWiki": "← Back to the Wiki",
+    "backToCategoryPrefix": "← Back to",
     "noArticles": "There are no articles in this category yet.",
     "pageTitle": "Library",
     "portalTitle": "Builtechraft documentation",
@@ -54,33 +54,7 @@
     "categoryFallback": "Explore articles in this category.",
     "timelineMore": "Show more",
     "timelineLess": "Show less",
-    "spoilerHint": "â€” click to reveal",
-    "categories": {
-      "community": {
-        "title": "Community",
-        "description": "Server history, team, Discord, and frequently asked questions."
-      },
-      "features": {
-        "title": "Features",
-        "description": "Datapacks, mods, and server features."
-      },
-      "server-data": {
-        "title": "About the server",
-        "description": "The modpack, mods, and technical details about the server."
-      },
-      "how2use": {
-        "title": "Getting started",
-        "description": "Everything you need to join and play for the first time."
-      },
-      "how2wiki": {
-        "title": "Wiki authoring",
-        "description": "How this wiki is written and maintained."
-      },
-      "depracted": {
-        "title": "Archive",
-        "description": "Archived, retired, or deprecated information."
-      }
-    },
+    "spoilerHint": "— click to reveal",
     "navigation": "Breadcrumb navigation",
     "updated": "Updated:"
   },
@@ -89,9 +63,10 @@
     "description": "These rules apply both on the Minecraft server and on Discord.",
     "important": "Important information",
     "section": "Section",
-    "scopeGame": "ðŸŽ® In-game",
-    "scopeDiscord": "ðŸ’¬ Discord",
-    "scopeBoth": "ðŸŒ Both",
+    "loading": "Loading rules or temporarily unavailable.",
+    "scopeGame": "🎮 In-game",
+    "scopeDiscord": "💬 Discord",
+    "scopeBoth": "🌐 Both",
     "missingContent": "Content missing",
     "lastReviewed": "Last reviewed:",
     "contact": "Questions about the rules? Contact us on"

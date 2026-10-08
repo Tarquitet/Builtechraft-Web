@@ -1,18 +1,18 @@
 {
   "navigation": {
     "home": "Inicio",
-    "about": "Sobre Nosotros",
+    "about": "Nosotros",
     "play": "Jugar",
     "maps": "Mapas",
     "wiki": "Wiki",
     "discord": "Discord",
-    "donate": "Donar",
-    "survivalMap": "Mapa Supervivencia",
-    "creativeMap": "Mapa Creativo",
-    "wikiPortal": "Portal de la Wiki",
-    "rules": "Reglas del Servidor",
-    "faq": "Preguntas Frecuentes",
-    "history": "Historia del Servidor",
+    "donate": "Apoyar",
+    "survivalMap": "Supervivencia",
+    "creativeMap": "Creativo",
+    "wikiPortal": "Wiki Principal",
+    "rules": "Reglas",
+    "faq": "PyR",
+    "history": "Nuestra Historia",
     "menu": "Menú",
     "backToTop": "Volver arriba",
     "switchToEnglish": "Cambiar a inglés",
@@ -21,7 +21,7 @@
   "footer": {
     "unrelatedToMojang": "Sin relación con Mojang",
     "rules": "Reglas",
-    "donate": "Donar",
+    "donate": "Apoyar",
     "madeWithLove": "Hecho con ❤ por"
   },
   "theme": {
@@ -55,32 +55,6 @@
     "timelineMore": "Ver más",
     "timelineLess": "Ver menos",
     "spoilerHint": "— haz clic para revelar",
-    "categories": {
-      "community": {
-        "title": "Comunidad",
-        "description": "Historia, equipo, Discord y preguntas frecuentes."
-      },
-      "features": {
-        "title": "Mecánicas",
-        "description": "Datapacks, mods y funciones del servidor."
-      },
-      "server-data": {
-        "title": "Sobre el servidor",
-        "description": "Modpack, mods y el lado técnico del servidor."
-      },
-      "how2use": {
-        "title": "Cómo jugar",
-        "description": "Todo lo que necesitas para entrar y jugar por primera vez."
-      },
-      "how2wiki": {
-        "title": "Escritura de la wiki",
-        "description": "Cómo se escribe y mantiene esta wiki."
-      },
-      "depracted": {
-        "title": "Archivo",
-        "description": "Información archivada, retirada o descartada."
-      }
-    },
     "navigation": "Ruta de navegación",
     "updated": "Actualizado:"
   },
@@ -89,6 +63,7 @@
     "description": "Se aplican tanto dentro del servidor de Minecraft como en Discord.",
     "important": "Datos importantes",
     "section": "Sección",
+    "loading": "Cargando reglas o no disponibles temporalmente.",
     "scopeGame": "🎮 Juego",
     "scopeDiscord": "💬 Discord",
     "scopeBoth": "🌐 Ambos",

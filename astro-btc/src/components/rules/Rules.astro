@@ -1,64 +1,16 @@
 ---
-// src/components/rules/Rules.astro
-import links from '../../data/links.json';
+import { getRulesData } from '../../utils/sheetsClient.js';
 import { getDictionary, getLocaleFromPath } from '../../lib/i18n';
+import RuleSection from './RuleSection.astro';
 
 const locale = getLocaleFromPath(Astro.url.pathname);
 const dict = getDictionary(locale);
-
-interface RuleSection {
-  id: string;
-  file: string;
-  title: string;
-  icon: string;
-  scope: 'juego' | 'discord' | 'ambos';
-}
-
-interface RuleMetadata {
-  golden: string[];
-  sections: RuleSection[];
-}
-
-interface RuleMetadata {
-  golden: string[];
-  sections: RuleSection[];
-  footer?: {
-    updated: string;
-    disclaimer: string;
-    contactText: string;
-    contactLink: string;
-    contactLabel: string;
-  };
-}
-
-const metadataModules = import.meta.glob('../../data/rules/*/metadata.json', {
-  eager: true,
-  import: 'default',
-}) as Record<string, RuleMetadata>;
-
-const rulesData = metadataModules[`../../data/rules/${locale}/metadata.json`]
-  ?? metadataModules['../../data/rules/es/metadata.json'];
-
-const sectionModules = import.meta.glob('../../data/rules/*/sections/*.mdx', {
-  eager: true,
-}) as Record<string, { default: any }>;
-
-const getSectionComponent = (filename: string) => {
-  const localizedPath = `../../data/rules/${locale}/sections/${filename}`;
-  const fallbackPath = `../../data/rules/es/sections/${filename}`;
-  return sectionModules[localizedPath]?.default ?? sectionModules[fallbackPath]?.default ?? null;
-};
-
-const scopeLabels: Record<string, string> = {
-  juego: dict.common.rules.scopeGame,
-  discord: dict.common.rules.scopeDiscord,
-  ambos: dict.common.rules.scopeBoth,
-};
+const data = await getRulesData(locale);
 ---
 
 <section id="reglas" class="py-24 bg-theme-panel relative min-h-screen">
   <div class="container mx-auto px-6 max-w-4xl relative z-10">
-
+    
     <div class="text-center mb-12">
       <h2 class="text-4xl md:text-5xl font-display font-bold text-theme-main uppercase tracking-tight">
         {dict.common.rules.title}
@@ -68,70 +20,22 @@ const scopeLabels: Record<string, string> = {
       </p>
     </div>
 
-    {/* ===== REGLAS DE ORO (data-driven) ===== */}
-    {rulesData.golden && rulesData.golden.length > 0 && (
-      <div class="border border-btc-orange/30 bg-btc-orange/5 p-6 md:p-8 mb-12 mt-10">
-        <h3 class="text-btc-orange font-display font-bold uppercase tracking-widest text-sm mb-4">
-          ⚡ {dict.common.rules.important}
-        </h3>
-        <ol class="space-y-2 text-theme-main text-sm list-decimal list-inside">
-          {rulesData.golden.map((rule: string) => (
-            <li>{rule}</li>
-          ))}
-        </ol>
+    {data && data.sections && data.sections.length > 0 ? (
+      <div class="space-y-10">
+        {data.sections.map((section: any) => (
+          <RuleSection 
+            id={section.id}
+            title={section.title}
+            icon={section.icon}
+            rules={section.rules}
+          />
+        ))}
+      </div>
+    ) : (
+      <div class="text-center py-20 text-theme-muted border border-dashed border-theme-1 rounded-lg">
+        <p>{dict.common.rules.loading}</p>
       </div>
     )}
-
-    {/* ===== SECCIONES ===== */}
-    <div class="space-y-10">
-      {rulesData.sections.map((section) => {
-        const SectionComponent = getSectionComponent(section.file);
-        const scopeLabel = scopeLabels[section.scope] ?? '';
-        return (
-          <div id={`section-${section.id}`} class="scroll-mt-24">
-            <div class="flex items-center gap-3 mb-4 flex-wrap">
-              <div class="w-10 h-10 border border-btc-orange/20 bg-btc-orange/10 flex items-center justify-center">
-                <span class="text-xl">{section.icon}</span>
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="flex items-center gap-2 flex-wrap">
-                  <span class="text-xs font-bold uppercase tracking-widest text-btc-orange">
-                    {dict.common.rules.section} {section.id}
-                  </span>
-                  {scopeLabel && (
-                    <span class="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 border border-btc-orange/20 text-theme-muted">
-                      {scopeLabel}
-                    </span>
-                  )}
-                </div>
-                <h3 class="text-xl font-display font-bold text-theme-main">
-                  {section.title}
-                </h3>
-              </div>
-            </div>
-
-            {SectionComponent ? <SectionComponent /> : (
-              <p class="text-theme-muted text-sm">⚠️ {dict.common.rules.missingContent}: {section.file}</p>
-            )}
-          </div>
-        );
-      })}
-    </div>
-
-    {/* ===== FOOTER ===== */}
-        {rulesData.footer && (
-          <div class="mt-16 pt-8 border-t border-theme-muted/20 text-center">
-            <p class="text-theme-muted text-xs">
-              {rulesData.footer.disclaimer} {dict.common.rules.lastReviewed} {rulesData.footer.updated}.
-            </p>
-            <p class="text-theme-muted text-xs mt-2">
-              {rulesData.footer.contactText}{' '}
-              <a href={links.social.discord} target="_blank" rel="noopener noreferrer" class="text-btc-orange hover:underline">
-                {rulesData.footer.contactLabel}
-              </a>.
-            </p>
-          </div>
-        )}
 
   </div>
 </section>

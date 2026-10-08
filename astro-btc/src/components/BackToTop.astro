@@ -1,0 +1,37 @@
+---
+interface Props {
+  label?: string;
+}
+const { label = 'Volver arriba' } = Astro.props;
+---
+
+<button 
+  id="back-to-top" 
+  class="fixed bottom-8 right-8 z-50 w-12 h-12 bg-btc-orange/20 border border-btc-orange/50 text-btc-orange rounded-full flex items-center justify-center opacity-0 invisible translate-y-4 transition-all duration-300 hover:bg-btc-orange hover:text-white hover:-translate-y-1 cursor-pointer"
+  aria-label={label}
+>
+  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+  </svg>
+</button>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const bttBtn = document.getElementById('back-to-top');
+    if (bttBtn) {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          bttBtn.classList.remove('opacity-0', 'invisible', 'translate-y-4');
+          bttBtn.classList.add('opacity-100', 'visible', 'translate-y-0');
+        } else {
+          bttBtn.classList.add('opacity-0', 'invisible', 'translate-y-4');
+          bttBtn.classList.remove('opacity-100', 'visible', 'translate-y-0');
+        }
+      }, { passive: true });
+
+      bttBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  });
+</script>

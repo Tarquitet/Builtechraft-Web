@@ -1,0 +1,18 @@
+---
+import RuleItem from './RuleItem.astro';
+
+interface Props {
+  num: string;
+  items: Array<{ code: string; text: string }>;
+}
+const { num, items } = Astro.props;
+---
+
+<div class="mb-6 pl-4 border-l-2 border-theme-1">
+  <div class="mb-2">
+    <span class="text-btc-orange font-bold font-mono text-sm">{num}</span>
+  </div>
+  <div class="space-y-1">
+    {items.map((item) => <RuleItem code={item.code} text={item.text} />)}
+  </div>
+</div>

@@ -1,5 +1,4 @@
 ---
-// Sin imports aquí, lo hacemos dinámico en el cliente
 import { getDictionary, getLocaleFromPath } from '../../lib/i18n';
 
 const locale = getLocaleFromPath(Astro.url.pathname);
@@ -10,7 +9,7 @@ const dict = getDictionary(locale);
     .hide-scrollbar::-webkit-scrollbar { display: none; }
 </style>
 
-<div id="roadmap-component" data-pending-label={dict.home.roadmap.statuses.pending} class="hidden flex-col mt-4 relative z-20 pb-16">
+<div id="roadmap-component" class="hidden flex-col mt-4 relative z-20 pb-16">
     <div id="roadmap-filters" class="flex flex-wrap gap-2 mb-8 pb-6"></div>
 
     <div class="relative w-full group">
@@ -33,19 +32,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     const section = document.getElementById('roadmap-component');
     const filtersContainer = document.getElementById('roadmap-filters');
     if (!container || !section || !filtersContainer) return;
+    
     const locale = document.documentElement.lang === 'en' ? 'en' : 'es';
-    const pendingLabel = section.getAttribute('data-pending-label') || '';
-
     const btnPrev = document.getElementById('rm-prev');
     const btnNext = document.getElementById('rm-next');
-
-    const getStatusStyle = (estado) => {
-        const s = estado?.toLowerCase().trim() || '';
-        if (s.includes('progreso') || s.includes('progress')) return { text: 'text-btc-orange', bg: 'bg-btc-orange/10', border: 'border-btc-orange/30', icon: '⚡' };
-        if (s.includes('planeado') || s.includes('planned')) return { text: 'text-blue-500', bg: 'bg-blue-500/10', border: 'border-blue-500/30', icon: '📌' };
-        if (s.includes('prueba') || s.includes('test')) return { text: 'text-purple-500', bg: 'bg-purple-500/10', border: 'border-purple-500/30', icon: '' };
-        return { text: 'text-emerald-500', bg: 'bg-emerald-500/10', border: 'border-emerald-500/30', icon: '✅' };
-    };
 
     try {
         const { getRoadmapData } = await import('../../utils/sheetsClient.js');
@@ -53,32 +43,27 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         if (!data || data.length === 0) return;
 
+        // 1. Obtener estados únicos DIRECTAMENTE del JSON (ya viene traducido)
+        const uniqueStatuses = [...new Set(data.map(item => item.Estado))];
+
+        // 2. Renderizar tarjetas usando el texto EXACTO del JSON. Sin traducciones, sin emojis.
         container.innerHTML = data.map((item) => {
-            const estadoLimpio = item.Estado || pendingLabel;
-            const style = getStatusStyle(estadoLimpio);
-            
             return `
-                <div class="roadmap-card snap-center shrink-0 w-[85vw] md:w-[calc(33.333%-1rem)] bg-theme-card border border-theme-1 p-6 flex flex-col group hover:border-btc-orange/30" style="box-shadow: 6px 6px 0px rgba(0,0,0,0.3);" data-status="${estadoLimpio}">
-                    <div class="mb-5">
-                        <span class="text-[10px] font-bold uppercase tracking-widest ${style.text} ${style.bg} border ${style.border} px-3 py-1.5 inline-flex items-center gap-1.5 whitespace-nowrap">
-                            ${style.icon} ${estadoLimpio}
-                        </span>
-                    </div>
+                <div class="roadmap-card snap-center shrink-0 w-[85vw] md:w-[calc(33.333%-1rem)] bg-theme-card border border-theme-1 p-6 flex flex-col group hover:border-btc-orange/30" style="box-shadow: 6px 6px 0px rgba(0,0,0,0.3);" data-status="${item.Estado}">
                     <h3 class="px-1 font-bold text-theme-main text-xl mb-3 leading-tight">${item.Titulo}</h3>
                     <p class="px-1 text-theme-muted text-sm leading-relaxed flex-grow">${item.Descripcion}</p>
                 </div>
             `;
         }).join('');
 
-        const cards = container.querySelectorAll('.roadmap-card');
-        const uniqueStatuses = [...new Set(data.map((item) => item.Estado || pendingLabel))];
-
+        // 3. Renderizar filtros con los estados exactos del JSON
         filtersContainer.innerHTML = uniqueStatuses.map(status => `
             <button class="rm-filter-btn px-5 py-2.5 bg-theme-alternate text-theme-muted hover:text-theme-main text-xs font-bold uppercase tracking-widest border border-theme-1 hover:border-btc-orange/50 transition-all" data-filter="${status}">
                 ${status}
             </button>
         `).join('');
 
+        // 4. Lógica de filtrado simple
         const applyFilter = (filterValue, activeBtn) => {
             const currentActive = filtersContainer.querySelector('.is-active-filter');
             if (currentActive) {
@@ -88,7 +73,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             activeBtn.classList.remove('bg-theme-alternate', 'text-theme-muted', 'border-theme-1');
             activeBtn.classList.add('is-active-filter', 'bg-btc-orange/10', 'text-btc-orange', 'border-btc-orange/50');
 
-            cards.forEach((card) => {
+            container.querySelectorAll('.roadmap-card').forEach((card) => {
                 card.style.display = card.getAttribute('data-status') === filterValue ? '' : 'none';
             });
             container.scrollLeft = 0;
@@ -112,7 +97,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             container.addEventListener('scroll', updateArrows, { passive: true });
             
             const scrollSlider = (directionMultiplier) => {
-                const firstVisible = Array.from(cards).find(c => c.style.display !== 'none');
+                const firstVisible = Array.from(container.querySelectorAll('.roadmap-card')).find(c => c.style.display !== 'none');
                 const cardWidth = firstVisible ? firstVisible.offsetWidth + 24 : 300;
                 container.scrollBy({ left: cardWidth * directionMultiplier, behavior: 'smooth' });
             };

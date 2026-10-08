@@ -1,0 +1,87 @@
+---
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
+interface Props {
+  mainItems: any[];
+  dropdowns: any;
+  locale: 'es' | 'en';
+  targetLocale: 'es' | 'en';
+  switchHref: string;
+  dict: any;
+  getLink: (key: string) => string;
+  // NUEVA FIRMA: coincide con la de Navbar.astro
+  localizeHref: (keyLink: string | undefined, href: string | undefined, localized: boolean) => string;
+}
+const { mainItems, dropdowns, locale, targetLocale, switchHref, dict, getLink, localizeHref } = Astro.props;
+---
+
+<!-- Backdrop -->
+<div id="sheet-backdrop" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[90] transition-opacity duration-300 opacity-0 invisible"></div>
+
+<!-- Sheet -->
+<div id="mobile-sheet" class="fixed top-0 right-0 h-full w-[85vw] max-w-sm bg-theme-card border-l border-theme-1 z-[100] transform transition-transform duration-300 ease-out shadow-2xl translate-x-full">
+  <div class="flex flex-col h-full">
+    <div class="flex items-center justify-between p-6 border-b border-theme-1">
+      <span class="font-display font-bold text-xl uppercase tracking-widest text-theme-main">{dict.common.navigation.menu}</span>
+      <button id="mobile-menu-close" class="p-2 text-theme-muted hover:text-btc-orange transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+    
+    <nav class="flex-1 overflow-y-auto py-6 px-6 flex flex-col gap-2">
+      {mainItems.map((item: any) => {
+        const isLocalized = item.localized !== false;
+        const targetUrl = localizeHref(item.keyLink, item.href, isLocalized);
+        const label = item.name || dict.common.navigation[item.id] || item.id;
+        const isPlayButton = item.id === 'play' || item.keyLink === 'ingreso';
+        const subItems = item.dropdownKey ? dropdowns[item.dropdownKey] : [];
+
+        if (item.hasDropdown && subItems.length > 0) {
+          return (
+            <div class="mobile-dropdown-wrapper">
+              <button class="mobile-dropdown-btn flex items-center justify-between w-full px-4 py-3 font-bold uppercase tracking-widest text-theme-main hover:text-btc-orange transition-colors" data-dropdown-id={`mobile-drop-${item.id}`}>
+                {label}
+                <svg class="arrow-icon w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+              <div id={`mobile-drop-${item.id}`} class="mobile-dropdown-menu hidden flex-col gap-1 pl-4 mb-2">
+                {subItems.map((sub: any) => {
+                  const subLocalized = sub.localized !== false;
+                  const subUrl = localizeHref(sub.keyLink, sub.href, subLocalized);
+                  const subLabel = sub.name || dict.common.navigation[sub.id] || sub.id;
+                  return (
+                    <a href={subUrl} class="mobile-submenu-link block" target={sub.isExternal ? "_blank" : "_self"} rel={sub.isExternal ? "noopener noreferrer" : undefined}>
+                      {subLabel}
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        }
+
+        return (
+          <a 
+            href={targetUrl} 
+            class={`mobile-nav-link block px-4 py-3 font-bold uppercase tracking-widest transition-colors text-center ${isPlayButton ? 'btn-play-rect-mobile' : 'hover:text-btc-orange'}`}
+            target={item.isExternal ? "_blank" : "_self"} 
+            rel={item.isExternal ? "noopener noreferrer" : undefined}
+          >
+            {label}
+          </a>
+        );
+      })}
+      
+      <LanguageSwitcher 
+        locale={locale} 
+        targetLocale={targetLocale} 
+        switchHref={switchHref} 
+        isMobile={true} 
+        dict={dict} 
+      />
+    </nav>
+  </div>
+</div>

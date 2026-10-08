@@ -1,33 +1,31 @@
 {
   "main": [
-    { "id": "inicio", "name": "Inicio", "keyLink": "inicio", "isExternal": false },
-    { "id": "nosotros", "name": "Sobre Nosotros", "keyLink": "about", "isExternal": false },
-    { "id": "jugar", "name": "Jugar", "keyLink": "ingreso", "isExternal": false, "isPrimary": true },
+    { "id": "home", "keyLink": "inicio", "localized": true },
+    { "id": "about", "keyLink": "about", "localized": true },
     {
-      "id": "mapas",
-      "name": "Mapas",
+      "id": "maps",
       "hasDropdown": true,
       "dropdownKey": "maps_drop"
     },
+    { "id": "donate", "keyLink": "donate", "localized": false },
+    { "id": "rules", "keyLink": "rules", "localized": true },
+    { "id": "discord", "keyLink": "discord", "localized": false },
     {
       "id": "wiki",
-      "name": "Wiki",
       "hasDropdown": true,
       "dropdownKey": "wiki_drop"
     },
-    { "id": "discord", "name": "Discord", "keyLink": "discord", "isExternal": true, "hexColor": "#5865F2" },
-    { "id": "donaciones", "name": "Donar", "keyLink": "donate", "isExternal": true, "hexColor": "#ec4899" }
+    { "id": "play", "keyLink": "ingreso", "localized": true, "isPrimary": true }
   ],
   "dropdowns": {
     "maps_drop": [
-      { "name": "Mapa Supervivencia", "keyLink": "survival", "isExternal": true },
-      { "name": "Mapa Creativo", "keyLink": "creative", "isExternal": true }
+      { "id": "survivalMap", "keyLink": "survival", "localized": false },
+      { "id": "creativeMap", "keyLink": "creative", "localized": false }
     ],
     "wiki_drop": [
-      { "name": "Portal de la Wiki", "keyLink": "wiki", "isExternal": false, "isPrimary": true },
-      { "name": "Reglas del Servidor", "keyLink": "rules", "isExternal": false },
-      { "name": "Preguntas Frecuentes", "keyLink": "wikiFaq", "isExternal": false },
-      { "name": "Historia del Servidor", "keyLink": "wikiHistoria", "isExternal": false }
+      { "id": "wikiPortal", "keyLink": "wiki", "localized": true, "isPrimary": true },
+      { "id": "faq", "keyLink": "wikiFaq", "localized": true },
+      { "id": "history", "keyLink": "wikiHistoria", "localized": true }
     ]
   }
 }

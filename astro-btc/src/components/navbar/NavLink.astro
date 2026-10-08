@@ -1,0 +1,31 @@
+---
+interface Props {
+  href: string;
+  label: string;
+  isActive?: boolean;
+  isExternal?: boolean;
+  isPlayButton?: boolean;
+  hexColor?: string; // <-- NUEVO
+}
+const { href, label, isActive = false, isExternal = false, isPlayButton = false, hexColor } = Astro.props;
+
+// Si hay hexColor, aplicamos las variables CSS personalizadas
+const customStyle = hexColor 
+  ? `--text-muted: ${hexColor}; --color-btc-orange: ${hexColor};` 
+  : undefined;
+---
+
+<a 
+  href={href} 
+  target={isExternal ? "_blank" : "_self"} 
+  rel={isExternal ? "noopener noreferrer" : undefined} 
+  class:list={[
+    'relative transition-all duration-300',
+    isPlayButton ? 'btn-play-rect' : 'nav-link',
+    isActive ? (isPlayButton ? 'bg-btc-orange text-white' : 'active') : ''
+  ]}
+  style={customStyle}
+>
+  {label}
+  {!isPlayButton && <span class="nav-line"></span>}
+</a>

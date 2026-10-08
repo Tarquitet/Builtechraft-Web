@@ -60,6 +60,10 @@ export async function getStaffData(locale = 'es') {
   return await fetchWithCache('staff', `${GITHUB_BASE}/${locale}/staff.json`, locale);
 }
 
+export async function getRulesData(locale = 'es') {
+  return await fetchWithCache('rules', `${GITHUB_BASE}/${locale}/rules.json`, locale);
+}
+
 export async function getModsAndDatapacks(locale = 'es') {
   const validLocale = getValidLocale(locale);
   const json = await fetchWithCache('mods', `${GITHUB_BASE}/${validLocale}/mods.json`, validLocale);

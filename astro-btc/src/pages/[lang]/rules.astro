@@ -1,9 +1,18 @@
 ---
-import RulesPage from '../rules.astro';
+import Layout from '../../layouts/Layout.astro';
+import Rules from '../../components/rules/Rules.astro';
+import { getDictionary } from '../../lib/i18n';
 
 export function getStaticPaths() {
   return ['es', 'en'].map((lang) => ({ params: { lang } }));
 }
+
+const locale = Astro.params.lang as 'es' | 'en';
+const dict = getDictionary(locale);
 ---
 
-<RulesPage />
+<Layout title={`${dict.common.rules.title} | Builtechcraft`} description={dict.common.rules.description} lang={locale}>
+  <main class="pt-24 min-h-screen bg-theme-panel">
+    <Rules />
+  </main>
+</Layout>
