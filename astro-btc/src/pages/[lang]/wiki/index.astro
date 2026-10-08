@@ -1,9 +1,19 @@
 ---
-import WikiPage from '../../wiki.astro';
+import Layout from '../../../layouts/Layout.astro';
+import WikiPortal from '../../../components/wiki/WikiPortal.astro';
+import { getLocaleFromPath, getDictionary } from '../../../lib/i18n';
 
 export function getStaticPaths() {
-  return ['es', 'en'].map((lang) => ({ params: { lang } }));
+  return [
+    { params: { lang: 'es' } },
+    { params: { lang: 'en' } }
+  ];
 }
+
+const locale = Astro.params.lang as 'es' | 'en';
+const dict = getDictionary(locale);
 ---
 
-<WikiPage />
+<Layout title={`Wiki | Builtechraft`} description={dict.common.wiki.portalDescription} lang={locale}>
+  <WikiPortal locale={locale} />
+</Layout>

@@ -1,0 +1,64 @@
+---
+import DiscordBanner from '../discord/DiscordBanner.astro';
+import { getDictionary, type Locale, localizePath } from '../../lib/i18n';
+import { getWikiArticles, getWikiIntro } from '../../lib/wikiContent';
+
+interface Props {
+  locale: Locale;
+  category: string;
+}
+
+const { locale, category } = Astro.props;
+const dict = getDictionary(locale);
+const wikiDict = dict.common?.wiki || {};
+const localizedPrefix = locale === 'en' ? '/en' : '';
+
+const introEntry = getWikiIntro(locale, category);
+const catInfo = introEntry?.module?.frontmatter ?? {};
+const categoryCopy = wikiDict.categories?.[category] || {};
+
+const categoryTitle = categoryCopy.title || catInfo.title || category;
+const categoryDescription = categoryCopy.description || catInfo.description || wikiDict.categoryFallback || '';
+
+const articles = getWikiArticles(locale, category).map(({ slug, module }) => ({
+  ...(module.frontmatter ?? {}),
+  slug,
+  url: `${localizedPrefix}/wiki/${category}/articles/${slug}`,
+}));
+---
+
+<main class="pt-32 pb-24 min-h-screen bg-theme-section">
+  <div class="container mx-auto px-6 max-w-6xl">
+    <a href={`${localizedPrefix}/wiki`} class="wiki-back mb-8 inline-block text-btc-orange hover:underline">
+      {wikiDict.backToWiki || '← Volver a la Wiki'}
+    </a>
+
+    <div class="flex items-center gap-4 mb-12">
+      <span class="text-6xl">{catInfo.icon ?? '📂'}</span>
+      <div>
+        <h1 class={`text-4xl font-display font-bold uppercase tracking-tight ${catInfo.color ?? 'text-btc-orange'}`}>
+          {categoryTitle}
+        </h1>
+        <p class="text-theme-muted text-lg mt-2">{categoryDescription}</p>
+      </div>
+    </div>
+
+    {articles.length > 0 ? (
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {articles.map((article: any) => (
+          <a href={article.url} class={`card-retro ${article.border ?? 'hover:border-btc-orange'} group relative p-6 bg-theme-card border border-theme-1 transition-all duration-300 hover:-translate-y-0.5`} style="box-shadow: 4px 4px 0px rgba(0,0,0,0.3);">
+            {article.tag && <span class="badge-retro absolute top-4 right-4 text-btc-orange border border-btc-orange/40 px-2 py-1 text-xs rounded">{article.tag}</span>}
+            <span class="text-4xl mb-4 block">{article.icon ?? '📄'}</span>
+            <h3 class={`text-lg font-display font-bold uppercase tracking-tight mb-2 ${article.color ?? 'text-btc-orange'} group-hover:underline`}>{article.title}</h3>
+            <p class="text-theme-muted text-sm leading-relaxed">{article.description}</p>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <div class="text-center py-20 border border-dashed border-theme rounded-lg">
+        <p class="text-theme-muted text-lg">{wikiDict.noArticles || 'Todavía no hay artículos en esta categoría.'}</p>
+      </div>
+    )}
+  </div>
+  <DiscordBanner />
+</main>

@@ -2,26 +2,14 @@
   "main": [
     { "id": "home", "keyLink": "inicio", "localized": true },
     { "id": "about", "keyLink": "about", "localized": true },
-    {
-      "id": "maps",
-      "hasDropdown": true,
-      "dropdownKey": "maps_drop"
-    },
-    { "id": "donate", "keyLink": "donate", "localized": false },
+    { "id": "maps", "keyLink": "aboutMundos", "localized": true },
+    { "id": "donate", "keyLink": "donate", "isExternal": true, "localized": false },
     { "id": "rules", "keyLink": "rules", "localized": true },
-    { "id": "discord", "keyLink": "discord", "localized": false },
-    {
-      "id": "wiki",
-      "hasDropdown": true,
-      "dropdownKey": "wiki_drop"
-    },
+    { "id": "discord", "keyLink": "discord", "isExternal": true, "localized": false },
+    { "id": "wiki", "keyLink": "wiki", "localized": true, "isPrimary": true },
     { "id": "play", "keyLink": "ingreso", "localized": true, "isPrimary": true }
   ],
   "dropdowns": {
-    "maps_drop": [
-      { "id": "survivalMap", "keyLink": "survival", "localized": false },
-      { "id": "creativeMap", "keyLink": "creative", "localized": false }
-    ],
     "wiki_drop": [
       { "id": "wikiPortal", "keyLink": "wiki", "localized": true, "isPrimary": true },
       { "id": "faq", "keyLink": "wikiFaq", "localized": true },

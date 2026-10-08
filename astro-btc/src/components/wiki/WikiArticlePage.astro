@@ -14,12 +14,9 @@ const dictionary = getDictionary(routeLocale);
 const ArticleContent = entry.module.default;
 const frontmatter = entry.module.frontmatter ?? {};
 ---
-
-<WikiLayout frontmatter={frontmatter} lang={contentLocale}>
   {routeLocale !== contentLocale && (
     <p class="mb-8 border-l-4 border-btc-orange bg-theme-card px-4 py-3 text-sm text-theme-muted" role="status">
       {dictionary.common.wiki.articleFallbackNotice}
     </p>
   )}
   <ArticleContent />
-</WikiLayout>

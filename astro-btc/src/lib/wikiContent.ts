@@ -35,16 +35,29 @@ function parseArticle(path: string): { locale: Locale; category: string; slug: s
 }
 
 export function getWikiCategories(locale: Locale): WikiContentEntry[] {
-  return Object.entries(intros)
+  // Obtener todas las categorías únicas (sin importar idioma)
+  const allCategories = Object.entries(intros)
     .map(([path, module]) => {
       const parsed = parseCategory(path);
       return parsed ? { ...parsed, module } : null;
     })
-    .filter((entry): entry is WikiContentEntry => entry !== null && entry.locale === 'es')
+    .filter((entry): entry is WikiContentEntry => entry !== null);
+
+  // Agrupar por nombre de categoría y tomar solo una entrada por categoría
+  const uniqueCategories = new Map<string, WikiContentEntry>();
+
+  for (const entry of allCategories) {
+    if (!uniqueCategories.has(entry.category)) {
+      uniqueCategories.set(entry.category, entry);
+    }
+  }
+
+  // Ahora mapear para usar el idioma correcto con fallback
+  return Array.from(uniqueCategories.values())
     .map((entry) => {
       const localizedPath = `../data/wiki/${locale}/${entry.category}/intro.mdx`;
       const module = intros[localizedPath] || entry.module;
-      const sourceLocale: Locale = intros[localizedPath] ? locale : 'es';
+      const sourceLocale: Locale = intros[localizedPath] ? locale : entry.locale;
       return { locale: sourceLocale, category: entry.category, module };
     })
     .sort((left, right) => (left.module.frontmatter?.order ?? 99) - (right.module.frontmatter?.order ?? 99));
@@ -59,21 +72,29 @@ export function getWikiIntro(locale: Locale, category: string): WikiContentEntry
 }
 
 export function getWikiArticles(locale: Locale, category: string): WikiContentEntry[] {
+  // Obtener artículos de la categoría específica, sin filtrar por idioma todavía
   const source = Object.entries(articles)
     .map(([path, module]) => {
       const parsed = parseArticle(path);
       return parsed ? { ...parsed, module } : null;
     })
-    .filter(
-      (entry): entry is WikiContentEntry & { slug: string } =>
-        entry !== null && entry.locale === 'es' && entry.category === category,
-    );
+    .filter((entry): entry is WikiContentEntry & { slug: string } => entry !== null && entry.category === category);
 
-  return source
+  // Agrupar por slug para eliminar duplicados
+  const uniqueArticles = new Map<string, WikiContentEntry & { slug: string }>();
+
+  for (const entry of source) {
+    if (!uniqueArticles.has(entry.slug)) {
+      uniqueArticles.set(entry.slug, entry);
+    }
+  }
+
+  // Mapear para usar el idioma correcto con fallback
+  return Array.from(uniqueArticles.values())
     .map((entry) => {
       const localizedPath = `../data/wiki/${locale}/${category}/articles/${entry.slug}.mdx`;
       const module = articles[localizedPath] || entry.module;
-      const sourceLocale: Locale = articles[localizedPath] ? locale : 'es';
+      const sourceLocale: Locale = articles[localizedPath] ? locale : entry.locale;
       return { locale: sourceLocale, category, slug: entry.slug, module };
     })
     .filter((entry) => entry.module.frontmatter?.draft !== true && Boolean(entry.module.frontmatter?.title))
@@ -87,7 +108,7 @@ export function getWikiArticle(locale: Locale, category: string, slug: string): 
 export function getWikiArticlePaths(
   locale: Locale,
 ): Array<{ category: string; slug: string; entry: WikiContentEntry }> {
-  return getWikiCategories('es').flatMap(({ category }) =>
+  return getWikiCategories(locale).flatMap(({ category }) =>
     getWikiArticles(locale, category)
       .filter((entry) => entry.slug)
       .map((entry) => ({ category, slug: entry.slug as string, entry })),

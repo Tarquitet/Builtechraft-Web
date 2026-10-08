@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Navbar from '../components/navbar/Navbar.astro';
 import Footer from '../components/footer/Footer.astro';
 import links from '../data/links.json';
+import DiscordBanner from '../components/discord/DiscordBanner.astro';
 import BackToTop from '../components/BackToTop.astro';
 import { getDictionary, getLocaleFromPath, type Locale } from '../lib/i18n';
 
@@ -77,14 +78,13 @@ const socialImageURL = new URL(image, Astro.url);
     </head>
 
     <body class="bg-theme-app text-theme-main font-sans antialiased flex flex-col min-h-screen">
-        
 
         <Navbar/>
 
         <main class="grow">
             <slot />
         </main>
-
+        <DiscordBanner />
         <Footer />
 
     <script>

@@ -1,7 +1,6 @@
 ---
 // src/layouts/WikiLayout.astro
 import Layout from './Layout.astro';
-import links from '../data/links.json';
 import { getDictionary, getLocaleFromPath, type Locale } from '../lib/i18n';
 
 const routeLocale = getLocaleFromPath(Astro.url.pathname);
@@ -16,47 +15,36 @@ const author      = (Astro.props.author ?? fm.author) ?? 'Equipo Builtechcraft';
 const pubDate     = Astro.props.pubDate ?? fm.pubDate;
 const updated     = Astro.props.updated ?? fm.updated;
 
-// 🧠 DETECCIÓN AUTOMÁTICA DE CATEGORÍA DESDE LA URL
-// Ejemplo URL: /wiki/features/articles/silence-mobs
-// Split: ['', 'wiki', 'features', 'articles', 'silence-mobs']
+// 🧠 DETECCIÓN DE CATEGORÍA DESDE LA URL
 const pathParts = Astro.url.pathname.split('/').filter(Boolean);
-// La categoría SIEMPRE es el índice 2 (después de '' y 'wiki')
 const wikiPathIndex = pathParts.indexOf('wiki');
 const category = wikiPathIndex >= 0 ? pathParts[wikiPathIndex + 1] : undefined;
 
 const formatDate = (d?: string) =>
   d ? new Date(d).toLocaleDateString(contentLocale === 'en' ? 'en-US' : 'es-CO', { year: 'numeric', month: 'long', day: 'numeric' }) : null;
 
-// Lógica inteligente para el botón de regreso
-const localizedPrefix = pathParts[0] === 'en' || pathParts[0] === 'es' ? `/${routeLocale}` : '';
+// 🎯 RUTA AL PORTAL (para el botón)
+const localizedPrefix = routeLocale === 'en' ? '/en' : '';
 const wikiHome = `${localizedPrefix}/wiki`;
-const backLink = category ? `${wikiHome}/${category}` : (localizedPrefix ? wikiHome : links.wiki.homeInternal || '/wiki');
-const backText = category ? `${dictionary.common.wiki.backToCategoryPrefix} ${category.toUpperCase()}` : dictionary.common.wiki.backToWiki;
 ---
 
 <Layout title={title} description={description} lang={contentLocale}>
   <div class="bg-theme-section min-h-screen">
     <div class="container mx-auto px-6 max-w-4xl pt-28 md:pt-32 pb-20">
 
-      {/* Ruta + volver inteligente */}
-      <nav class="flex flex-wrap items-center justify-between gap-3 mb-8" aria-label={dictionary.common.wiki.navigation}>
-        <a href={backLink} class="wiki-back">{backText}</a>
+      {/* Navegación: Botón funcional + Texto de ruta SIN enlaces */}
+      <nav class="flex flex-wrap items-center gap-4 mb-8" aria-label={dictionary.common.wiki.navigation}>
         
-        <p class="wiki-crumbs">
-          <span>/</span>
-          <a href={wikiHome}>Wiki</a>
-          
-          {/* Si hay categoría, la mostramos en el breadcrumb */}
-          {category && (
-            <>
-              <span>/</span>
-              <a href={backLink}>{category.toUpperCase()}</a>
-            </>
-          )}
-          
-          <span>/</span>
-          <span class="crumb-current">{title}</span>
-        </p>
+        {/* 1. Botón que SÍ regresa al portal */}
+        <a href={wikiHome} class="wiki-back">
+          {dictionary.common.wiki.backToWiki || 'Volver a la Wiki'}
+        </a>
+        
+        {/* 2. Texto de la ruta SIN enlaces (WIKI / SECCION / ARTICULO) */}
+        <span class="wiki-path-text">
+          WIKI {category ? ` / ${category.toUpperCase()}` : ''} / {title.toUpperCase()}
+        </span>
+
       </nav>
 
       {/* Cabecera con metadatos */}
@@ -66,10 +54,11 @@ const backText = category ? `${dictionary.common.wiki.backToCategoryPrefix} ${ca
         <div class="wiki-meta">
           <span>✍️ {author}</span>
           {formatDate(pubDate) && <span>📅 {formatDate(pubDate)}</span>}
-          {formatDate(updated) && <span>🔄 {dictionary.common.wiki.updated} {formatDate(updated)}</span>}
+          {formatDate(updated) && <span>🔄 {dictionary.common.wiki.updated || 'Actualizado:'} {formatDate(updated)}</span>}
         </div>
       </header>
 
+      {/* Contenido del artículo MDX */}
       <div class="prose max-w-none">
         <slot />
       </div>
@@ -95,7 +84,8 @@ const backText = category ? `${dictionary.common.wiki.backToCategoryPrefix} ${ca
   }
   .wiki-back:hover { color: var(--text-accent); border-color: var(--text-accent); }
 
-  .wiki-crumbs {
+  /* NUEVO: Estilo para el texto de la ruta sin enlaces */
+  .wiki-path-text {
     display: flex;
     align-items: center;
     gap: .45rem;
@@ -105,8 +95,6 @@ const backText = category ? `${dictionary.common.wiki.backToCategoryPrefix} ${ca
     letter-spacing: .08em;
     color: var(--text-muted);
   }
-  .wiki-crumbs a:hover { color: var(--text-accent); }
-  .crumb-current { color: var(--text-main); }
 
   .wiki-title {
     font-size: 1.875rem;

@@ -1,3 +1,4 @@
+// src/lib/i18n.ts
 export type Locale = 'es' | 'en';
 
 type ImportMetaWithGlob = ImportMeta & {
@@ -12,12 +13,19 @@ const dictionaryFiles = (import.meta as ImportMetaWithGlob).glob('../data/i18n/*
 });
 
 function loadLocaleDictionary(locale: Locale): LocaleDictionary {
-  const localeDirectory = `../data/i18n/${locale}/`;
-  return Object.fromEntries(
-    Object.entries(dictionaryFiles)
-      .filter(([path]) => path.startsWith(localeDirectory))
-      .map(([path, dictionary]) => [path.slice(localeDirectory.length, -'.json'.length), dictionary]),
-  );
+  // Esta regex funciona tanto para rutas relativas "../data/..." como absolutas "/src/data/..."
+  const regex = new RegExp(`[/\\\\]data[/\\\\]i18n[/\\\\]${locale}[/\\\\]([^/\\\\]+)\\.json$`);
+  const result: LocaleDictionary = {};
+
+  for (const [path, dictionary] of Object.entries(dictionaryFiles)) {
+    const match = path.match(regex);
+    if (match) {
+      const namespace = match[1]; // ej: "common"
+      result[namespace] = dictionary;
+    }
+  }
+
+  return result;
 }
 
 export const dictionaries: Record<Locale, LocaleDictionary> = {
@@ -26,34 +34,14 @@ export const dictionaries: Record<Locale, LocaleDictionary> = {
 };
 
 export function getDictionary(locale: Locale) {
-  return dictionaries[locale];
+  return dictionaries[locale] || {}; // Fallback a objeto vacío si falla
 }
 
 export function getLocaleFromPath(pathname: string): Locale {
-  return pathname.split('/').filter(Boolean)[0] === 'en' ? 'en' : 'es';
+  if (pathname.startsWith('/en/')) return 'en';
+  return 'es';
 }
 
-const localizedWikiCategories = new Set(['community', 'features', 'server-data', 'how2use', 'how2wiki', 'depracted']);
-
-export function localizePath(pathname: string, locale: Locale): string {
-  if (!pathname.startsWith('/') || pathname.startsWith('//')) return pathname;
-
-  const url = new URL(pathname, 'https://builtechraft.local');
-  const segments = url.pathname.split('/').filter(Boolean);
-  if (segments[0] === 'es' || segments[0] === 'en') segments.shift();
-
-  const isLocalizedRoute =
-    segments.length === 0 ||
-    (segments.length === 1 && segments[0] === 'rules') ||
-    (segments[0] === 'wiki' &&
-      (segments.length === 1 ||
-        (segments.length === 2 && localizedWikiCategories.has(segments[1])) ||
-        (segments.length === 4 && localizedWikiCategories.has(segments[1]) && segments[2] === 'articles')));
-
-  if (!isLocalizedRoute) {
-    return `${url.pathname}${url.search}${url.hash}`;
-  }
-
-  const localizedPath = segments.length ? `/${locale}/${segments.join('/')}` : `/${locale}/`;
-  return `${localizedPath}${url.search}${url.hash}`;
+export function localizePath(path: string, locale: Locale): string {
+  return `/${locale}${path}`; // ✅ Siempre añade el prefijo
 }

@@ -1,13 +1,28 @@
 ---
-import CategoryPage from '../../../wiki/[category]/index.astro';
+import Layout from '../../../../layouts/Layout.astro';
+import WikiCategory from '../../../../components/wiki/WikiCategory.astro';
+import { getDictionary } from '../../../../lib/i18n';
+import { getWikiCategories } from '../../../../lib/wikiContent';
 
 export function getStaticPaths() {
-  const categories = ['community', 'features', 'server-data', 'how2use', 'how2wiki', 'depracted'];
-
-  return ['es', 'en'].flatMap((lang) =>
-    categories.map((category) => ({ params: { lang, category } })),
-  );
+  const paths = [];
+  for (const lang of ['es', 'en'] as const) {
+    const categories = getWikiCategories(lang);
+    for (const cat of categories) {
+      paths.push({ params: { lang, category: cat.category } });
+    }
+  }
+  return paths;
 }
+
+const locale = Astro.params.lang as 'es' | 'en';
+const category = Astro.params.category as string;
+const dict = getDictionary(locale);
+const wikiDict = dict.common?.wiki || {};
+const categoryCopy = wikiDict.categories?.[category] || {};
+const categoryTitle = categoryCopy.title || category;
 ---
 
-<CategoryPage category={Astro.params.category} />
+<Layout title={`${categoryTitle} | Wiki Builtechraft`} description={categoryCopy.description || ''} lang={locale}>
+  <WikiCategory locale={locale} category={category} />
+</Layout>

@@ -14,7 +14,6 @@ import Roadmap from '../components/about/Roadmap.astro'; // Ajusta la ruta si es
 import ComparisonCards from '../components/about/ComparisonCards.astro';
 import Modpack from '../components/about/Modpack.astro';
 import DonateBanner from '../components/donation/DonationMini.astro';
-import DiscordBanner from '../components/discord/DiscordBanner.astro';
 import { getDictionary, getLocaleFromPath } from '../lib/i18n';
 
 const lang = getLocaleFromPath(Astro.url.pathname);
@@ -88,9 +87,6 @@ const dict = getDictionary(lang);
 
     <!-- 3. HOW TO SECTION (Arriba de los banners) -->
     <HowToSection />
-
-    <!-- 4. BANNERS DE COMUNIDAD (Antes del footer) -->
-    <DiscordBanner />
 
     <!-- 5. CONFIG LOADER / FOOTER -->
     <ConfigLoader />
