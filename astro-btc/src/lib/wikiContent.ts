@@ -35,7 +35,6 @@ function parseArticle(path: string): { locale: Locale; category: string; slug: s
 }
 
 export function getWikiCategories(locale: Locale): WikiContentEntry[] {
-  // Obtener todas las categorías únicas (sin importar idioma)
   const allCategories = Object.entries(intros)
     .map(([path, module]) => {
       const parsed = parseCategory(path);
@@ -43,16 +42,13 @@ export function getWikiCategories(locale: Locale): WikiContentEntry[] {
     })
     .filter((entry): entry is WikiContentEntry => entry !== null);
 
-  // Agrupar por nombre de categoría y tomar solo una entrada por categoría
   const uniqueCategories = new Map<string, WikiContentEntry>();
-
   for (const entry of allCategories) {
     if (!uniqueCategories.has(entry.category)) {
       uniqueCategories.set(entry.category, entry);
     }
   }
 
-  // Ahora mapear para usar el idioma correcto con fallback
   return Array.from(uniqueCategories.values())
     .map((entry) => {
       const localizedPath = `../data/wiki/${locale}/${entry.category}/intro.mdx`;
@@ -72,7 +68,6 @@ export function getWikiIntro(locale: Locale, category: string): WikiContentEntry
 }
 
 export function getWikiArticles(locale: Locale, category: string): WikiContentEntry[] {
-  // Obtener artículos de la categoría específica, sin filtrar por idioma todavía
   const source = Object.entries(articles)
     .map(([path, module]) => {
       const parsed = parseArticle(path);
@@ -80,16 +75,13 @@ export function getWikiArticles(locale: Locale, category: string): WikiContentEn
     })
     .filter((entry): entry is WikiContentEntry & { slug: string } => entry !== null && entry.category === category);
 
-  // Agrupar por slug para eliminar duplicados
   const uniqueArticles = new Map<string, WikiContentEntry & { slug: string }>();
-
   for (const entry of source) {
     if (!uniqueArticles.has(entry.slug)) {
       uniqueArticles.set(entry.slug, entry);
     }
   }
 
-  // Mapear para usar el idioma correcto con fallback
   return Array.from(uniqueArticles.values())
     .map((entry) => {
       const localizedPath = `../data/wiki/${locale}/${category}/articles/${entry.slug}.mdx`;

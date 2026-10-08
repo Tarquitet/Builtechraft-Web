@@ -1,16 +1,23 @@
 ---
 import WikiArticlePage from '../../../../../components/wiki/WikiArticlePage.astro';
 import { getWikiArticlePaths } from '../../../../../lib/wikiContent';
-import type { Locale } from '../../../../../lib/i18n';
 
 export function getStaticPaths() {
-  return (['es', 'en'] as Locale[]).flatMap((lang) =>
-    getWikiArticlePaths(lang).map(({ category, slug, entry }) => ({
-      params: { lang, category, slug },
-      props: { entry },
-    })),
-  );
+  const esPaths = getWikiArticlePaths('es').map(({ category, slug, entry }) => ({
+    params: { lang: 'es', category, slug },
+    props: { entry },
+  }));
+  
+  const enPaths = getWikiArticlePaths('en').map(({ category, slug, entry }) => ({
+    params: { lang: 'en', category, slug },
+    props: { entry },
+  }));
+
+  return [...esPaths, ...enPaths];
 }
+
+const { lang, category, slug } = Astro.params;
+const entry = Astro.props.entry;
 ---
 
-<WikiArticlePage entry={Astro.props.entry} />
+<WikiArticlePage entry={entry} />

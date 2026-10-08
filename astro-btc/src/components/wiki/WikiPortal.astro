@@ -1,12 +1,13 @@
 ---
-import { getDictionary, getLocaleFromPath, localizePath, type Locale } from '../../lib/i18n';
+import { getDictionary, getLocaleFromPath, type Locale } from '../../lib/i18n';
 import { getWikiCategories, getWikiArticles } from '../../lib/wikiContent';
-import { DiscordBanner } from '../discord/DiscordBanner.astro';
 
 const locale = getLocaleFromPath(Astro.url.pathname) as Locale;
 const dict = getDictionary(locale);
 const wikiDict = dict.common?.wiki || {};
-const localizedPrefix = locale === 'en' ? '/en' : '';
+
+// Siempre usa el prefijo del idioma (/es o /en)
+const localizedPrefix = `/${locale}`;
 
 const categories = getWikiCategories(locale)
   .filter((entry: any) => entry.category !== 'depracted') 
@@ -36,7 +37,6 @@ const categories = getWikiCategories(locale)
 
 <main class="pt-32 pb-24 min-h-screen bg-theme-section">
   <div class="container mx-auto px-6 max-w-7xl">
-    
     <div class="text-center mb-12">
       <h1 class="text-4xl md:text-5xl font-display font-bold uppercase tracking-tight text-theme-main">
         {wikiDict.portalTitle || 'Builtechraft Documentation'}

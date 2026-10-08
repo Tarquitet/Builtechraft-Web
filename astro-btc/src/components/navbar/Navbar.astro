@@ -14,11 +14,12 @@ const targetLocale = locale === 'es' ? 'en' : 'es';
 // Lógica robusta para el switch de idioma (mantiene la ruta de wiki si existe)
 const pathSegments = Astro.url.pathname.split('/').filter(Boolean);
 const hasLangPrefix = pathSegments[0] === 'es' || pathSegments[0] === 'en';
-const unprefixedPath = '/' + (hasLangPrefix ? pathSegments.slice(1).join('/') : pathSegments.join('/'));
+// En src/components/navbar/Navbar.astro, busca estas líneas y reemplázalas por:
+const unprefixedPath = Astro.url.pathname.replace(/^\/(?:es|en)(?=\/|$)/, '') || '/';
+
+// ✅ NUEVO: Solo cambia el prefijo de idioma, mantiene la ruta del artículo intacta
+const languageSwitchHref = localizePath(unprefixedPath, targetLocale);
 const articlePath = Astro.url.pathname.match(/\/(es|en)\/wiki\/([^/]+)\/articles\//);
-const languageSwitchHref = articlePath 
-  ? localizePath(`/wiki/${articlePath[2]}`, targetLocale) 
-  : localizePath(unprefixedPath || '/', targetLocale);
 
 const mainItems = navData.main;
 const dropdowns = navData.dropdowns || {};

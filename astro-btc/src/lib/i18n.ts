@@ -1,4 +1,3 @@
-// src/lib/i18n.ts
 export type Locale = 'es' | 'en';
 
 type ImportMetaWithGlob = ImportMeta & {
@@ -13,14 +12,13 @@ const dictionaryFiles = (import.meta as ImportMetaWithGlob).glob('../data/i18n/*
 });
 
 function loadLocaleDictionary(locale: Locale): LocaleDictionary {
-  // Esta regex funciona tanto para rutas relativas "../data/..." como absolutas "/src/data/..."
   const regex = new RegExp(`[/\\\\]data[/\\\\]i18n[/\\\\]${locale}[/\\\\]([^/\\\\]+)\\.json$`);
   const result: LocaleDictionary = {};
 
   for (const [path, dictionary] of Object.entries(dictionaryFiles)) {
     const match = path.match(regex);
     if (match) {
-      const namespace = match[1]; // ej: "common"
+      const namespace = match[1];
       result[namespace] = dictionary;
     }
   }
@@ -34,14 +32,13 @@ export const dictionaries: Record<Locale, LocaleDictionary> = {
 };
 
 export function getDictionary(locale: Locale) {
-  return dictionaries[locale] || {}; // Fallback a objeto vacío si falla
+  return dictionaries[locale] || {};
 }
 
 export function getLocaleFromPath(pathname: string): Locale {
-  if (pathname.startsWith('/en/')) return 'en';
-  return 'es';
+  return pathname.startsWith('/en/') ? 'en' : 'es';
 }
 
 export function localizePath(path: string, locale: Locale): string {
-  return `/${locale}${path}`; // ✅ Siempre añade el prefijo
+  return `/${locale}${path}`;
 }

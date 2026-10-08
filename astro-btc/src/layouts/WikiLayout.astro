@@ -1,5 +1,4 @@
 ---
-// src/layouts/WikiLayout.astro
 import Layout from './Layout.astro';
 import { getDictionary, getLocaleFromPath, type Locale } from '../lib/i18n';
 
@@ -15,7 +14,6 @@ const author      = (Astro.props.author ?? fm.author) ?? 'Equipo Builtechcraft';
 const pubDate     = Astro.props.pubDate ?? fm.pubDate;
 const updated     = Astro.props.updated ?? fm.updated;
 
-// 🧠 DETECCIÓN DE CATEGORÍA DESDE LA URL
 const pathParts = Astro.url.pathname.split('/').filter(Boolean);
 const wikiPathIndex = pathParts.indexOf('wiki');
 const category = wikiPathIndex >= 0 ? pathParts[wikiPathIndex + 1] : undefined;
@@ -23,8 +21,8 @@ const category = wikiPathIndex >= 0 ? pathParts[wikiPathIndex + 1] : undefined;
 const formatDate = (d?: string) =>
   d ? new Date(d).toLocaleDateString(contentLocale === 'en' ? 'en-US' : 'es-CO', { year: 'numeric', month: 'long', day: 'numeric' }) : null;
 
-// 🎯 RUTA AL PORTAL (para el botón)
-const localizedPrefix = routeLocale === 'en' ? '/en' : '';
+// Siempre usa el prefijo del idioma
+const localizedPrefix = `/${routeLocale}`;
 const wikiHome = `${localizedPrefix}/wiki`;
 ---
 
@@ -32,22 +30,16 @@ const wikiHome = `${localizedPrefix}/wiki`;
   <div class="bg-theme-section min-h-screen">
     <div class="container mx-auto px-6 max-w-4xl pt-28 md:pt-32 pb-20">
 
-      {/* Navegación: Botón funcional + Texto de ruta SIN enlaces */}
       <nav class="flex flex-wrap items-center gap-4 mb-8" aria-label={dictionary.common.wiki.navigation}>
-        
-        {/* 1. Botón que SÍ regresa al portal */}
         <a href={wikiHome} class="wiki-back">
-          {dictionary.common.wiki.backToWiki || 'Volver a la Wiki'}
+          ← {dictionary.common.wiki.backToWiki || 'Volver a la Wiki'}
         </a>
         
-        {/* 2. Texto de la ruta SIN enlaces (WIKI / SECCION / ARTICULO) */}
         <span class="wiki-path-text">
           WIKI {category ? ` / ${category.toUpperCase()}` : ''} / {title.toUpperCase()}
         </span>
-
       </nav>
 
-      {/* Cabecera con metadatos */}
       <header class="mb-10 border-b border-theme pb-8">
         <h1 class="wiki-title">{title}</h1>
         {description && <p class="wiki-desc">{description}</p>}
@@ -58,7 +50,6 @@ const wikiHome = `${localizedPrefix}/wiki`;
         </div>
       </header>
 
-      {/* Contenido del artículo MDX */}
       <div class="prose max-w-none">
         <slot />
       </div>
@@ -84,7 +75,6 @@ const wikiHome = `${localizedPrefix}/wiki`;
   }
   .wiki-back:hover { color: var(--text-accent); border-color: var(--text-accent); }
 
-  /* NUEVO: Estilo para el texto de la ruta sin enlaces */
   .wiki-path-text {
     display: flex;
     align-items: center;
@@ -122,7 +112,6 @@ const wikiHome = `${localizedPrefix}/wiki`;
     color: var(--text-muted);
   }
 
-  /* ===== PROSA (contenido MDX) ===== */
   .prose h2 {
     font-size: 1.5rem;
     font-family: var(--font-display);
@@ -148,15 +137,12 @@ const wikiHome = `${localizedPrefix}/wiki`;
   @media (min-width: 768px) { .prose h3 { font-size: 1.5rem; } }
 
   .prose p { line-height: 1.625; margin-bottom: 1rem; color: var(--text-muted); }
-
   .prose ul, .prose ol { margin-bottom: 1.5rem; margin-left: 1.25rem; }
   .prose li { line-height: 1.625; color: var(--text-muted); }
   .prose li + li { margin-top: .5rem; }
   .prose ul li { list-style-type: disc; }
   .prose ol li { list-style-type: decimal; }
-
   .prose strong { font-weight: 700; color: var(--text-main); }
-
   .prose a { font-weight: 700; color: var(--text-accent); }
   .prose a:hover { text-decoration: underline; }
 </style>
