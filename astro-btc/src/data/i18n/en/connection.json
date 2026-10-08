@@ -1,0 +1,91 @@
+﻿{
+  "ui": {
+    "heroTitlePrefix": "Ready to",
+    "heroTitleAccent": "join?",
+    "heroDescription": "Follow these steps to join the server.",
+    "heroWelcome": "We look forward to seeing you!",
+    "requirementsTitle": "What you need to play",
+    "currentVersionPrefix": "Make sure you join with",
+    "currentVersionSuffix": ". We recommend the latest available version.",
+    "recommended": "(Recommended: {version})",
+    "bedrockVersion": "Bedrock version",
+    "bedrockCompatiblePrefix": "Compatible with version",
+    "bedrockCompatibleSuffix": ".",
+    "anyAccount": "Premium and non-premium accounts are supported.",
+    "stepsTitle": "How to connect",
+    "javaEdition": "Java Edition",
+    "bedrockEdition": "Bedrock (Mobile / PC)",
+    "moreInfo": "Learn more",
+    "serverQuestion": "Which world would you like to join?",
+    "selectWorld": "Select a world",
+    "javaAddress": "Java IP address",
+    "bedrockAddress": "Bedrock IP address",
+    "loading": "Loading...",
+    "accessStep": "Step",
+    "copyIp": "Copy IP",
+    "bedrockPort": "Bedrock port",
+    "copyPort": "Copy port",
+    "survival": "Survival",
+    "creative": "Creative",
+    "copied": "Copied!"
+  },
+  "requirements": {
+    "java-version": {
+      "title": "Java version",
+      "description": "Use the correct Minecraft version to avoid compatibility issues."
+    },
+    "account": {
+      "title": "Minecraft account",
+      "description": "You need an official Premium account or a free account linked to",
+      "linkLabel": "Ely.by"
+    },
+    "whitelist": {
+      "title": "Whitelist",
+      "description": "Request access to the server. The team will review your request and add you to the private list.",
+      "linkLabel": "Request access"
+    },
+    "rules": {
+      "title": "Server rules",
+      "description": "Read the rules to avoid issues. They apply to everyone in the community.",
+      "linkLabel": "Read the rules"
+    }
+  },
+  "steps": {
+    "java": {
+      "launcher": {
+        "text": "Open your Minecraft launcher.",
+        "linkLabel": "Which launcher should I use?"
+      },
+      "account": {
+        "text": "Select the correct game version and sign in to your account.",
+        "linkLabel": "How to use Ely.by"
+      },
+      "multiplayer": {
+        "text": "Open the Multiplayer tab and click Add Server."
+      },
+      "address": {
+        "text": "Paste the IP address you copied below into the Server Address field."
+      },
+      "join": {
+        "text": "Click Done, select Builtechraft, and join the game."
+      }
+    },
+    "bedrock": {
+      "open": {
+        "text": "Open Minecraft Bedrock Edition on your PC or mobile device."
+      },
+      "servers": {
+        "text": "Tap Play and open the Servers tab."
+      },
+      "add": {
+        "text": "Scroll to the bottom of the list and choose Add Server."
+      },
+      "details": {
+        "text": "Enter any server name, paste the IP, and add the port shown below."
+      },
+      "join": {
+        "text": "Save the server to your list and select Join."
+      }
+    }
+  }
+}

@@ -1,6 +1,10 @@
 ---
 import cards from '../../data/aboutCards.json';
 import links from '../../data/links.json';
+import { getDictionary, getLocaleFromPath, localizePath } from '../../lib/i18n';
+
+const dict = getDictionary(getLocaleFromPath(Astro.url.pathname));
+const getLocalizedCard = (translations: any, key: string) => translations[key];
 
 const getLink = (key: string | undefined | null): string => {
     if (!key) return '#';
@@ -28,17 +32,18 @@ const getLink = (key: string | undefined | null): string => {
         
         <div class="text-center py-16 container mx-auto px-6 max-w-4xl">
             <h2 class="text-3xl md:text-4xl font-display font-bold text-theme-main uppercase tracking-tight">
-                Explora <span class="text-btc-orange">Nuestra Web</span>
+                {dict.home.categories.title}
             </h2>
             <p class="text-theme-muted mt-3 text-base leading-relaxed max-w-2xl mx-auto">
-                Descubre las secciones más importantes de nuestro sitio web y accede a información detallada sobre el servidor, sus mundos, mods, datapacks, staff y roadmap.    
+                {dict.home.categories.description}
             </p>
         </div>
 
         <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
   
             {cards.map((card: any) => {
-                const href = getLink(card.keyLink);
+                const href = localizePath(getLink(card.keyLink), getLocaleFromPath(Astro.url.pathname));
+                const copy = getLocalizedCard(dict.home.categories.cards, card.translationKey) || card;
                 return (
                 <a 
                     href={href} 
@@ -54,7 +59,7 @@ const getLink = (key: string | undefined | null): string => {
                     
                     <!-- Título debajo, truncado -->
                     <h3 class={`text-[10px] md:text-sm font-display font-bold uppercase tracking-wide leading-tight ${card.titleHover}`}>
-                    {card.title}
+                    {copy.title}
                     </h3>
                 </a>
                 );

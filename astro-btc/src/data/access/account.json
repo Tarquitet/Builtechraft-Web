@@ -1,31 +1,27 @@
 {
   "step": 4,
   "type": "grid",
-  "label": "Cuenta",
-  "title": "Tipo de cuenta",
+  "translationKey": "account",
   "items": [
     {
       "id": "premium",
-      "name": "Premium (Mojang/Microsoft)",
       "icon": "✅",
+      "translationKey": "premium",
       "image": "/images/access/account/premium.avif",
-      "description": "Cuenta oficial comprada en Minecraft.net",
       "editions": ["java", "bedrock"]
     },
     {
       "id": "elyby",
-      "name": "Ely.by (Semi Premium)",
       "icon": "🦅",
+      "translationKey": "elyby",
       "image": "/images/access/account/elyby.avif",
-      "description": "Cuenta gratuita registrada en ely.by",
       "editions": ["java"]
     },
     {
       "id": "invalid",
-      "name": "No Premium",
       "icon": "⚠️",
+      "translationKey": "invalid",
       "image": "/images/access/account/invalid.avif",
-      "description": "Cuenta no compatible con nuestro servidor",
       "editions": ["java", "bedrock"]
     }
   ]

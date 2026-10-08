@@ -1,0 +1,67 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Sit Anywhere'
+description: 'Sit on stairs, slabs, fences, and many other blocks to decorate your base or take a break.'
+author: 'Tarquitet'
+pubDate: '2026-08-03'
+updated: '2026-08-19'
+category: 'features'
+icon: '🪑'
+color: 'text-blue-400'
+border: 'hover:border-blue-500'
+order: 5
+tag: 'Modrinth'
+---
+
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+Does your tavern look great while your friends still stand like statues? Want to build an amphitheater or realistic waiting room? **Sit Anywhere** lets you sit on almost any solid block.
+
+## ️ How to use it
+
+The system is intuitive and needs no unusual commands. It is designed not to interfere with normal block interactions.
+
+1. Approach a block you want to sit on: stairs, slabs, fences, walls, beds, or even a full block such as stone or wood.
+2. Hold **Shift (Crouch)**.
+3. **Right-click** the block.
+
+Your character will sit on the edge or center of the block.
+
+<WikiCallout type="info" title="Why Shift + right-click?">
+
+Crouching keeps the datapack from interfering with blocks that already have a right-click action, such as chests, beds, or crafting tables. Otherwise, the game would not know whether you want to open the block or sit on it.
+
+</WikiCallout>
+
+## How to stand up
+
+There are two easy options:
+
+- **Jump:** press Space.
+- **Walk:** move with WASD.
+
+## 🏗️ Ideas for builders and decorators
+
+- **Taverns and cafés:** place chairs using stairs or slabs around tables so players can sit together.
+- **Amphitheaters and cinemas:** build seating with stone or wooden stairs for live events or map-based films.
+- **AFK areas:** add a bench at spawn or your base where players can sit while waiting for friends.
+- **Parks:** use slabs and fences to create realistic park benches.
+
+<WikiCallout type="warn" title="Be careful around voids and lava">
+
+You can sit on _any_ block, including one floating in midair or above lava. If an unsafe block is broken or falls (like sand), **you may fall into the void or burn**. Make sure your seat is stable.
+
+</WikiCallout>
+
+## ⚙️ Compatibility and limits
+
+- **Transparent blocks:** glass, leaves, and torches are not considered solid seating surfaces.
+- **Complex hitboxes:** on fences and walls, your character sits on top. It may look like you are floating, but it works.
+- **Multiplayer:** only one player can sit in the exact same space. Respect personal space.
+
+<WikiCallout type="ok" title="Next">
+
+Need to move quickly in Creative mode? Read <WikiLink to="teleport-book">Teleport Book</WikiLink>, an exclusive teleport tool for builders.
+
+</WikiCallout>

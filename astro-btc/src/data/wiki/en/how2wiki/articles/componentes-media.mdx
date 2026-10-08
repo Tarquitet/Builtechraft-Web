@@ -1,0 +1,54 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Images and videos'
+description: 'WikiImage and WikiVideo with their available parameters.'
+author: 'Tarquitet'
+pubDate: '2026-08-13'
+category: 'how2wiki'
+icon: '🖼️'
+color: 'text-cyan-400'
+border: 'hover:border-cyan-500'
+order: 12
+---
+
+import links from '@/data/links.json';
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiImage from '@/components/wiki/WikiImage.astro';
+import WikiTable from '@/components/wiki/WikiTable.astro';
+
+## WikiImage
+
+<WikiImage src="/images/gallery/2_1.avif" caption="Example with medium width" width="md" />
+
+```mdx
+<WikiImage src="/images/wiki/photo.webp" caption="Image caption" width="md" align="center" />
+```
+
+<WikiTable
+  headers={['Property', 'Values', 'Default']}
+  rows={[
+    ['src', 'Image path', '—'],
+    ['caption', 'Caption text', 'empty'],
+    ['width', 'full / md / sm', 'full'],
+    ['align', 'left / center / right', 'center'],
+  ]}
+/>
+
+## WikiVideo
+
+```mdx
+<WikiVideo youtube="VIDEO_ID" caption="Optional" />
+<WikiVideo src="/videos/local.mp4" caption="Local video" />
+```
+
+<WikiCallout type="warn" title="File size">
+
+Upload images as `.webp` and keep videos short. Large files slow down page loading.
+
+</WikiCallout>
+
+<WikiCallout type="ok" title="Next">
+
+<a href={links.wiki.wikiDevComponentesInteractivos}>Tabs, steps, and spoilers</a>.
+
+</WikiCallout>

@@ -1,0 +1,107 @@
+{
+  "navigation": {
+    "home": "Inicio",
+    "about": "Sobre Nosotros",
+    "play": "Jugar",
+    "maps": "Mapas",
+    "wiki": "Wiki",
+    "discord": "Discord",
+    "donate": "Donar",
+    "survivalMap": "Mapa Supervivencia",
+    "creativeMap": "Mapa Creativo",
+    "wikiPortal": "Portal de la Wiki",
+    "rules": "Reglas del Servidor",
+    "faq": "Preguntas Frecuentes",
+    "history": "Historia del Servidor",
+    "menu": "Menú",
+    "backToTop": "Volver arriba",
+    "switchToEnglish": "Cambiar a inglés",
+    "switchToSpanish": "Cambiar a español"
+  },
+  "footer": {
+    "unrelatedToMojang": "Sin relación con Mojang",
+    "rules": "Reglas",
+    "donate": "Donar",
+    "madeWithLove": "Hecho con ❤ por"
+  },
+  "theme": {
+    "group": "Cambiar tema de la página",
+    "light": "Tema claro",
+    "midnight": "Tema medianoche",
+    "black": "Tema negro"
+  },
+  "seoDescription": "Builtechraft SMP: un servidor privado de Minecraft centrado en supervivencia, construcción, ingeniería y comunidad.",
+  "keywords": "Minecraft, Servidor Minecraft, Técnico, Creativo, Builtechraft, Fabric, SMP, Colombia, Español, Modrinth, Modpack",
+  "wiki": {
+    "copy": "Copiar",
+    "copyCommand": "Copiar comando",
+    "copied": "¡Copiado!",
+    "defaultMapTitle": "Mapa del servidor",
+    "quickTitle": "Wiki rápida",
+    "quickDescription": "Guías breves y directas para resolver dudas rápidamente.",
+    "quickItems": ["Instalación del modpack en 3 pasos", "Cómo configurar Bobby", "Comandos básicos del servidor"],
+    "fullTitle": "Wiki completa",
+    "fullDescription": "Documentación técnica con capturas, videos y explicaciones avanzadas.",
+    "fullItems": ["Guías paso a paso con imágenes", "Configuraciones avanzadas", "Solución de problemas"],
+    "viewArticles": "Ver artículos",
+    "openFullWiki": "Ir a la wiki completa",
+    "backToWiki": "← Volver a la Wiki",
+    "backToCategoryPrefix": "← Volver a",
+    "noArticles": "Todavía no hay artículos en esta categoría.",
+    "pageTitle": "Biblioteca",
+    "portalTitle": "Documentación Builtechraft",
+    "portalDescription": "Elige una categoría para explorar guías, tutoriales y documentación técnica.",
+    "categoryFallback": "Explora los artículos de esta categoría.",
+    "timelineMore": "Ver más",
+    "timelineLess": "Ver menos",
+    "spoilerHint": "— haz clic para revelar",
+    "categories": {
+      "community": {
+        "title": "Comunidad",
+        "description": "Historia, equipo, Discord y preguntas frecuentes."
+      },
+      "features": {
+        "title": "Mecánicas",
+        "description": "Datapacks, mods y funciones del servidor."
+      },
+      "server-data": {
+        "title": "Sobre el servidor",
+        "description": "Modpack, mods y el lado técnico del servidor."
+      },
+      "how2use": {
+        "title": "Cómo jugar",
+        "description": "Todo lo que necesitas para entrar y jugar por primera vez."
+      },
+      "how2wiki": {
+        "title": "Escritura de la wiki",
+        "description": "Cómo se escribe y mantiene esta wiki."
+      },
+      "depracted": {
+        "title": "Archivo",
+        "description": "Información archivada, retirada o descartada."
+      }
+    },
+    "navigation": "Ruta de navegación",
+    "updated": "Actualizado:"
+  },
+  "rules": {
+    "title": "Normas de Builtechraft",
+    "description": "Se aplican tanto dentro del servidor de Minecraft como en Discord.",
+    "important": "Datos importantes",
+    "section": "Sección",
+    "scopeGame": "🎮 Juego",
+    "scopeDiscord": "💬 Discord",
+    "scopeBoth": "🌐 Ambos",
+    "missingContent": "Falta contenido",
+    "lastReviewed": "Última revisión:",
+    "contact": "¿Dudas sobre las reglas? Contáctanos en"
+  },
+  "notFound": {
+    "title": "¡Chunk no encontrado!",
+    "description": "Parece que fuiste más allá del borde del mapa o un creeper hizo explotar esta página. Tranquilo, al zorrito también le pasa cuando explora.",
+    "biome": "Bioma: \"El Vacío\"",
+    "home": "Inicio",
+    "exploreWiki": "Explorar Wiki",
+    "report": "Si crees que esto es un error, repórtalo en Discord y el zorrito te lo agradecerá."
+  }
+}

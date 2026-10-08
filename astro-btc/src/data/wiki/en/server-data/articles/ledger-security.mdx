@@ -1,0 +1,79 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Ledger (Security and logging system)'
+description: 'The server’s silent guardian. Learn how action logging works and what to do if something is stolen or griefed.'
+author: 'Tarquitet'
+pubDate: '2026-08-03'
+updated: '2026-08-19'
+icon: '🛡️'
+color: 'text-rose-400'
+border: 'hover:border-rose-500'
+order: 12
+tag: 'Security'
+---
+
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+# Ledger: the server's guardian
+
+**Ledger** is a security and logging mod that acts like an invisible, ever-present security camera across the server. It records **every action**: placing or breaking blocks, opening chests, moving items, killing entities, and more.
+
+Its goal is simple: protect your builds and items, and make sure malicious actions can be reversed and addressed.
+
+<WikiCallout type="warn" title="🚨 THE GOLDEN RULE: DO NOT RETALIATE">
+
+If you return to your base and find something stolen or destroyed:
+
+1. **Do not touch anything** in the affected area, so the logs remain clear.
+2. **Do not look for the culprit** or take justice into your own hands.
+3. **Open a Discord ticket** right away and include the coordinates.
+
+Taking justice into your own hands is **strictly prohibited** and may result in the same or a more severe sanction than the original offense. Let staff use Ledger to investigate.
+
+</WikiCallout>
+
+## 🛠️ How does it work?
+
+Whenever someone interacts with the world, Ledger stores a record of that action in its database:
+
+- **Who:** the player's exact username.
+- **What:** the block broken, item taken, or entity killed.
+- **When:** the exact date and time, down to the second.
+- **Where:** precise X, Y, and Z coordinates.
+
+## ️ What does staff do when you open a ticket?
+
+When you report an incident, administrators use Ledger commands to investigate:
+
+1. **Inspect:** review the history of the affected area to see who was there and what they did.
+2. **Rollback:** if theft or _griefing_ is confirmed, use Ledger to **undo the culprit's actions**. Broken blocks are restored and stolen items are returned to your chest or dropped nearby.
+3. **Sanction:** the responsible player receives a sanction under the server rules, from a warning to a permanent ban.
+
+<WikiCallout type="info" title="💡 Can I use Ledger myself?">
+
+Ledger lookup commands (such as `/ledger` or `/lg`) are **restricted to staff**. This prevents players from spying on others or overwhelming the server with mass queries. If you need help, open a ticket.
+
+</WikiCallout>
+
+## ️ Attempts to evade the system
+
+Trying to erase logs, exploit the mod, or coordinate theft to avoid records will not work in the long run.
+
+<WikiCallout type="warn" title="Zero tolerance">
+
+Any attempt to manipulate, evade, or exploit bugs to prevent Ledger from recording actions results in an **immediate permanent ban**, with no appeal. The system is robust and always leaves a trace.
+
+</WikiCallout>
+
+## 🤝 Community and trust
+
+Ledger lets you build a megaproject, store diamonds in a chest in the middle of the forest, or leave tools at a distant farm **without fear**.
+
+Trust the system, respect other players' work, and remember: at Builtechraft, enforcement is quick, precise, and automatic.
+
+<WikiCallout type="ok" title="End of the datapack section">
+
+You have reached the end of the server mechanics and datapacks guide. To return to the wiki home and explore other categories, select <WikiLink to="/wiki">Back to the Wiki</WikiLink>.
+
+</WikiCallout>

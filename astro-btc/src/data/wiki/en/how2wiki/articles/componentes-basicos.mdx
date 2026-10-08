@@ -1,0 +1,85 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Tables, callouts, and accordions'
+description: 'The three components you will use in most articles.'
+author: 'Tarquitet'
+pubDate: '2026-08-13'
+category: 'how2wiki'
+icon: '📊'
+color: 'text-cyan-400'
+border: 'hover:border-cyan-500'
+order: 11
+---
+
+import links from '@/data/links.json';
+import WikiTable from '@/components/wiki/WikiTable.astro';
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiAccordion from '@/components/wiki/WikiAccordion.astro';
+import WikiCallout2 from '@/components/wiki/WikiCallout.astro';
+
+## WikiTable
+
+Tables with automatic colors. Strings that start with `✓` or `✗` are colored automatically.
+
+<WikiTable
+  headers={['Criterion', 'Status']}
+  rows={[
+    ['Automatic', '✓ good'],
+    ['Automatic', '✗ bad'],
+    ['Manual', { text: 'warn', tone: 'warn' }],
+  ]}
+/>
+
+```mdx
+<WikiTable
+  headers={['Criterion', 'Status']}
+  rows={[
+    ['Automatic', '✓ good'],
+    ['Manual', { text: 'warn', tone: 'warn' }],
+  ]}
+/>
+```
+
+Manual tones: `good`, `warn`, `bad`, `accent`, `muted`, `main`.
+
+## WikiCallout
+
+Highlighted notes. Types: `info`, `warn`, `ok`, and `danger`.
+
+<WikiCallout type="info" title="Info example">
+
+Informational text.
+
+</WikiCallout>
+
+```mdx
+<WikiCallout type="info" title="Title">
+
+**Markdown** content.
+
+</WikiCallout>
+```
+
+## WikiAccordion
+
+Expandable sections that keep a page concise.
+
+<WikiAccordion title="Expandable example" icon="📂">
+
+Content hidden until clicked.
+
+</WikiAccordion>
+
+```mdx
+<WikiAccordion title="Title" icon="📂">
+
+Markdown content.
+
+</WikiAccordion>
+```
+
+<WikiCallout2 type="ok" title="Next">
+
+<a href={links.wiki.wikiDevComponentesMedia}>Images and videos</a>.
+
+</WikiCallout2>

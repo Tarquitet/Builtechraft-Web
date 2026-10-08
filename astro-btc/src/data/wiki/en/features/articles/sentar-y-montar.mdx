@@ -1,0 +1,96 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Sitting and riding'
+description: 'Sit down, ride other players, and crawl without installing anything.'
+author: 'Tarquitet'
+pubDate: '2026-08-03'
+updated: '2026-08-19'
+category: 'features'
+icon: '🪑'
+color: 'text-amber-400'
+border: 'hover:border-amber-500'
+order: 2
+---
+
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiVideo from '@/components/wiki/WikiVideo.astro';
+import WikiAccordion from '@/components/wiki/WikiAccordion.astro';
+import WikiKbd from '@/components/wiki/WikiKbd.astro';
+import WikiCommand from '@/components/wiki/WikiCommand.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+These features bring bases and gatherings to life. Sit down, ride other players, and crawl without installing anything.
+
+<WikiVideo youtube="1vZXAFr82HQ" caption="Video: Sitting and riding players" />
+
+## 🪑 How to sit
+
+The server has three ways to sit almost anywhere:
+
+<WikiAccordion title="1. Interact directly with a block">
+
+The most natural option. Approach stairs, slabs, or logs placed on the ground, aim at the block, and **right-click**. Your character will sit on its edge.
+
+_If right-click does not work on a particular stair due to its position, use method 2._
+
+</WikiAccordion>
+
+<WikiAccordion title="2. Sit on any block">
+
+Want to sit on grass, a chest, or the top of a mountain?
+
+- Look straight down at your feet.
+- Press **Crouch (Shift) twice quickly**.
+- Your character will sit on the block you are standing on.
+
+</WikiAccordion>
+
+<WikiAccordion title="3. Use the command">
+
+You can also type this in chat, for example while flying in Creative mode:
+
+<WikiCommand command="/sit" description="Sit at your current location." />
+
+</WikiAccordion>
+
+## Ride on another player
+
+Yes, you read that right! You can carry a friend or let them carry you.
+
+Approach another player and **right-click them twice**. You will ride on their shoulders and move wherever they go—useful for jokes, group photos, or carrying someone around.
+
+## 🐛 Crawl
+
+Minecraft has a native crawling animation, also used while swimming or when a trapdoor closes above you. You can trigger it at any time:
+
+<WikiCommand command="/crawl" description="Lie down and crawl. Press Shift to stand up." />
+
+<WikiCallout type="warn" title="Slow movement">
+
+Crawling is quite slow. Use it to move through 1x1 tunnels without water buckets.
+
+</WikiCallout>
+
+## ⚙️ Bedrock note
+
+<WikiCallout type="info" title="A small visual bug">
+
+On **Bedrock**, you may see floating hearts below you or an unusual name bar while sitting.
+
+The mod creates an invisible entity (a pig or armor stand) below you because Minecraft has no native way to sit in midair. When connecting through Geyser, Bedrock may display that invisible mob's health.
+
+</WikiCallout>
+
+## 🔮 Planned technical improvements
+
+**Tarquitet is working on** moving these ideas to a Carpet (Scarpet) script or a custom datapack. Planned benefits include:
+
+- **No invisible pigs:** Carpet would manage positions mathematically.
+- **Better Bedrock support:** no invisible entities or visual bugs.
+- **Less lag:** lighter server load and vanilla-friendly interactions.
+
+<WikiCallout type="ok" title="Next">
+
+Read <WikiLink to="cambiar-tu-skin">How to change your skin</WikiLink> to customize your appearance.
+
+</WikiCallout>

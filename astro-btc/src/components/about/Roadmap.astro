@@ -1,12 +1,16 @@
 ---
 // Sin imports aquí, lo hacemos dinámico en el cliente
+import { getDictionary, getLocaleFromPath } from '../../lib/i18n';
+
+const locale = getLocaleFromPath(Astro.url.pathname);
+const dict = getDictionary(locale);
 ---
 <style>
     .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     .hide-scrollbar::-webkit-scrollbar { display: none; }
 </style>
 
-<div id="roadmap-component" class="hidden flex-col mt-4 relative z-20 pb-16">
+<div id="roadmap-component" data-pending-label={dict.home.roadmap.statuses.pending} class="hidden flex-col mt-4 relative z-20 pb-16">
     <div id="roadmap-filters" class="flex flex-wrap gap-2 mb-8 pb-6"></div>
 
     <div class="relative w-full group">
@@ -29,26 +33,28 @@ document.addEventListener('DOMContentLoaded', async () => {
     const section = document.getElementById('roadmap-component');
     const filtersContainer = document.getElementById('roadmap-filters');
     if (!container || !section || !filtersContainer) return;
+    const locale = document.documentElement.lang === 'en' ? 'en' : 'es';
+    const pendingLabel = section.getAttribute('data-pending-label') || '';
 
     const btnPrev = document.getElementById('rm-prev');
     const btnNext = document.getElementById('rm-next');
 
     const getStatusStyle = (estado) => {
         const s = estado?.toLowerCase().trim() || '';
-        if (s.includes('progreso')) return { text: 'text-btc-orange', bg: 'bg-btc-orange/10', border: 'border-btc-orange/30', icon: '⚡' };
-        if (s.includes('planeado')) return { text: 'text-blue-500', bg: 'bg-blue-500/10', border: 'border-blue-500/30', icon: '📌' };
-        if (s.includes('prueba'))   return { text: 'text-purple-500', bg: 'bg-purple-500/10', border: 'border-purple-500/30', icon: '' };
+        if (s.includes('progreso') || s.includes('progress')) return { text: 'text-btc-orange', bg: 'bg-btc-orange/10', border: 'border-btc-orange/30', icon: '⚡' };
+        if (s.includes('planeado') || s.includes('planned')) return { text: 'text-blue-500', bg: 'bg-blue-500/10', border: 'border-blue-500/30', icon: '📌' };
+        if (s.includes('prueba') || s.includes('test')) return { text: 'text-purple-500', bg: 'bg-purple-500/10', border: 'border-purple-500/30', icon: '' };
         return { text: 'text-emerald-500', bg: 'bg-emerald-500/10', border: 'border-emerald-500/30', icon: '✅' };
     };
 
     try {
         const { getRoadmapData } = await import('../../utils/sheetsClient.js');
-        const data = await getRoadmapData();
+        const data = await getRoadmapData(locale);
         
         if (!data || data.length === 0) return;
 
         container.innerHTML = data.map((item) => {
-            const estadoLimpio = item.Estado || 'Pendiente';
+            const estadoLimpio = item.Estado || pendingLabel;
             const style = getStatusStyle(estadoLimpio);
             
             return `
@@ -65,7 +71,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }).join('');
 
         const cards = container.querySelectorAll('.roadmap-card');
-        const uniqueStatuses = [...new Set(data.map((item) => item.Estado || 'Pendiente'))];
+        const uniqueStatuses = [...new Set(data.map((item) => item.Estado || pendingLabel))];
 
         filtersContainer.innerHTML = uniqueStatuses.map(status => `
             <button class="rm-filter-btn px-5 py-2.5 bg-theme-alternate text-theme-muted hover:text-theme-main text-xs font-bold uppercase tracking-widest border border-theme-1 hover:border-btc-orange/50 transition-all" data-filter="${status}">

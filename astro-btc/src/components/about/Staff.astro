@@ -1,19 +1,21 @@
 ---
-// src/components/about/Staff.astro
+import { getDictionary, getLocaleFromPath } from '../../lib/i18n';
+
+const dict = getDictionary(getLocaleFromPath(Astro.url.pathname));
 ---
 
-<section id="staff" class="py-12 md:py-16 lg:py-24 relative overflow-hidden border-y border-theme bg-theme-section">
+<section id="staff" data-error-message={dict.home.staff.error} class="py-12 md:py-16 lg:py-24 relative overflow-hidden border-y border-theme bg-theme-section">
   <div class="container mx-auto px-6 max-w-5xl">
     <h2 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-center mb-4 uppercase text-theme-main tracking-tight">
-      Nuestro <span class="text-btc-orange">Equipo</span>
+      {dict.home.staff.title}
     </h2>
     <p class="text-theme-muted text-center text-sm md:text-base mb-12 md:mb-16 max-w-2xl mx-auto">
-      Gracias a estas damas y caballeros en ayudarnos en distintas áreas de este proyecto.
+      {dict.home.staff.description}
     </p>
 
     <div id="loading-staff" class="flex flex-col justify-center items-center py-10 text-theme-muted gap-3">
       <span class="text-4xl animate-bounce">👑</span>
-      <span class="animate-pulse font-bold tracking-widest uppercase text-sm">Cargando equipo...</span>
+      <span class="animate-pulse font-bold tracking-widest uppercase text-sm">{dict.home.staff.loading}</span>
     </div>
 
     <div id="staff-container" class="hidden flex-col min-h-[300px]">
@@ -226,7 +228,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const defaultAvatar = links.assets.defaultAvatar;
 
   try {
-    const staffMembers = await getStaffData();
+    const locale = document.documentElement.lang === 'en' ? 'en' : 'es';
+    const staffMembers = await getStaffData(locale);
 
     if (staffMembers && staffMembers.length > 0 && rowsWrapper) {
       let html = '';
@@ -301,7 +304,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   } catch (error) {
     console.error('Error cargando staff:', error);
-    if (loadingEl) loadingEl.innerHTML = "<span class='text-red-500 font-bold'>Error al conectar con la API de Staff.</span>";
+    if (loadingEl) loadingEl.innerHTML = `<span class='text-red-500 font-bold'>${document.getElementById('staff')?.getAttribute('data-error-message') || ''}</span>`;
   }
 });
 </script>

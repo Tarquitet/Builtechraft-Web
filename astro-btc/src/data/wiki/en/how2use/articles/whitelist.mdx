@@ -1,0 +1,122 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Whitelist and registration'
+description: 'Request server access and complete registration before playing.'
+author: 'Tarquitet'
+pubDate: '2026-08-04'
+updated: '2026-08-19'
+category: 'how2use'
+icon: '🔐'
+color: 'text-btc-yellow'
+border: 'hover:border-btc-yellow'
+order: 4
+---
+
+import links from '@/data/links.json';
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiSteps from '@/components/wiki/WikiSteps.astro';
+import WikiAccordion from '@/components/wiki/WikiAccordion.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+The **whitelist** protects our worlds and the community's work. Request access on Discord before trying to join.
+
+## Why the server is semi-private
+
+Builtechraft originally ran as a fully public server. Anyone with the IP address could join, explore, and build. Over time, however, we found that some people abused that freedom to damage other players' work and disrupt the calm environment we wanted to create.
+
+To protect our players' efforts, megabuilds, and engineering systems, we decided to make the server **semi-private**.
+
+Today, you must be registered in our database to enter any of our worlds. If your username is not on the whitelist, the server will automatically reject your connection.
+
+## Request access
+
+<WikiSteps
+  steps={[
+    {
+      title: 'Join the community',
+      text: 'The first required step is joining our Discord server. It is our official communication channel.',
+    },
+    {
+      title: 'Request access',
+      text: 'Depending on the current Discord setup, introduce yourself or request access in the appropriate channel.',
+    },
+    {
+      title: 'Wait for approval',
+      text: 'Only a small group of trusted people can currently add users to the whitelist.',
+    },
+  ]}
+/>
+
+<WikiCallout type="info" title="Managed by administrators">
+
+Only about three administrators (including Tarquitet) can add users to the whitelist. This ensures we know who is entering our community.
+
+</WikiCallout>
+
+## Waiting time
+
+We know you are eager to play, but please be patient. The process is manual, and administrators have other responsibilities such as work and school, so approval is not instant.
+
+<WikiCallout type="ok" title="Usually under 24 hours">
+
+Your username is usually added to the whitelist in **less than a day**. Once an administrator adds you, they will notify you directly on Discord so you know you can join.
+
+</WikiCallout>
+
+## After approval
+
+Once you are told that you are on the whitelist, you can connect and load the world. You may notice that your character is frozen and cannot interact with anything.
+
+<WikiCallout type="info" title="This is not lag">
+
+This happens because of our **internal password login system**. Register the first time you join to protect your identity and start playing.
+
+</WikiCallout>
+
+## Register on the server
+
+When you join for the first time and appear frozen, follow these steps:
+
+<WikiSteps
+  steps={[
+    { title: 'Read the chat message', text: 'The server will show you instructions for registering.' },
+    { title: 'Run the registration command', text: 'Follow the exact instructions shown in chat.' },
+    {
+      title: 'Confirm your password',
+      text: 'The server will ask you to confirm your password to complete registration.',
+    },
+    { title: 'Start playing', text: 'Once registered, you can move and begin playing.' },
+  ]}
+/>
+
+<WikiCallout type="warn" title="Keep your password safe">
+
+Remember the password you create. You will need it to log in every time you join the server.
+
+</WikiCallout>
+
+## Frequently asked questions
+
+<WikiAccordion title="What if I forget my password?">
+
+Submit a request in the Discord forum. Staff can help reset it after verifying your identity.
+
+</WikiAccordion>
+
+<WikiAccordion title="Can I change my username?">
+
+Changing your name may affect your access, inventory, and whitelist. Submit a request before joining with your new name.
+
+</WikiAccordion>
+
+<WikiAccordion title="Why is my connection being rejected?">
+
+If you are not on the whitelist, the server will automatically reject you. Request access on Discord and wait for approval.
+
+</WikiAccordion>
+
+<WikiCallout type="ok" title="Ready to go?">
+
+If you have been whitelisted and completed registration, read <WikiLink to="como-unirse">how to join the server</WikiLink> to connect.
+
+</WikiCallout>

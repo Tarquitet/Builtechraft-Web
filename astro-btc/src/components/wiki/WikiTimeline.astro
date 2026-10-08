@@ -2,6 +2,9 @@
 // src/components/wiki/WikiTimeline.astro
 // Línea de tiempo vertical con eventos alternando izquierda/derecha
 // Soporta múltiples eventos por año
+import { getDictionary, getLocaleFromPath } from '../../lib/i18n';
+
+const dict = getDictionary(getLocaleFromPath(Astro.url.pathname));
 const { events = [] } = Astro.props as {
   events: Array<{
     year: string;
@@ -14,7 +17,7 @@ const { events = [] } = Astro.props as {
 };
 ---
 
-<div class="wiki-timeline">
+<div class="wiki-timeline" data-more-label={dict.common.wiki.timelineMore} data-less-label={dict.common.wiki.timelineLess}>
   {events.map((yearGroup, i) => (
     <div class={`wt-year-group ${i % 2 === 0 ? 'wt-left' : 'wt-right'}`}>
       <div class="wt-marker">
@@ -29,7 +32,7 @@ const { events = [] } = Astro.props as {
               {event.details && (
                 <>
                   <button class="wt-toggle" type="button" aria-expanded="false">
-                    <span class="wt-toggle-text">Ver más</span>
+                    <span class="wt-toggle-text">{dict.common.wiki.timelineMore}</span>
                     <svg class="wt-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
@@ -52,9 +55,12 @@ const { events = [] } = Astro.props as {
     btn.addEventListener('click', () => {
       const parent = btn.closest('.wt-event');
       const details = parent?.querySelector('.wt-details');
+      const timeline = btn.closest('.wiki-timeline');
+      const toggleText = btn.querySelector('.wt-toggle-text');
       const isExpanded = btn.getAttribute('aria-expanded') === 'true';
       
       btn.setAttribute('aria-expanded', String(!isExpanded));
+      if (toggleText) toggleText.textContent = timeline?.getAttribute(isExpanded ? 'data-more-label' : 'data-less-label') || '';
       details?.classList.toggle('wt-open');
       btn.classList.toggle('wt-open');
     });

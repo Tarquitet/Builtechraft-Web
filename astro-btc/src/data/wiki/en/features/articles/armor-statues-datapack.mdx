@@ -1,0 +1,68 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Armor Statues Datapack (Statue Editor)'
+description: 'Pose, edit, and resize armor stands to create decorations, NPCs, and dynamic scenes.'
+author: 'Tarquitet'
+pubDate: '2026-08-03'
+updated: '2026-08-19'
+icon: '🗿'
+color: 'text-stone-400'
+border: 'hover:border-stone-500'
+order: 11
+tag: 'Modrinth'
+---
+
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+# Armor Statues Datapack
+
+In vanilla Minecraft, armor stands are rigid mannequins: they stand upright, face forward, and keep their arms at their sides.
+
+The **Armor Statues** datapack removes those limitations. Rotate body parts, resize the stand, or hide parts to turn a simple mannequin into a professional decoration tool.
+
+## 🛠️ How to use it
+
+The exact interaction may vary slightly with the server configuration, but the general process is:
+
+1. **Place a regular armor stand** on the ground.
+2. **Equip it** with the armor or items you want it to hold.
+3. **Use the editing tool:** our server usually uses a specific item (such as a **stick renamed** to "Editor" or a **magic wand**) or an authorized command.
+4. **Interact:** hold the tool or crouch and right-click different parts of the stand (head, arms, legs) to open the editing menu or rotate the selected part.
+
+<WikiCallout type="info" title="💡 Not sure which tool to use?">
+
+If you do not have the editing item, ask in the `#support` channel on Discord or check the builder starter kit. Staff will be happy to help.
+
+</WikiCallout>
+
+## 🎨 What can you do with it?
+
+This datapack opens up many creative possibilities:
+
+- **Dynamic poses:** make a stand run, jump, fight, or sit (combine it with _Sit Anywhere_).
+- **Scaling:** create giant statues for a city entrance or tiny figures and pets for your base.
+- **Invisible parts:** hide the body and leave a floating helmet, or show only the arms holding a sword. Great for displaying weapons on walls.
+- **Precise rotation:** adjust the head or arms by exact degrees to make them face the right direction.
+
+## ️ Ideas for builders
+
+- **Village NPCs:** create custom villagers or guards for shops and market stalls. Give one a name tag and you have a living NPC.
+- **Action scenes:** stage a tavern fight or place sleeping statues in beds.
+- **Shop mannequins:** display clothing or armor products in your server shop.
+
+<WikiCallout type="warn" title="⚠️ Beware of entity lag">
+
+Armor stands count as **entities**. This datapack is optimized, but hundreds of stands in one chunk (for example, in a large museum) can cause lag nearby. Use only as many as your decoration needs.
+
+</WikiCallout>
+
+## 🔧 Emergency reset
+
+If a statue ends up at an odd angle or sinks into the ground, you do not have to break it and start over. Use the reset command (usually `/as reset`) or left-click while crouching, depending on the configuration, to restore its original pose.
+
+<WikiCallout type="ok" title="Next">
+
+Almost there! Next is an important part of keeping the server safe. Read <WikiLink to="ledger-security">Ledger (Security)</WikiLink> to learn how we protect your builds and what to do if something is stolen.
+
+</WikiCallout>

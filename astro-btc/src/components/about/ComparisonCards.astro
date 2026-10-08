@@ -1,6 +1,10 @@
 ---
 import cards from '../../data/comparisonCards.json';
 import links from '../../data/links.json';
+import { getDictionary, getLocaleFromPath, localizePath } from '../../lib/i18n';
+
+const dict = getDictionary(getLocaleFromPath(Astro.url.pathname));
+const getLocalizedCard = (translations: any, key: string) => translations[key];
 
 const getLink = (key: string | undefined | null): string => {
   if (!key) return '#';
@@ -32,22 +36,23 @@ const getColorClasses = (color: string) => {
 
   <!-- Tarjetas: carrusel en móvil, grid en desktop -->
   <div class="flex md:grid md:grid-cols-3 gap-4 md:gap-6 overflow-x-auto md:overflow-visible pb-4 md:pb-0 hide-scrollbar scroll-snap-x snap-mandatory">
-    {cards.cards.map((card) => {
+    {cards.cards.map((card: any) => {
+      const copy = getLocalizedCard(dict.home.comparison.cards, card.translationKey) || card;
       const colors = getColorClasses(card.color);
       return (
         <div class={`card-retro ${colors.border} ${card.highlighted ? 'border-btc-orange/50' : ''} flex flex-col min-w-[280px] md:min-w-0 snap-center`}>
           <span class="text-5xl mb-4 block">{card.icon}</span>
           <h3 class={`text-xl font-display font-bold uppercase tracking-tight mb-1 ${colors.text}`}>
-            {card.title}
+            {copy.title}
           </h3>
           <p class="text-xs text-theme-muted uppercase tracking-widest mb-3">
-            {card.subtitle}
+            {copy.subtitle}
           </p>
           <p class="text-sm text-theme-muted leading-relaxed mb-4 flex-grow">
-            {card.summary}
+            {copy.summary}
           </p>
           <p class={`text-sm font-bold ${colors.text} mt-auto pt-3`}>
-            {card.verdict}
+            {copy.verdict}
           </p>
         </div>
       );
@@ -57,17 +62,17 @@ const getColorClasses = (color: string) => {
   <!-- Botones -->
   <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
     <a 
-      href={getLink(cards.modsLink.linkKey)}
+      href={localizePath(getLink(cards.modsLink.linkKey), getLocaleFromPath(Astro.url.pathname))}
       class="btn-retro inline-flex items-center gap-3"
     >
-      {cards.modsLink.text}
+      {getLocalizedCard(dict.home.comparison, cards.modsLink.translationKey)}
     </a>
 
     <a 
-      href={getLink(cards.wikiLink.linkKey)}
+      href={localizePath(getLink(cards.wikiLink.linkKey), getLocaleFromPath(Astro.url.pathname))}
       class="btn-retro inline-flex items-center gap-3"
     >
-      {cards.wikiLink.text}
+      {getLocalizedCard(dict.home.comparison, cards.wikiLink.translationKey)}
     </a>
   </div>
 </div>

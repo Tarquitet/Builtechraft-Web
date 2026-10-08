@@ -1,65 +1,55 @@
 {
   "java": [
     {
-      "text": "Abre tu launcher de Minecraft.",
+      "translationKey": "launcher",
       "linkKey": "wikiLaunchers",
-      "linkLabel": "¿Cuál launcher usar?",
       "image": ""
     },
     {
-      "text": "Selecciona la versión correcta del juego e inicia sesión con tu cuenta.",
+      "translationKey": "account",
       "linkKey": "cuentaNoPuemium",
-      "linkLabel": "Como usar ElyBy",
       "image": ""
     },
     {
-      "text": "Ve a la pestaña de 'Multijugador' y haz clic en 'Agregar servidor'.",
+      "translationKey": "multiplayer",
       "linkKey": "",
-      "linkLabel": "",
       "image": ""
     },
     {
-      "text": "Pega la IP que copiaste abajo en el campo de 'Dirección IP'.",
+      "translationKey": "address",
       "linkKey": "",
-      "linkLabel": "",
       "image": ""
     },
     {
-      "text": "Haz clic en 'Hecho', selecciona Builtechraft y únete a la partida.",
+      "translationKey": "join",
       "linkKey": "",
-      "linkLabel": "",
       "image": ""
     }
   ],
   "bedrock": [
     {
-      "text": "Abre Minecraft Bedrock Edition en tu PC o dispositivo móvil.",
+      "translationKey": "open",
       "linkKey": "",
-      "linkLabel": "",
       "image": ""
     },
     {
-      "text": "Toca 'Jugar' y dirígete a la pestaña superior de 'Servidores'.",
+      "translationKey": "servers",
       "linkKey": "",
-      "linkLabel": "",
       "image": ""
     },
     {
-      "text": "Baja hasta el final de la lista y presiona el botón 'Añadir servidor'.",
+      "translationKey": "add",
       "linkKey": "",
-      "linkLabel": "",
       "image": ""
     },
     {
-      "text": "Ingresa el nombre que quieras, pega la IP y escribe el Puerto que aparece abajo.",
+      "translationKey": "details",
       "linkKey": "",
-      "linkLabel": "",
       "image": ""
     },
     {
-      "text": "Guarda el servidor en tu lista y presiona unirse.",
+      "translationKey": "join",
       "linkKey": "",
-      "linkLabel": "",
       "image": ""
     }
   ]

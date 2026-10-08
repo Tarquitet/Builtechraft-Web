@@ -1,0 +1,169 @@
+﻿{
+  "ui": {
+    "rulesTitle": "Community rules",
+    "rulesDescription": "Before joining, you must read and accept the rules.",
+    "readRules": "Read the rules",
+    "acceptRules": "I have read and accept the rules and agree to follow them.",
+    "acceptContinue": "Accept and continue",
+    "back": "Back",
+    "guideMissing": "The guide could not be found.",
+    "step": "Step",
+    "backToTop": "Back to top"
+  },
+  "steps": {
+    "rules": {
+      "label": "Rules",
+      "title": "Community Guidelines",
+      "content": "Breaking the rules may result in a temporary or permanent ban.",
+      "buttonText": "Continue"
+    },
+    "platforms": {
+      "label": "Platform",
+      "title": "Choose your device",
+      "items": {
+        "pc": {
+          "name": "Computer"
+        },
+        "mobile": {
+          "name": "Mobile"
+        },
+        "console": {
+          "name": "Console"
+        }
+      }
+    },
+    "editions": {
+      "label": "Edition",
+      "title": "Minecraft edition",
+      "items": {
+        "java": {
+          "name": "Java Edition"
+        },
+        "bedrock": {
+          "name": "Bedrock Edition"
+        }
+      }
+    },
+    "account": {
+      "label": "Account",
+      "title": "Account type",
+      "items": {
+        "premium": {
+          "name": "Premium (Mojang/Microsoft)",
+          "description": "Official account purchased from Minecraft.net"
+        },
+        "elyby": {
+          "name": "Ely.by (Non-Premium)",
+          "description": "Free account registered at ely.by"
+        },
+        "invalid": {
+          "name": "Unsupported account",
+          "description": "This account type is not supported on our server"
+        }
+      }
+    },
+    "launchers": {
+      "label": "Launcher",
+      "title": "Choose a launcher",
+      "items": {
+        "prismlauncher": {
+          "name": "Prism Launcher (Mods)"
+        },
+        "elyby": {
+          "name": "Ely.by Launcher"
+        },
+        "sklauncher": {
+          "name": "SKLauncher"
+        },
+        "tlauncher": {
+          "name": "TLauncher"
+        },
+        "tllegacy": {
+          "name": "TL Legacy"
+        },
+        "official": {
+          "name": "Official Launcher (Premium)"
+        },
+        "bedrock-android": {
+          "name": "Minecraft Bedrock (Android)"
+        },
+        "bedrock-ios": {
+          "name": "Minecraft Bedrock (iOS)"
+        },
+        "MJlauncher": {
+          "name": "MJ Launcher (Android)"
+        }
+      }
+    },
+    "guide": {
+      "label": "Guide",
+      "title": "Connection guide",
+      "items": {
+        "java": {
+          "steps": [
+            {
+              "title": "Open Multiplayer",
+              "description": "Click the Multiplayer button in the main menu.\nMake sure you are using the latest version. If needed, select version {version}."
+            },
+            {
+              "title": "Add the server",
+              "description": "Click Add Server."
+            },
+            {
+              "title": "Enter the server details",
+              "description": "Enter a name and the server IP address.\nSURVIVAL IP: {javaSmp}\nCREATIVE IP: {javaCreative}"
+            },
+            {
+              "title": "Join the server!",
+              "description": "Click Join Server and enjoy playing."
+            },
+            {
+              "title": "Wait for approval",
+              "description": "This is a private server with a whitelist. To speed up approval, join our Discord and request access using your Minecraft username."
+            }
+          ]
+        },
+        "bedrock": {
+          "steps": [
+            {
+              "title": "Select Play",
+              "description": "From the main menu, select the green Play button."
+            },
+            {
+              "title": "Open Servers",
+              "description": "Select the Servers tab and scroll down until you find the + Add Server button."
+            },
+            {
+              "title": "Add the server",
+              "description": "Select + Add Server and enter the details:\n\nServer name: (Choose any name)\nServer address: {bedrockSmp} (Survival) or {bedrockCreative} (Creative)\nPort: {bedrockPort}"
+            },
+            {
+              "title": "Save and play",
+              "description": "Select Add and Play (green) or Add Server (gray). The server will appear under Other Servers. Select it and press PLAY."
+            },
+            {
+              "title": "Wait for approval",
+              "description": "This is a private server with a whitelist. To speed up approval, join our Discord and request access using your Minecraft username."
+            }
+          ]
+        },
+        "invalid": {
+          "steps": [
+            {
+              "title": "This account is not supported",
+              "description": "We cannot accept this account type on our server. You need a valid Minecraft account to play on Builtechraft."
+            },
+            {
+              "title": "Which account can I use?",
+              "description": "There are two supported options:\n\nâœ… PREMIUM (Mojang/Microsoft)\nThe official account purchased from Minecraft.net. Works with the Official Launcher, Prism Launcher, and others.\n\nðŸ¦… NON-PREMIUM (Ely.by)\nA free account registered at ely.by. Requires a compatible launcher, such as Ely.by Launcher or Prism Launcher configured for Ely.by."
+            },
+            {
+              "title": "What should I do next?",
+              "description": "Go back and select the correct account type:\n\nâ€¢ If you own a paid account, select Premium (Mojang/Microsoft).\nâ€¢ To play for free, select Non-Premium (Ely.by) and use a compatible Ely.by launcher.\n\nIf you need help, join our Discord."
+            }
+          ]
+        }
+      }
+    }
+  }
+}

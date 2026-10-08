@@ -2,6 +2,11 @@
 // src/layouts/WikiLayout.astro
 import Layout from './Layout.astro';
 import links from '../data/links.json';
+import { getDictionary, getLocaleFromPath, type Locale } from '../lib/i18n';
+
+const routeLocale = getLocaleFromPath(Astro.url.pathname);
+const contentLocale = (Astro.props.lang as Locale | undefined) ?? routeLocale;
+const dictionary = getDictionary(routeLocale);
 
 const fm = (Astro.props.frontmatter ?? Astro.props.content ?? {}) as Record<string, any>;
 
@@ -14,29 +19,32 @@ const updated     = Astro.props.updated ?? fm.updated;
 // 🧠 DETECCIÓN AUTOMÁTICA DE CATEGORÍA DESDE LA URL
 // Ejemplo URL: /wiki/features/articles/silence-mobs
 // Split: ['', 'wiki', 'features', 'articles', 'silence-mobs']
-const pathParts = Astro.url.pathname.split('/');
+const pathParts = Astro.url.pathname.split('/').filter(Boolean);
 // La categoría SIEMPRE es el índice 2 (después de '' y 'wiki')
-const category = pathParts[2]; 
+const wikiPathIndex = pathParts.indexOf('wiki');
+const category = wikiPathIndex >= 0 ? pathParts[wikiPathIndex + 1] : undefined;
 
 const formatDate = (d?: string) =>
-  d ? new Date(d).toLocaleDateString('es-CO', { year: 'numeric', month: 'long', day: 'numeric' }) : null;
+  d ? new Date(d).toLocaleDateString(contentLocale === 'en' ? 'en-US' : 'es-CO', { year: 'numeric', month: 'long', day: 'numeric' }) : null;
 
 // Lógica inteligente para el botón de regreso
-const backLink = category ? `/wiki/${category}` : (links.wiki.homeInternal || '/wiki');
-const backText = category ? `← Volver a ${category.toUpperCase()}` : '← Volver a la Wiki';
+const localizedPrefix = pathParts[0] === 'en' || pathParts[0] === 'es' ? `/${routeLocale}` : '';
+const wikiHome = `${localizedPrefix}/wiki`;
+const backLink = category ? `${wikiHome}/${category}` : (localizedPrefix ? wikiHome : links.wiki.homeInternal || '/wiki');
+const backText = category ? `${dictionary.common.wiki.backToCategoryPrefix} ${category.toUpperCase()}` : dictionary.common.wiki.backToWiki;
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} lang={contentLocale}>
   <div class="bg-theme-section min-h-screen">
     <div class="container mx-auto px-6 max-w-4xl pt-28 md:pt-32 pb-20">
 
       {/* Ruta + volver inteligente */}
-      <nav class="flex flex-wrap items-center justify-between gap-3 mb-8" aria-label="Ruta de navegación">
+      <nav class="flex flex-wrap items-center justify-between gap-3 mb-8" aria-label={dictionary.common.wiki.navigation}>
         <a href={backLink} class="wiki-back">{backText}</a>
         
         <p class="wiki-crumbs">
           <span>/</span>
-          <a href={links.wiki.homeInternal}>Wiki</a>
+          <a href={wikiHome}>Wiki</a>
           
           {/* Si hay categoría, la mostramos en el breadcrumb */}
           {category && (
@@ -58,7 +66,7 @@ const backText = category ? `← Volver a ${category.toUpperCase()}` : '← Volv
         <div class="wiki-meta">
           <span>✍️ {author}</span>
           {formatDate(pubDate) && <span>📅 {formatDate(pubDate)}</span>}
-          {formatDate(updated) && <span>🔄 Actualizado: {formatDate(updated)}</span>}
+          {formatDate(updated) && <span>🔄 {dictionary.common.wiki.updated} {formatDate(updated)}</span>}
         </div>
       </header>
 

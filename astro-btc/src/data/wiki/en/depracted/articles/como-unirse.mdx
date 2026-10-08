@@ -1,0 +1,113 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'How to join the server'
+description: 'Add Builtechraft to your server list and connect for the first time.'
+author: 'Tarquitet'
+pubDate: '2026-08-04'
+updated: '2026-08-19'
+category: 'depracted'
+icon: '🌐'
+color: 'text-emerald-400'
+border: 'hover:border-emerald-500'
+order: 3
+---
+
+import links from '@/data/links.json';
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiTabs from '@/components/wiki/WikiTabs.astro';
+import WikiTab from '@/components/wiki/WikiTab.astro';
+import WikiSteps from '@/components/wiki/WikiSteps.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+Choose the Minecraft edition you play. Always check the official channels for the current IP address and port.
+
+<WikiCallout type="warn" title="The IP and port may change">
+
+Security measures or technical updates may change the server's IP address and port. Always copy the latest details from Discord or the website.
+
+</WikiCallout>
+
+## Connection guide
+
+<WikiTabs>
+
+<WikiTab label="Java Edition">
+
+### 1. Use the correct version
+
+<WikiCallout type="warn" title="Minimum version: 1.18+">
+
+This version introduced the new terrain generation system. Older versions may cause serious visual or synchronization problems.
+
+**Rule of thumb:** always use the latest stable version supported by the server (check Discord).
+
+</WikiCallout>
+
+### 2. Add the server
+
+<WikiSteps
+  steps={[
+    { title: 'Open Minecraft Java Edition', text: 'Click Multiplayer.' },
+    { title: 'Select Add Server', text: 'Use the button at the bottom.' },
+    { title: 'Enter a server name', text: 'Type "Builtechraft" (or any name you prefer).' },
+    { title: 'Enter the server address', text: 'Paste the official IP address (copy it from Discord or the website).' },
+  ]}
+/>
+
+### 3. Enable server resource packs
+
+<WikiCallout type="warn" title="Required step">
+
+Before saving the server, find **Server Resource Packs** below the IP address field.
+
+**Set it to "Yes"** (or "Enabled"). Do not leave it on "Ask" or "Disabled."
+
+**Why?** Builtechraft uses custom textures sent by the server. Without the pack, some blocks may look incorrect or show visual glitches.
+
+</WikiCallout>
+
+### 4. Join the server
+
+<WikiSteps
+  steps={[
+    { title: 'Click Done', text: 'Save the server.' },
+    { title: 'Select Builtechraft', text: 'Find it in your server list.' },
+    { title: 'Double-click', text: 'Join the world.' },
+  ]}
+/>
+
+<WikiCallout type="info" title="Do not worry if you cannot move">
+
+You will appear frozen when you first join. This is normal: it is the server's password system. Read <WikiLink to="whitelist">Whitelist and registration</WikiLink> to complete setup.
+
+</WikiCallout>
+
+</WikiTab>
+
+<WikiTab label="Bedrock (discontinued)">
+
+<WikiCallout type="danger" title="Support discontinued">
+
+Builtechraft no longer supports connections from Minecraft Bedrock (mobile, console, or Windows). This information is kept for reference only.
+
+See the <WikiLink to="como-unirse">Java Edition guide</WikiLink> instead.
+
+</WikiCallout>
+
+</WikiTab>
+
+</WikiTabs>
+
+## Before you connect
+
+Make sure you:
+
+1. **Have a launcher installed** — see <WikiLink to="launchers">Launchers and installation</WikiLink>.
+2. **Are on the whitelist** — see <WikiLink to="whitelist">Whitelist and registration</WikiLink>.
+3. **Use the correct version** — check Discord for the current native version.
+
+<WikiCallout type="ok" title="Ready?">
+
+If you have a launcher, whitelist access, and the right version, connect and start building!
+
+</WikiCallout>

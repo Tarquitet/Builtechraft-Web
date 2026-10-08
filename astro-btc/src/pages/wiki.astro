@@ -1,38 +1,39 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import DiscordBanner from '../components/discord/DiscordBanner.astro';
+import { getDictionary, getLocaleFromPath, localizePath } from '../lib/i18n';
+import { getWikiCategories } from '../lib/wikiContent';
 
-// Lee TODOS los intro.mdx que estén dentro de una carpeta de primer nivel en wiki/
-const categoryModules = import.meta.glob('./wiki/*/intro.mdx', { eager: true }) as any;
-
-const categories = Object.entries(categoryModules).map(([path, mod]: [string, any]) => {
+const locale = getLocaleFromPath(Astro.url.pathname);
+const dict = getDictionary(locale);
+const categories = getWikiCategories(locale).map(({ category: slug, module: mod }) => {
   const fm = mod.frontmatter ?? {};
-  const slug = path.split('/')[2]; 
+  const categoryCopy = (dict.common.wiki.categories as any)[slug];
   return {
     slug,
-    title: fm.title || slug,
-    description: fm.description || 'Explora los artículos de esta categoría.',
+    title: categoryCopy?.title || fm.title || slug,
+    description: categoryCopy?.description || fm.description || dict.common.wiki.categoryFallback,
     icon: fm.icon || '📂',
     color: fm.color || 'text-btc-orange',
     border: fm.border || 'hover:border-btc-orange',
     order: fm.order ?? 99,
-    url: `/wiki/${slug}`
+    url: localizePath(`/wiki/${slug}`, locale)
   };
 }).sort((a, b) => a.order - b.order);
 ---
 
-<Layout title="Wiki | Builtechraft" description="Guías, tutoriales y documentación del servidor Builtechraft.">
+<Layout title={`Wiki | Builtechraft`} description={dict.common.wiki.portalDescription} lang={locale}>
   <main class="pt-32 pb-24 min-h-screen bg-theme-section">
     <div class="container mx-auto px-6 max-w-6xl">
       <div class="text-center mb-16">
         <span class="px-4 py-1.5 rounded-full border border-btc-orange/30 bg-btc-orange/10 text-btc-orange text-[10px] font-bold uppercase tracking-[0.2em] mb-3 inline-block">
-          Biblioteca
+          {dict.common.wiki.pageTitle}
         </span>
         <h1 class="text-4xl md:text-5xl font-display font-bold uppercase tracking-tight text-theme-main mt-4">
-          Documentación <span class="text-btc-orange">Builtechraft</span>
+          {dict.common.wiki.portalTitle}
         </h1>
         <p class="text-theme-muted mt-4 max-w-2xl mx-auto text-lg">
-          Elige una categoría para explorar guías, tutoriales y documentación técnica.
+          {dict.common.wiki.portalDescription}
         </p>
       </div>
 

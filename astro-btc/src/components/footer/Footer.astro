@@ -2,6 +2,10 @@
 // src/components/Footer.astro
 import ThemeToggle from '../footer/ThemeToggle.astro';
 import links from '../../data/links.json';
+import { getDictionary, getLocaleFromPath, localizePath } from '../../lib/i18n';
+
+const locale = getLocaleFromPath(Astro.url.pathname);
+const dictionary = getDictionary(locale);
 const currentYear = new Date().getFullYear();
 ---
 
@@ -23,23 +27,23 @@ const currentYear = new Date().getFullYear();
                     <span>&copy; {currentYear}</span>
                     <span class="text-btc-orange font-bold">Builtechraft</span>
                     <span class="opacity-50">|</span>
-                    <span class="opacity-70">Sin relación con Mojang</span>
+                    <span class="opacity-70">{dictionary.common.footer.unrelatedToMojang}</span>
                 </div>
             </div>
 
             {/* CENTRO: Links en línea */}
             <nav class="flex items-center gap-4 text-xs">
-                <a href={links.pages.rules} class="text-theme-muted hover:text-btc-orange transition-colors">
-                    Reglas
+                <a href={localizePath(links.pages.rules, locale)} class="text-theme-muted hover:text-btc-orange transition-colors">
+                    {dictionary.common.footer.rules}
                 </a>
-                <a href={links.pages.wiki} class="text-theme-muted hover:text-btc-orange transition-colors">
+                <a href={localizePath(links.pages.wiki, locale)} class="text-theme-muted hover:text-btc-orange transition-colors">
                     Wiki
                 </a>
                 <a href={links.social.discord} target="_blank" rel="noopener noreferrer" class="text-theme-muted hover:text-btc-orange transition-colors">
                     Discord
                 </a>
                 <a href={links.social.donate} target="_blank" rel="noopener noreferrer" class="text-theme-muted hover:text-btc-orange transition-colors">
-                    Donar
+                    {dictionary.common.footer.donate}
                 </a>
             </nav>
 
@@ -47,7 +51,7 @@ const currentYear = new Date().getFullYear();
             <div class="flex items-center gap-4">
                 <ThemeToggle />
                 <p class="text-xs text-theme-muted">
-                    <span class="opacity-70">Hecho con ❤ por</span>
+                    <span class="opacity-70">{dictionary.common.footer.madeWithLove}</span>
                     <a 
                         href={links.developer.web} 
                         target="_blank" 

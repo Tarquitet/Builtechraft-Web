@@ -1,0 +1,60 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Contributing on GitHub'
+description: 'Forks, pull requests, and editing online without installing anything.'
+author: 'Tarquitet'
+pubDate: '2026-08-13'
+category: 'how2wiki'
+icon: '🐙'
+color: 'text-cyan-400'
+border: 'hover:border-cyan-500'
+order: 15
+---
+
+import links from '@/data/links.json';
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiSteps from '@/components/wiki/WikiSteps.astro';
+import WikiTabs from '@/components/wiki/WikiTabs.astro';
+import WikiTab from '@/components/wiki/WikiTab.astro';
+
+## Two ways to contribute
+
+<WikiTabs>
+
+<WikiTab label="Online (no installation)">
+
+<WikiSteps
+  steps={[
+    { title: 'Open the repository', text: 'Go to the GitHub repository and select the pencil (Edit) on any .mdx file.' },
+    { title: 'Make your edits', text: 'GitHub automatically creates a fork if you do not have write access.' },
+    { title: 'Propose the change', text: 'Select Propose changes to open a pull request.' },
+  ]}
+/>
+
+</WikiTab>
+
+<WikiTab label="Locally with VS Code">
+
+<WikiSteps
+  steps={[
+    { title: 'Clone the repository', text: 'Run git clone and open the project folder in VS Code.' },
+    { title: 'Create a branch', text: 'Create a branch for your change: git checkout -b my-change.' },
+    { title: 'Commit and push', text: 'Save, commit, and push your changes. Then open a pull request on GitHub.' },
+  ]}
+/>
+
+</WikiTab>
+
+</WikiTabs>
+
+<WikiCallout type="info" title="Main branch">
+
+The code lives on the `v2-Astro` branch. Cloudflare deploys after changes are merged.
+
+</WikiCallout>
+
+<WikiCallout type="ok" title="Next">
+
+<a href={links.wiki.wikiDevLinks}>Linking articles</a>.
+
+</WikiCallout>

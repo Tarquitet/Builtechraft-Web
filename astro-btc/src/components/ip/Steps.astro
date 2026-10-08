@@ -2,6 +2,12 @@
 // src/components/ip/Steps.astro
 import links from '../../data/links.json';
 import stepsData from '../../data/steps.json';
+import { getDictionary, getLocaleFromPath, localizePath } from '../../lib/i18n';
+
+const locale = getLocaleFromPath(Astro.url.pathname);
+const connectionDictionary = getDictionary(locale).connection;
+const ui = connectionDictionary.ui;
+const stepTranslations = connectionDictionary.steps as unknown as Record<string, Record<string, any>>;
 
 // Helper mejorado: soporta rutas con puntos y búsqueda recursiva en categorías
 const getLink = (key: string | undefined | null): string => {
@@ -30,34 +36,35 @@ const getLink = (key: string | undefined | null): string => {
 };
 ---
 
-<section class="steps-section">
+<section class="steps-section" data-loading-label={ui.loading} data-copied-label={ui.copied} data-survival-label={ui.survival} data-creative-label={ui.creative}>
     <div class="container mx-auto px-6 max-w-4xl">
         <div class="text-center mb-12">
             <h2 class="steps-title">
-                Conexión <span class="text-btc-orange">Paso a Paso</span>
+                {ui.stepsTitle}
             </h2>
         </div>
 
         {/* TABS DE PLATAFORMA */}
         <div class="flex justify-center gap-4 mb-8" id="platform-tabs">
             <button class="step-tab-btn steps-tab-active" data-target="java">
-                Java Edition
+                {ui.javaEdition}
             </button>
             <button id="bedrock-tab-btn" class="step-tab-btn hidden steps-tab-inactive" data-target="bedrock">
-                 Bedrock (Móvil / PC)
+                 {ui.bedrockEdition}
             </button>
         </div>
 
         <div class="card-retro mb-12">
             <div id="steps-container-java" class="flex flex-col gap-6">
-                {stepsData.java.map((step, index) => {
-                    const linkUrl = step.linkKey ? getLink(step.linkKey) : '';
+                {stepsData.java.map((step: any, index: number) => {
+                    const linkUrl = step.linkKey ? localizePath(getLink(step.linkKey), getLocaleFromPath(Astro.url.pathname)) : '';
+                    const copy = stepTranslations.java[step.translationKey];
                     return (
                         <div class="step-list-item flex flex-col md:flex-row gap-4">
                             <div class="step-number shrink-0">{index + 1}</div>
                             <div class="flex flex-col w-full pt-1">
                                 <p class="text-theme-muted text-sm md:text-base font-medium leading-relaxed">
-                                    {step.text}
+                                    {copy.text}
                                     {linkUrl && (
                                         <a 
                                             href={linkUrl} 
@@ -65,13 +72,13 @@ const getLink = (key: string | undefined | null): string => {
                                             rel="noopener noreferrer"
                                             class="text-btc-orange hover:text-theme-main font-bold text-xs uppercase tracking-widest ml-1 transition-colors underline underline-offset-2"
                                         >
-                                            {step.linkLabel || 'Saber más'}
+                                            {copy.linkLabel || ui.moreInfo}
                                         </a>
                                     )}
                                 </p>
                                 {step.image && (
                                     <div class="mt-4 overflow-hidden border-theme-4 max-w-lg bg-theme-alternate shadow-xl">
-                                        <img src={step.image} alt={`Paso Java ${index + 1}`} class="w-full h-auto object-cover" loading="lazy" />
+                                        <img src={step.image} alt={`${ui.javaEdition} ${ui.accessStep} ${index + 1}`} class="w-full h-auto object-cover" loading="lazy" />
                                     </div>
                                 )}
                             </div>
@@ -81,14 +88,15 @@ const getLink = (key: string | undefined | null): string => {
             </div>
 
             <div id="steps-container-bedrock" class="hidden flex-col gap-6">
-                {stepsData.bedrock.map((step, index) => {
-                    const linkUrl = step.linkKey ? getLink(step.linkKey) : '';
+                {stepsData.bedrock.map((step: any, index: number) => {
+                    const linkUrl = step.linkKey ? localizePath(getLink(step.linkKey), getLocaleFromPath(Astro.url.pathname)) : '';
+                    const copy = stepTranslations.bedrock[step.translationKey];
                     return (
                         <div class="step-list-item flex flex-col md:flex-row gap-4">
                             <div class="step-number shrink-0">{index + 1}</div>
                             <div class="flex flex-col w-full pt-1">
                                 <p class="text-theme-muted text-sm md:text-base font-medium leading-relaxed">
-                                    {step.text}
+                                    {copy.text}
                                     {linkUrl && (
                                         <a 
                                             href={linkUrl} 
@@ -96,13 +104,13 @@ const getLink = (key: string | undefined | null): string => {
                                             rel="noopener noreferrer"
                                             class="text-blue-500 hover:text-theme-main font-bold text-xs uppercase tracking-widest ml-1 transition-colors underline underline-offset-2"
                                         >
-                                            {step.linkLabel || 'Saber más'}
+                                            {copy.linkLabel || ui.moreInfo}
                                         </a>
                                     )}
                                 </p>
                                 {step.image && (
                                     <div class="mt-4 overflow-hidden border-theme-1 max-w-lg bg-theme-alternate">
-                                        <img src={step.image} alt={`Paso Bedrock ${index + 1}`} class="w-full h-auto object-cover" loading="lazy" />
+                                        <img src={step.image} alt={`${ui.bedrockEdition} ${ui.accessStep} ${index + 1}`} class="w-full h-auto object-cover" loading="lazy" />
                                     </div>
                                 )}
                             </div>
@@ -115,16 +123,16 @@ const getLink = (key: string | undefined | null): string => {
         {/* PREGUNTA Y TABS DE MUNDO */}
         <div class="text-center mb-6">
             <h3 class="text-lg md:text-xl font-display font-bold text-theme-main mb-4">
-                ¿A qué servidor quieres entrar?
+                {ui.serverQuestion}
             </h3>
-            <div class="world-tabs" id="world-tabs" role="tablist" aria-label="Seleccionar mundo">
+            <div class="world-tabs" id="world-tabs" role="tablist" aria-label={ui.selectWorld}>
                 <button id="tab-survival" type="button" role="tab" aria-selected="true"
                         class="world-tab is-active" data-world="survival">
                     Survival
                 </button>
                 <button id="tab-creative" type="button" role="tab" aria-selected="false"
                         class="world-tab" data-world="creative">
-                    Creativo
+                    {ui.creative}
                 </button>
             </div>
         </div>
@@ -132,31 +140,31 @@ const getLink = (key: string | undefined | null): string => {
         <div class="steps-ip-box">
             <div id="java-display-container" class="flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="flex flex-col w-full text-center md:text-left">
-                    <span class="steps-ip-label">Dirección IP (Java) - <span id="world-label-java">Survival</span></span>
-                    <code id="step-java-ip" class="text-2xl md:text-3xl text-theme-main font-mono font-bold select-all">Cargando...</code>
+                    <span class="steps-ip-label">{ui.javaAddress} - <span id="world-label-java">{ui.survival}</span></span>
+                    <code id="step-java-ip" class="text-2xl md:text-3xl text-theme-main font-mono font-bold select-all">{ui.loading}</code>
                 </div>
                 <button onclick="window.copyGeneric('step-java-ip', this)" class="btn-copy-ip">
-                    Copiar IP
+                    {ui.copyIp}
                 </button>
             </div>
 
             <div id="bedrock-display-container" class="hidden flex-col gap-5">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-theme-alternate border-theme-4 shadow-xl">
                     <div class="flex flex-col w-full text-center md:text-left">
-                        <span class="steps-ip-label">Dirección IP (Bedrock) - <span id="world-label-bedrock">Survival</span></span>
-                        <code id="step-bedrock-ip" class="text-xl md:text-2xl text-theme-main font-mono font-bold select-all">Cargando...</code>
+                        <span class="steps-ip-label">{ui.bedrockAddress} - <span id="world-label-bedrock">{ui.survival}</span></span>
+                        <code id="step-bedrock-ip" class="text-xl md:text-2xl text-theme-main font-mono font-bold select-all">{ui.loading}</code>
                     </div>
                     <button onclick="window.copyGeneric('step-bedrock-ip', this)" class="btn-copy-ip-bedrock">
-                        Copiar IP
+                        {ui.copyIp}
                     </button>
                 </div>
                 <div class="flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-theme-alternate border-theme-4 shadow-xl">
                     <div class="flex flex-col w-full text-center md:text-left">
-                        <span class="steps-ip-label">Puerto (Bedrock)</span>
+                        <span class="steps-ip-label">{ui.bedrockPort}</span>
                         <code id="step-bedrock-port" class="text-xl md:text-2xl text-blue-500 font-mono font-bold select-all">19132</code>
                     </div>
                     <button onclick="window.copyGeneric('step-bedrock-port', this)" class="btn-copy-ip-bedrock">
-                        Copiar Puerto
+                        {ui.copyPort}
                     </button>
                 </div>
             </div>
@@ -166,14 +174,20 @@ const getLink = (key: string | undefined | null): string => {
 </section>
 
 <script is:inline>
+    const stepSection = document.querySelector<HTMLElement>('.steps-section');
+    const loadingLabel = stepSection?.dataset.loadingLabel || '';
+    const copiedLabel = stepSection?.dataset.copiedLabel || '';
+    const survivalLabel = stepSection?.dataset.survivalLabel || '';
+    const creativeLabel = stepSection?.dataset.creativeLabel || '';
+
     let serverConfig = { 
         survival: {
-            javaIp: 'Cargando...', 
-            bedrockIp: 'Cargando...'
+            javaIp: loadingLabel, 
+            bedrockIp: loadingLabel
         },
         creative: {
-            javaIp: 'Cargando...', 
-            bedrockIp: 'Cargando...'
+            javaIp: loadingLabel, 
+            bedrockIp: loadingLabel
         },
         port: '19132',
         currentPlatform: 'java',
@@ -190,7 +204,7 @@ const getLink = (key: string | undefined | null): string => {
         const worldLabelBedrock = document.getElementById('world-label-bedrock');
 
         // Actualizar labels de mundo
-        const worldName = currentWorld === 'survival' ? 'Survival' : 'Creativo';
+        const worldName = currentWorld === 'survival' ? survivalLabel : creativeLabel;
         if (worldLabelJava) worldLabelJava.textContent = worldName;
         if (worldLabelBedrock) worldLabelBedrock.textContent = worldName;
 
@@ -270,7 +284,7 @@ const getLink = (key: string | undefined | null): string => {
         await navigator.clipboard.writeText(textEl.innerText);
         const originalText = btnElement.innerText;
         
-        btnElement.innerText = '¡COPIADO!';
+        btnElement.innerText = copiedLabel;
         btnElement.classList.add('bg-green-500', 'text-white', 'border-green-500');
         btnElement.classList.remove('bg-white/10', 'hover:bg-btc-orange', 'hover:bg-blue-500');
 

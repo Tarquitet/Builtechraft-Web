@@ -1,40 +1,30 @@
 {
   "step": 6,
   "type": "guide",
-  "label": "Guía",
-  "title": "Guía de conexión",
+  "translationKey": "guide",
   "items": [
     {
       "id": "java",
       "edition": "java",
+      "translationKey": "java",
       "steps": [
         {
-          "title": "Ve a Multijugador",
-          "description": "Haz click en el botón 'Multijugador' en el menú principal.\nAsegúrate de estar en la versión más reciente, si no, utilizar la versión: {version}",
           "icon": "🔐",
           "image": "/images/access/guide/guide-java-step1.avif"
         },
         {
-          "title": "Agrega el servidor",
-          "description": "Haz click en 'Agregar servidor'.",
           "icon": "➕",
           "image": "/images/access/guide/guide-java-step2.avif"
         },
         {
-          "title": "Ingresa los datos",
-          "description": "Escribe un nombre y la dirección IP del servidor.\nSURVIVAL IP: {javaSmp}\nCREATIVO IP: {javaCreative}",
           "icon": "🌐",
           "image": "/images/access/guide/guide-java-step3.avif"
         },
         {
-          "title": "¡Conéctate!",
-          "description": "Haz clic en 'Unirse al servidor' y disfruta.",
           "icon": "🚀",
           "image": "/images/access/guide/guide-java-step5.avif"
         },
         {
-          "title": "Esperando la aprobación",
-          "description": "Este servidor es privado y contamos con una whitelist para evitar inconvenientes. Puedes acelerar el proceso de aprobación estando en la red social Discord y solicitar el acceso dando tu nombre de usuario.",
           "icon": "🛑",
           "image": "/images/access/guide/guide-java-step4.avif"
         }
@@ -43,34 +33,25 @@
     {
       "id": "bedrock",
       "edition": "bedrock",
+      "translationKey": "bedrock",
       "steps": [
         {
-          "title": "Presiona Play",
-          "description": "Desde el menú principal, haz clic en el botón verde 'Play' (Jugar).",
           "icon": "🎮",
           "image": "/images/access/guide/guide-bedrock-step1.avif"
         },
         {
-          "title": "Ve a Servidores",
-          "description": "Selecciona la pestaña 'Servers' (Servidores) y desplázate hacia abajo hasta encontrar el botón '+ Add server'.",
           "icon": "",
           "image": "/images/access/guide/guide-bedrock-step2.avif"
         },
         {
-          "title": "Agrega el servidor",
-          "description": "Haz clic en '+ Add server' y completa los datos:\n\nServer name: (El nombre que quieras)\nServer address: {bedrockSmp} (Survival) o {bedrockCreative} (Creativo)\nPort: {bedrockPort}",
           "icon": "➕",
           "image": "/images/access/guide/guide-bedrock-step3.avif"
         },
         {
-          "title": "Guarda y juega",
-          "description": "Presiona 'Add and play' (verde) o 'Add server' (gris). El servidor aparecerá en tu lista de 'Other Servers'. Selecciónalo y presiona PLAY.",
           "icon": "🚀",
           "image": "/images/access/guide/guide-bedrock-step4.avif"
         },
         {
-          "title": "Esperando aprobación",
-          "description": "Este servidor es privado y contamos con whitelist. Puedes acelerar el proceso uniéndote a nuestro Discord y solicitando acceso con tu nombre de usuario.",
           "icon": "",
           "image": "/images/access/guide/guide-bedrock-step5.avif"
         }
@@ -79,22 +60,17 @@
     {
       "id": "invalid",
       "account": "invalid",
+      "translationKey": "invalid",
       "steps": [
         {
-          "title": "Oh no... Cuenta no compatible",
-          "description": "No podemos aceptar este tipo de cuenta en nuestro servidor. Para jugar en Builtechraft necesitas una cuenta válida.",
           "icon": "⚠️",
           "image": "/images/access/guide/guide-invalid-step1.avif"
         },
         {
-          "title": "¿Qué tipo de cuenta necesitas?",
-          "description": "Tienes dos opciones válidas:\n\n✅ PREMIUM (Mojang/Microsoft)\nLa cuenta oficial comprada en Minecraft.net. Funciona con el Launcher Oficial, Prism Launcher, etc.\n\n🦅 NO PREMIUM (Ely.by)\nCuenta gratuita registrada en ely.by. Requiere un launcher compatible como Ely.by Launcher o Prism Launcher configurado con Ely.by.",
           "icon": "📋",
           "image": "/images/access/guide/guide-invalid-step2.avif"
         },
         {
-          "title": "¿Qué hacer ahora?",
-          "description": "Vuelve atrás y selecciona correctamente tu tipo de cuenta:\n\n• Si tienes una cuenta comprada → Selecciona 'Premium (Mojang/Microsoft)'\n• Si quieres jugar gratis → Selecciona 'No Premium (Ely.by)' y asegúrate de usar un launcher compatible con Ely.by\n\nSi tienes dudas, únete a nuestro Discord para recibir ayuda.",
           "icon": "🔄",
           "image": "/images/access/guide/guide-invalid-step3.avif"
         }

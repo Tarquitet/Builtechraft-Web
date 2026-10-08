@@ -1,0 +1,59 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'What is this?'
+description: 'Everything you need to know to get started and build in Builtechraft.'
+author: 'Tarquitet'
+pubDate: '2026-08-13'
+icon: '🦊'
+color: 'text-btc-orange'
+border: 'hover:border-btc-orange'
+tag: 'Guide'
+order: 0
+category: 'how2use'
+---
+
+import links from '@/data/links.json';
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+
+Here you will find guides, tips, and everything you need to enjoy Builtechraft.
+
+## What this wiki is for
+
+This wiki is Builtechraft's handbook and memory. It contains what you need to understand the server, join it, and make the most of it without having to ask someone every time.
+
+Instead of answering the same questions over and over on Discord, we keep clear guides here so you can read them whenever you need.
+
+## Two kinds of documentation
+
+<WikiCallout type="info" title="📚 Quick wiki (right here)">
+
+Short, practical guides for when you need an answer quickly. For example:
+
+- Install the modpack in 3 steps
+- Configure Bobby
+- Basic server commands
+
+</WikiCallout>
+
+<WikiCallout type="ok" title="🔬 Complete wiki (technical documentation)">
+
+The former external wiki contained detailed technical documentation with screenshots, videos, and advanced explanations.
+
+- Step-by-step guides with images
+- Advanced configurations
+- Troubleshooting and fixes
+
+It is no longer maintained. You can still browse its archived information <a href={links.wiki.homeExternal}>here</a>.
+
+</WikiCallout>
+
+## How it is organized
+
+- **Articles:** each topic has its own page (comparisons, guides, mechanics, history, and more).
+- **Article library:** browse all categories and articles in <a href={links.pages.wiki}>the wiki library</a>.
+- **Components:** tables, accordions, and callouts make information easier to scan.
+
+## What this wiki is not
+
+- It is not the rulebook: the rules are on the <a href={links.pages.rules}>Rules</a> page.
+- It is not the former external wiki; that site is now an archive.

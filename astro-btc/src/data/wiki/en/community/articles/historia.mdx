@@ -1,0 +1,159 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'The history of Builtechraft'
+description: 'A timeline of the server from 2020 to today.'
+author: 'Tarquitet'
+pubDate: '2026-08-20'
+category: 'community'
+icon: '📜'
+color: 'text-amber-400'
+border: 'hover:border-amber-500'
+order: 10
+---
+
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiTimeline from '@/components/wiki/WikiTimeline.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+Builtechraft began in 2020 as a private server created to bring artistic creativity and engineering together in Minecraft. Here is the timeline of our journey.
+
+<WikiCallout type="warn" title="A note about this timeline">
+
+This history is being written from the founder's recollections. Some entries are temporary and were originally added to test the wiki timeline component.
+
+</WikiCallout>
+
+<WikiTimeline
+  events={[
+    {
+      year: '2020',
+      events: [
+        {
+          title: 'The beginning',
+          summary: 'Builtechraft starts as a private Survival server with Forge mods.',
+          details:
+            'The first world was a Survival world connected to an older Forge mod series. The earliest bases, temples, mazes, pixel art, redstone minigames, farms, and complex mechanisms were built there.',
+        },
+        {
+          title: 'Creative world',
+          summary: 'A Creative world is created for unrestricted design and testing.',
+          details:
+            'The founder created a Creative world on a private computer. It made it possible to design and test every idea without resource or survival limits.',
+        },
+      ],
+    },
+    {
+      year: '2021',
+      events: [
+        {
+          title: 'Community growth',
+          summary: 'More than 100 unique players explore and build on the server.',
+          details:
+            'Since the start of version 1.17, more than 100 unique players have explored, built, and left their mark on the server. The community began to take shape as players returned regularly and collaborative projects emerged.',
+        },
+      ],
+    },
+    {
+      year: '2022',
+      events: [
+        {
+          title: 'Migration to Fabric',
+          summary: 'The server moves from Forge to Fabric for better performance.',
+          details:
+            'The server fully migrated to Fabric for better performance and compatibility with modern optimization mods.',
+        },
+        {
+          title: 'Carpet Mod and whitelist',
+          summary: 'Carpet Mod is added and a whitelist is introduced.',
+          details:
+            'Carpet Mod brought advanced technical mechanics, while the whitelist helped protect the community’s work. The first custom datapacks were also introduced.',
+        },
+      ],
+    },
+    {
+      year: '2023',
+      events: [
+        {
+          title: 'Official modpack',
+          summary: 'The official Builtechraft modpack launches on Modrinth.',
+          details: 'The official Builtechraft modpack launched on Modrinth, making setup easier for new players.',
+        },
+        {
+          title: 'External wiki',
+          summary: 'The external wiki launches at builtechraftwiki.tarquitet.com.',
+          details:
+            'The external wiki (builtechraftwiki.tarquitet.com) was created to host complete server documentation.',
+        },
+        {
+          title: 'Web maps',
+          summary: 'The web map system (Dynmap) is introduced.',
+          details: 'Web maps (Dynmap) made it possible to explore the Survival and Creative worlds in real time.',
+        },
+        {
+          title: 'First community events',
+          summary: 'The first community events are organized.',
+          details: 'The first community events included building competitions, farm fairs, and guided tours.',
+        },
+      ],
+    },
+    {
+      year: '2024',
+      events: [
+        {
+          title: 'Performance improvements',
+          summary: 'Client-side mods help improve performance.',
+          details: 'Sodium and Lithium improve frame rates and reduce lag.',
+        },
+        {
+          title: 'Public waypoints',
+          summary: 'Public waypoints and map markers are added.',
+          details: 'Players can share points of interest on the web map using public waypoints and markers.',
+        },
+        {
+          title: 'Custom commands',
+          summary: 'Custom commands arrive: /sit, /crawl, and /player.',
+          details: 'Custom commands were added: /sit, /crawl, and /player (fake players for AFK farms).',
+        },
+        {
+          title: 'Alternative Auth',
+          summary: 'The authentication system is improved.',
+          details: 'Alternative Auth improved integration with Ely.by and Non-Premium accounts.',
+        },
+      ],
+    },
+    {
+      year: '2025',
+      events: [
+        {
+          title: 'A new Astro website',
+          summary: 'The website is rebuilt with Astro and a modern design.',
+          details:
+            'The web presence was rebuilt with Astro, reusable components, a modern design, and performance improvements.',
+        },
+        {
+          title: 'Internal wiki',
+          summary: 'An internal wiki is created with a reusable component system.',
+          details: 'A new internal wiki with reusable documentation components replaces the previous external wiki.',
+        },
+        {
+          title: 'Modrinth integration',
+          summary: 'The official modpack is integrated directly with Modrinth.',
+          details:
+            'Direct Modrinth integration makes the official modpack easier to install and keeps it updated automatically.',
+        },
+      ],
+    },
+  ]}
+/>
+
+## What comes next?
+
+<WikiCallout type="tip">
+
+The server keeps evolving. Plans for new features, technical improvements, and events are listed in the <a href="/#roadmap">roadmap</a> on the main page.
+
+There you can see what we are working on and what to expect from the server in the coming months.
+
+If you have ideas or suggestions, join our <WikiLink to="discord">Discord</WikiLink> community.
+
+</WikiCallout>

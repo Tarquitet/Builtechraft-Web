@@ -1,9 +1,14 @@
 ---
 // src/components/home/Hero.astro
-import heroActions from '../../data/heroActions.json';
 import links from '../../data/links.json';
 
-// Helper para buscar llaves dinámicas en la estructura anidada y devolver siempre un string
+interface Props {
+    description: string;
+}
+
+const { description } = Astro.props;
+
+// Helper to find dynamic keys in the nested structure and always return a string
 const getLink = (key: string | undefined | null): string => {
     if (!key) return '#';
     const l = links as any;
@@ -26,9 +31,7 @@ const bgImage = `url('${links.assets.heroBackground}')`;
     <div class="hero-content">
         <img src={links.assets.logoText} alt="Builtechraft" class="hero-logo" />
         
-        <p class="hero-description">
-            Buscando el balance entre la esencia de Minecraft y el uso de mejoras para que la creatividad artística y el ingenio sean uno solo.
-        </p>
+        <p class="hero-description">{description}</p>
 
     </div>
 </section>

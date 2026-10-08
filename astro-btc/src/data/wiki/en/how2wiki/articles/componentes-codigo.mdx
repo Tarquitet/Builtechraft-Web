@@ -1,0 +1,56 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Commands and keys'
+description: 'Use WikiCommand, WikiKbd, and WikiBadge in technical documentation.'
+author: 'Tarquitet'
+pubDate: '2026-08-13'
+category: 'how2wiki'
+icon: '⌨️'
+color: 'text-cyan-400'
+border: 'hover:border-cyan-500'
+order: 14
+---
+
+import links from '@/data/links.json';
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiCommand from '@/components/wiki/WikiCommand.astro';
+import WikiKbd from '@/components/wiki/WikiKbd.astro';
+import WikiBadge from '@/components/wiki/WikiBadge.astro';
+
+## WikiCommand
+
+A command block with a copy button.
+
+<WikiCommand command="/tpa <player>" description="Copy the command with one click." />
+
+```mdx
+<WikiCommand command="/command" description="What it does." />
+```
+
+## WikiKbd
+
+Inline keys styled like keycaps.
+
+Press <WikiKbd>Ctrl</WikiKbd> + <WikiKbd>C</WikiKbd> to copy.
+
+```mdx
+<WikiKbd>Ctrl</WikiKbd> + <WikiKbd>C</WikiKbd>
+```
+
+## WikiBadge
+
+Inline status pills.
+
+Difficulty <WikiBadge tone="good">Easy</WikiBadge> · Version <WikiBadge tone="info">1.21</WikiBadge> · Status <WikiBadge tone="warn">Beta</WikiBadge>
+
+```mdx
+<WikiBadge tone="good">Easy</WikiBadge>
+```
+
+Tones: `good`, `warn`, `bad`, `accent`, `info`, and `muted`.
+
+<WikiCallout type="ok" title="Next">
+
+<a href={links.wiki.wikiDevGithub}>Contributing on GitHub</a>.
+
+</WikiCallout>

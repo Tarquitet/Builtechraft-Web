@@ -1,0 +1,173 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Frequently asked questions'
+description: 'Quick answers to common questions before joining the server.'
+author: 'Tarquitet'
+pubDate: '2026-08-03'
+updated: '2026-08-19'
+category: 'community'
+icon: '❓'
+color: 'text-btc-yellow'
+border: 'hover:border-btc-yellow'
+order: 1
+---
+
+import links from '@/data/links.json';
+import WikiAccordion from '@/components/wiki/WikiAccordion.astro';
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+
+Read these answers before submitting a request. For help, use the forum on our Discord server.
+
+## Access and accounts
+
+<WikiAccordion title="Do you accept Premium and Non-Premium accounts?">
+
+Yes. Premium accounts sign in with Microsoft; Non-Premium accounts use Ely.by for authentication and skins. See <a href={links.wiki.wikiLaunchers}>launcher information</a> to choose a client.
+
+</WikiAccordion>
+
+<WikiAccordion title="Do I need to be on the whitelist?">
+
+Yes. This is a private server: request access on Discord and wait for staff approval. It usually takes less than 24 hours. See <a href={links.wiki.wikiWhitelist}>how to request whitelist access</a>.
+
+</WikiAccordion>
+
+<WikiAccordion title="Why can't I move after joining?">
+
+The server freezes you until you complete the security login. Follow the chat instructions. If you remain frozen, submit a request with your username and a screenshot.
+
+</WikiAccordion>
+
+<WikiAccordion title="Can I change my username?">
+
+Changing your name may affect your access, inventory, and whitelist. Submit a request before joining with your new name.
+
+</WikiAccordion>
+
+<WikiAccordion title="Which Minecraft version should I use?">
+
+Always use the server's current native version. Older versions may display blocks incorrectly or become desynchronized. Confirm the current version on Discord. Guides: <a href={links.wiki.wikiLaunchers}>Java / Bedrock</a>.
+
+</WikiAccordion>
+
+## Connection and client
+
+<WikiAccordion title="Where can I find the IP address and port?">
+
+Only use the official Discord channels. These details may change during maintenance. Bedrock players also need the listed port.
+
+</WikiAccordion>
+
+<WikiAccordion title="Can I play on Bedrock, mobile, or console?">
+
+Yes, through a compatibility bridge. Set the current IP and port by following the Bedrock guide. The server may appear without a ping in the menu; try joining anyway.
+
+</WikiAccordion>
+
+<WikiAccordion title="Do I need to accept the server resource pack?">
+
+Yes. Enable "Server Resource Packs" when adding Builtechraft. The pack includes required textures; rejecting it may leave some objects missing.
+
+</WikiAccordion>
+
+<WikiAccordion title="Which launcher should I use?">
+
+Use Prism Launcher with Premium accounts and ElyPrism with Non-Premium Ely.by accounts. Do not use TLauncher. See <a href={links.wiki.wikiLaunchers}>launcher information</a> for details.
+
+</WikiAccordion>
+
+## Mods and performance
+
+<WikiAccordion title="Do I have to install mods?">
+
+No. You can join with a vanilla client. The official modpack is optional and improves performance, navigation, and technical building. Start with the <a href={links.wiki.wikiModpack}>modpack guide</a>.
+
+</WikiAccordion>
+
+<WikiAccordion title="Which mods can I use?">
+
+You may use the official pack and client-side tools that do not automate actions or reveal hidden information. Check <a href={links.pages.rules}>the rules</a> for the complete list.
+
+</WikiAccordion>
+
+<WikiAccordion title="Can I use Litematica, MiniHUD, VoxelMap, or Bobby?">
+
+Yes, as part of the official pack. Use Litematica only to view schematics; automatic placement and features that provide an advantage are not allowed.
+
+</WikiAccordion>
+
+<WikiAccordion title="Can I use shaders and texture packs?">
+
+Yes, as long as they only change visuals. Packs that reveal ores, players, or hidden structures are prohibited. X-Ray effects are violations.
+
+</WikiAccordion>
+
+<WikiAccordion title="Why does Bobby show old builds?">
+
+Bobby stores a local chunk cache that does not update until you approach the area again. Do not make decisions about a build based only on the cache; check it in person.
+
+</WikiAccordion>
+
+## Rules and community
+
+<WikiAccordion title="Are PvP, stealing, or griefing allowed?">
+
+No. Builtechraft is cooperative: do not take items, alter builds, or block access without permission. Pranks require consent.
+
+</WikiAccordion>
+
+<WikiAccordion title="Can I use macros, X-Ray, or autoclickers?">
+
+No. Anything that automates actions, reveals hidden information, or alters movement or combat is prohibited (auto-mining, ESP, fly, reach, exploits).
+
+</WikiAccordion>
+
+<WikiAccordion title="Are there exceptions for mods or macros?">
+
+Some exceptions are allowed: Tweakeroo is permitted because its "logical" macros do not break game mechanics and only speed up building. It is optional and will not lead to a ban when not used against other players.
+
+</WikiAccordion>
+
+<WikiAccordion title="Can I use bots or alternate accounts?">
+
+Not to bypass limits or automate activity. Server-authorized fake players are the only controlled exception (for farms and chunk loading).
+
+</WikiAccordion>
+
+<WikiAccordion title="What is the difference between Survival and Creative?">
+
+Survival is for progression and gathering resources; Creative is a workshop for redstone and planning. Respect the purpose of each world.
+
+</WikiAccordion>
+
+## Performance and support
+
+<WikiAccordion title="Why am I lagging or getting disconnected?">
+
+Possible causes include entities, farms, your connection, or maintenance. Try a clean instance, lower your render distance, and close demanding apps.
+
+</WikiAccordion>
+
+<WikiAccordion title="When does the server turn on and off?">
+
+It usually starts around 12:00 AM on weekdays and 09:00 AM on weekends (UTC-5). It usually shuts down around 01:00 AM (UTC-5). Maintenance may change this schedule.
+
+</WikiAccordion>
+
+<WikiAccordion title="How do I report a bug, player, or technical issue?">
+
+Submit a request in the Discord forum with a clear description, screenshots, coordinates, time, and reproduction steps. Never send passwords or personal information.
+
+</WikiAccordion>
+
+<WikiAccordion title="What should I do if the game crashes when I join?">
+
+Check the recommended version and remove unapproved mods. If you use the modpack, create a clean instance. If the problem continues, attach the crash log to a request.
+
+</WikiAccordion>
+
+<WikiCallout type="info" title="Didn't find your answer?">
+
+Submit a request in <a href={links.social.discord}>our Discord</a> forum and staff will help you.
+
+</WikiCallout>

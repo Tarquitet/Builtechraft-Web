@@ -1,0 +1,148 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'How to write articles'
+description: 'Frontmatter, MDX conventions, local previews, and the full workflow.'
+author: 'Tarquitet'
+pubDate: '2026-08-13'
+category: 'how2wiki'
+icon: '✍️'
+color: 'text-cyan-400'
+border: 'hover:border-cyan-500'
+order: 10
+---
+
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiTable from '@/components/wiki/WikiTable.astro';
+import WikiSteps from '@/components/wiki/WikiSteps.astro';
+import WikiCommand from '@/components/wiki/WikiCommand.astro';
+import WikiKbd from '@/components/wiki/WikiKbd.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+import links from '@/data/links.json';
+
+<WikiCallout type="info" title="Before you start">
+
+This guide assumes you have VS Code and a cloned repository. If not, read <WikiLink to="github-contribuir">Contributing on GitHub</WikiLink>.
+
+</WikiCallout>
+
+## Workflow
+
+<WikiSteps
+  steps={[
+    { title: 'Open VS Code', text: 'Open the astro-btc folder and start the local server.' },
+    { title: 'Create an MDX file', text: 'Add a file under src/data/wiki/<locale>/<category>/articles/. Its filename becomes the article slug.' },
+    { title: 'Write the frontmatter', text: 'Copy the template and fill in the title, description, and icon.' },
+    { title: 'Preview and push', text: 'Check it in your browser, save, commit, and push.' },
+  ]}
+/>
+
+<WikiCommand command="bun run dev" description="Starts the local server at localhost:4321." />
+
+## Frontmatter template
+
+```mdx
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Article title'
+description: 'A one-line summary of the article.'
+author: 'Your name'
+pubDate: '2026-08-13'
+category: 'features'
+icon: '📄'
+color: 'text-btc-orange'
+border: 'hover:border-btc-orange'
+order: 10
+---
+```
+
+<WikiTable
+  headers={['Field', 'Required', 'Purpose']}
+  rows={[
+    ['layout', '✓ Yes', 'The layout wrapping the article'],
+    ['title', '✓ Yes', 'Article and card title'],
+    ['description', '✓ Yes', 'Short summary for SEO and the card'],
+    ['author', 'No', 'Article author'],
+    ['pubDate', 'No', 'Publication date (ISO format)'],
+    ['category', '✓ Yes', 'Category slug'],
+    ['icon', 'No', 'Card icon'],
+    ['color / border', 'No', 'Tailwind classes for the card'],
+    ['order', 'No', 'Position in the library'],
+    ['draft: true', 'No', 'Hides the article while you work on it'],
+  ]}
+/>
+
+## Three golden rules
+
+<WikiCallout type="warn" title="These can break the build">
+
+1. **Leave a blank line** before and after every component.
+2. **Never use bare braces:** `{` and `}` are JavaScript syntax in MDX.
+3. **Use the right link component:** use `WikiLink` for wiki articles and links from `links.json` for main pages.
+
+</WikiCallout>
+
+## Rule 1: Blank lines
+
+❌ **Incorrect:**
+
+```mdx
+<WikiCallout type="info">Text without a blank line.</WikiCallout>
+```
+
+✅ **Correct:**
+
+```mdx
+<WikiCallout type="info">
+
+Text with a blank line before and after.
+
+</WikiCallout>
+```
+
+## Rule 2: Braces are JavaScript
+
+❌ **Incorrect:**
+
+```mdx
+Use {name} to refer to something.
+```
+
+✅ **Correct:**
+
+```mdx
+Use {'{'}name{'}'} to refer to something.
+```
+
+## Rule 3: Use link components
+
+❌ **Incorrect (wiki):**
+
+```mdx
+Read <a href="/wiki/faq">the questions</a>.
+```
+
+✅ **Correct (wiki):**
+
+```mdx
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+Read <WikiLink to="faq">the questions</WikiLink>.
+```
+
+✅ **Correct (main page):**
+
+```mdx
+import links from '@/data/links.json';
+
+Read <a href={links.pages.rules}>the rules</a>.
+```
+
+## VS Code shortcuts
+
+Press <WikiKbd>Ctrl</WikiKbd> + <WikiKbd>Shift</WikiKbd> + <WikiKbd>P</WikiKbd> and type "file" to open any file.
+
+<WikiCallout type="ok" title="Next step">
+
+Read <WikiLink to="componentes-basicos">Tables, callouts, and accordions</WikiLink>.
+
+</WikiCallout>

@@ -1,5 +1,5 @@
 <script>
-    import { getClientConfigTSV, getModsAndDatapacks } from '../../utils/sheetsClient.js';
+    import { getClientConfig, getModsAndDatapacks } from '../../utils/sheetsClient.js';
 
     async function loadConfig() {
         const CACHE_DURATION = 5 * 60 * 1000; // 5 minutos en milisegundos
@@ -15,16 +15,17 @@
 
         // Si no hay caché o expiró, pide a la API
         try {
-            const configData = await getClientConfigTSV();
+            const configData = await getClientConfig();
             
             let isBedrock = false;
             let isMultiVersion = false;
             
             try {
-                const { mods } = await getModsAndDatapacks();
+                const locale = document.documentElement.lang === 'en' ? 'en' : 'es';
+                const { mods } = await getModsAndDatapacks(locale);
                 
                 // TIPOS EXPLÍCITOS APLICADOS AQUÍ PARA SATISFACER A TYPESCRIPT
-                const modsNames = mods.map((m: any) => m.name.toLowerCase());
+                const modsNames = mods.map((mod: any) => (mod.Name || mod.name || '').toLowerCase());
                 isBedrock = modsNames.some((name: string) => name.includes('geyser'));
                 isMultiVersion = modsNames.some((name: string) => 
                     name.includes('viaversion') || name.includes('viabackwards') || name.includes('viarewind')

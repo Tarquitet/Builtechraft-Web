@@ -1,10 +1,13 @@
 ---
 // src/components/wiki/WikiCommand.astro
+import { getDictionary, getLocaleFromPath } from '../../lib/i18n';
+
+const dict = getDictionary(getLocaleFromPath(Astro.url.pathname));
 const { command, description = '' } = Astro.props as { command: string; description?: string };
 ---
 <div class="wiki-command">
   <code class="wc-cmd">{command}</code>
-  <button class="wc-copy" type="button" aria-label="Copiar comando">Copiar</button>
+  <button class="wc-copy" type="button" aria-label={dict.common.wiki.copyCommand} data-copied-label={dict.common.wiki.copied}>{dict.common.wiki.copy}</button>
   {description && <p class="wc-desc">{description}</p>}
 </div>
 
@@ -16,7 +19,7 @@ const { command, description = '' } = Astro.props as { command: string; descript
       try {
         await navigator.clipboard.writeText(cmd);
         const old = (btn as HTMLElement).textContent;
-        (btn as HTMLElement).textContent = '¡Copiado!';
+        (btn as HTMLElement).textContent = (btn as HTMLElement).dataset.copiedLabel || '';
         btn.classList.add('wc-done');
         setTimeout(() => {
           (btn as HTMLElement).textContent = old;

@@ -1,0 +1,91 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Mods and datapack list'
+description: 'A live record of modifications currently active on the server.'
+author: 'Tarquitet'
+pubDate: '2026-08-03'
+updated: '2026-08-19'
+category: 'depracted'
+icon: '🧩'
+color: 'text-emerald-400'
+border: 'hover:border-emerald-500'
+order: 2
+---
+
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiAccordion from '@/components/wiki/WikiAccordion.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+At **Builtechraft**, we value transparency about our technical setup. We maintain an optimized semi-vanilla server to preserve the classic game while improving stability.
+
+## View the live list
+
+The complete, synchronized list of active mods, datapacks, and plugins is on the main page:
+
+<WikiCallout type="info" title="Live and up to date">
+
+See the <a href="/#mods">live list of mods on the main page</a>. It updates automatically when the server setup changes.
+
+</WikiCallout>
+
+## What the list includes
+
+<WikiAccordion title="Optimization and quality-of-life mods">
+
+Tools focused on client performance and quality of life, including:
+
+- **Client optimization** (Sodium, Lithium, FerriteCore)
+- **Visual improvements** (shaders, minimaps)
+- **Quality of life** (JEI, Mod Menu, expanded inventories)
+- **Extended rendering** (Bobby for viewing distant chunks)
+
+</WikiAccordion>
+
+<WikiAccordion title="Technical datapacks">
+
+Native server behavior tweaks that preserve the natural Survival progression:
+
+- **Lodestone teleportation** (LodestoneTP)
+- **Sitting, riding, and crawling**
+- **Custom decorative heads**
+- **Carpet Mod commands** (/player, /shadow)
+- **Public waypoints on the web map**
+
+</WikiAccordion>
+
+<WikiAccordion title="Recommended client-side mods">
+
+These are included in the official modpack. If you play vanilla, you may install them yourself:
+
+- **Sodium** + **Lithium** + **FerriteCore** (optimization)
+- **Bobby** (view chunks beyond the server's render distance)
+- **Xaero's Minimap** or **VoxelMap** (minimap)
+- **JEI / REI** (crafting recipes)
+- **Litematica** (view schematics only; no automatic placement)
+
+</WikiAccordion>
+
+## Mod policy
+
+<WikiCallout type="warn" title="Allowed mods">
+
+- Optimization and quality-of-life mods included in the official pack.
+- Client-side tools that do not automate actions or reveal hidden information.
+- Shaders and visual resource packs without X-Ray features.
+
+</WikiCallout>
+
+<WikiCallout type="danger" title="Prohibited mods">
+
+- X-Ray or packs that reveal ores.
+- Auto-mining, autoclickers, and macros.
+- ESP, fly, reach, and killaura.
+- Anything that gives an unfair advantage over other players.
+
+</WikiCallout>
+
+<WikiCallout type="ok" title="More information">
+
+Read <WikiLink to="que-usa-el-servidor">what the server uses</WikiLink> to learn about the reasoning behind our technical choices.
+
+</WikiCallout>

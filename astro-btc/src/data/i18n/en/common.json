@@ -1,0 +1,107 @@
+﻿{
+  "navigation": {
+    "home": "Home",
+    "about": "About Us",
+    "play": "Play",
+    "maps": "Maps",
+    "wiki": "Wiki",
+    "discord": "Discord",
+    "donate": "Donate",
+    "survivalMap": "Survival Map",
+    "creativeMap": "Creative Map",
+    "wikiPortal": "Wiki Portal",
+    "rules": "Server Rules",
+    "faq": "Frequently Asked Questions",
+    "history": "Server History",
+    "menu": "Menu",
+    "backToTop": "Back to top",
+    "switchToEnglish": "Switch to English",
+    "switchToSpanish": "Switch to Spanish"
+  },
+  "footer": {
+    "unrelatedToMojang": "Not affiliated with Mojang",
+    "rules": "Rules",
+    "donate": "Donate",
+    "madeWithLove": "Made with â¤ by"
+  },
+  "theme": {
+    "group": "Change page theme",
+    "light": "Light theme",
+    "midnight": "Midnight theme",
+    "black": "Black theme"
+  },
+  "seoDescription": "Builtechraft SMP: a private Minecraft server focused on survival, building, engineering, and community.",
+  "keywords": "Minecraft, Minecraft Server, Technical, Creative, Builtechraft, Fabric, SMP, Colombia, English, Modrinth, Modpack",
+  "wiki": {
+    "copy": "Copy",
+    "copyCommand": "Copy command",
+    "copied": "Copied!",
+    "defaultMapTitle": "Server map",
+    "quickTitle": "Quick wiki",
+    "quickDescription": "Short, practical guides to help you find answers quickly.",
+    "quickItems": ["Install the modpack in 3 steps", "How to configure Bobby", "Basic server commands"],
+    "fullTitle": "Complete wiki",
+    "fullDescription": "Technical documentation with screenshots, videos, and in-depth explanations.",
+    "fullItems": ["Step-by-step guides with images", "Advanced configurations", "Troubleshooting"],
+    "viewArticles": "View articles",
+    "openFullWiki": "Open the complete wiki",
+    "backToWiki": "â† Back to the Wiki",
+    "backToCategoryPrefix": "â† Back to",
+    "noArticles": "There are no articles in this category yet.",
+    "pageTitle": "Library",
+    "portalTitle": "Builtechraft documentation",
+    "portalDescription": "Choose a category to explore guides, tutorials, and technical documentation.",
+    "categoryFallback": "Explore articles in this category.",
+    "timelineMore": "Show more",
+    "timelineLess": "Show less",
+    "spoilerHint": "â€” click to reveal",
+    "categories": {
+      "community": {
+        "title": "Community",
+        "description": "Server history, team, Discord, and frequently asked questions."
+      },
+      "features": {
+        "title": "Features",
+        "description": "Datapacks, mods, and server features."
+      },
+      "server-data": {
+        "title": "About the server",
+        "description": "The modpack, mods, and technical details about the server."
+      },
+      "how2use": {
+        "title": "Getting started",
+        "description": "Everything you need to join and play for the first time."
+      },
+      "how2wiki": {
+        "title": "Wiki authoring",
+        "description": "How this wiki is written and maintained."
+      },
+      "depracted": {
+        "title": "Archive",
+        "description": "Archived, retired, or deprecated information."
+      }
+    },
+    "navigation": "Breadcrumb navigation",
+    "updated": "Updated:"
+  },
+  "rules": {
+    "title": "Builtechraft rules",
+    "description": "These rules apply both on the Minecraft server and on Discord.",
+    "important": "Important information",
+    "section": "Section",
+    "scopeGame": "ðŸŽ® In-game",
+    "scopeDiscord": "ðŸ’¬ Discord",
+    "scopeBoth": "ðŸŒ Both",
+    "missingContent": "Content missing",
+    "lastReviewed": "Last reviewed:",
+    "contact": "Questions about the rules? Contact us on"
+  },
+  "notFound": {
+    "title": "Chunk not found!",
+    "description": "Looks like you went beyond the edge of the map or a creeper blew up this page. No worries, the little fox gets carried away exploring too.",
+    "biome": "Biome: \"The Void\"",
+    "home": "Home",
+    "exploreWiki": "Explore the Wiki",
+    "report": "If you think this is a bug, report it on Discord and the little fox will thank you."
+  }
+}

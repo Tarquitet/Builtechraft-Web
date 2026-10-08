@@ -1,0 +1,25 @@
+import WikiRule from '@/components/wiki/WikiRule.astro';
+import WikiRuleItem from '@/components/wiki/WikiRuleItem.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+<WikiRule num="10.1" title="Update policy" sub="Stability before novelty." severity="leve" scope="juego">
+
+<WikiRuleItem code="10.1.a">
+  When a new Minecraft version is released, we wait one to two weeks to check mod and datapack compatibility.
+</WikiRuleItem>
+
+<WikiRuleItem code="10.1.b">Mods or datapacks with no practical use may be removed without prior notice.</WikiRuleItem>
+
+</WikiRule>
+
+<WikiRule num="10.2" title="Mod suggestions" sub="Your idea could join the server." severity="leve" scope="juego">
+
+<WikiRuleItem code="10.2.a">
+  Suggest useful mods or datapacks through a support ticket. We will review the proposal.
+</WikiRuleItem>
+
+<WikiRuleItem code="10.2.b">
+  The current official list is available in the <WikiLink to="lista-mods">mod list</WikiLink>.
+</WikiRuleItem>
+
+</WikiRule>

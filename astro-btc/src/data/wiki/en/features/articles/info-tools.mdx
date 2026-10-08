@@ -1,0 +1,81 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Info Tools'
+description: 'Identify the block you are looking at, its coordinates, and technical details without opening complex menus.'
+author: 'Tarquitet'
+pubDate: '2026-08-03'
+updated: '2026-08-19'
+icon: '🔎'
+color: 'text-cyan-400'
+border: 'hover:border-cyan-500'
+order: 9
+tag: 'Modrinth'
+---
+
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+# Info Tools
+
+Have you ever found an unusual block and wondered what it is called? Or needed to check a area's light level to prevent mob spawns, but did not want to open the debug screen (F3)?
+
+The **Info Tools** datapack adds special items that act like "data flashlights." They display useful technical information about what you are looking at.
+
+## 🛠️ How to use it
+
+The system is intuitive and requires no commands.
+
+1. **Get the tool:** find the designated item in Creative inventory, or ask staff on Discord. It is usually a **stick renamed** to "Editor" or "Info Stick," or a special compass.
+2. **Hold the tool:** place it in your main hand.
+3. **Aim and look:** point at the block or entity (mob, player, or animal) you want to inspect.
+4. **Read the information:** details appear at the top of your screen in the action bar or in chat, depending on the configuration.
+
+<WikiCallout type="info" title="💡 Do you need the tool?">
+
+If you are in Survival and do not know how to get it, ask in the `#support` channel on Discord. Staff can provide one or tell you the crafting recipe if it is enabled.
+
+</WikiCallout>
+
+## 📊 What information does it show?
+
+The tool reveals different details depending on whether you are looking at a block or an entity:
+
+### When looking at a block
+
+- **Block name:** its exact ID (for example, `minecraft:deepslate_iron_ore`).
+- **Coordinates:** the block's exact X, Y, and Z position.
+- **Light level:** useful for checking how much light a block receives (0–15). At 0 or below 7, watch out for zombies.
+- **Hardness and resistance:** how long it takes to break, and whether it resists explosions.
+
+### When looking at an entity (mobs, players, items)
+
+- **Entity type:** for example, `minecraft:zombie` or `minecraft:item`.
+- **Health:** how many hearts it has left.
+- **Custom name:** whether the mob has a name tag.
+- **UUID:** the entity's unique identifier (advanced users and staff).
+
+## 🎯 Everyday uses
+
+### 1. Safe building (preventing mob spawns)
+
+When lighting a base or cave, use Info Tools to check the **exact light level** of the floor instead of guessing. If it is 7 or lower, place another torch. No more surprise creepers.
+
+### 2. Identifying technical blocks
+
+If you are copying a build from YouTube and cannot tell whether a block is Stone or Polished Andesite, point the tool at it to identify it instantly.
+
+### 3. Precise locations
+
+Need to share the coordinates of a bug or structure with a friend or staff? Point at the block and read the coordinates on screen. It is faster than opening F3 and searching for small numbers.
+
+<WikiCallout type="warn" title="⚠️ Use responsibly">
+
+This tool is meant to help, not to be spammed. Scanning hundreds of entities in a small area, such as a large mob farm, can flood your screen with text. Use it when you need the information.
+
+</WikiCallout>
+
+<WikiCallout type="ok" title="Next">
+
+Have bookshelves full of enchanted books? Read <WikiLink to="gm4-bookshelf-inspector">GM4 Bookshelf Inspector</WikiLink> to inspect them without breaking the shelves.
+
+</WikiCallout>

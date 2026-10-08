@@ -15,12 +15,16 @@ import ComparisonCards from '../components/about/ComparisonCards.astro';
 import Modpack from '../components/about/Modpack.astro';
 import DonateBanner from '../components/donation/DonationMini.astro';
 import DiscordBanner from '../components/discord/DiscordBanner.astro';
+import { getDictionary, getLocaleFromPath } from '../lib/i18n';
+
+const lang = getLocaleFromPath(Astro.url.pathname);
+const dict = getDictionary(lang);
 ---
 
-<Layout title="Inicio | Builtechraft" description="Servidor privado de Minecraft semi-vanilla enfocado en construcción, ingeniería y comunidad.">
+<Layout title={dict.home.page.title} description={dict.home.page.description} lang={lang}>
   <main class="min-h-screen bg-theme-app text-theme-main">
     
-    <Hero />
+    <Hero description={dict.home.hero.description} />
     <VisionBanner />
     <WelcomeSection />
     <CategoryCards />
@@ -30,27 +34,26 @@ import DiscordBanner from '../components/discord/DiscordBanner.astro';
     <section id="mods" class="container mx-auto px-6 max-w-7xl py-16">
       <div class="text-center mb-10 mt-16">
         <span class="px-4 py-1.5 rounded-full border border-btc-orange/30 bg-btc-orange/10 text-btc-orange text-[10px] font-bold uppercase tracking-[0.2em] mb-3 inline-block">
-          La gran pregunta
+          {dict.home.page.comparisonBadge}
         </span>
         <h3 class="text-3xl md:text-4xl font-display font-bold uppercase tracking-tight text-theme-main">
-          ¿Mods, Plugins o <span class="text-btc-orange">Datapacks</span>?
+          {dict.home.page.comparisonTitle}
         </h3>
         <p class="text-theme-muted mt-3 max-w-2xl mx-auto leading-relaxed">
-          Tres formas de modificar Minecraft, tres filosofías muy distintas.
-          Probamos las tres durante años y aquí te contamos por qué elegimos el camino más fiel al juego original.
+          {dict.home.page.comparisonDescription}
         </p>
       </div>
       <ComparisonCards />
 
       <div class="text-center mb-12 mt-16">
         <span class="px-4 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-3 inline-block">
-          Mods & Datapacks
+          {dict.home.page.modsBadge}
         </span>
         <h2 class="text-4xl font-display font-bold uppercase tracking-tight text-theme-main">
-          Las mejoras del <span class="text-blue-400">servidor</span>
+          {dict.home.page.modsTitle}
         </h2>
         <p class="text-theme-muted mt-3 max-w-2xl mx-auto leading-relaxed">
-          Utilizamos una selección de mods y datapacks centrados en el rendimiento, la calidad de vida y las herramientas de construcción.
+          {dict.home.page.modsDescription}
         </p>
       </div>
       <ModsAndDatapacks />
@@ -73,10 +76,10 @@ import DiscordBanner from '../components/discord/DiscordBanner.astro';
           Roadmap
         </span>
         <h2 class="text-4xl font-display font-bold uppercase tracking-tight text-theme-main">
-          Lo que <span class="text-btc-orange">estamos preparando</span>
+          {dict.home.page.roadmapTitle}
         </h2>
         <p class="text-theme-muted mt-3 max-w-2xl mx-auto leading-relaxed">
-          Consulta nuestras futuras expansiones, mantenimientos planeados y actualizaciones del servidor.
+          {dict.home.page.roadmapDescription}
         </p>
       </div>
       <!-- El componente Roadmap se renderiza aquí -->

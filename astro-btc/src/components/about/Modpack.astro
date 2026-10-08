@@ -1,35 +1,37 @@
 ---
 import links from '../../data/links.json';
+import { getDictionary, getLocaleFromPath, localizePath } from '../../lib/i18n';
+
+const dict = getDictionary(getLocaleFromPath(Astro.url.pathname));
 
 const modpackPageUrl = links.modpack.url;
 const bobbyUrl = links.modpack?.bobbyCache || '#';
-const bobbyGuideUrl = links.wiki?.wikiBobby || '/wiki/bobby';
-const modpackGuideUrl = links.wiki.wikiModpackTutorial;
+const locale = getLocaleFromPath(Astro.url.pathname);
+const bobbyGuideUrl = localizePath(links.wiki?.wikiBobby || '/wiki/bobby', locale);
+const modpackGuideUrl = localizePath(links.wiki.wikiModpackTutorial, locale);
 ---
 
 <section id="modpack" class="py-24 relative overflow-hidden bg-theme-section">
     <div class="container mx-auto px-6 max-w-4xl text-center relative z-10">
         
         <span class="px-4 py-1.5 rounded-full border border-btc-orange/30 bg-btc-orange/10 text-btc-orange text-[10px] font-bold uppercase tracking-[0.2em] mb-4 inline-block">
-            Experiencia Moddeada
+            {dict.home.modpack.badge}
         </span>
         
         <h2 class="text-3xl md:text-4xl font-display font-bold uppercase tracking-tight text-theme-main mb-6">
-            ¿Te gustan los <span class="text-btc-orange">Mods</span>?
+            {dict.home.modpack.title}
         </h2>
         
         <p class="text-theme-muted text-lg leading-relaxed mb-8 max-w-2xl mx-auto">
-            No necesitas complicarte la vida configurando todo desde cero. 
-            Ya hemos preparado todo por ti: tenemos varios <strong>perfiles y opciones de mods</strong> 
-            listos para descargar e instalar fácilmente desde nuestra guía de acceso.
+            {dict.home.modpack.description}
         </p>
 
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
             <a href={modpackPageUrl} target="_blank" class="px-8 py-4 bg-btc-orange text-white font-bold uppercase tracking-wider text-sm hover:bg-btc-orange/90 transition-all" style="box-shadow: 4px 4px 0px rgba(0,0,0,0.5);">
-                Ver perfiles disponibles
+                {dict.home.modpack.profiles}
             </a>
             <a href={modpackGuideUrl} class="px-8 py-4 bg-theme-card border border-theme-1 text-theme-main font-bold uppercase tracking-wider text-sm hover:border-btc-orange hover:text-btc-orange transition-all" style="box-shadow: 4px 4px 0px rgba(0,0,0,0.5);">
-                Ir a la Guía de Acceso
+                {dict.home.modpack.guide}
             </a>
         </div>
 
@@ -41,14 +43,13 @@ const modpackGuideUrl = links.wiki.wikiModpackTutorial;
             </div>
             
             <div class="flex-1 text-center md:text-left z-10">
-                <h4 class="text-2xl font-display font-bold text-btc-orange mb-3 tracking-tight">Visión sin límites con Bobby</h4>
+                <h4 class="text-2xl font-display font-bold text-btc-orange mb-3 tracking-tight">{dict.home.modpack.bobbyTitle}</h4>
                 <p class="text-base leading-relaxed max-w-3xl text-theme-muted">
-                    Usamos el mod <strong>Bobby</strong> para cargar y visualizar chunks a distancia de forma fluida, 
-                    manteniendo el rendimiento alto incluso en un mapa grande.
+                    {dict.home.modpack.bobbyDescription}
                 </p>
                 <div class="mt-4 flex flex-wrap justify-center md:justify-start gap-4">
                     <a href={bobbyGuideUrl} class="text-xs font-bold uppercase tracking-widest text-theme-muted hover:text-btc-orange transition-colors flex items-center gap-2">
-                        Ver instrucciones de instalación →
+                        {dict.home.modpack.installInstructions} →
                     </a>
                 </div>
             </div>
@@ -61,7 +62,7 @@ const modpackGuideUrl = links.wiki.wikiModpackTutorial;
                     class="flex items-center justify-center gap-3 bg-[#5865F2]/10 hover:bg-[#5865F2] text-[#5865F2] hover:text-white border border-[#5865F2]/30 px-8 py-4 transition-all duration-300 font-bold uppercase tracking-widest text-xs w-full md:w-auto" 
                     style="box-shadow: 4px 4px 0px rgba(0,0,0,0.3);"
                 >
-                    Descargar Caché
+                    {dict.home.modpack.downloadCache}
                 </a>
             </div>
         </div>

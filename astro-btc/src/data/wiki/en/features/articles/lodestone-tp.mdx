@@ -1,0 +1,84 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Lodestone TP'
+description: 'Use lodestones as fast-travel points between distant bases.'
+author: 'Tarquitet'
+pubDate: '2026-08-03'
+updated: '2026-08-19'
+category: 'features'
+icon: '🧭'
+color: 'text-amber-400'
+border: 'hover:border-amber-500'
+order: 2
+---
+
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiSteps from '@/components/wiki/WikiSteps.astro';
+import WikiImage from '@/components/wiki/WikiImage.astro';
+import WikiAccordion from '@/components/wiki/WikiAccordion.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+Travel between distant locations without `/warp` or `/home`. **LodestoneTP** uses lodestones and linked compasses to preserve the Survival experience.
+
+<WikiCallout type="info" title="🧭 The evolution of travel">
+
+Introduced in the iconic **1.16 Nether Update**, lodestones changed Minecraft's navigation system. **LodestoneTP** takes this further: link a compass to a lodestone and the datapack reads its stored data to let you travel instantly. It rewards players for gathering valuable materials without using cheats.
+
+</WikiCallout>
+
+## 🛠️ Create a fast-travel point
+
+To build your own travel network at a base, distant biome, or technical farm, follow these steps:
+
+<WikiSteps
+  steps={[
+    {
+      title: 'Craft a lodestone',
+      text: 'A lodestone is valuable and crafting one is a milestone in your progression. Surround one Netherite Ingot with eight Chiseled Stone Bricks. Since Minecraft 1.20, upgrading Netherite also requires a Netherite Upgrade Smithing Template.',
+      image: 'https://minecraft.wiki/images/Lodestone_JE1_BE1.png',
+    },
+    {
+      title: 'Link a compass',
+      text: 'Craft a regular compass using four iron ingots and one redstone dust. Stand near your placed lodestone and right-click it with the compass. It will glow purple and always point toward that block.',
+      image: 'https://minecraft.wiki/images/Compass_JE3_BE3.gif',
+    },
+    {
+      title: 'Teleport',
+      text: 'Hold the Lodestone Compass in your main hand. Crouch and right-click the air. The datapack reads the compass NBT data, plays sounds and purple particles, and teleports you just above the lodestone.',
+    },
+  ]}
+/>
+
+## ⚖️ Fast-travel limits
+
+To keep this mechanic balanced rather than making it feel like a cheat command, the datapack has some limits:
+
+- **Resource cost:** Fast travel may consume the compass or experience levels, depending on the current difficulty settings. Save it for when you need it.
+- **Dimension restriction:** You can only teleport to a lodestone in the same dimension (Overworld to Overworld, Nether to Nether). Cross-dimension travel is canceled.
+- **Destroyed lodestones:** If someone or a Creeper breaks the destination lodestone, the link is lost and teleporting there stops working.
+
+## 💡 Tips for builders and engineers
+
+<WikiAccordion title="Rename your compasses">
+
+Use an anvil to give linked compasses clear names such as _Main Base_ or _Slime Farm_. You will know where each one leads.
+
+</WikiAccordion>
+
+<WikiAccordion title="Build a portal hub">
+
+If you have a megaproject, place several lodestones in a central room at your base to organize your fast-travel network.
+
+</WikiAccordion>
+
+<WikiAccordion title="The Ender Chest trick">
+
+Carry an Ender Chest and store all your Lodestone Compasses inside. You will have quick access to your logistics network without filling your main inventory.
+
+</WikiAccordion>
+
+<WikiCallout type="ok" title="Next">
+
+Read <WikiLink to="sentar-y-montar">How to sit and ride</WikiLink> to explore more gameplay mechanics.
+
+</WikiCallout>

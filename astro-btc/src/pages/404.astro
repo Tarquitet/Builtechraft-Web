@@ -2,11 +2,14 @@
 // src/pages/404.astro
 import Layout from '../layouts/Layout.astro';
 import links from '../data/links.json';
+import { getDictionary, getLocaleFromPath, localizePath } from '../lib/i18n';
+
+const dict = getDictionary(getLocaleFromPath(Astro.url.pathname));
 ---
 
 <Layout
-    title="404 – Chunk no encontrado | Builtechraft"
-    description="Te saliste del mapa. Vuelve al spawn antes de que te encuentre un creeper."
+    title={`404 – ${dict.common.notFound.title} | Builtechraft`}
+    description={dict.common.notFound.description}
 >
     <style>
         @keyframes fox-float {
@@ -33,7 +36,7 @@ import links from '../data/links.json';
             <span class="text-btc-yellow font-bold">[F3]</span>
             <span class="mx-2">XYZ: 404 / 64 / -1</span>·
             <span class="mx-2">Chunk: NOT_FOUND</span>·
-            <span class="mx-2">Bioma: "El Vacío"</span>
+            <span class="mx-2">{dict.common.notFound.biome}</span>
         </div>
 
         <span class="fox-float relative z-10 text-7xl md:text-8xl mb-6 inline-block select-none">🦊</span>
@@ -43,26 +46,25 @@ import links from '../data/links.json';
         </h1>
 
         <h2 class="relative z-10 font-display font-bold text-2xl md:text-3xl uppercase tracking-tight text-theme-main mb-4">
-            ¡Chunk no encontrado!
+            {dict.common.notFound.title}
         </h2>
 
         <p class="relative z-10 text-theme-muted max-w-md leading-relaxed mb-10">
-            Parece que caminaste más allá del borde del mapa... o un creeper explotó esta página.
-            Tranquilo, hasta al zorrito le pasa por explorar de más.
+            {dict.common.notFound.description}
         </p>
 
         <div class="relative z-10 flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
             <a
-                href={links.pages.inicio}
+                href={localizePath(links.pages.inicio, getLocaleFromPath(Astro.url.pathname))}
                 class="bg-btc-orange hover:bg-orange-500 text-white font-bold uppercase text-xs tracking-widest px-8 py-4 rounded-lg border-b-4 border-orange-800 active:translate-y-1 transition-all"
             >
-                Inicio
+                {dict.common.notFound.home}
             </a>
             <a
-                href={links.pages.wiki}
+                href={localizePath(links.pages.wiki, getLocaleFromPath(Astro.url.pathname))}
                 class="bg-theme-card border-theme-1 hover:border-btc-orange/40 text-theme-main font-bold uppercase text-xs tracking-widest px-8 py-4 rounded-lg transition-all"
             >
-                Explorar Wiki
+                {dict.common.notFound.exploreWiki}
             </a>
             <a
                 href={links.social.discord}
@@ -75,7 +77,7 @@ import links from '../data/links.json';
         </div>
 
         <p class="relative z-10 mt-10 text-xs text-theme-muted opacity-70">
-            Si crees que esto es un bug, repórtalo en Discord y el zorrito te lo agradecerá.
+            {dict.common.notFound.report}
         </p>
 
     </main>

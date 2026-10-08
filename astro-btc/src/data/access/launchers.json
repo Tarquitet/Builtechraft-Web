@@ -1,13 +1,12 @@
 {
   "step": 5,
   "type": "grid",
-  "label": "Launcher",
-  "title": "Launcher a utilizar",
+  "translationKey": "launchers",
   "items": [
     {
       "id": "prismlauncher",
-      "name": "Prism Launcher (Mods)",
       "icon": "⚙️",
+      "translationKey": "prismlauncher",
       "image": "/images/access/launchers/prism.avif",
       "editions": ["java", "bedrock"],
       "platforms": ["pc"],
@@ -16,8 +15,8 @@
     },
     {
       "id": "elyby",
-      "name": "Ely.by Launcher",
       "icon": "🦅",
+      "translationKey": "elyby",
       "image": "/images/access/launchers/elyprism.avif",
       "editions": ["java"],
       "platforms": ["pc"],
@@ -26,8 +25,8 @@
     },
     {
       "id": "sklauncher",
-      "name": "SKLauncher",
       "icon": "🚀",
+      "translationKey": "sklauncher",
       "image": "/images/access/launchers/sklauncher.avif",
       "editions": ["java"],
       "platforms": ["pc"],
@@ -36,8 +35,8 @@
     },
     {
       "id": "tlauncher",
-      "name": "TLauncher",
       "icon": "",
+      "translationKey": "tlauncher",
       "image": "/images/access/launchers/tlauncher.avif",
       "editions": ["java"],
       "platforms": ["pc"],
@@ -46,8 +45,8 @@
     },
     {
       "id": "tllegacy",
-      "name": "TL Legacy",
       "icon": "",
+      "translationKey": "tllegacy",
       "image": "/images/access/launchers/tlegacy.avif",
       "editions": ["java"],
       "platforms": ["pc"],
@@ -56,8 +55,8 @@
     },
     {
       "id": "official",
-      "name": "Launcher Oficial (Premium)",
       "icon": "🛡️",
+      "translationKey": "official",
       "image": "/images/access/launchers/official.avif",
       "editions": ["java", "bedrock"],
       "platforms": ["pc"],
@@ -66,8 +65,8 @@
     },
     {
       "id": "bedrock-android",
-      "name": "Minecraft Bedrock (Android)",
       "icon": "",
+      "translationKey": "bedrock-android",
       "image": "/images/access/launchers/bedrock-android.avif",
       "editions": ["bedrock"],
       "platforms": ["mobile"],
@@ -76,8 +75,8 @@
     },
     {
       "id": "bedrock-ios",
-      "name": "Minecraft Bedrock (iOS)",
       "icon": "🍎",
+      "translationKey": "bedrock-ios",
       "image": "/images/access/launchers/bedrock-ios.avif",
       "editions": ["bedrock"],
       "platforms": ["mobile"],
@@ -86,8 +85,8 @@
     },
     {
       "id": "MJlauncher",
-      "name": "MJlauncher (Android)",
       "icon": "📱",
+      "translationKey": "MJlauncher",
       "image": "/images/access/launchers/mjlauncher.avif",
       "editions": ["java"],
       "platforms": ["mobile"],

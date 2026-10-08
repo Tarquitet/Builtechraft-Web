@@ -1,0 +1,25 @@
+---
+import WikiLayout from '../../layouts/WikiLayout.astro';
+import { getDictionary, getLocaleFromPath, type Locale } from '../../lib/i18n';
+import type { WikiContentEntry } from '../../lib/wikiContent';
+
+interface Props {
+  entry: WikiContentEntry;
+}
+
+const { entry } = Astro.props;
+const routeLocale = getLocaleFromPath(Astro.url.pathname);
+const contentLocale: Locale = entry.locale;
+const dictionary = getDictionary(routeLocale);
+const ArticleContent = entry.module.default;
+const frontmatter = entry.module.frontmatter ?? {};
+---
+
+<WikiLayout frontmatter={frontmatter} lang={contentLocale}>
+  {routeLocale !== contentLocale && (
+    <p class="mb-8 border-l-4 border-btc-orange bg-theme-card px-4 py-3 text-sm text-theme-muted" role="status">
+      {dictionary.common.wiki.articleFallbackNotice}
+    </p>
+  )}
+  <ArticleContent />
+</WikiLayout>

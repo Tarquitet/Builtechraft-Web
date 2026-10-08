@@ -1,0 +1,13 @@
+---
+import CategoryPage from '../../../wiki/[category]/index.astro';
+
+export function getStaticPaths() {
+  const categories = ['community', 'features', 'server-data', 'how2use', 'how2wiki', 'depracted'];
+
+  return ['es', 'en'].flatMap((lang) =>
+    categories.map((category) => ({ params: { lang, category } })),
+  );
+}
+---
+
+<CategoryPage category={Astro.params.category} />

@@ -1,0 +1,131 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Installing the modpack'
+description: 'Install and configure the official modpack, including Bobby.'
+author: 'Tarquitet'
+pubDate: '2026-08-21'
+category: 'server-data'
+icon: '📦'
+color: 'text-purple-400'
+border: 'hover:border-purple-500'
+order: 6
+---
+
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiSteps from '@/components/wiki/WikiSteps.astro';
+import WikiAccordion from '@/components/wiki/WikiAccordion.astro';
+import WikiCommand from '@/components/wiki/WikiCommand.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+The official modpack is **optional**. Install it for performance improvements and compatible technical tools.
+
+## Install the official pack
+
+<WikiSteps
+  steps={[
+    {
+      title: 'Install a compatible launcher',
+      text: 'Use Prism Launcher with a Premium account, or ElyPrism with an Ely.by account. See the launcher guide if you need help choosing.',
+    },
+    {
+      title: 'Download the published version',
+      text: 'Search for "Builtechraft" in the launcher and download the latest version. Do not mix files from other modpacks into this instance.',
+    },
+    {
+      title: 'Launch once and review the mods',
+      text: 'Start Minecraft once to finish setup. Then review the mod list and remove any unapproved additions. If the client fails, restore a clean copy of the pack.',
+    },
+  ]}
+/>
+
+## Configure technical tools
+
+After installing the modpack, review the settings for these key tools:
+
+<WikiAccordion title="🔧 Litematica">
+
+Use it to **view build schematics**.
+
+**Disable** all placement and automatic interaction features. Use it as a visual reference only.
+
+</WikiAccordion>
+
+<WikiAccordion title="📊 MiniHUD">
+
+It displays technical information about the world (coordinates, biome, TPS, and more).
+
+**Do not enable** options that reveal hidden world data, such as structures or spawners.
+
+</WikiAccordion>
+
+<WikiAccordion title="🗺️ VoxelMap">
+
+It stores maps and local waypoints.
+
+**Do not import or share** private locations without the owner's permission. Respect other players' work.
+
+</WikiAccordion>
+
+<WikiAccordion title="🌐 Bobby">
+
+It keeps chunks already received by your client, extending the view beyond what the server currently sends.
+
+**Important:** Bobby does not fetch new chunks or show remote changes until you approach the area. If a build has changed, you must visit it for your client to refresh it.
+
+</WikiAccordion>
+
+## Install the optional cache
+
+The Bobby and VoxelMap caches reduce visual loading time in areas already visited by other players. They may use **more than 1 GB** of disk space.
+
+<WikiSteps
+  steps={[
+    {
+      title: 'Launch the modpack once',
+      text: 'Start Minecraft with the modpack and close it. This creates the configuration folders.',
+    },
+    {
+      title: 'Download the caches',
+      text: 'Get the Bobby and VoxelMap caches from their official links.',
+    },
+    {
+      title: 'Extract the files',
+      text: 'Extract both archives into this instance’s .minecraft folder. Merge the bobby and voxelmap folders when prompted.',
+    },
+    {
+      title: 'Do not overwrite unrelated files',
+      text: 'Only merge the bobby and voxelmap folders. Do not change any other files.',
+    },
+  ]}
+/>
+
+<WikiCallout type="warn" title="The cache may show old builds">
+
+If someone changed an area after its cache was created, **you will keep seeing the old version** until you visit it. Never make decisions based only on cached views.
+
+</WikiCallout>
+
+## Pre-join checklist
+
+Before connecting to the server, check that:
+
+<WikiCallout type="ok" title="Final checklist">
+
+- ✅ You are using the server's current native version.
+- ✅ You only have **approved client mods** (see <WikiLink to="lista-mods">the mod list</WikiLink>).
+- ✅ Macros, automation, and advantage-granting tools are **disabled**.
+- ✅ Automatic Litematica, MiniHUD, and similar features are **disabled**.
+
+</WikiCallout>
+
+<WikiCallout type="danger" title="If you cannot identify a file">
+
+**Do not load it.** Ask staff for confirmation through the Discord forum before using it.
+
+</WikiCallout>
+
+<WikiCallout type="ok" title="Next step">
+
+Your modpack is ready. Read <WikiLink to="como-unirse">how to join the server</WikiLink> to connect for the first time.
+
+</WikiCallout>

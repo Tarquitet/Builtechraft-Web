@@ -2,6 +2,30 @@
 // src/components/navbar/Navbar.astro
 import navData from '../../data/navigation.json';
 import links from '../../data/links.json';
+import { getDictionary, getLocaleFromPath, localizePath } from '../../lib/i18n';
+
+const locale = getLocaleFromPath(Astro.url.pathname);
+const dictionary = getDictionary(locale);
+const targetLocale = locale === 'es' ? 'en' : 'es';
+const unprefixedPath = Astro.url.pathname.replace(/^\/(?:es|en)(?=\/|$)/, '') || '/';
+const articlePath = unprefixedPath.match(/^\/wiki\/([^/]+)\/articles\//);
+const languageSwitchHref = localizePath(articlePath ? `/wiki/${articlePath[1]}` : unprefixedPath, targetLocale);
+const localizeHref = (href: string, isExternal = false) => isExternal ? href : localizePath(href, locale);
+const navLabels: Record<string, string> = {
+    inicio: dictionary.common.navigation.home,
+    nosotros: dictionary.common.navigation.about,
+    jugar: dictionary.common.navigation.play,
+    mapas: dictionary.common.navigation.maps,
+    wiki: dictionary.common.navigation.wiki,
+    discord: dictionary.common.navigation.discord,
+    donaciones: dictionary.common.navigation.donate,
+    survival: dictionary.common.navigation.survivalMap,
+    creative: dictionary.common.navigation.creativeMap,
+    wikiPortal: dictionary.common.navigation.wikiPortal,
+    rules: dictionary.common.navigation.rules,
+    wikiFaq: dictionary.common.navigation.faq,
+    wikiHistoria: dictionary.common.navigation.history,
+};
 
 const getLink = (key: string | undefined | null): string => {
     if (!key) return '#';
@@ -58,7 +82,7 @@ const dropdowns = navData.dropdowns || {};
 <header class="lg:hidden fixed top-0 left-0 z-[100] bg-theme-app border-b border-theme-1" style="width: 100%; max-width: 100vw; box-sizing: border-box;">
     <div class="flex items-center justify-between h-16" style="width: 100%; max-width: 100vw; padding: 0 1rem; box-sizing: border-box;">
         <!-- Logo a la izquierda -->
-        <a href={getLink('inicio') || '/'} class="flex items-center gap-2 shrink-0">
+        <a href={localizeHref(getLink('inicio') || '/')} class="flex items-center gap-2 shrink-0">
             <img src={links.assets.favicon} alt="Builtechraft" class="h-8 w-auto" />
         </a>
         
@@ -66,7 +90,7 @@ const dropdowns = navData.dropdowns || {};
         <button 
             id="mobile-menu-toggle" 
             class="p-2 text-theme-main hover:text-btc-orange transition-colors shrink-0" 
-            aria-label="Menú"
+            aria-label={dictionary.common.navigation.menu}
         >
             <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -81,20 +105,20 @@ const dropdowns = navData.dropdowns || {};
 <!-- 2. HEADER DESKTOP (Solo visible en pantallas grandes: hidden lg:block) -->
 <header id="main-header" class="hidden lg:block navbar-header fixed top-0 w-full z-50 bg-theme-app border-b border-theme-1">
     <div class="container mx-auto px-6 flex items-center justify-between h-16">
-        <a href={getLink('inicio') || '/'} class="flex items-center gap-2 transition-transform hover:scale-105 z-20">
+        <a href={localizeHref(getLink('inicio') || '/')} class="flex items-center gap-2 transition-transform hover:scale-105 z-20">
             <img src={links.assets.favicon} alt="Builtechraft" loading="eager" class="h-10 w-auto object-contain drop-shadow-md" />
         </a>
 
         <nav class="flex items-center justify-end gap-8 flex-1">
             {mainItems.map((item: any) => {
-                const targetUrl = item.keyLink ? getLink(item.keyLink) : (item.href || '#');
+                const targetUrl = localizeHref(item.keyLink ? getLink(item.keyLink) : (item.href || '#'), item.isExternal);
                 const customStyle = item.hexColor ? `--text-muted: ${item.hexColor}; --color-btc-orange: ${item.hexColor};` : undefined;
                 const subItems = item.dropdownKey ? (dropdowns as any)[item.dropdownKey] : [];
 
                 return item.hasDropdown ? (
                     <div class="relative py-2">
                         <button type="button" class="nav-link flex items-center gap-1.5 cursor-pointer outline-none nav-dropdown-btn" data-dropdown-target={`nav-drop-${item.id}`} style={customStyle}>
-                            {item.name}
+                            {navLabels[item.id] || item.name}
                             <svg class="w-4 h-4 text-theme-muted transition-transform duration-300 arrow-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
                             </svg>
@@ -103,10 +127,10 @@ const dropdowns = navData.dropdowns || {};
                         <div id={`nav-drop-${item.id}`} class="navbar-dropdown nav-dropdown-menu">
                              <div class="flex flex-col gap-1 p-2">
                                 {subItems.map((subItem: any) => {
-                                    const subUrl = subItem.keyLink ? getLink(subItem.keyLink) : (subItem.href || '#');
+                                    const subUrl = localizeHref(subItem.keyLink ? getLink(subItem.keyLink) : (subItem.href || '#'), subItem.isExternal);
                                     return (
                                         <a href={subUrl} target={subItem.isExternal ? "_blank" : "_self"} rel={subItem.isExternal ? "noopener noreferrer" : undefined} class="submenu-link px-3 py-2 rounded-md">
-                                             {subItem.name}
+                                             {navLabels[subItem.keyLink] || subItem.name}
                                         </a>
                                     );
                                 })}
@@ -115,11 +139,15 @@ const dropdowns = navData.dropdowns || {};
                     </div>
                 ) : (
                     <a href={targetUrl} target={item.isExternal ? "_blank" : "_self"} rel={item.isExternal ? "noopener noreferrer" : undefined} class="nav-link" style={customStyle}>
-                         {item.name}
+                         {navLabels[item.id] || item.name}
                         <span class="nav-line"></span>
                     </a>
                 );
             })}
+            <a href={languageSwitchHref} class="nav-link" aria-label={locale === 'es' ? dictionary.common.navigation.switchToEnglish : dictionary.common.navigation.switchToSpanish}>
+                {targetLocale.toUpperCase()}
+                <span class="nav-line"></span>
+            </a>
         </nav>
     </div>
 </header>
@@ -131,24 +159,24 @@ const dropdowns = navData.dropdowns || {};
         <div class="sheet-handle"></div>
         <nav class="flex flex-col gap-2 py-6 px-6">
             {mainItems.map((item: any) => {
-                const targetUrl = item.keyLink ? getLink(item.keyLink) : (item.href || '#');
+                const targetUrl = localizeHref(item.keyLink ? getLink(item.keyLink) : (item.href || '#'), item.isExternal);
                 const customStyle = item.hexColor ? `--text-muted: ${item.hexColor}; --color-btc-orange: ${item.hexColor};` : undefined;
                 const subItems = item.dropdownKey ? (dropdowns as any)[item.dropdownKey] : [];
 
                 return item.hasDropdown ? (
                     <div class="w-full">
                         <button type="button" class="mobile-nav-link flex items-center justify-between w-full px-4 py-3 rounded-lg hover:bg-white/5 transition-colors" data-dropdown-id={`sub-${item.id}`} style={customStyle}>
-                            <span class="font-bold text-theme-main">{item.name}</span>
+                            <span class="font-bold text-theme-main">{navLabels[item.id] || item.name}</span>
                             <svg class="w-4 h-4 text-theme-muted transition-transform duration-300 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </button>
                         <div id={`sub-${item.id}`} class="hidden flex-col gap-1 mt-1 ml-4 pl-4 border-l border-theme-1">
                             {subItems.map((subItem: any) => {
-                                const subUrl = subItem.keyLink ? getLink(subItem.keyLink) : (subItem.href || '#');
+                                const subUrl = localizeHref(subItem.keyLink ? getLink(subItem.keyLink) : (subItem.href || '#'), subItem.isExternal);
                                 return (
                                     <a href={subUrl} target={subItem.isExternal ? "_blank" : "_self"} rel={subItem.isExternal ? "noopener noreferrer" : undefined} class="mobile-submenu-link block px-4 py-2 rounded-lg text-sm text-theme-muted hover:text-btc-orange hover:bg-white/5 transition-colors">
-                                        {subItem.name}
+                                        {navLabels[subItem.keyLink] || subItem.name}
                                     </a>
                                 );
                             })}
@@ -156,10 +184,13 @@ const dropdowns = navData.dropdowns || {};
                     </div>
                 ) : (
                     <a href={targetUrl} class="mobile-nav-link block px-4 py-3 rounded-lg font-bold text-theme-main hover:bg-white/5 hover:text-btc-orange transition-colors" style={customStyle} target={item.isExternal ? "_blank" : "_self"} rel={item.isExternal ? "noopener noreferrer" : undefined}>
-                        {item.name}
+                        {navLabels[item.id] || item.name}
                     </a>
                 );
             })}
+            <a href={languageSwitchHref} class="mobile-nav-link block px-4 py-3 font-bold text-theme-main" aria-label={locale === 'es' ? dictionary.common.navigation.switchToEnglish : dictionary.common.navigation.switchToSpanish}>
+                {targetLocale.toUpperCase()}
+            </a>
         </nav>
     </div>
 </div>
@@ -167,7 +198,7 @@ const dropdowns = navData.dropdowns || {};
 <!-- BOTÓN VOLVER ARRIBA - Simplificado -->
 <button 
     id="back-to-top" 
-    aria-label="Volver arriba" 
+    aria-label={dictionary.common.navigation.backToTop}
     class="fixed bottom-6 right-6 z-40 bg-btc-orange text-white w-12 h-12 rounded-md shadow-lg shadow-btc-orange/30 opacity-0 invisible translate-y-4 transition-all duration-300 hover:-translate-y-1 hover:bg-orange-500 hover:shadow-btc-orange/50 flex items-center justify-center"
 >
     <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -1,0 +1,93 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'What does the server use?'
+description: 'How we manage mods, updates, and custom rules.'
+author: 'Tarquitet'
+pubDate: '2026-08-03'
+updated: '2026-08-19'
+category: 'server-data'
+icon: '⚙️'
+color: 'text-purple-400'
+border: 'hover:border-purple-500'
+order: 1
+---
+
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiAccordion from '@/components/wiki/WikiAccordion.astro';
+import WikiTable from '@/components/wiki/WikiTable.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+At Builtechraft, we believe in being transparent. This article explains **how we manage modifications** and the settings that make the server work.
+
+## 🔄 Update management
+
+Updating a technical server is more involved than pressing a button. We maintain an **Update Control Panel** in Google Sheets that tracks everything:
+
+<WikiCallout type="info" title="Three golden rules">
+
+1. **Status of every essential mod**, including compatibility with the next Minecraft version.
+2. **Automatic progress tracking:** if critical mods are missing, the panel marks the update "NO" in red.
+3. **Safety first:** we never update until security and optimization mods are ready. We would rather wait than risk corrupting the world.
+
+</WikiCallout>
+
+## ⚙️ Why we use Fabric
+
+Builtechraft uses a **Fabric modded server** instead of plugins (Spigot or Paper) for two reasons:
+
+<WikiTable
+  headers={['Criterion', 'Fabric (what we use)', 'Plugins (what we do not use)']}
+  rows={[
+    ['Update speed', { text: 'Days', tone: 'good' }, { text: 'Months', tone: 'bad' }],
+    ['Vanilla fidelity', { text: 'Fully faithful', tone: 'good' }, { text: 'Changes base code', tone: 'bad' }],
+    [
+      'Technical mechanics (farms, redstone)',
+      { text: 'Intact', tone: 'good' },
+      { text: 'Can break farms', tone: 'bad' },
+    ],
+    ['Ideal for technical gameplay', { text: '✓ Yes', tone: 'good' }, { text: '✗ No', tone: 'bad' }],
+  ]}
+/>
+
+<WikiCallout type="ok" title="Our philosophy">
+
+Fabric preserves the game's original mechanics. That makes it a good fit for technical players who build farms, redstone systems, and engineering projects.
+
+</WikiCallout>
+
+## 📖 Gameplay rules and Carpet settings
+
+We apply custom tweaks to make day-to-day Survival more comfortable. Each rule uses a color code:
+
+<WikiTable
+  headers={['Color', 'Status', 'Meaning']}
+  rows={[
+    [{ text: 'Green', tone: 'good' }, 'Permanent', 'Active and enabled by default'],
+    [{ text: 'Orange', tone: 'warn' }, 'Experimental', 'May be kept or removed'],
+    [{ text: 'Yellow', tone: 'warn' }, 'In testing', 'Active, but likely to be removed'],
+    [{ text: 'Red', tone: 'bad' }, 'Discarded', 'No longer used'],
+    ['Gray', 'Planned', 'Under review or awaiting implementation'],
+  ]}
+/>
+
+<WikiCallout type="warn" title="The goal">
+
+**Do not break the game.** Smooth out its rough edges so engineering and creativity can thrive.
+
+</WikiCallout>
+
+## 🔗 Where to find the details
+
+The live, synchronized technical information is on the server's main page, in the "About" section:
+
+<WikiCallout type="info" title="Complete list">
+
+See the <a href="/#mods">live list of mods and datapacks</a> on the main page. It updates automatically.
+
+</WikiCallout>
+
+<WikiCallout type="ok" title="Next">
+
+Read <WikiLink to="lista-mods">the mod and datapack list</WikiLink> to see what is currently installed.
+
+</WikiCallout>

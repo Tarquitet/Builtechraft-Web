@@ -1,0 +1,143 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Ely.by account'
+description: 'Create and configure an Ely.by account to play with a Non-Premium account.'
+author: 'Tarquitet'
+pubDate: '2026-08-20'
+category: 'depracted'
+icon: '🔑'
+color: 'text-amber-400'
+border: 'hover:border-amber-500'
+order: 2.5
+---
+
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiSteps from '@/components/wiki/WikiSteps.astro';
+import WikiVideo from '@/components/wiki/WikiVideo.astro';
+import WikiAccordion from '@/components/wiki/WikiAccordion.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+Ely.by is an alternative authentication service that lets Non-Premium players use custom skins and connect to servers such as Builtechraft.
+
+## Why do you need Ely.by?
+
+<WikiCallout type="info">
+
+If you have a **Premium (Microsoft/Mojang)** account, you do not need Ely.by. This guide is only for **Non-Premium** accounts.
+
+Builtechraft uses **Alternative Auth** to verify your Ely.by account when you connect. You cannot join without configuring Ely.by.
+
+</WikiCallout>
+
+## Video guide
+
+<WikiVideo youtube="menuevt" caption="Video: Create your Ely.by account step by step" />
+
+## Step by step
+
+<WikiSteps
+  steps={[
+    {
+      title: 'Go to ely.by',
+      description: 'Open your browser and visit [ely.by](https://ely.by/). Select Register in the upper-right corner.',
+    },
+    {
+      title: 'Complete the form',
+      description:
+        'Enter your email address, create a secure password, and choose a username. This is the name you will use in Minecraft.',
+    },
+    {
+      title: 'Verify your email',
+      description: 'Ely.by will send you a confirmation email. Open it and select the verification link.',
+    },
+    {
+      title: 'Sign in',
+      description: 'After verification, sign in to ely.by with your email and password.',
+    },
+    {
+      title: 'Upload a skin (optional)',
+      description:
+        'Open your profile, select Skins, and upload a custom skin image (PNG, 64x64 pixels). You can also choose a model: Classic (Steve) or Slim (Alex).',
+    },
+  ]}
+/>
+
+## Configure Ely.by in your launcher
+
+After creating your Ely.by account, link it to your launcher:
+
+<WikiAccordion title="ElyPrism Launcher">
+
+1. Open ElyPrism Launcher.
+2. Select Accounts in the upper-right corner.
+3. Choose Add Ely.by account.
+4. Enter your Ely.by email and password.
+5. Select Sign in.
+
+</WikiAccordion>
+
+<WikiAccordion title="Prism Launcher (with plugin)">
+
+The standard Prism Launcher does not support Ely.by natively. Use **ElyPrism** (a Prism fork with Ely.by support) or install the **Ely.by Auth** plugin if one is available for your version.
+
+</WikiAccordion>
+
+<WikiAccordion title="Modrinth App">
+
+1. Open Modrinth App.
+2. Go to Settings → Accounts.
+3. Select Add account → Ely.by.
+4. Enter your credentials.
+
+</WikiAccordion>
+
+## Verify that it works
+
+After linking your Ely.by account:
+
+<WikiCallout type="success">
+
+- Your launcher should show your username and skin.
+- When you connect to Builtechraft, the server will verify your account automatically.
+- You do not need to enter a password in-game; Alternative Auth handles authentication.
+
+</WikiCallout>
+
+## Common issues
+
+<WikiAccordion title="Invalid session when connecting">
+
+If you see "Invalid Session":
+
+1. Close the game completely.
+2. Sign out of Ely.by in your launcher.
+3. Sign in again with your email and password.
+4. Try connecting again.
+
+This can happen when the authentication token expires.
+
+</WikiAccordion>
+
+<WikiAccordion title="My skin is not showing in-game">
+
+- Make sure you uploaded a skin to your ely.by profile.
+- Check that the model (Classic/Slim) matches the one used by the game.
+- Wait a few minutes; skins may take time to synchronize.
+
+</WikiAccordion>
+
+<WikiAccordion title="I forgot my password">
+
+1. Go to [ely.by](https://ely.by/).
+2. Select Forgot password?
+3. Enter your email and follow the recovery instructions.
+
+</WikiAccordion>
+
+## Next step
+
+<WikiCallout type="tip">
+
+Now that your Ely.by account is configured, read <WikiLink to="como-unirse">How to join the server</WikiLink> to connect to Builtechraft for the first time.
+
+</WikiCallout>

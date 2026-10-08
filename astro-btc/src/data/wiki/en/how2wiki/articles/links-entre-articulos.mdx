@@ -1,0 +1,65 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Linking articles'
+description: 'Links between MDX articles, section anchors, and external URLs from links.json.'
+author: 'Tarquitet'
+pubDate: '2026-08-13'
+category: 'how2wiki'
+icon: '🔗'
+color: 'text-cyan-400'
+border: 'hover:border-cyan-500'
+order: 16
+---
+
+import links from '@/data/links.json';
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiTable from '@/components/wiki/WikiTable.astro';
+
+## The golden rule
+
+Keep reusable external and main-page URLs in `links.json`, then import the object in MDX:
+
+```mdx
+import links from '@/data/links.json';
+
+Read <a href={links.wiki.wikiComparativa}>the comparison</a>.
+```
+
+For links between wiki articles, use the `WikiLink` component with the article slug:
+
+```mdx
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+Read <WikiLink to="faq">the frequently asked questions</WikiLink>.
+```
+
+## Link types
+
+<WikiTable
+  headers={['Type', 'How to write it', 'Example']}
+  rows={[
+    ['Wiki article', 'WikiLink with the article slug', '<WikiLink to="faq">…</WikiLink>'],
+    ['Main page', 'links.pages.KEY', '<a href={links.pages.rules}>…</a>'],
+    ['External', 'links.social.KEY or links.wiki.KEY', '<a href={links.social.discord}>…</a>'],
+  ]}
+/>
+
+## Anchors (link to a section)
+
+Append `#slug` to the URL to link to a heading. The slug uses lowercase words separated by hyphens:
+
+```mdx
+<a href={`${links.wiki.wikiComparativa}#fundamentos`}>Go to Fundamentals</a>
+```
+
+<WikiCallout type="warn" title="Markdown [text](url)">
+
+The `[text](url)` syntax only accepts literal URLs. For values from `links.json`, use `<a href={...}>`.
+
+</WikiCallout>
+
+<WikiCallout type="ok" title="Done">
+
+You now know how to link pages. Return to <a href={links.wiki.homeInternal}>the wiki library</a> whenever you like.
+
+</WikiCallout>

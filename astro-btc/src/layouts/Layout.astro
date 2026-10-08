@@ -3,19 +3,23 @@ import '../styles/global.css';
 import Navbar from '../components/navbar/Navbar.astro';
 import Footer from '../components/footer/Footer.astro';
 import links from '../data/links.json';
+import { getDictionary, getLocaleFromPath, type Locale } from '../lib/i18n';
 
 interface Props {
     title: string;
     description?: string;
     image?: string;
     canonicalURL?: URL | string;
+    lang?: Locale;
 }
 
 const { 
     title, 
-    description = "Builtechraft SMP - Mundo survival con el objetivo de construir y explorar el potencial de los datapacks y mods de optimización.",
+    description = getDictionary(getLocaleFromPath(Astro.url.pathname)).common.seoDescription,
     image = links.assets.logoText,
+    lang = getLocaleFromPath(Astro.url.pathname),
 } = Astro.props;
+const dictionary = getDictionary(lang);
 
 // Construimos la URL canónica automáticamente basada en la página actual
 const canonicalURL = Astro.props.canonicalURL || new URL(Astro.url.pathname, Astro.site);
@@ -24,14 +28,14 @@ const socialImageURL = new URL(image, Astro.url);
 ---
 
 <!doctype html>
-<html lang="es" class="scroll-smooth">
+<html lang={lang} class="scroll-smooth">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{title}</title>
         
         <meta name="description" content={description} />
-        <meta name="keywords" content="Minecraft, Servidor Minecraft, Técnico, Creativo, Builtechraft, Fabric, SMP, Colombia, Español, Modrinth, Modpack" />
+        <meta name="keywords" content={dictionary.common.keywords} />
         <meta name="author" content="Tarquitet" />
         <link rel="canonical" href={canonicalURL} />
         

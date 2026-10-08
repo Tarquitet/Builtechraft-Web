@@ -1,0 +1,91 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Server login'
+description: 'No passwords? How does that work?'
+author: 'Tarquitet'
+pubDate: '2026-08-04'
+updated: '2026-08-19'
+category: 'community'
+icon: '🔐'
+color: 'text-btc-yellow'
+border: 'hover:border-btc-yellow'
+order: 7
+---
+
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiVideo from '@/components/wiki/WikiVideo.astro';
+import WikiAccordion from '@/components/wiki/WikiAccordion.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+The server verifies your account when you connect. **You do not need to create or enter a password in-game.**
+
+<WikiCallout type="info" title="📜 Historical note">
+
+The video below shows our **old manual password system** through chat. It is a community classic, but **you no longer need to enter commands to join**. Keep reading to learn how the current system works.
+
+</WikiCallout>
+
+<WikiVideo youtube="V7660esF7Gw" caption="Video: Former login system (no longer used)" />
+
+## 📖 The former system (historical)
+
+In the server's early days, new players appeared frozen and had to enter `/register <password>` in chat. On later visits, they used `/login <password>`.
+
+Although it prevented username theft, **it had several problems**:
+
+- Players often forgot their passwords.
+- Entering commands after every server restart was tedious.
+- Typing passwords in Minecraft chat was never secure.
+
+**That is why we removed in-game passwords completely.**
+
+## 🚀 Current system: Alternative Auth
+
+Builtechraft now uses an invisible verification system called **Alternative Auth**, available on Modrinth.
+
+Instead of asking for a password after you enter the world, the server communicates **directly with your launcher** when you select Connect.
+
+<WikiCallout type="ok" title="How it works now">
+
+- There are no `/register` or `/login` commands.
+- You will not be frozen while waiting to enter a password.
+- The server uses **Ely.by** (Non-Premium) and **Mojang** (Premium) authentication to generate a secure token.
+- If you are signed in to your launcher, you can join immediately.
+
+</WikiCallout>
+
+## ✅ Access requirements
+
+<WikiAccordion title="1. Be on the whitelist (required)">
+
+Before opening the game, **you must be approved for the whitelist**. Join our Discord and request access. If your username is not in the administrators' database, the server will reject your connection.
+
+</WikiAccordion>
+
+<WikiAccordion title="2. Configure your launcher correctly">
+
+Once your whitelist is approved, your only technical responsibility is signing in to your launcher correctly (see <WikiLink to="launchers">Launchers and installation</WikiLink>):
+
+- **Premium:** sign in with your Microsoft/Minecraft account.
+- **Non-Premium:** create a free Ely.by account and sign in to it in your launcher (ElyPrism or XMCL).
+
+The system checks your session, verifies your username against the whitelist, loads your skin, and grants access.
+
+</WikiAccordion>
+
+## 🆘 "Invalid session" error
+
+The only error you may see is **"Invalid Session"** or **"Failed to verify username."**
+
+<WikiCallout type="warn" title="This is not a ban">
+
+It means your launcher's security token expired after being open for a long time. **The server is not at fault.**
+
+</WikiCallout>
+
+**Fix:**
+
+1. Close the game completely.
+2. Open your launcher's account settings.
+3. Sign out and sign back in.
+4. Start the game again. Your session will refresh, and you should be able to join.

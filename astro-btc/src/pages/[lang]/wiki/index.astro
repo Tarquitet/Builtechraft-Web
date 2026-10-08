@@ -1,0 +1,9 @@
+---
+import WikiPage from '../../wiki.astro';
+
+export function getStaticPaths() {
+  return ['es', 'en'].map((lang) => ({ params: { lang } }));
+}
+---
+
+<WikiPage />

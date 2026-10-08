@@ -1,0 +1,169 @@
+{
+  "ui": {
+    "rulesTitle": "Normas de la comunidad",
+    "rulesDescription": "Antes de entrar, debes leer y aceptar las reglas.",
+    "readRules": "Leer reglas",
+    "acceptRules": "He leído y acepto las reglas y me comprometo a cumplirlas.",
+    "acceptContinue": "Acepto y continuar",
+    "back": "Atrás",
+    "guideMissing": "No se encontró la guía.",
+    "step": "Paso",
+    "backToTop": "Volver arriba"
+  },
+  "steps": {
+    "rules": {
+      "label": "Reglas",
+      "title": "Normas de la Comunidad",
+      "content": "El incumplimiento puede resultar en una sanción temporal o permanente.",
+      "buttonText": "Continuar"
+    },
+    "platforms": {
+      "label": "Plataforma",
+      "title": "Elige tu dispositivo",
+      "items": {
+        "pc": {
+          "name": "Computadora"
+        },
+        "mobile": {
+          "name": "Móvil"
+        },
+        "console": {
+          "name": "Consola"
+        }
+      }
+    },
+    "editions": {
+      "label": "Edición",
+      "title": "Tipo de Minecraft",
+      "items": {
+        "java": {
+          "name": "Java Edition"
+        },
+        "bedrock": {
+          "name": "Bedrock Edition"
+        }
+      }
+    },
+    "account": {
+      "label": "Cuenta",
+      "title": "Tipo de cuenta",
+      "items": {
+        "premium": {
+          "name": "Premium (Mojang/Microsoft)",
+          "description": "Cuenta oficial comprada en Minecraft.net"
+        },
+        "elyby": {
+          "name": "Ely.by (Semi Premium)",
+          "description": "Cuenta gratuita registrada en ely.by"
+        },
+        "invalid": {
+          "name": "No Premium",
+          "description": "Cuenta no compatible con nuestro servidor"
+        }
+      }
+    },
+    "launchers": {
+      "label": "Launcher",
+      "title": "Launcher a utilizar",
+      "items": {
+        "prismlauncher": {
+          "name": "Prism Launcher (Mods)"
+        },
+        "elyby": {
+          "name": "Ely.by Launcher"
+        },
+        "sklauncher": {
+          "name": "SKLauncher"
+        },
+        "tlauncher": {
+          "name": "TLauncher"
+        },
+        "tllegacy": {
+          "name": "TL Legacy"
+        },
+        "official": {
+          "name": "Launcher Oficial (Premium)"
+        },
+        "bedrock-android": {
+          "name": "Minecraft Bedrock (Android)"
+        },
+        "bedrock-ios": {
+          "name": "Minecraft Bedrock (iOS)"
+        },
+        "MJlauncher": {
+          "name": "MJlauncher (Android)"
+        }
+      }
+    },
+    "guide": {
+      "label": "Guía",
+      "title": "Guía de conexión",
+      "items": {
+        "java": {
+          "steps": [
+            {
+              "title": "Ve a Multijugador",
+              "description": "Haz clic en el botón \u0027Multijugador\u0027 en el menú principal.\nAsegúrate de estar en la versión más reciente; si no, utiliza la versión: {version}"
+            },
+            {
+              "title": "Agrega el servidor",
+              "description": "Haz clic en \u0027Agregar servidor\u0027."
+            },
+            {
+              "title": "Ingresa los datos",
+              "description": "Escribe un nombre y la dirección IP del servidor.\nSURVIVAL IP: {javaSmp}\nCREATIVO IP: {javaCreative}"
+            },
+            {
+              "title": "¡Conéctate!",
+              "description": "Haz clic en \u0027Unirse al servidor\u0027 y disfruta."
+            },
+            {
+              "title": "Esperando la aprobación",
+              "description": "Este servidor es privado y cuenta con una whitelist. Puedes acelerar la aprobación uniéndote a Discord y solicitando acceso con tu nombre de usuario."
+            }
+          ]
+        },
+        "bedrock": {
+          "steps": [
+            {
+              "title": "Presiona Play",
+              "description": "Desde el menú principal, haz clic en el botón verde \u0027Play\u0027 (Jugar)."
+            },
+            {
+              "title": "Ve a Servidores",
+              "description": "Selecciona la pestaña \u0027Servers\u0027 (Servidores) y desplázate hacia abajo hasta encontrar el botón \u0027+ Add server\u0027."
+            },
+            {
+              "title": "Agrega el servidor",
+              "description": "Haz clic en \u0027+ Add server\u0027 y completa los datos:\n\nServer name: (El nombre que quieras)\nServer address: {bedrockSmp} (Survival) o {bedrockCreative} (Creativo)\nPort: {bedrockPort}"
+            },
+            {
+              "title": "Guarda y juega",
+              "description": "Presiona \u0027Add and play\u0027 (verde) o \u0027Add server\u0027 (gris). El servidor aparecerá en \u0027Other Servers\u0027. Selecciónalo y presiona PLAY."
+            },
+            {
+              "title": "Esperando aprobación",
+              "description": "Este servidor es privado y cuenta con whitelist. Puedes acelerar la aprobación uniéndote a Discord y solicitando acceso con tu nombre de usuario."
+            }
+          ]
+        },
+        "invalid": {
+          "steps": [
+            {
+              "title": "Oh, no... Cuenta no compatible",
+              "description": "No podemos aceptar este tipo de cuenta en nuestro servidor. Para jugar en Builtechraft necesitas una cuenta válida."
+            },
+            {
+              "title": "¿Qué tipo de cuenta necesitas?",
+              "description": "Tienes dos opciones válidas:\n\n✅ PREMIUM (Mojang/Microsoft)\nLa cuenta oficial comprada en Minecraft.net. Funciona con el Launcher Oficial, Prism Launcher y otros.\n\n🦅 NO PREMIUM (Ely.by)\nCuenta gratuita registrada en ely.by. Requiere un launcher compatible, como Ely.by Launcher o Prism Launcher configurado con Ely.by."
+            },
+            {
+              "title": "¿Qué hacer ahora?",
+              "description": "Vuelve atrás y selecciona el tipo de cuenta correcto:\n\n• Si tienes una cuenta comprada, selecciona \u0027Premium (Mojang/Microsoft)\u0027.\n• Si quieres jugar gratis, selecciona \u0027No Premium (Ely.by)\u0027 y usa un launcher compatible con Ely.by.\n\nSi tienes dudas, únete a Discord para recibir ayuda."
+            }
+          ]
+        }
+      }
+    }
+  }
+}

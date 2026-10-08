@@ -9,6 +9,14 @@ import path from 'path';
 export default defineConfig({
   site: 'https://builtechraft.tarquitet.com',
 
+  i18n: {
+    defaultLocale: 'es',
+    locales: ['es', 'en'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
+
   vite: {
     plugins: [tailwindcss()],
     resolve: {

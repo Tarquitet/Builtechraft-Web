@@ -1,20 +1,45 @@
 ---
 // src/components/access/AccessWizard.astro
 import links from '../../data/links.json';
+import { getDictionary, getLocaleFromPath, localizePath } from '../../lib/i18n';
+
+const locale = getLocaleFromPath(Astro.url.pathname);
+const accessDictionary = getDictionary(locale).access;
+const stepTranslations = accessDictionary.steps as unknown as Record<string, any>;
+const rulesUrl = localizePath(links.pages?.rules || '/rules', locale);
 
 interface WizardStep {
   step: number;
   type: 'rules' | 'grid' | 'guide';
-  label: string;
-  title: string;
+  translationKey: string;
+  label?: string;
+  title?: string;
   items?: any[];
   content?: string;
   buttonText?: string;
 }
 
-const modules = import.meta.glob('../../data/access/*.json', { eager: true, import: 'default' }) as Record<string, WizardStep>;
-const wizardSteps: WizardStep[] = Object.values(modules)
+const defaultModules = import.meta.glob('../../data/access/*.json', { eager: true, import: 'default' }) as Record<string, WizardStep>;
+const wizardSteps: WizardStep[] = Object.values(defaultModules)
   .filter((data) => data && typeof data.step === 'number')
+  .map((step: WizardStep) => {
+    const translation: any = stepTranslations[step.translationKey];
+    const items = step.items?.map((item: any) => {
+      const itemTranslation: any = translation.items?.[item.translationKey || item.id] || {};
+      const translatedGuideSteps = item.steps?.map((guideStep: any, index: number) => ({
+        ...guideStep,
+        ...itemTranslation.steps?.[index],
+      }));
+
+      return {
+        ...item,
+        ...itemTranslation,
+        steps: translatedGuideSteps || item.steps,
+      };
+    });
+
+    return { ...step, ...translation, items };
+  })
   .sort((a, b) => a.step - b.step);
 ---
 
@@ -39,7 +64,7 @@ const wizardSteps: WizardStep[] = Object.values(modules)
   </div>
 </section>
 
-<script define:vars={{ wizardSteps, links }}>
+<script define:vars={{ wizardSteps, links, ui: accessDictionary.ui, locale, rulesUrl }}>
   // @ts-nocheck
   document.addEventListener('DOMContentLoaded', async () => {
     let state = { currentStep: 1, selected: {}, rulesAccepted: false };
@@ -113,20 +138,20 @@ const wizardSteps: WizardStep[] = Object.values(modules)
       content.innerHTML = `
         <div class="text-center max-w-2xl mx-auto">
           <div class="mb-8">
-            <h3 class="text-3xl md:text-4xl font-display font-bold text-theme-main uppercase tracking-tight mb-6">${step?.title || 'Normas de la Comunidad'}</h3>
-            <p class="text-theme-muted text-lg leading-relaxed mb-8">${step?.content || 'Antes de ingresar, es obligatorio leer y aceptar las reglas.'}</p>
+            <h3 class="text-3xl md:text-4xl font-display font-bold text-theme-main uppercase tracking-tight mb-6">${step?.title || ui.rulesTitle}</h3>
+            <p class="text-theme-muted text-lg leading-relaxed mb-8">${step?.content || ui.rulesDescription}</p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-              <a href="${links.pages?.rules || links.rules || '/reglas'}" target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-btc-orange text-white font-bold uppercase tracking-wider text-sm hover:bg-btc-orange/90 transition-all" style="box-shadow: 4px 4px 0px rgba(0,0,0,0.5);">
-                LEER REGLAS
+              <a href="${rulesUrl}" target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-btc-orange text-white font-bold uppercase tracking-wider text-sm hover:bg-btc-orange/90 transition-all" style="box-shadow: 4px 4px 0px rgba(0,0,0,0.5);">
+                ${ui.readRules}
               </a>
             </div>
           </div>
           <label class="flex items-center justify-center gap-3 cursor-pointer select-none group mb-6">
             <input type="checkbox" id="accept-rules-checkbox" class="w-5 h-5 accent-btc-orange cursor-pointer rounded" />
-            <span class="text-sm text-theme-muted group-hover:text-theme-main transition-colors">He leído y acepto las reglas y asumo la responsabilidad de su cumplimiento.</span>
+            <span class="text-sm text-theme-muted group-hover:text-theme-main transition-colors">${ui.acceptRules}</span>
           </label>
           <button id="btn-continue-rules" disabled class="px-10 py-5 bg-btc-orange text-white font-bold uppercase tracking-wider text-lg transition-all disabled:opacity-30 disabled:cursor-not-allowed disabled:grayscale" style="box-shadow: 6px 6px 0px rgba(0,0,0,0.5);">
-            ${step?.buttonText || 'Acepto y continuar'}
+            ${step?.buttonText || ui.acceptContinue}
           </button>
         </div>
       `;
@@ -156,7 +181,7 @@ const wizardSteps: WizardStep[] = Object.values(modules)
 
       content.innerHTML = `
         <div class="mb-8">
-          ${stepNum > 1 ? `<div class="mb-6"><button class="px-6 py-3 border-2 border-theme-1 text-theme-muted hover:text-btc-orange hover:border-btc-orange transition-all font-bold uppercase tracking-wider text-sm" id="btn-back-mobile">← Atrás</button></div>` : ''}
+          ${stepNum > 1 ? `<div class="mb-6"><button class="px-6 py-3 border-2 border-theme-1 text-theme-muted hover:text-btc-orange hover:border-btc-orange transition-all font-bold uppercase tracking-wider text-sm" id="btn-back-mobile">← ${ui.back}</button></div>` : ''}
           <h3 class="text-2xl md:text-4xl font-display font-bold text-theme-main uppercase tracking-tight text-center">${currentStepData.title}</h3>
         </div>
         
@@ -190,7 +215,7 @@ const wizardSteps: WizardStep[] = Object.values(modules)
           btn.style.borderColor = '';
         });
         btn.addEventListener('click', () => {
-          const key = currentStepData.label === 'Edición' ? 'edition' : currentStepData.label === 'Launcher' ? 'launcher' : currentStepData.label === 'Cuenta' ? 'accountType' : 'platform';
+          const key = currentStepData.step === 3 ? 'edition' : currentStepData.step === 5 ? 'launcher' : currentStepData.step === 4 ? 'accountType' : 'platform';
           state.selected[key] = btn.getAttribute('data-id');
           goNext();
         });
@@ -209,7 +234,7 @@ const wizardSteps: WizardStep[] = Object.values(modules)
       }
       
       if (!guide) {
-        content.innerHTML = '<p class="text-center text-theme-muted">No se encontró la guía.</p>';
+        content.innerHTML = `<p class="text-center text-theme-muted">${ui.guideMissing}</p>`;
         return;
       }
   
@@ -217,7 +242,7 @@ const wizardSteps: WizardStep[] = Object.values(modules)
 
       content.innerHTML = `
         <div class="mb-12">
-          <div class="mb-8"><button class="px-6 py-3 border-2 border-theme-1 text-theme-muted hover:text-btc-orange hover:border-btc-orange transition-all font-bold uppercase tracking-wider text-sm" id="btn-back-mobile">← Atrás</button></div>
+          <div class="mb-8"><button class="px-6 py-3 border-2 border-theme-1 text-theme-muted hover:text-btc-orange hover:border-btc-orange transition-all font-bold uppercase tracking-wider text-sm" id="btn-back-mobile">← ${ui.back}</button></div>
           <h3 class="text-2xl md:text-4xl font-display font-bold text-theme-main uppercase tracking-tight text-center">${guideStep.title}</h3>
         </div>
         
@@ -240,7 +265,7 @@ const wizardSteps: WizardStep[] = Object.values(modules)
                     <img src="${s.image}" alt="${s.title}" class="w-full max-w-[90%] mx-auto border border-theme-1" style="box-shadow: 6px 6px 0px rgba(0,0,0,0.4);" />
                   </div>
                 ` : ''}
-                <span class="text-sm font-bold uppercase tracking-widest text-btc-orange block mb-2">Paso ${i + 1}</span>
+                <span class="text-sm font-bold uppercase tracking-widest text-btc-orange block mb-2">${ui.step} ${i + 1}</span>
                 <h4 class="text-xl md:text-2xl font-display font-bold text-theme-main mb-3">${s.title}</h4>
                 <p class="text-base text-theme-muted leading-relaxed whitespace-pre-line">${desc}</p>
               </div>
@@ -249,7 +274,7 @@ const wizardSteps: WizardStep[] = Object.values(modules)
         </div>
         
         <div class="text-center pt-8">
-          <button id="btn-reset" class="px-8 py-4 border-2 border-theme-1 text-theme-muted hover:text-btc-orange hover:border-btc-orange transition-all font-bold uppercase tracking-wider text-sm">Volver arriba</button>
+          <button id="btn-reset" class="px-8 py-4 border-2 border-theme-1 text-theme-muted hover:text-btc-orange hover:border-btc-orange transition-all font-bold uppercase tracking-wider text-sm">${ui.backToTop}</button>
         </div>
       `;
 
@@ -261,10 +286,10 @@ const wizardSteps: WizardStep[] = Object.values(modules)
       const currentStepData = wizardSteps.find(s => s.step === state.currentStep);
       if (currentStepData?.items) {
         const selectedItem = currentStepData.items.find(item => {
-          const key = currentStepData.label === 'Edición' ? 'edition' 
-                  : currentStepData.label === 'Launcher' ? 'launcher'
-                  : currentStepData.label === 'Cuenta' ? 'accountType'
-                  : 'platform';
+            const key = currentStepData.step === 3 ? 'edition'
+              : currentStepData.step === 5 ? 'launcher'
+              : currentStepData.step === 4 ? 'accountType'
+              : 'platform';
           return item.id === state.selected[key];
         });
         

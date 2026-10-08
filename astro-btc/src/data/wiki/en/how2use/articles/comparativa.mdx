@@ -1,0 +1,187 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Why datapacks?'
+description: 'Mods vs. plugins vs. datapacks: why do we prefer datapacks?'
+author: 'Tarquitet'
+pubDate: '2026-08-01'
+updated: '2026-08-13'
+icon: '📊'
+color: 'text-btc-orange'
+border: 'hover:border-btc-orange'
+tag: 'New'
+order: 1
+category: 'how2use'
+---
+
+import WikiTable from '@/components/wiki/WikiTable.astro';
+import WikiAccordion from '@/components/wiki/WikiAccordion.astro';
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+
+export const HEADERS = [
+  { label: 'What are we comparing?', align: 'left' },
+  { label: 'Mods', subtitle: 'installed on your computer', tone: 'bad' },
+  { label: 'Plugins', subtitle: 'installed on the server', tone: 'warn' },
+  { label: 'Datapacks', subtitle: 'included in the world', tone: 'good' },
+];
+
+We tried all three approaches for years. Here is why we chose the option closest to the original game: vanilla Minecraft without invasive changes.
+
+## 📦 The basics
+
+<WikiTable
+  headers={HEADERS}
+  rows={[
+    [
+      {
+        text: 'Do you install anything on your computer?',
+        hint: 'Do you need to download files or a special launcher to play?',
+      },
+      '✗ Yes, required',
+      '✓ Nothing to install',
+      '✓ Nothing to install',
+    ],
+    [
+      { text: 'Where does it run?', hint: 'On your PC (client-side) or only on the server (server-side).' },
+      { text: 'Your PC and/or the server', tone: 'warn' },
+      'Only the server',
+      'Only the server',
+    ],
+    [
+      { text: 'Loaders / server types', hint: 'Which software does each option require?' },
+      'Forge, Fabric, NeoForge',
+      'Spigot, Paper, Leaves, Purpur',
+      { text: 'Any vanilla server', tone: 'good' },
+    ],
+  ]}
+/>
+
+## ⚡ Performance and stability
+
+<WikiTable
+  headers={HEADERS}
+  rows={[
+    [
+      { text: 'How smooth does it feel?', hint: 'The impact on game speed and FPS.' },
+      'Can feel heavy',
+      { text: 'It depends', tone: 'warn' },
+      { text: 'Barely noticeable', tone: 'good' },
+    ],
+    [
+      {
+        text: 'Does everyone have the same experience?',
+        hint: 'Can extra installations give some players an advantage?',
+      },
+      '✗ Possible advantages',
+      { text: 'Sometimes', tone: 'warn' },
+      '✓ Same experience for everyone',
+    ],
+    [
+      {
+        text: 'Does it preserve the original Minecraft?',
+        hint: 'Farms, redstone, and technical mechanics from the base game.',
+      },
+      { text: 'Can change them', tone: 'warn' },
+      '✗ Often breaks them',
+      '✓ Fully faithful',
+    ],
+    [
+      { text: 'Is it stable long-term?', hint: 'The risk of crashes or world corruption over time.' },
+      '✗ Breaks frequently',
+      { text: 'Occasionally', tone: 'warn' },
+      { text: '✓ Rock-solid', tone: 'good' },
+    ],
+  ]}
+/>
+
+## 🔄 Updates
+
+<WikiTable
+  headers={HEADERS}
+  rows={[
+    [
+      { text: 'Does it support new versions quickly?', hint: 'How long after a Minecraft update can you play?' },
+      '✗ Months of waiting',
+      { text: 'Sometimes delayed', tone: 'warn' },
+      '✓ From day one',
+    ],
+    [
+      {
+        text: 'Can you keep playing without updating?',
+        hint: 'Are you forced to update when a new version is released?',
+      },
+      '✗ Usually required',
+      { text: 'Depends on the server', tone: 'warn' },
+      '✓ No pressure to update',
+    ],
+    [
+      { text: 'What if an update breaks something?', hint: 'The real impact when an update causes problems.' },
+      '✗ The world may break',
+      { text: 'Features may fail, but the world usually survives', tone: 'warn' },
+      '✓ Only that datapack is disabled',
+    ],
+  ]}
+/>
+
+## 🎨 Visual customization
+
+<WikiTable
+  headers={HEADERS}
+  rows={[
+    [
+      { text: 'Does it change how the game looks?', hint: 'Textures, models, or other visual changes.' },
+      { text: 'Yes, often', tone: 'warn' },
+      { text: 'Rarely', tone: 'good' },
+      { text: 'May include resource packs', tone: 'warn' },
+    ],
+    [
+      { text: 'Are texture packs required?', hint: 'Does the server force you to install textures?' },
+      { text: 'Sometimes', tone: 'warn' },
+      '✓ Almost never',
+      { text: 'Sometimes, depending on the datapack', tone: 'warn' },
+    ],
+  ]}
+/>
+
+## A closer look at each option
+
+<WikiAccordion title="Mods — Forge / Fabric" icon="🔧">
+
+Mods are changes installed **on your computer** and/or on the server. They are the most powerful option, but also the most invasive.
+
+**Types of mods:**
+
+- **Client-side:** only on your PC (Sodium, Zan's Minimap, JEI)
+- **Server-side:** only on the server
+- **Hybrid:** on both sides (most mods that add content)
+
+</WikiAccordion>
+
+<WikiAccordion title="Plugins — Spigot / Paper" icon="🔌">
+
+Plugins are installed **only on the server**, so you can join with regular Minecraft.
+
+**Server types:** Spigot (the original), Paper (optimized), Leaves (modern), Purpur (more configuration options).
+
+</WikiAccordion>
+
+<WikiAccordion title="Datapacks — pure vanilla" icon="📦">
+
+Datapacks are included **in the world** and change gameplay without modifying the base code. No installation, fully faithful.
+
+</WikiAccordion>
+
+## What did we choose, and why?
+
+We chose **datapacks**: join with regular Minecraft, everyone has the same experience, technical mechanics stay intact, and the world remains stable over time.
+
+<WikiCallout type="warn" title="About reliability">
+
+Datapacks and server-side mods can be unreliable **if poorly written**. When built well, everything runs on the server and players do not need to install anything.
+
+</WikiCallout>
+
+<WikiCallout type="info" title="Mods we do recommend">
+
+Optimization mods (Sodium, Lithium) and client-side tools (Zan's Minimap, JEI) are useful and preserve vanilla gameplay, although they must be installed on your computer.
+
+</WikiCallout>

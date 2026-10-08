@@ -1,20 +1,26 @@
 ---
 // src/components/about/WorldsGrid.astro
 import worldsCards from '../../data/worldsCards.json';
+import { getDictionary, getLocaleFromPath } from '../../lib/i18n';
+
+const dict = getDictionary(getLocaleFromPath(Astro.url.pathname));
+const getLocalizedCard = (translations: any, key: string) => translations[key];
 ---
 
 <section id="mundos" class="w-full bg-theme-app">
     <div class="text-center py-16 container mx-auto px-6 max-w-4xl">
         <h2 class="text-3xl md:text-4xl font-display font-bold text-theme-main uppercase tracking-tight">
-            Nuestros <span class="text-btc-orange">Mundos</span>
+            {dict.home.worlds.title}
         </h2>
         <p class="text-theme-muted mt-3 text-base leading-relaxed max-w-2xl mx-auto">
-            Builtechraft cuenta con dos mundos principales: uno dedicado al Survival y otro pensado para diseñar, experimentar y preparar construcciones antes de llevarlas al juego.
+            {dict.home.worlds.description}
         </p>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 w-full">
-        {worldsCards.map((card) => (
+        {worldsCards.map((card: any) => {
+            const copy = getLocalizedCard(dict.home.worlds.cards, card.translationKey) || card;
+            return (
             <div class={`relative group overflow-hidden h-[300px] md:h-[450px] lg:h-[600px] flex flex-col justify-end p-6 md:p-10 ${card.wrapperClass}`}>
                 
                 <div class="absolute inset-0 bg-cover bg-center transform-gpu" style={`background-image: url('${card.bgImage}')`}></div>
@@ -25,20 +31,21 @@ import worldsCards from '../../data/worldsCards.json';
                     <!-- TAG ELIMINADO -->
                     
                     <h3 class="text-3xl md:text-4xl font-display font-bold text-theme-main uppercase mb-3 md:mb-4">
-                        {card.title}
+                        {copy.title}
                     </h3>
                     <p class="text-sm md:text-base text-theme-muted leading-relaxed mb-6 md:mb-8">
-                        {card.desc}
+                        {copy.desc}
                     </p>
                     <a href={card.link}
                         data-target={card.dataTarget || undefined}
                         target="_blank"
                         rel="noopener noreferrer"
                         class={`btn-retro inline-flex items-center gap-2 font-bold text-xs uppercase tracking-widest ${card.btnClass}`}>
-                        Ver mapa
+                        {dict.home.worlds.mapButton}
                     </a>
                 </div>
             </div>
-        ))}
+            );
+        })}
     </div>
 </section>

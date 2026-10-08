@@ -1,24 +1,27 @@
 ---
 // src/components/home/StatsRow.astro
+import { getDictionary, getLocaleFromPath } from '../../lib/i18n';
+
+const dict = getDictionary(getLocaleFromPath(Astro.url.pathname));
 ---
 
-<section class="py-12 bg-theme-app border-y border-theme relative z-10">
+<section class="py-12 bg-theme-app border-y border-theme relative z-10" data-years-label={dict.home.stats.years}>
     <div class="container mx-auto px-6 max-w-5xl">
         <div class="grid grid-cols-2 md:grid-cols-3 gap-8 text-center divide-x divide-transparent md:divide-[var(--border-subtle)]">
             
             <div class="flex flex-col items-center">
-                <span id="stat-years" class="block text-4xl font-display font-bold text-btc-orange mb-2">?? Años</span>
-                <span class="text-xs font-bold text-theme-muted uppercase tracking-widest">Desde 2020</span>
+                <span id="stat-years" class="block text-4xl font-display font-bold text-btc-orange mb-2">?? {dict.home.stats.years}</span>
+                <span class="text-xs font-bold text-theme-muted uppercase tracking-widest">{dict.home.stats.since}</span>
             </div>
 
             <div class="flex flex-col items-center">
                 <span id="stat-mods" class="block text-4xl font-display font-bold text-btc-yellow mb-2">??</span>
-                <span class="text-xs font-bold text-theme-muted uppercase tracking-widest">Mods/Datapacks</span>
+                <span class="text-xs font-bold text-theme-muted uppercase tracking-widest">{dict.home.stats.mods}</span>
             </div>
 
             <div class="flex flex-col items-center">
                 <span id="stat-version" class="block text-4xl font-display font-bold text-btc-orange mb-2">???</span>
-                <span class="text-xs font-bold text-theme-muted uppercase tracking-widest">Versión Actual</span>
+                <span class="text-xs font-bold text-theme-muted uppercase tracking-widest">{dict.home.stats.currentVersion}</span>
             </div>
 
         </div>
@@ -27,6 +30,8 @@
 
 <script>
     import { getModsAndDatapacks } from '../../utils/sheetsClient.js';
+    const locale = document.documentElement.lang === 'en' ? 'en' : 'es';
+    const yearsLabel = document.querySelector<HTMLElement>('[data-years-label]')?.dataset.yearsLabel || '';
 
     // 1. CÁLCULO AUTOMÁTICO DE AÑOS DESDE EL 22 DE ENERO DE 2020
     const officialDate = new Date('2020-01-22');
@@ -40,13 +45,13 @@
 
     const yearsEl = document.getElementById('stat-years');
     if (yearsEl) {
-        yearsEl.innerText = `${diffYears} Años`;
+        yearsEl.innerText = `${diffYears} ${yearsLabel}`;
     }
 
     // 2. FETCH DIRECTO Y SEGURO DE MODS Y DATAPACKS
     async function loadStatsCounts() {
         try {
-            const { mods, datapacks } = await getModsAndDatapacks();
+            const { mods, datapacks } = await getModsAndDatapacks(locale);
             
             const modsEl = document.getElementById('stat-mods');
             if (modsEl && mods && datapacks) {

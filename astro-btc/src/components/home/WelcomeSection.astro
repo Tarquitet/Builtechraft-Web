@@ -1,6 +1,10 @@
 ---
 // src/components/home/WelcomeSection.astro
 import welcomeCards from '../../data/welcomeCards.json';
+import { getDictionary, getLocaleFromPath } from '../../lib/i18n';
+
+const dict = getDictionary(getLocaleFromPath(Astro.url.pathname));
+const welcomeTranslations = dict.home.welcome.cards as any;
 ---
 
 <section class="py-12 md:py-16 lg:py-24 bg-theme-section">
@@ -8,16 +12,18 @@ import welcomeCards from '../../data/welcomeCards.json';
         
         <div class="max-w-3xl mb-10 md:mb-16">
             <h2 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold uppercase tracking-tight text-theme-main mb-4">
-                Qué es <span class="text-btc-orange">Builtechraft</span>
+                {dict.home.welcome.title} <span class="text-btc-orange">Builtechraft</span>
             </h2>
             <p class="text-theme-muted text-sm md:text-base leading-relaxed">
-                Builtechraft es un servidor supervivencia privado pensado para los jugadores que disfrutan construir y plasmar sus ideas, desde una pequeña casa hasta mega estructuras. Está basado en el cargador de mods Fabric y mantiene una experiencia cercana a Minecraft Vanilla con mejoras cuidadosamente seleccionadas.
+                {dict.home.welcome.description}
             </p>
         </div>
 
         <!-- Grid en desktop, pila vertical en móvil -->
         <div class="grid gap-4 md:gap-6 md:grid-cols-2">
-            {welcomeCards.map((card, index) => (
+            {welcomeCards.map((card, index) => {
+                const copy = welcomeTranslations[card.translationKey];
+                return (
                 <article class="welcome-card border border-theme-1 bg-theme-card p-4 md:p-6 transition-all" style="box-shadow: 4px 4px 0px rgba(0,0,0,0.3);">
                     
                     <!-- Encabezado clickeable (solo en móvil) -->
@@ -27,7 +33,7 @@ import welcomeCards from '../../data/welcomeCards.json';
                         data-index={index}
                     >
                         <h3 class="text-lg md:text-xl font-display font-bold text-theme-main group-hover:text-btc-orange transition-colors">
-                            {card.title}
+                            {copy.title}
                         </h3>
                         <!-- Flecha: visible solo en móvil, oculta en desktop -->
                         <svg class="w-5 h-5 text-btc-orange transition-transform duration-300 md:hidden shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -38,12 +44,13 @@ import welcomeCards from '../../data/welcomeCards.json';
                     <!-- Contenido: oculto en móvil por defecto, siempre visible en desktop -->
                     <div class="welcome-desc-container hidden md:block mt-3 pt-3 md:pt-4">
                         <p class="text-sm md:text-base text-theme-muted leading-relaxed">
-                            {card.desc}
+                            {copy.desc}
                         </p>
                     </div>
                     
                 </article>
-            ))}
+                );
+            })}
         </div>
     </div>
 </section>

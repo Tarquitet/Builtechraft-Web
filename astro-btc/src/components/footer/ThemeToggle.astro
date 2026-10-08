@@ -1,15 +1,18 @@
 ---
 // src/components/footer/ThemeToggle.astro
+import { getDictionary, getLocaleFromPath } from '../../lib/i18n';
+
+const dict = getDictionary(getLocaleFromPath(Astro.url.pathname));
 ---
 
-<div class="theme-toggle" role="radiogroup" aria-label="Cambiar tema de la página">
-  <button class="tt-btn" data-set-theme="light" role="radio" title="Tema claro" aria-label="Tema claro">
+<div class="theme-toggle" role="radiogroup" aria-label={dict.common.theme.group}>
+  <button class="tt-btn" data-set-theme="light" role="radio" title={dict.common.theme.light} aria-label={dict.common.theme.light}>
     <span class="tt-swatch tt-light"></span>
   </button>
-  <button class="tt-btn" data-set-theme="dark" role="radio" title="Tema medianoche" aria-label="Tema medianoche">
+  <button class="tt-btn" data-set-theme="dark" role="radio" title={dict.common.theme.midnight} aria-label={dict.common.theme.midnight}>
     <span class="tt-swatch tt-dark"></span>
   </button>
-  <button class="tt-btn" data-set-theme="black" role="radio" title="Tema negro" aria-label="Tema negro">
+  <button class="tt-btn" data-set-theme="black" role="radio" title={dict.common.theme.black} aria-label={dict.common.theme.black}>
     <span class="tt-swatch tt-black"></span>
   </button>
 </div>

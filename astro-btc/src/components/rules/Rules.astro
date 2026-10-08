@@ -1,7 +1,10 @@
 ---
 // src/components/rules/Rules.astro
-import metadata from '../../data/rules/metadata.json';
 import links from '../../data/links.json';
+import { getDictionary, getLocaleFromPath } from '../../lib/i18n';
+
+const locale = getLocaleFromPath(Astro.url.pathname);
+const dict = getDictionary(locale);
 
 interface RuleSection {
   id: string;
@@ -28,21 +31,28 @@ interface RuleMetadata {
   };
 }
 
-const rulesData = metadata as RuleMetadata;
+const metadataModules = import.meta.glob('../../data/rules/*/metadata.json', {
+  eager: true,
+  import: 'default',
+}) as Record<string, RuleMetadata>;
 
-const sectionModules = import.meta.glob('../../data/rules/sections/*.mdx', {
+const rulesData = metadataModules[`../../data/rules/${locale}/metadata.json`]
+  ?? metadataModules['../../data/rules/es/metadata.json'];
+
+const sectionModules = import.meta.glob('../../data/rules/*/sections/*.mdx', {
   eager: true,
 }) as Record<string, { default: any }>;
 
 const getSectionComponent = (filename: string) => {
-  const path = `../../data/rules/sections/${filename}`;
-  return sectionModules[path]?.default ?? null;
+  const localizedPath = `../../data/rules/${locale}/sections/${filename}`;
+  const fallbackPath = `../../data/rules/es/sections/${filename}`;
+  return sectionModules[localizedPath]?.default ?? sectionModules[fallbackPath]?.default ?? null;
 };
 
 const scopeLabels: Record<string, string> = {
-  juego: '🎮 Juego',
-  discord: '💬 Discord',
-  ambos: '🌐 Ambos',
+  juego: dict.common.rules.scopeGame,
+  discord: dict.common.rules.scopeDiscord,
+  ambos: dict.common.rules.scopeBoth,
 };
 ---
 
@@ -51,10 +61,10 @@ const scopeLabels: Record<string, string> = {
 
     <div class="text-center mb-12">
       <h2 class="text-4xl md:text-5xl font-display font-bold text-theme-main uppercase tracking-tight">
-        Normas de <span class="text-btc-orange">Builtechcraft</span>
+        {dict.common.rules.title}
       </h2>
       <p class="text-theme-muted text-base mt-4 max-w-2xl mx-auto">
-        Se aplican tanto dentro del servidor de Minecraft como en nuestro Discord.
+        {dict.common.rules.description}
       </p>
     </div>
 
@@ -62,7 +72,7 @@ const scopeLabels: Record<string, string> = {
     {rulesData.golden && rulesData.golden.length > 0 && (
       <div class="border border-btc-orange/30 bg-btc-orange/5 p-6 md:p-8 mb-12 mt-10">
         <h3 class="text-btc-orange font-display font-bold uppercase tracking-widest text-sm mb-4">
-          ⚡ Datos Imporantes
+          ⚡ {dict.common.rules.important}
         </h3>
         <ol class="space-y-2 text-theme-main text-sm list-decimal list-inside">
           {rulesData.golden.map((rule: string) => (
@@ -86,7 +96,7 @@ const scopeLabels: Record<string, string> = {
               <div class="flex-1 min-w-0">
                 <div class="flex items-center gap-2 flex-wrap">
                   <span class="text-xs font-bold uppercase tracking-widest text-btc-orange">
-                    Sección {section.id}
+                    {dict.common.rules.section} {section.id}
                   </span>
                   {scopeLabel && (
                     <span class="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 border border-btc-orange/20 text-theme-muted">
@@ -101,7 +111,7 @@ const scopeLabels: Record<string, string> = {
             </div>
 
             {SectionComponent ? <SectionComponent /> : (
-              <p class="text-theme-muted text-sm">⚠️ Falta contenido: {section.file}</p>
+              <p class="text-theme-muted text-sm">⚠️ {dict.common.rules.missingContent}: {section.file}</p>
             )}
           </div>
         );
@@ -112,7 +122,7 @@ const scopeLabels: Record<string, string> = {
         {rulesData.footer && (
           <div class="mt-16 pt-8 border-t border-theme-muted/20 text-center">
             <p class="text-theme-muted text-xs">
-              {rulesData.footer.disclaimer} Última revisión: {rulesData.footer.updated}.
+              {rulesData.footer.disclaimer} {dict.common.rules.lastReviewed} {rulesData.footer.updated}.
             </p>
             <p class="text-theme-muted text-xs mt-2">
               {rulesData.footer.contactText}{' '}

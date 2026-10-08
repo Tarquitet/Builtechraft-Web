@@ -1,5 +1,9 @@
 ---
 // src/components/wiki/ModsAndDatapacks.astro
+import { getDictionary, getLocaleFromPath } from '../../lib/i18n';
+
+const locale = getLocaleFromPath(Astro.url.pathname);
+const dict = getDictionary(locale);
 ---
 
 <style>
@@ -56,17 +60,17 @@
 </style>
 
 <!-- ID AGREGADO AQUÍ -->
-<div id="lista-mods" class="py-8">
+<div id="lista-mods" class="py-8" data-locale={locale} data-read-more={dict.home.mods.readMore} data-view-link={dict.home.mods.viewLink} data-network-error={dict.home.mods.networkError}>
 
 <div id="loading-mods" class="flex flex-col justify-center items-center py-10 mb-10 text-theme-muted gap-3">
     <span class="text-3xl animate-bounce">📦</span>
-    <span class="animate-pulse font-bold tracking-widest uppercase text-sm">Sincronizando base de datos...</span>
+    <span class="animate-pulse font-bold tracking-widest uppercase text-sm">{dict.home.mods.loading}</span>
 </div>
 
 <div id="datapacks-section" class="hidden flex-col mb-16 relative z-20">
     <div class="mb-6 flex items-center gap-3 border-b border-theme pb-4">
         <span class="text-2xl">🗂️</span>
-        <h3 class="text-xl font-display font-bold text-btc-yellow uppercase tracking-widest m-0">Datapacks Instalados</h3>
+        <h3 class="text-xl font-display font-bold text-btc-yellow uppercase tracking-widest m-0">{dict.home.mods.datapacks}</h3>
     </div>
     
     <div id="datapacks-list" class="slider flex overflow-x-auto snap-x snap-mandatory gap-5 pb-4 hide-scrollbar h-[420px] px-2 py-4"></div>
@@ -75,7 +79,7 @@
 <div id="mods-section" class="hidden flex-col mb-20 relative z-20">
     <div class="mb-6 flex items-center gap-3 border-b border-theme pb-4">
         <span class="text-2xl">⚙️</span>
-        <h3 class="text-xl font-display font-bold text-blue-500 uppercase tracking-widest m-0">Mods del Servidor</h3>
+        <h3 class="text-xl font-display font-bold text-blue-500 uppercase tracking-widest m-0">{dict.home.mods.serverMods}</h3>
     </div>
     
     <div id="mods-list" class="slider flex overflow-x-auto snap-x snap-mandatory gap-5 pb-4 hide-scrollbar h-[420px] px-2 py-4"></div>
@@ -83,6 +87,14 @@
 
 <script>
 import { getModsAndDatapacks } from '../../utils/sheetsClient.js';
+
+const root = document.getElementById('lista-mods');
+const labels = {
+    readMore: root?.getAttribute('data-read-more') || '',
+    viewLink: root?.getAttribute('data-view-link') || '',
+    networkError: root?.getAttribute('data-network-error') || '',
+};
+const locale = root?.getAttribute('data-locale') || 'es';
 
 const createModCardHTML = (item: any) => {
     const getColorClass = (tipo: string) => {
@@ -114,7 +126,7 @@ const createModCardHTML = (item: any) => {
                 <span class="text-[9px] uppercase tracking-widest font-bold px-2 py-0.5 rounded ${colors.badge} border inline-block mb-3 self-start">${item.Type}</span>
                 <p class="text-xs text-theme-muted leading-relaxed m-0 flex-grow">${displayDesc}</p>
                 <a href="${item.Url}" target="_blank" rel="noopener noreferrer" class="mt-5 w-full text-center py-2.5 px-4  text-[10px] font-bold uppercase tracking-widest transition-colors border-theme-1 bg-theme-alternate hover:bg-btc-orange/10 hover:text-btc-orange text-theme-main">
-                    ${isTruncated ? 'Leer más' : 'Ver enlace'}
+                    ${isTruncated ? labels.readMore : labels.viewLink}
                 </a>
             </div>
         </div>
@@ -129,7 +141,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const loadingEl = document.getElementById('loading-mods');
 
     try {
-        const { mods, datapacks } = await getModsAndDatapacks();
+        const { mods, datapacks } = await getModsAndDatapacks(locale);
         
         if (datapacks.length > 0 && dpList && dpSection) {
             dpList.innerHTML = datapacks.map(createModCardHTML).join('');
@@ -144,7 +156,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if(loadingEl) loadingEl.style.display = 'none';
     } catch (err) {
         console.error("Error cargando mods:", err);
-        if(loadingEl) loadingEl.innerHTML = "<span class='text-red-500 font-bold'>Error al conectar con la base de datos.</span>";
+        if(loadingEl) loadingEl.innerHTML = `<span class='text-red-500 font-bold'>${labels.networkError}</span>`;
     }
 });
 </script>

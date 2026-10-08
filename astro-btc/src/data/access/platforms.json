@@ -1,25 +1,24 @@
 {
   "step": 2,
   "type": "grid",
-  "label": "Plataforma",
-  "title": "Elige tu dispositivo",
+  "translationKey": "platforms",
   "items": [
     {
       "id": "pc",
-      "name": "Computadora",
       "icon": "💻",
+      "translationKey": "pc",
       "image": "/images/access/platform/pc.avif"
     },
     {
       "id": "mobile",
-      "name": "Móvil",
       "icon": "📱",
+      "translationKey": "mobile",
       "image": "/images/access/platform/mobile.avif"
     },
     {
       "id": "console",
-      "name": "Consola",
       "icon": "🎮",
+      "translationKey": "console",
       "image": "/images/access/platform/console.avif"
     }
   ]

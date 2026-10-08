@@ -1,0 +1,184 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: '/player command (fake players)'
+description: 'Use Carpet Mod bots and shadow players for AFK farms and chunk loading.'
+author: 'Tarquitet'
+pubDate: '2026-08-03'
+updated: '2026-08-19'
+category: 'features'
+icon: '🤖'
+color: 'text-blue-400'
+border: 'hover:border-blue-500'
+order: 6
+---
+
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiCommand from '@/components/wiki/WikiCommand.astro';
+import WikiTable from '@/components/wiki/WikiTable.astro';
+import WikiAccordion from '@/components/wiki/WikiAccordion.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+At **Builtechraft**, fake players (bots) are allowed for technical farms and chunk loading. They are powered by Carpet Mod and its `/player` command.
+
+<WikiCallout type="info" title="What is a fake player?">
+
+A server-controlled entity that simulates a real player. It can move, look around, break blocks, right-click, and more, but it cannot chat or use custom inventories.
+
+</WikiCallout>
+
+## 🤖 What is /player for?
+
+- **Automatic AFK farms:** leave a bot at a farm without staying connected.
+- **Chunk loading:** keep areas loaded while no real players are nearby.
+- **Redstone testing:** simulate a player to activate mechanisms.
+- **Collaborative building:** have a bot hold items or repeat actions.
+
+## 📋 Main actions
+
+<WikiTable
+  headers={['Action', 'What it does']}
+  rows={[
+    ['spawn', 'Summons the bot into the world'],
+    ['kill', 'Removes the bot from the world'],
+    ['move', 'Moves the bot in a direction'],
+    ['look', 'Makes the bot look at a point'],
+    ['use', 'Uses its main hand (right-click)'],
+    ['attack', 'Attacks (left-click)'],
+    ['jump', 'Jumps'],
+    ['sneak', 'Crouches'],
+    ['sprint', 'Runs'],
+    ['stop', 'Stops all actions'],
+  ]}
+/>
+
+## 🛠️ Practical examples
+
+<WikiAccordion title="Basic bot">
+
+<WikiCommand command="/player Steve spawn" description="Creates a bot named Steve where you are standing." />
+
+<WikiCommand command="/player Steve move forward" description="Moves the bot forward in the direction it is facing." />
+
+<WikiCommand command="/player Steve look down" description="Makes the bot look down." />
+
+<WikiCommand command="/player Steve kill" description="Removes the bot." />
+
+</WikiAccordion>
+
+<WikiAccordion title="AFK iron farm">
+
+<WikiCommand command="/player IronFarmer spawn" description="Summons the bot." />
+
+<WikiCommand command="/player IronFarmer move forward" description="Moves it forward." />
+
+<WikiCommand command="/player IronFarmer use continuous" description="Makes it right-click continuously." />
+
+</WikiAccordion>
+
+<WikiAccordion title="Bot that attacks mobs">
+
+<WikiCommand command="/player Hunter spawn" description="Summons the bot." />
+
+<WikiCommand command="/player Hunter attack continuous" description="Continuously attacks mobs in front of it." />
+
+</WikiAccordion>
+
+<WikiAccordion title="Chunk loading">
+
+<WikiCommand
+  command="/player ChunkLoader spawn"
+  description="The bot appears and stays still. Nearby chunks remain loaded while it is present."
+/>
+
+</WikiAccordion>
+
+## 🎭 Shadow players
+
+A **shadow** is an independent entity that mirrors a real player's behavior in real time.
+
+<WikiCallout type="info" title="When should I use shadow?">
+
+Use it when you need to **replicate the behavior of a real player**, for example:
+
+- Testing complex mechanisms that require multiple players.
+- Debugging redstone from multiple perspectives.
+- Farms that depend on replicated player behavior.
+
+</WikiCallout>
+
+<WikiCommand command="/player YourName shadow" description="Creates a shadow that mirrors your actions." />
+
+<WikiTable
+  headers={['Use case', 'Regular bot', 'Shadow']}
+  rows={[
+    ['AFK iron farm', { text: '✓ Enough', tone: 'good' }, { text: 'Unnecessary', tone: 'muted' }],
+    ['Chunk loading', { text: '✓ Enough', tone: 'good' }, { text: 'Unnecessary', tone: 'muted' }],
+    ['Complex mechanism testing', { text: 'Not enough', tone: 'warn' }, { text: '✓ Ideal', tone: 'good' }],
+    ['Multi-perspective debugging', { text: 'Not enough', tone: 'warn' }, { text: '✓ Ideal', tone: 'good' }],
+  ]}
+/>
+
+## ⚠️ Rules and limitations
+
+<WikiCallout type="danger" title="Important restrictions">
+
+- **Valid names:** use Mojang Premium usernames only; offline or invented names are not allowed.
+- **Location:** bots may only be summoned where players are connected. **Do not summon them in uninhabited areas.**
+- **Permissions:** Survival players cannot use selectors (@p, @e, @a). Use specific names only.
+- **Quantity:** do not abuse bots or shadows; each uses server resources.
+
+</WikiCallout>
+
+## ✅ Allowed vs. ❌ prohibited
+
+<WikiAccordion title="✅ Allowed">
+
+- Iron farms with an AFK bot near where you are playing.
+- Keeping crop farm chunks loaded while you are in the area.
+- Testing redstone mechanisms at your base.
+- XP farms with bots attacking mobs in controlled areas.
+- Bots following players at spawn or in community areas.
+
+</WikiAccordion>
+
+<WikiAccordion title="❌ Prohibited">
+
+- Using bots to mine blocks automatically (macros/auto-mining).
+- Creating bot armies for PvP.
+- Using bots to bypass server activity rules.
+- Summoning bots in distant areas with no connected players.
+- Using offline or invented names.
+- Summoning bots in another player's area without permission.
+- Using entity selectors (@p, @e, and similar).
+
+</WikiAccordion>
+
+## 🔧 Troubleshooting
+
+<WikiAccordion title="The bot does not appear">
+
+- Check that you have permission to use the command.
+- Make sure the name is a valid Mojang username.
+- Confirm there are players connected in the area.
+
+</WikiAccordion>
+
+<WikiAccordion title="The bot does not move">
+
+- Use `move forward` instead of absolute coordinates.
+- Check whether the bot is stuck in blocks.
+
+</WikiAccordion>
+
+<WikiAccordion title="The bot disappears">
+
+- Bots are removed when the server restarts.
+- Summon them again after each restart.
+
+</WikiAccordion>
+
+<WikiCallout type="ok" title="Ready to automate?">
+
+Summon your first bot and start building more efficient mechanisms. If you have questions, ask on our <a href="https://discord.gg/builtechraft">Discord</a>.
+
+</WikiCallout>

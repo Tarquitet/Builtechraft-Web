@@ -1,6 +1,9 @@
 ---
 // src/components/wiki/WikiDynmap.astro
 import links from '../../data/links.json';
+import { getDictionary, getLocaleFromPath } from '../../lib/i18n';
+
+const dict = getDictionary(getLocaleFromPath(Astro.url.pathname));
 
 const { map = 'survival', src = '', height = 480, caption = '' } = Astro.props as {
   map?: string;
@@ -13,7 +16,7 @@ const maps = (links as any).maps ?? {};
 const url = src || (map === 'creative' ? maps.creative : maps.survival) || '';
 ---
 <figure class="wiki-dynmap">
-  <iframe src={url} style={`height:${height}px`} loading="lazy" title={caption || 'Mapa del servidor'}></iframe>
+  <iframe src={url} style={`height:${height}px`} loading="lazy" title={caption || dict.common.wiki.defaultMapTitle}></iframe>
   {caption && <figcaption>{caption}</figcaption>}
 </figure>
 

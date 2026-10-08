@@ -1,13 +1,22 @@
 ---
 // src/components/wiki/WikiLink.astro
-// Link interno entre artículos de la wiki. Solo necesitas el slug (nombre del archivo sin .mdx).
-// Ejemplo: <WikiLink to="faq">preguntas frecuentes</WikiLink> → <a href="/wiki/faq">preguntas frecuentes</a>
+import links from '../../data/links.json';
+import { getLocaleFromPath, localizePath } from '../../lib/i18n';
 
 const { to } = Astro.props as { to: string };
-const url = `/wiki/${to}`;
+const articleModules = import.meta.glob('../../data/wiki/*/*/articles/*.mdx');
+const articlePath = Object.keys(articleModules).find((path) => path.endsWith(`/${to}.mdx`));
+const pathParts = articlePath?.split('/') || [];
+const category = pathParts[pathParts.length - 3];
+const isDiscord = to === 'discord';
+const targetPath = to.startsWith('/') ? to : articlePath ? `/wiki/${category}/articles/${to}` : `/wiki/${to}`;
+const url = isDiscord
+  ? links.social.discord
+  : localizePath(targetPath, getLocaleFromPath(Astro.url.pathname));
+const isExternal = url.startsWith('http');
 ---
 
-<a href={url} class="wiki-link"><slot /></a>
+<a href={url} class="wiki-link" target={isExternal ? '_blank' : undefined} rel={isExternal ? 'noopener noreferrer' : undefined}><slot /></a>
 
 <style>
   .wiki-link {

@@ -1,20 +1,19 @@
 {
   "step": 3,
   "type": "grid",
-  "label": "Edición",
-  "title": "Tipo de Minecraft",
+  "translationKey": "editions",
   "items": [
     {
       "id": "java",
-      "name": "Java Edition",
       "icon": "☕",
+      "translationKey": "java",
       "image": "/images/access/editions/java.avif",
       "platforms": ["pc", "mobile"]
     },
     {
       "id": "bedrock",
-      "name": "Bedrock Edition",
       "icon": "🪨",
+      "translationKey": "bedrock",
       "image": "/images/access/editions/bedrock.avif",
       "platforms": ["pc", "mobile", "console"]
     }

@@ -1,0 +1,115 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Waypoints and web map'
+description: 'Explore the worlds in your browser and share public locations.'
+author: 'Tarquitet'
+pubDate: '2026-08-03'
+updated: '2026-08-19'
+category: 'features'
+icon: '🗺️'
+color: 'text-emerald-400'
+border: 'hover:border-emerald-500'
+order: 4
+---
+
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiVideo from '@/components/wiki/WikiVideo.astro';
+import WikiDynmap from '@/components/wiki/WikiDynmap.astro';
+import WikiSteps from '@/components/wiki/WikiSteps.astro';
+import WikiAccordion from '@/components/wiki/WikiAccordion.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+Explore the worlds in your browser and share public locations. The web map requires no mods or commands.
+
+<WikiVideo youtube="GajCw1NoaJE" caption="Video: Waypoints and web map" />
+
+## 🗺️ Open the web map
+
+There is nothing to download; the map works in your browser on both computers and mobile devices.
+
+<WikiSteps
+  steps={[
+    { title: 'Open the official website', text: 'Go to builtechraft.tarquitet.com.' },
+    { title: 'Open the map section', text: 'Choose Maps from the navigation menu.' },
+    { title: 'Choose a world', text: 'Select Survival or Creative.' },
+    { title: 'View the map', text: 'Select View Map.' },
+  ]}
+/>
+
+<WikiCallout type="info" title="Please wait">
+
+Depending on how much of the world has been explored, the map may take a few seconds to load.
+
+</WikiCallout>
+
+## 🎮 Map controls
+
+The interface is similar to Google Maps, with additional tools.
+
+<WikiAccordion title="Basic controls">
+
+- **Move:** left-click and drag, or swipe on mobile.
+- **Zoom:** use the mouse wheel or pinch the screen.
+- **Rotate the camera:** right-click and drag.
+
+</WikiAccordion>
+
+<WikiAccordion title="Side toolbar">
+
+- **3D / 2D perspective:** switch between a flat top-down view and 3D (3D uses more resources).
+- **Day and night:** change lighting with the Sun or Moon icon.
+- **Players:** view who is connected; select a name to jump to their live coordinates.
+- **Markers:** see public areas, bases, and farms shared by players.
+- **Dimensions:** switch between the Overworld, Nether, and End.
+
+</WikiAccordion>
+
+## 📍 Create public markers
+
+Built a public farm or market and want everyone to find it on the map? Create interactive _waypoints_ in-game.
+
+### Step 1: Gather the materials
+
+You will need:
+
+- **A banner** in any color.
+- **An anvil and experience** to rename it.
+- **An empty locator map** (one compass surrounded by eight paper).
+
+### Step 2: Name the banner
+
+Use an anvil to give the banner a title, such as _Iron Farm_ or _Tarquitet's Base_.
+
+### Step 3: Place and register it
+
+<WikiSteps
+  steps={[
+    {
+      title: 'Place the banner',
+      text: 'Go to the exact location you want to mark and place the renamed banner on the ground or a wall.',
+    },
+    {
+      title: 'Open the map',
+      text: 'Right-click the air with your empty locator map so it starts drawing the terrain.',
+    },
+    { title: 'Register the marker', text: 'Stand near the banner and right-click it with the open map.' },
+  ]}
+/>
+
+Your paper map will show a small icon in the banner's color and display its name.
+
+### Step 4: Sync it to the web map
+
+When you right-click the banner with the map, the server detects the interaction and **automatically syncs the location to the web map**. Reload the page to see your public waypoint.
+
+<WikiCallout type="info" title="Decoration tip">
+
+Place the map in an Item Frame near the banner to create a static minimap on the wall of your base.
+
+</WikiCallout>
+
+<WikiCallout type="ok" title="Next">
+
+Read <WikiLink to="cabezas-decorativas">Decorative heads</WikiLink> to decorate your base.
+
+</WikiCallout>

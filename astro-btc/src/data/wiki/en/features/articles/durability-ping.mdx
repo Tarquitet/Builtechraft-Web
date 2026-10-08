@@ -1,0 +1,102 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'Durability Ping'
+description: 'Your screen flashes red when a tool or piece of armor is about to break.'
+author: 'Tarquitet'
+pubDate: '2026-08-03'
+updated: '2026-08-19'
+icon: '⚠️'
+color: 'text-amber-400'
+border: 'hover:border-amber-500'
+order: 3
+tag: 'Vanilla Tweaks'
+---
+
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+# Durability Ping
+
+Has your diamond or netherite pickaxe ever broken **while mining obsidian** or deep in a dark cave without torches? This datapack prevents that surprise with a simple visual warning.
+
+## 🛠️ How it works
+
+It works automatically and needs no configuration:
+
+1. When your equipped tool or armor reaches **1 durability point**, your screen briefly flashes **red**.
+2. The flash is an immediate warning to repair or switch items **before** it is too late.
+
+<WikiCallout type="warn" title="The item must be equipped">
+
+The red flash **only happens** when the item is in your main hand or offhand. A nearly broken pickaxe in your inventory will not trigger the warning. Check your inventory before a long mining trip.
+
+</WikiCallout>
+
+## 💡 Tips
+
+### 1. Carry repair materials
+
+When the red flash appears, it is time to:
+
+- Take out a **portable anvil**, if you have one.
+- Use **ingots or materials** to repair the item at a nearby anvil.
+- Switch to your **backup tool**.
+
+### 2. Organize your hotbar
+
+Keep these items on your hotbar:
+
+- Your main tool.
+- A backup tool of the same type.
+- An anvil, if possible.
+
+### 3. Do not ignore the warning
+
+If you ignore the flash and the tool breaks, you may face:
+
+- **Lost time:** you will have to go back for another tool.
+- **Lost resources:** breaking in the Nether or End can be costly.
+- **Risk of death:** a broken sword or armor can leave you vulnerable in combat.
+
+## ️ Enchantment compatibility
+
+<WikiCallout type="ok" title="Unbreaking">
+
+The datapack **respects** the Unbreaking enchantment. With Unbreaking III, the flash appears later because durability is consumed more slowly. It pairs well with high-level tools.
+
+</WikiCallout>
+
+## 🎯 Critical situations
+
+### Mining obsidian
+
+You are mining obsidian for a Nether portal. Your diamond pickaxe has Unbreaking III but is nearly worn out. The red flash warns you **before** it breaks on the last block and leaves you without a portal.
+
+### Exploring the End
+
+You are fighting the Dragon or exploring End cities. Your sword or bow is nearly broken. The flash gives you time to switch to a backup weapon.
+
+### Automatic farms
+
+If you are AFK at a mob or iron farm, the warning lets you repair the axe or pickaxe before the farm stops working.
+
+<WikiCallout type="info" title="Advanced customization">
+
+If you are a server administrator or have permission, some datapacks allow the flash intensity or durability threshold to be adjusted. Ask staff whether this option is available.
+
+</WikiCallout>
+
+## 🔧 Alternative: visible durability bar
+
+If you prefer a more direct display, you can also:
+
+- Enable **Show Item Durability** with F3 + H (Java Edition).
+- Use **interface mods** that show exact durability values.
+
+The red flash has one advantage: **it is hard to miss**, even when you are distracted.
+
+<WikiCallout type="ok" title="Next">
+
+Read <WikiLink to="custom-trades">Custom Trades</WikiLink> to learn about the villagers' new offers.
+
+</WikiCallout>

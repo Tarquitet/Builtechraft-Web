@@ -1,0 +1,104 @@
+---
+layout: '@/layouts/WikiLayout.astro'
+title: 'How to change your skin'
+description: 'Change your appearance through your Premium or Ely.by account.'
+author: 'Tarquitet'
+pubDate: '2026-08-04'
+updated: '2026-08-19'
+category: 'server-data'
+icon: '👤'
+color: 'text-cyan-400'
+border: 'hover:border-cyan-500'
+order: 3
+---
+
+import WikiCallout from '@/components/wiki/WikiCallout.astro';
+import WikiTabs from '@/components/wiki/WikiTabs.astro';
+import WikiTab from '@/components/wiki/WikiTab.astro';
+import WikiAccordion from '@/components/wiki/WikiAccordion.astro';
+import WikiCommand from '@/components/wiki/WikiCommand.astro';
+import WikiLink from '@/components/wiki/WikiLink.astro';
+
+<WikiCallout type="warn" title="Current method">
+
+Players can change their skin on the same website where they created their account or launcher profile, **without using commands**. The commands below are only for emergencies when the server is in offline mode.
+
+</WikiCallout>
+
+Change your appearance through your Premium or Ely.by account. The server loads your skin after you sign in successfully.
+
+## 🌐 Change your skin (current method)
+
+The server reads your appearance directly from the external account provider you use.
+
+<WikiTabs>
+
+<WikiTab label="Premium players">
+
+Sign in to [Minecraft.net](https://www.minecraft.net/) and change your skin there. It will update when you join the server.
+
+**Alternative:** Most modern launchers (Prism Launcher, XMCL) let you manage accounts and upload skin files from their settings menus.
+
+</WikiTab>
+
+<WikiTab label="Non-Premium players">
+
+Go to [Ely.by](https://ely.by/), sign in, and upload a skin or custom cape. The server's Alternative Auth system will load it automatically.
+
+**Alternative:** Use your launcher's account management tools.
+
+</WikiTab>
+
+<WikiTab label="Client-side mods">
+
+Many players install mods to manage their appearance:
+
+- **Essentials:** a popular mod for changing skins and cosmetics through an in-game menu.
+- **Other visual mods:** client-side skin tools compatible with your Minecraft version.
+
+</WikiTab>
+
+</WikiTabs>
+
+## ️ Backup commands (offline mode only)
+
+<WikiCallout type="info" title="Emergencies only">
+
+These commands work only if the server enters **offline mode** because both Ely.by and Mojang authentication are unavailable. Under normal conditions, you do not need them.
+
+</WikiCallout>
+
+<WikiAccordion title="1. Copy another account's skin">
+
+<WikiCommand command="/skin set <Name>" description="Applies the skin of the Premium account you specify." />
+
+<WikiCommand command="/skin set by <Name>" description="Applies the skin of an Ely.by user. (Java only)." />
+
+</WikiAccordion>
+
+<WikiAccordion title="2. Load a skin from a URL">
+
+<WikiCommand
+  command="/skin set web classic (URL)"
+  description="Loads a classic (Steve) skin from a URL ending in .png."
+/>
+
+<WikiCommand command="/skin set web slim (URL)" description="Loads a slim (Alex) skin from a URL ending in .png." />
+
+Find a skin on MinecraftSkins, upload it to Discord or Imgur, right-click it, choose "Copy image address," and paste the URL inside the parentheses.
+
+</WikiAccordion>
+
+<WikiAccordion title="3. Clear or reset your skin">
+
+<WikiCommand command="/skin clear" description="Removes the current skin and displays Steve or Alex." />
+
+<WikiCommand command="/skin reset" description="Restores the skin linked to your account." />
+
+</WikiAccordion>
+
+<WikiCallout type="ok" title="Next">
+
+Read <WikiLink to="waypoints-y-mapa">Web map and waypoints</WikiLink> to explore the world in your browser.
+
+</WikiCallout>

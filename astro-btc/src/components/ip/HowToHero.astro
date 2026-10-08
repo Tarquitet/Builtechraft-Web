@@ -1,7 +1,9 @@
 ---
 // src/components/ip/HowToHero.astro
 import links from '../../data/links.json';
+import { getDictionary, getLocaleFromPath } from '../../lib/i18n';
 
+const ui = getDictionary(getLocaleFromPath(Astro.url.pathname)).connection.ui;
 const bgImage = `url('${links.assets.howtoBackground}')`;
 ---
 
@@ -10,11 +12,11 @@ const bgImage = `url('${links.assets.howtoBackground}')`;
     <div class="absolute inset-0 z-1 bg-theme-app opacity-60 pointer-events-none"></div>
     <div class="container mx-auto px-6 max-w-4xl relative z-10">
         <h1 class="howto-hero-title">
-            ¿Listo para <span class="text-btc-orange">entrar?</span>
+            {ui.heroTitlePrefix} <span class="text-btc-orange">{ui.heroTitleAccent}</span>
         </h1>
         <p class="howto-hero-desc">
-            Sigue estos pasos para unirte al servidor.
-            <br><span class="text-btc-yellow font-bold mt-2 inline-block">¡Te esperamos!</span>
+            {ui.heroDescription}
+            <br><span class="text-btc-yellow font-bold mt-2 inline-block">{ui.heroWelcome}</span>
         </p>
     </div>
 </section>

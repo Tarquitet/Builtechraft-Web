@@ -1,0 +1,9 @@
+---
+import RulesPage from '../rules.astro';
+
+export function getStaticPaths() {
+  return ['es', 'en'].map((lang) => ({ params: { lang } }));
+}
+---
+
+<RulesPage />
