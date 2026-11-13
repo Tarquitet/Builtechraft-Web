@@ -1,6 +1,6 @@
 // src/utils/sheetsClient.js
 
-const GITHUB_BASE = 'https://cdn.jsdelivr.net/gh/Tarquitet/JSON-ServersData@main/builtechraft-web';
+const GITHUB_BASE = 'https://cdn.jsdelivr.net/gh/Tarquitet/JSON-ServersData@latest/builtechraft-web';
 const CACHE_DURATION = 15 * 60 * 1000; // 15 minutos de caché en el navegador
 
 function getValidLocale(locale) {
